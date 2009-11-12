@@ -17,7 +17,6 @@ function edcal_list_add_management_page(  ) {
  * generates the divs that we need for the JavaScript to work.
  */
  function edcal_list_admin(  ) {
-  $categories = get_categories( 'orderby=name&hierarchical=0&hide_empty=0' );
   include_once('edcal.php');
   ?>
   <link type="text/css" href="<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/edcal.css")); ?>" rel="stylesheet"></link>
@@ -144,6 +143,42 @@ add_action('wp_ajax_edcal_posts', 'edcal_posts' );
  * If the call is successful then it returns the updated post data.
  */
 function edcal_changedate(  ) {
+  if (!current_user_can('edit_others_posts')) {
+      /*
+       * This is just a sanity check to make sure that the current
+       * user has permission to edit posts.  Most of the time this
+       * will never be run because you can't see the calendar unless
+       * you are at least an editor
+       */
+      ?>
+      {
+        "error": 5,
+  <?php
+
+
+  global $post;
+  $args = array(
+    'posts_id' => $edcal_postid,
+	);
+
+  $post = get_post($edcal_postid);
+  setup_postdata($post);
+      ?>
+        "post" : {
+            "date" : "<?php the_time('d') ?><?php the_time('M') ?><?php the_time('Y') ?>", 
+            "url" : "<?php the_permalink(); ?>", 
+            "status" : "<?php echo(get_post_status()); ?>",
+            "title" : "<?php the_title(); ?>",
+            "author" : "<?php the_author(); ?>",
+            "id" : "<?php the_ID(); ?>"
+        },
+  <?php
+  
+
+  ?> }
+  <?php
+  }
+
   header("Content-Type: application/json");
   global $edcal_startDate, $edcal_endDate;
   $edcal_postid = isset($_GET['postid'])?$_GET['postid']:null;

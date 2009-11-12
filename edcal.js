@@ -44,6 +44,11 @@ var edcal = {
      * The constant for the concurrency error.
      */
     CONCURRENCY_ERROR: 4,
+
+    /*
+     * The constant for the user permission error
+     */
+    PERMISSION_ERROR: 5,
     
     /*
        The direction the calendar last moved.
@@ -647,6 +652,11 @@ var edcal = {
                     
                         edcal.addPostItem(res.post, res.post.date);
                         edcal.showError("Someone else already moved " + res.post.title);
+                    } else if (res.error === edcal.PERMISSION_ERROR) {
+                        edcal.removePostItem(res.post.date, "post-" + res.post.id);
+                    
+                        edcal.addPostItem(res.post, res.post.date);
+                        edcal.showError("You don't have permission to edit posts");
                     }
                 } else {
                     edcal.removePostItem(res.post.date, "post-" + res.post.id);
