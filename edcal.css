@@ -55,14 +55,14 @@
 .post {
     display: block;
     list-style-type: none;
-    background: yellow;
+    background: #FFFFE0;
     z-index: 10;
     cursor: move;
     
 }
 
 .day-active {
-    background-color: yellow;
+    background-color: #FFFFE0;
 }
 
 .dayhead {
@@ -103,7 +103,7 @@
 }
 
 .future {
-    background-color: yellow;
+    background-color: #FFFFE0;
 }
 
 .draft {
@@ -141,4 +141,22 @@
     text-decoration: none;
     border: none;
     border-bottom-style: none;
+}
+
+#tooltip p {
+    margin-left: 1.5em;
+}
+
+#tooltip h3 {
+    max-width: 15em;
+    margin-bottom: -10px;
+}
+
+#tooltip {
+    background: white;
+    opacity: 1;
+    padding: 1em;
+    padding-bottom: 0em;
+    border: thin solid lightgray;
+    -moz-border-radius:11px;
 }

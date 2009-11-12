@@ -35,11 +35,6 @@ function echoEdCalFile($myFile) {
    * be used on this page and nowhere else.
    */
 
-  echo '<!-- This is the styles from edcal.css -->';
-  echo '<style type="text/css">';
-  echoEdCalFile(dirname( __FILE__ ) . "/edcal.css");
-  echo '</style>';
-
   echo '<!-- This is the styles from jquery.tooltip.css -->';
   echo '<style type="text/css">';
   echoEdCalFile(dirname( __FILE__ ) . "/lib/jquery.tooltip.css");
@@ -48,6 +43,11 @@ function echoEdCalFile($myFile) {
   echo '<!-- This is the styles from humanmsg.css -->';
   echo '<style type="text/css">';
   echoEdCalFile(dirname( __FILE__ ) . "/lib/humanmsg.css");
+  echo '</style>';
+
+  echo '<!-- This is the styles from edcal.css -->';
+  echo '<style type="text/css">';
+  echoEdCalFile(dirname( __FILE__ ) . "/edcal.css");
   echo '</style>';
 
   ?>
@@ -163,6 +163,7 @@ function edcal_posts(  ) {
   add_filter('posts_where', 'edcal_filter_where');
   $myposts = query_posts($args);
   remove_filter('posts_where', 'edcal_filter_where');
+
   ?>[
   <?php
   foreach($myposts as $post) {
@@ -174,6 +175,8 @@ function edcal_posts(  ) {
             "status" : "<?php echo(get_post_status()); ?>",
             "title" : "<?php the_title(); ?>",
             "author" : "<?php the_author(); ?>",
+            "editlink" : "<?php echo(get_edit_post_link($id)); ?>",
+            "permalink" : "<?php echo(get_permalink($id)); ?>",
             "id" : "<?php the_ID(); ?>"
         },
   <?php
@@ -222,6 +225,8 @@ function edcal_changedate(  ) {
             "status" : "<?php echo(get_post_status()); ?>",
             "title" : "<?php the_title(); ?>",
             "author" : "<?php the_author(); ?>",
+            "editlink" : "<?php echo(get_edit_post_link($id)); ?>",
+            "permalink" : "<?php echo(get_permalink($id)); ?>",
             "id" : "<?php the_ID(); ?>"
         },
   <?php
@@ -264,6 +269,8 @@ function edcal_changedate(  ) {
             "status" : "<?php echo(get_post_status()); ?>",
             "title" : "<?php the_title(); ?>",
             "author" : "<?php the_author(); ?>",
+            "editlink" : "<?php echo(get_edit_post_link($id)); ?>",
+            "permalink" : "<?php echo(get_permalink($id)); ?>",
             "id" : "<?php the_ID(); ?>"
         },
   <?php
@@ -322,6 +329,8 @@ function edcal_changedate(  ) {
             "status" : "<?php echo(get_post_status()); ?>",
             "title" : "<?php the_title(); ?>",
             "author" : "<?php the_author(); ?>",
+            "editlink" : "<?php echo(get_edit_post_link($id)); ?>",
+            "permalink" : "<?php echo(get_permalink($id)); ?>",
             "id" : "<?php the_ID(); ?>"
         }
         }

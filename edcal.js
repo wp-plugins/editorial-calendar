@@ -294,9 +294,14 @@ var edcal = {
                  var tooltip = '<div class="tooltip">' + 
                                    '<h3>' + post.title + '</h3>' + 
                                    '<p>' + 
-                                       'by ' + post.author + '<br />' + 
-                                       'date ' + post.date + '<br />' + 
-                                       'status ' + post.status +
+                                       '<i>by</i> ' + post.author + ' <i>on</i> ' + 
+                                       edcal.getDayFromDayId(post.date).toString("MMMM d, yyyy") +
+                                   '</p>' + 
+                                   '<p>' + 
+                                       'Status<b>: ' + post.status + '</b>' +
+                                       '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + 
+                                       '<a href="' + post.editlink + '" title="Edit ' + post.title + '">Edit</a>&nbsp; | &nbsp;' + 
+                                       '<a href="' + post.permalink + '" title="Edit ' + post.title + '">View</a>' + 
                                    '</p>' + 
                                '</div>';
 
