@@ -632,6 +632,7 @@ var edcal = {
        the specified post on the server.
      */
     changeDate: function(/*string*/ newdate, /*Post*/ post) {
+         output("changeDate(" + newdate + ", " + post + ")");
 
          newdate = edcal.getDayFromDayId(newdate).toString("yyyy-MM-dd");
 
@@ -643,13 +644,18 @@ var edcal = {
               */
              postStatus = "draft";
          } else {
-             var compare = edcal.getDayFromDayId(newdate).compareTo(Date.today());
+             var compare = Date.parse(newdate).compareTo(Date.today());
+             output("edcal.getDayFromDayId(" + newdate + ").compareTo(" + Date.today() + "): " +
+                    Date.parse(newdate).compareTo(Date.today()));
+             output("compare: " + compare);
              if (compare === -1) {
                  postStatus = "publish";
              } else {
                  postStatus = "future";
              }
          }
+
+         output("postStatus: " + postStatus);
 
          var url = edcal.ajax_url + "?action=edcal_changedate&postid=" + post.id + 
              "&postStatus=" + postStatus + 
