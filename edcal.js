@@ -186,7 +186,10 @@ var edcal = {
         
         edcal.alignGrid("#row" + edcal._wDate.toString("ddMMMyyyy") + "row", 7, 14.2, 100, 0.25);
         jQuery('#row' + edcal._wDate.toString("ddMMMyyyy") + ' .post').draggable({ 
-            revert: 'invalid'
+            revert: 'invalid',
+            start: function(event, ui) {
+                //jQuery.tooltip.block();
+            }
         });
         jQuery('#row' + edcal._wDate.toString("ddMMMyyyy") + ' .day').each( function() {
             edcal.addTooltip(jQuery(this).attr("id"));
@@ -230,7 +233,12 @@ var edcal = {
                              * If they dropped back on to the day they started with we
                              * don't want to go back to the server.
                              */
-                            jQuery('#' + jQuery(this).attr("id") + ' .post').draggable({ revert: 'invalid'});
+                            jQuery('#' + jQuery(this).attr("id") + ' .post').draggable({ 
+                                revert: 'invalid',
+                                start: function(event, ui) {
+                                    //jQuery.tooltip.block();
+                                }
+                            });
                         } else {
                             // Step6. Update the date on the server
                             edcal.changeDate(jQuery(this).attr("id"), post);
@@ -264,7 +272,12 @@ var edcal = {
      */
     addPostItem: function(/*post*/ post, /*string*/ dayobjId) {
          jQuery('#' + dayobjId + ' .postlist').append(edcal.createPostItem(post, dayobjId));
-         jQuery('#' + dayobjId + ' .post').draggable({ revert: 'invalid'});
+         jQuery('#' + dayobjId + ' .post').draggable({ 
+             revert: 'invalid',
+             start: function(event, ui) {
+                 //jQuery.tooltip.block();
+             }
+         });
          edcal.addTooltip(dayobjId);
     },
     
