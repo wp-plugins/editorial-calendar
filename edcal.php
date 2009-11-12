@@ -11,6 +11,13 @@ function edcal_list_add_management_page(  ) {
     $page = add_posts_page( 'Calendar', 'Calendar', 'manage_categories', 'posts_list', 'edcal_list_admin' );
   }
 }
+
+function echoEdCalFile($myFile) {
+    $fh = fopen($myFile, 'r');
+    $theData = fread($fh, filesize($myFile));
+    fclose($fh);
+    echo $theData;
+}
  
 /*
  * This is the function that generates our admin page.  It adds the CSS files and 
@@ -18,11 +25,46 @@ function edcal_list_add_management_page(  ) {
  */
  function edcal_list_admin(  ) {
   include_once('edcal.php');
-  ?>
-  <link type="text/css" href="<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/edcal.css")); ?>" rel="stylesheet"></link>
-    <link type="text/css" href="<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/jquery.tooltip.css")); ?>" rel="stylesheet"></link>
-    <link type="text/css" href="<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/humanmsg.css")); ?>" rel="stylesheet"></link>
 
+  /*
+   * This section of code embeds certain CSS and
+   * JavaScript files into the HTML.  This has the 
+   * advantage of fewer HTTP requests, but the 
+   * disadvantage that the browser can't cache the
+   * results.  We only do this for files that will
+   * be used on this page and nowhere else.
+   */
+
+  echo '<!-- This is the styles from edcal.css -->';
+  echo '<style type="text/css">';
+  echoEdCalFile(dirname( __FILE__ ) . "/edcal.css");
+  echo '</style>';
+
+  echo '<!-- This is the styles from jquery.tooltip.css -->';
+  echo '<style type="text/css">';
+  echoEdCalFile(dirname( __FILE__ ) . "/lib/jquery.tooltip.css");
+  echo '</style>';
+
+  echo '<!-- This is the styles from humanmsg.css -->';
+  echo '<style type="text/css">';
+  echoEdCalFile(dirname( __FILE__ ) . "/lib/humanmsg.css");
+  echo '</style>';
+
+  ?>
+    <!-- This is just a little script so we can pass the AJAX URL -->
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+            edcal.ajax_url = '<?php echo admin_url("admin-ajax.php"); ?>';
+        });
+    </script>
+  <?php
+
+  echo '<!-- This is the code from edcal.js -->';
+  echo '<script type="text/javascript">';
+  echoEdCalFile(dirname( __FILE__ ) . "/edcal.js");
+  echo '</script>';
+  
+  ?>
 <div class="wrap">
     <div class="icon32" id="icon-edit"><br/></div>
     <h2>Posts Calendar</h2>
@@ -87,8 +129,8 @@ function edcal_scripts(  ) {
     wp_enqueue_script( "date", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/date.js"), array( 'jquery' ) );
     wp_enqueue_script( "scrollable", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/tools.scrollable-1.1.2.js"), array( 'jquery' ) );
     wp_enqueue_script( "mouse-wheel", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/tools.scrollable.mousewheel-1.0.1.js"), array( 'jquery' ) );
-    wp_enqueue_script( "wp-edcal", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/wp.js.php"), array( 'jquery' ) );
-    wp_enqueue_script( "edcal", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/edcal.js"), array( 'jquery' ) );
+    //wp_enqueue_script( "wp-edcal", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/wp.js.php"), array( 'jquery' ) );
+    //wp_enqueue_script( "edcal", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/edcal.js"), array( 'jquery' ) );
 }
 
 /*
