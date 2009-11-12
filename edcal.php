@@ -5,13 +5,18 @@ Description: An editorial calendar for setting the dates of your WordPress posts
 Author: EdCal Project
 Author URI: TBD
 */
+
 function edcal_list_add_management_page(  ) {
   if ( function_exists('add_management_page') ) {
     $page = add_posts_page( 'Calendar', 'Calendar', 'manage_categories', 'posts_list', 'edcal_list_admin' );
   }
 }
  
-function edcal_list_admin(  ) {
+/*
+ * This is the function that generates our admin page.  It adds the CSS files and 
+ * generates the divs that we need for the JavaScript to work.
+ */
+ function edcal_list_admin(  ) {
   $categories = get_categories( 'orderby=name&hierarchical=0&hide_empty=0' );
   include_once('edcal.php');
   ?>
@@ -45,6 +50,11 @@ add_action('admin_menu', 'edcal_list_add_management_page');
 $edcal_startDate;
 $edcal_endDate;
 
+/*
+ * When we get a set of posts to populate the calendar we don't want
+ * to get all of the posts.  This filter allows us to specify the dates
+ * we want.
+ */
 function edcal_filter_where($where = '') {
     global $edcal_startDate, $edcal_endDate;
     //posts in the last 30 days
@@ -58,6 +68,12 @@ function edcal_filter_where($where = '') {
 
 add_action("admin_print_scripts", 'edcal_scripts');
 
+/*
+ * This function adds all of the JavaScript files we need.
+ *
+ * TODO: This list is way too long.  We need to minimized and
+ * combine most of these files.
+ */
 function edcal_scripts(  ) {
     wp_enqueue_script( "ui-core", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/ui.core.js"), array( 'jquery' ) );
     wp_enqueue_script( "ui-draggable", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/ui.draggable.js"), array( 'jquery' ) );
@@ -76,6 +92,10 @@ function edcal_scripts(  ) {
     wp_enqueue_script( "edcal", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/edcal.js"), array( 'jquery' ) );
 }
 
+/*
+ * This is an AJAX call that gets the posts between the from date 
+ * and the to date.  
+ */
 function edcal_posts(  ) {
   header("Content-Type: application/json");
   global $edcal_startDate, $edcal_endDate;
@@ -115,6 +135,14 @@ function edcal_posts(  ) {
 
 add_action('wp_ajax_edcal_posts', 'edcal_posts' );
 
+/*
+ * This function changes the date on a post.  It does optimistic 
+ * concurrency checking by comparing the original post date from
+ * the browser with the one from the database.  If they don't match
+ * then it returns an error code and the updated post data.
+ *
+ * If the call is successful then it returns the updated post data.
+ */
 function edcal_changedate(  ) {
   header("Content-Type: application/json");
   global $edcal_startDate, $edcal_endDate;

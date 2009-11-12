@@ -9,6 +9,8 @@ THIS PLUGIN IS NOT READY FOR DOWNLOAD. Editorial calendar lets you see all your 
 
 == Description ==
 
+<b>THIS PLUGIN IS NOT READY FOR DOWNLOAD. </b>
+
 TODO: Add a long description
 
 == Installation ==

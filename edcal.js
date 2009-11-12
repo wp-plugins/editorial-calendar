@@ -14,12 +14,35 @@
    </div>
  */
 var edcal = {
+    /*
+     * True if the calendar is in the process of moving
+     */
     isMoving: false,
+        
+    /*
+       This is the base URL to make our call to the server.
+       TODO:  The code to generate this should come from edcal.php
+     */
     ajax_url: '',
+        
+    /*
+     * The cache of dates we have already loaded posts for.
+     */
     cacheDates : new Array(),
+        
+    /*
+     * The ID of the timer we use to batch new post requests
+     */
     tID: null,
+        
+    /*
+     * The number of steps moving for this timer.
+     */
     steps: 0,
 
+    /*
+     * The constant for the concurrency error.
+     */
     CONCURRENCY_ERROR: 4,
     
     /*
@@ -29,11 +52,32 @@ var edcal = {
 
      */
     currentDirection: true,
+        
+    /*
+       This date is our index.  When the calendar moves we
+       update this date to indicate the next rows we need
+       to add.
+     */
     _wDate: Date.today(),
+        
+    /*
+     * The date since the previous move
+     */
     moveDate: null,
     
+    /*
+       A cache of all the posts we have loaded so far.  The
+       data structure is:
+ 
+       posts [date - ddMMMyyyy][posts array - post object from JSON data]
+     */
     posts: new Array(50),
     
+    /*
+       This function aligns the grid in two directions.  There
+       is a vertical grid with a row of each week and a horizontal
+       grid for each week with a list of days.
+     */
     alignGrid: function(/*string*/ gridid, /*int*/ cols, /*int*/ cellWidth, /*int*/ cellHeight, /*int*/ padding) {
         var x = 0;
         var y = 0;
@@ -62,6 +106,22 @@ var edcal = {
                                                   });
                       });
     },
+    
+    /*
+       This is a helper function to align the calendar so we don't
+       have to change the cell sizes in multiple places.
+     */
+    alignCal: function() {
+        edcal.alignGrid("#cal", 1, 100, 20, 0.25);         
+    },
+
+    
+    /*
+       This function creates the days header at the top of the
+       calendar.
+ 
+       TODO:  We should localize these values 
+     */
     createDaysHeader: function() {
         var html = '<div class="dayhead">Sunday</div>';
         html += '<div class="dayhead">Monday</div>';
@@ -75,6 +135,11 @@ var edcal = {
         
         edcal.alignGrid("#rowhead", 7, 14.2, 100, 0.25);
     },
+    
+    /*
+       Creates a row of the calendar and adds all of the CSS classes
+       and listeners for each calendar day.
+     */
     createRow: function(/*jQuery*/ parent, /*bool*/ append) {
         var _date = edcal._wDate.clone();
         
@@ -170,6 +235,11 @@ var edcal = {
         
         return jQuery('row' + edcal._wDate.toString("ddMMMyyyy"));
     },
+    
+    /*
+       This is a utility method to find a post and remove it
+       from the cache map.
+     */
     removePostFromMap: function(/*string*/ dayobjId, /*string*/ postId) {
         if (edcal.posts[dayobjId]) {
             for (var i = 0; i < edcal.posts[dayobjId].length; i++) {
@@ -183,11 +253,19 @@ var edcal = {
 
         return false;
     },
+    
+    /*
+     * Adds a post to al already existing calendar day.
+     */
     addPostItem: function(/*post*/ post, /*string*/ dayobjId) {
          jQuery('#' + dayobjId + ' .postlist').append(edcal.createPostItem(post, dayobjId));
          jQuery('#' + dayobjId + ' .post').draggable({ revert: 'invalid'});
          edcal.addTooltip(dayobjId);
     },
+    
+    /*
+     * Adds a tooltip to every post in the specified day.
+     */
     addTooltip: function(/*string*/ dayobjId) {
          jQuery('#' + dayobjId + ' .post').tooltip({ 
              delay: 1000, 
@@ -208,6 +286,11 @@ var edcal = {
              } 
          });
     },
+    
+    /*
+       Creates the HTML for a post item and adds the data for
+       the post to the posts cache.
+     */
     createPostItem: function(/*post*/ post, /*string*/ dayobjId) {
         var postHtml = edcal.getPostItemString(post);
         if (!edcal.posts[dayobjId]) {
@@ -218,6 +301,11 @@ var edcal = {
         
         return postHtml;
     },
+    
+    /*
+       Finds the post object for the specified post ID  in the
+       specified day.
+     */
     findPostForId: function(/*string*/ dayobjId, /*string*/ postId) {
          if (edcal.posts[dayobjId]) {
             for (var i = 0; i < edcal.posts[dayobjId].length; i++) {
@@ -228,6 +316,10 @@ var edcal = {
             }
         }
     },
+    
+    /*
+     * Removes a post from the HTML and the posts cache.
+     */
     removePostItem: function(/*string*/ dayobjId, /*string*/ postId) {
          if (edcal.findPostForId(dayobjId, postId)) {
              for (var i = 0; i < edcal.posts[dayobjId].length; i++) {
@@ -240,6 +332,11 @@ var edcal = {
 
          }
     },
+    
+    /*
+       Gets all the post items for the specified day from
+       the post cache.
+     */
     getPostItems: function(/*string*/ dayobjId) {
         var postsString = "";
         
@@ -253,9 +350,18 @@ var edcal = {
 
         return postsString;
     },
+    
+    /*
+     * Gets the HTML string for a post.
+     */
     getPostItemString: function(/*post*/ post) {
          return '<li id="post-' + post.id + '" class="post ' + post.status + '">' + post.title + '</li>';
     },
+    
+    /*
+       Finds the calendar cell for the current day and adds the
+       class "today" to that cell.
+     */
     setClassforToday: function() {
         /*
            We want to set a class for the cell that represents the current day so we ca
@@ -263,6 +369,12 @@ var edcal = {
          */
         jQuery('#' + Date.today().toString("ddMMMyyyy")).addClass("today");
     },
+    
+    /*
+       Most browsers need us to set a calendar height in pixels instead
+       of percent.  This function get the correct pixel height for the
+       calendar based on the window height.
+     */
     getCalHeight: function() {
         var myHeight = 0;
         if ( typeof( window.innerWidth ) == 'number' ) {
@@ -277,9 +389,12 @@ var edcal = {
         }
         return myHeight - 150;
     },
-    alignCal: function() {
-        edcal.alignGrid("#cal", 1, 100, 20, 0.25);         
-    },
+    
+    /*
+       Moves the calendar a certain number of steps in the specified direction.
+       True moves the calendar down into the future and false moves the calendar
+       up into the past.
+     */
     move: function(steps, direction) {
         /*
            The working date is a marker for the last calendar row we created.
@@ -322,7 +437,7 @@ var edcal = {
 
         /*
          * If the user clicks quickly or uses the mouse wheel they can 
-         * get a lot of move events very quickly and we need to bacth 
+         * get a lot of move events very quickly and we need to batch 
          * them up together.  We set a timeout and clear it if there is
          * another move before the timeout happens.
          */
@@ -351,15 +466,21 @@ var edcal = {
             edcal.moveDate = edcal._wDate;
         }, 200);
     },
+
+    /*
+       We use the date as the ID for day elements, but the Date
+       library can't parse the date without spaces and using
+       spaces in IDs can cause problems.  We work around the
+       issue by adding the spaces back before we parse.
+     */
     getDayFromDayId: function(/*dayId*/ day) {
-        /*
-           We use the date as the ID for day elements, but the Date
-           library can't parse the date without spaces and using
-           spaces in IDs can cause problems.  We work around the
-           issue by adding the spaces back before we parse.
-         */
         return Date.parse(day.substring(0, 2) + ' ' + day.substring(2, 5) + ' ' + day.substring(5));
     },
+    
+    /*
+       This is a helper method to set the date label on the top of
+       the calendar.  It looks like November 2009-December2009
+     */
     setDateLabel: function(year) {
         var api = jQuery(".edcal_scrollable").scrollable();
         var items = api.getVisibleItems();
@@ -374,6 +495,10 @@ var edcal = {
         
         jQuery("#currentRange").text(firstDate.toString("MMMM yyyy") + " - " + lastDate.toString("MMMM yyyy"));
     },
+    
+    /*
+     * Moves the calendar to the specified date.
+     */
     moveTo : function(/*Date*/ date) {
          edcal.isMoving = true;
          jQuery("#cal").empty();
@@ -405,6 +530,10 @@ var edcal = {
         edcal.isMoving = false;
          
     },
+    
+    /*
+     * Initializes the calendar
+     */
     init : function() {
          if (jQuery("#edcal_scrollable").length === 0) {
              /*
@@ -474,6 +603,11 @@ var edcal = {
         edcal.getPosts(Date.today().next().sunday().add(-61).days(), 
                        Date.today().next().sunday().add(61).days());
     },
+    
+    /*
+       This function makes an AJAX call and changes the date of
+       the specified post on the server.
+     */
     changeDate: function(/*string*/ newdate, /*Post*/ post) {
 
          newdate = edcal.getDayFromDayId(newdate).toString("yyyy-MM-dd");
@@ -528,9 +662,18 @@ var edcal = {
         });
 
     },
+    
+    /*
+     * Shows an error message
+     */
     showError: function(/*string*/ msg) {
          humanMsg.displayMsg(msg);
     },
+    
+    /*
+       Makes an AJAX call to get the posts from the server within the
+       specified dates.
+     */
     getPosts: function(/*Date*/ from, /*Date*/ to) {
          output("getPosts(" + from.toString("yyyy-MM-dd") + ", " + to.toString("yyyy-MM-dd") + ")");
 
