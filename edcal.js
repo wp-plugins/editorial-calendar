@@ -735,9 +735,10 @@ var edcal = {
                 jQuery("#loading").hide();
                 jQuery.each(res, function(i, post) {
 
-                    edcal.removePostItem(post.date, "post-" + post.id);
-                    
-                    edcal.addPostItem(post, post.date);
+                    if (post) {
+                        edcal.removePostItem(post.date, "post-" + post.id);
+                        edcal.addPostItem(post, post.date);
+                    }
                  });
             },
             error:  function(xhr) {
