@@ -84,7 +84,7 @@ function echoEdCalFile($myFile) {
             <div id="loading"> </div>
         </div>
         <div id="topright">
-            <a href="#" class="prev page-numbers" id="prevmonth">&laquo;</a><span id="currentRange"></span><a href="#" class="next page-numbers" id="nextmonth">&raquo;</a> <a href="#" id="moveToToday">Jump to Today</a>
+            <a href="#" class="prev page-numbers" id="prevmonth" style="border: none";>&laquo;</a><span id="currentRange"></span><a href="#" class="next page-numbers" id="nextmonth" style="border: none";>&raquo;</a> <a href="#" id="moveToToday">Jump to Today</a>
         </div>
     </div>
     
