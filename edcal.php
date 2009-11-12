@@ -57,6 +57,16 @@ function echoEdCalFile($myFile) {
             edcal.ajax_url = '<?php echo admin_url("admin-ajax.php"); ?>';
         });
     </script>
+
+    <style type="text/css">
+        .loadingclass {
+            background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/loading_post.gif")); ?>');
+        }
+
+        #loading {
+            background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/loading.gif")); ?>');
+        }
+    </style>
   <?php
 
   echo '<!-- This is the code from edcal.js -->';
@@ -74,7 +84,7 @@ function echoEdCalFile($myFile) {
             <div id="loading"> </div>
         </div>
         <div id="topright">
-            <span id="currentRange"></span> <a href="#" id="moveToToday">Jump to Today</a>
+            <a href="#" class="prev page-numbers" id="prevmonth">&laquo;</a><span id="currentRange"></span><a href="#" class="next page-numbers" id="nextmonth">&raquo;</a> <a href="#" id="moveToToday">Jump to Today</a>
         </div>
     </div>
     

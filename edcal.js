@@ -754,6 +754,16 @@ jQuery(document).ready(function(){
         edcal.moveTo(Date.today());
         return false;
     });
+
+    jQuery("#prevmonth").click(function() {
+        edcal.move(4, false);
+        return false;
+    });
+
+    jQuery("#nextmonth").click(function() {
+        edcal.move(4, true);
+        return false;
+    });
 });
 
 /**

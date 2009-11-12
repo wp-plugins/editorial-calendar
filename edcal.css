@@ -136,3 +136,9 @@
     position: relative;
     top: 1.5em;
 }
+
+.page-numbers {
+    text-decoration: none;
+    border: none;
+    border-bottom-style: none;
+}
