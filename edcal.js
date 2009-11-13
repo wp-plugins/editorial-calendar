@@ -1,17 +1,65 @@
-/* 
-   <div id="cal">
-       <div id="row08Nov2009">
-           <div id="row08Nov2009row">
-               <div class="day sunday nov" id="08Nov2009">
-                   <div class="dayobj">
-                       <div class="daylabel">8</div>
-                       <ul class="postlist">
-                       </ul>
-                    </div>
-                </div>
-           </div>
-       </div>
-   </div>
+/*******************************************************************************
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ ******************************************************************************/
+
+ /*
+  This is the WordPress editorial calendar.  It is a continuous
+  calendar in both directions.  That means instead of showing only
+  one month at a time it shows the months running together.  Users
+  can scroll from one month to the next using the up and down
+  arrow keys, the page up and page down keys, the next and previous
+  month buttons, and their mouse wheel.
+ 
+  The calendar shows five weeks visible at a time and maintains 11
+  weeks of rendered HTML.  Only the middle weeks are visible.
+ 
+                    Week 1
+                    Week 2
+                    Week 3
+                -   Week 4   -
+                |   Week 5   |
+                |   Week 6   |
+                |   Week 7   |
+                -   Week 8   -
+                    Week 9
+                    Week 10
+                    Week 11
+ 
+  When the user scrolls down one week the new week is added at the
+  end of the calendar and the first week is removed.  In this way
+  the calendar will only ever have 11 weeks total and won't use up
+  excessive memory.
+ 
+  This calendar uses AJAX to call into the functions defined in
+  edcal.php.  These functions get posts and change post dates.
+ 
+  The HTML structure of the calendar is:
+ 
+  <div id="cal">
+      <div id="row08Nov2009">
+          <div id="row08Nov2009row">
+              <div class="day sunday nov" id="08Nov2009">
+                  <div class="dayobj">
+                      <div class="daylabel">8</div>
+                      <ul class="postlist">
+                      </ul>
+                   </div>
+               </div>
+          </div>
+      </div>
+  </div>
  */
 var edcal = {
     /*
