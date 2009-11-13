@@ -79,6 +79,13 @@ var edcal = {
     posts: new Array(50),
     
     /*
+       IE will sometimes fire the resize event twice for the same resize
+       action.  We save it so we only resize the calendar once and avoid
+       any flickering.
+     */
+    windowHeight: 0,
+    
+    /*
        This function aligns the grid in two directions.  There
        is a vertical grid with a row of each week and a horizontal
        grid for each week with a list of days.
@@ -569,6 +576,7 @@ var edcal = {
         jQuery("#loading").hide();
         
         jQuery("#edcal_scrollable").css("height", edcal.getCalHeight() + "px");
+        edcal.windowHeight = jQuery(window).height();
         
         /*
          *  Add the days of the week
@@ -625,6 +633,33 @@ var edcal = {
 
         edcal.getPosts(Date.today().next().sunday().add(-61).days(), 
                        Date.today().next().sunday().add(61).days());
+        
+        /*
+           Now we bind the listeners for all of our links and the window
+           resize.
+         */
+        jQuery("#moveToToday").click(function() {
+            edcal.moveTo(Date.today());
+            return false;
+        });
+    
+        jQuery("#prevmonth").click(function() {
+            edcal.move(4, false);
+            return false;
+        });
+    
+        jQuery("#nextmonth").click(function() {
+            edcal.move(4, true);
+            return false;
+        });
+        
+        function resizeWindow(e) {
+            if (edcal.windowHeight != jQuery(window).height()) {
+                jQuery("#edcal_scrollable").css("height", edcal.getCalHeight() + "px");
+                edcal.windowHeight = jQuery(window).height();
+            }
+        }
+        jQuery(window).bind("resize", resizeWindow);
     },
     
     /*
@@ -759,36 +794,7 @@ var edcal = {
 };
 
 jQuery(document).ready(function(){
-    /*
-       Just a few test posts
-     */
-    /*edcal.createPostItem("Test Post 1", "05Nov2009");
-    edcal.createPostItem("Test Post 2", "12Nov2009");
-    edcal.createPostItem("Test Post 3", "16Nov2009");
-    edcal.createPostItem("Test Post 4", "17Nov2009");
-    edcal.createPostItem("Test Post 5", "27Nov2009");
-    edcal.createPostItem("Test Post 6", "23Nov2009");
-    edcal.createPostItem("Test Post 7", "01Dec2009");
-    edcal.createPostItem("Test Post 8", "21Nov2009");
-    edcal.createPostItem("Test Post 9", "09Nov2009");
-    edcal.createPostItem("Test Post 10", "04Dec2009");*/
-    
     edcal.init();
-    
-    jQuery("#moveToToday").click(function() {
-        edcal.moveTo(Date.today());
-        return false;
-    });
-
-    jQuery("#prevmonth").click(function() {
-        edcal.move(4, false);
-        return false;
-    });
-
-    jQuery("#nextmonth").click(function() {
-        edcal.move(4, true);
-        return false;
-    });
 });
 
 /**
