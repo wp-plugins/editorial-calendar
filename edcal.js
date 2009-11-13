@@ -68,8 +68,9 @@ var edcal = {
     isMoving: false,
         
     /*
-       This is the base URL to make our call to the server.
-       TODO:  The code to generate this should come from edcal.php
+       This is the base URL we use to make AJAX calls back
+       to the server.  This values is set in code generated
+       from edcal.php.
      */
     ajax_url: '',
         
@@ -414,6 +415,11 @@ var edcal = {
     /*
        Gets all the post items for the specified day from
        the post cache.
+ 
+       TODO - This function adds all of the posts to a
+       specific day in the calendar.  If there are too
+       many posts they'll overrun the calendar day.  We
+       need a better UI solution.
      */
     getPostItems: function(/*string*/ dayobjId) {
         var postsString = "";
@@ -723,22 +729,24 @@ var edcal = {
 
          if (post.status === "draft") {
              /*
-              * If your status was draft then we don't want to change it.
+              * If the status of the post was a draft we leave it as a draft
               */
              postStatus = "draft";
          } else {
+             /*
+                If the post status was published or future we need to adjust
+                it.  If you take a post that is published a move it after
+                the current day we change the status to future.  If the post
+                was scheduled to get published in the future and they drag
+                it into the past we change the status to publish.
+              */
              var compare = Date.parse(newdate).compareTo(Date.today());
-             output("edcal.getDayFromDayId(" + newdate + ").compareTo(" + Date.today() + "): " +
-                    Date.parse(newdate).compareTo(Date.today()));
-             output("compare: " + compare);
              if (compare === -1) {
                  postStatus = "publish";
              } else {
                  postStatus = "future";
              }
          }
-
-         output("postStatus: " + postStatus);
 
          var url = edcal.ajax_url + "?action=edcal_changedate&postid=" + post.id + 
              "&postStatus=" + postStatus + 
@@ -771,7 +779,7 @@ var edcal = {
                 }
             },
             error:  function(xhr) {
-                 output("call error...");
+                 showError("There was an error contacting your blog.")
                  if (xhr.responseText) {
                      output("xhr.responseText: " + xhr.responseText);
                  }
@@ -831,7 +839,7 @@ var edcal = {
                  });
             },
             error:  function(xhr) {
-                 output("call error...");
+                 showError("There was an error contacting your blog.")
                  if (xhr.responseText) {
                      output("xhr.responseText: " + xhr.responseText);
                  }

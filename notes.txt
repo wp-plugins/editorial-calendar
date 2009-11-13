@@ -1,2 +1,0 @@
-http://codex.wordpress.org/AJAX_in_Plugins
-http://xplus3.net/2008/10/16/jquery-and-ajax-in-wordpress-plugins-administration-pages/
