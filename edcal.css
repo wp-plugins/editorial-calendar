@@ -62,7 +62,7 @@
 }
 
 .day-active {
-    background-color: #FFFFE0;
+    background-color: lightyellow;
 }
 
 .dayhead {
@@ -107,7 +107,7 @@
 }
 
 .draft {
-    background-color: #gray;
+    background-color: gray;
 }
 
 .publish {
