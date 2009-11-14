@@ -9,13 +9,13 @@ THIS PLUGIN IS NOT READY FOR DOWNLOAD. Editorial calendar lets you see all your 
 
 == Description ==
 
-<b>THIS PLUGIN IS NOT READY FOR DOWNLOAD. DO NOT RUN IT OUTSIDE OF A TEST ENVIRONMENT.</b>
+*THIS PLUGIN IS NOT READY FOR DOWNLOAD. DO NOT RUN IT OUTSIDE OF A TEST ENVIRONMENT.*
 
 The editorial calendar lets WordPress administrators and editors manage the dates for multiple posts at once.  You see all of your posts in a calendar view and can arrange them via an easy drag and drop interface.  The editorial calendar great improves any blog that plans posts in advance or takes contributions from multiple users.
 
 == Installation ==
 
-1. Upload the plugin directory editorial-calendar to the wp-content/plugins directory.
+1. Upload the plugin directory <code>editorial-calendar</code> to the <code>wp-content/plugins</code> directory.
 1. Activate the plugin through the 'Plugins' menu in WordPress.
 1. Click the new 'Calendar' option under the 'Posts' menu.
 
