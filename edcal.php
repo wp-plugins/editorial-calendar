@@ -182,8 +182,19 @@ function edcal_posts(  ) {
   ?>[
   <?php
   foreach($myposts as $post) {
-      setup_postdata($post);
-      ?>
+      edcal_postJSON($post);
+  }
+
+  ?> ]
+  <?php
+  die;
+}
+
+add_action('wp_ajax_edcal_posts', 'edcal_posts' );
+
+function edcal_postJSON($post) {
+    setup_postdata($post);
+    ?>
         {
             "date" : "<?php the_time('d') ?><?php the_time('M') ?><?php the_time('Y') ?>", 
             "url" : "<?php the_permalink(); ?>", 
@@ -195,14 +206,7 @@ function edcal_posts(  ) {
             "id" : "<?php the_ID(); ?>"
         },
   <?php
-  }
-
-  ?> ]
-  <?php
-  die;
 }
-
-add_action('wp_ajax_edcal_posts', 'edcal_posts' );
 
 /*
  * This function changes the date on a post.  It does optimistic 
@@ -232,19 +236,11 @@ function edcal_changedate(  ) {
 	);
 
   $post = get_post($edcal_postid);
-  setup_postdata($post);
-      ?>
-        "post" : {
-            "date" : "<?php the_time('d') ?><?php the_time('M') ?><?php the_time('Y') ?>", 
-            "url" : "<?php the_permalink(); ?>", 
-            "status" : "<?php echo(get_post_status()); ?>",
-            "title" : "<?php the_title(); ?>",
-            "author" : "<?php the_author(); ?>",
-            "editlink" : "<?php echo(get_edit_post_link($id)); ?>",
-            "permalink" : "<?php echo(get_permalink($id)); ?>",
-            "id" : "<?php the_ID(); ?>"
-        },
+  ?>
+    "post" :
   <?php
+  edcal_postJSON($post);
+  
   
 
   ?> }
@@ -276,20 +272,10 @@ function edcal_changedate(  ) {
 	);
 
   $post = get_post($edcal_postid);
-  setup_postdata($post);
-      ?>
-        "post" : {
-            "date" : "<?php the_time('d') ?><?php the_time('M') ?><?php the_time('Y') ?>", 
-            "url" : "<?php the_permalink(); ?>", 
-            "status" : "<?php echo(get_post_status()); ?>",
-            "title" : "<?php the_title(); ?>",
-            "author" : "<?php the_author(); ?>",
-            "editlink" : "<?php echo(get_edit_post_link($id)); ?>",
-            "permalink" : "<?php echo(get_permalink($id)); ?>",
-            "id" : "<?php the_ID(); ?>"
-        },
+  ?>
+    "post" :
   <?php
-  
+  edcal_postJSON($post);
 
   ?> }
   <?php
@@ -336,18 +322,11 @@ function edcal_changedate(  ) {
 	);
 
   $post = get_post($edcal_postid);
-  setup_postdata($post);
       ?>{
-        "post" : {
-            "date" : "<?php the_time('d') ?><?php the_time('M') ?><?php the_time('Y') ?>", 
-            "url" : "<?php the_permalink(); ?>", 
-            "status" : "<?php echo(get_post_status()); ?>",
-            "title" : "<?php the_title(); ?>",
-            "author" : "<?php the_author(); ?>",
-            "editlink" : "<?php echo(get_edit_post_link($id)); ?>",
-            "permalink" : "<?php echo(get_permalink($id)); ?>",
-            "id" : "<?php the_ID(); ?>"
-        }
+        "post" :
+  <?php
+           edcal_postJSON($post);
+      ?>
         }
   <?php
   
