@@ -36,6 +36,10 @@
     background-color: wheat;
 }
 
+.today .daylabel {
+    font-weight: bold;
+}
+
 .dayobj {
     position: relative;
     width: 100%;
@@ -58,7 +62,6 @@
     background: #FFFFE0;
     z-index: 10;
     cursor: move;
-    
 }
 
 .day-active {
