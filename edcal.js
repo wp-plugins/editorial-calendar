@@ -299,6 +299,8 @@ var edcal = {
     draggablePost: function(/*post selector*/ post) {
          jQuery(post).draggable({ 
             revert: 'invalid',
+            appendTo: 'body',
+            helper: "clone",
             start: function(event, ui) {
                 //jQuery.tooltip.block();
             }
@@ -876,5 +878,5 @@ jQuery(document).ready(function(){
  * @param msg    the message to write
  */
 function output(msg) {
-    console.info(msg);
+    //console.info(msg);
 }
