@@ -29,7 +29,7 @@
 }
 
 .jan, .mar, .may, .jul, .sep, .nov {
-    background-color: #F2F2F2;
+    background-color: #F1F1F1;
 }
 
 .today {
@@ -110,7 +110,8 @@
 }
 
 .draft {
-    background-color: gray;
+    background-color: #cccccc;
+    
 }
 
 .publish {

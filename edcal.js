@@ -333,13 +333,21 @@ var edcal = {
          edcal.draggablePost('#' + dayobjId + ' .post');
          edcal.addTooltip(dayobjId);
     },
+
+    confirmDelete: function(/*string*/ posttitle) {
+         if (confirm('You are about to delete this post ' + posttitle + '.\n\n Press cancel to stop, OK to delete.')) {
+             return true;
+         } else {
+             return false;
+         }
+    },
     
     /*
      * Adds a tooltip to every post in the specified day.
      */
     addTooltip: function(/*string*/ dayobjId) {
          jQuery('#' + dayobjId + ' .post').tooltip({ 
-             delay: 1000, 
+             delay: 1500, 
              bodyHandler: function() {
                  var post = edcal.findPostForId(dayobjId, jQuery(this).attr("id"));
                  edcal.findPostForId(jQuery(this).parent().parent().attr("id"),
@@ -359,18 +367,17 @@ var edcal = {
                                          * then server won't send the edit link URL and we shouldn't
                                          * show the edit link
                                          */
-                                       tooltip += '<a href="' + post.editlink + '" title="Edit ' + post.title + '">Edit</a>&nbsp; | &nbsp;';
+                                       tooltip += '<a href="' + post.editlink + '" title="Edit ' + post.title + 
+                                           '">Edit</a>&nbsp; | &nbsp;';
                                     }
 
-                                    /*
-                                    TODO: This confirm wasn't working.  I need to fix it.
                                     if (post.dellink) {
-                                        var tooltip = '<a class="submitdelete" href="' + post.dellink + '" ' + 
-                                        "onclick=\"if ( confirm('You are about to delete this post " + post.title + "\n Cancel to stop, OK to delete.') ) { return true;}return false;'\"" +
-                                        '>Delete</a> &nbsp; | &nbsp;';
-                                    }*/
+                                        tooltip += '<a class="submitdelete" href="' + post.dellink + '" ' + 
+                                        'onclick="return edcal.confirmDelete(\'' + post.title + '\');"' +
+                                        'title="Delete ' + post.title + '">Delete</a> &nbsp; | &nbsp;';
+                                    }
 
-                                    tooltip += '<a href="' + post.permalink + '" title="Edit ' + post.title + '">View</a>' + 
+                                    tooltip += '<a href="' + post.permalink + '" title="View ' + post.title + '">View</a>' + 
                                    '</p>' + 
                                '</div>';
 
