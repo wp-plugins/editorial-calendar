@@ -1,5 +1,5 @@
 === Editorial Calendar ===
-Contributors: MaryVogt, Zack Grossbart
+Contributors: MaryVogt, zgrossbart
 Tags: posts
 Requires at least: 2.8.5
 Tested up to: 2.8.6
