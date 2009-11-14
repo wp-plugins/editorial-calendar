@@ -350,9 +350,25 @@ var edcal = {
                                    '</p>' + 
                                    '<p>' + 
                                        'Status<b>: ' + post.status + '</b>' +
-                                       '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + 
-                                       '<a href="' + post.editlink + '" title="Edit ' + post.title + '">Edit</a>&nbsp; | &nbsp;' + 
-                                       '<a href="' + post.permalink + '" title="Edit ' + post.title + '">View</a>' + 
+                                       '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                                    if (post.editlink) {
+                                        /*
+                                         * If the user doesn't have permission to edit a post then 
+                                         * then server won't send the edit link URL and we shouldn't
+                                         * show the edit link
+                                         */
+                                       tooltip += '<a href="' + post.editlink + '" title="Edit ' + post.title + '">Edit</a>&nbsp; | &nbsp;';
+                                    }
+
+                                    /*
+                                    TODO: This confirm wasn't working.  I need to fix it.
+                                    if (post.dellink) {
+                                        var tooltip = '<a class="submitdelete" href="' + post.dellink + '" ' + 
+                                        "onclick=\"if ( confirm('You are about to delete this post " + post.title + "\n Cancel to stop, OK to delete.') ) { return true;}return false;'\"" +
+                                        '>Delete</a> &nbsp; | &nbsp;';
+                                    }*/
+
+                                    tooltip += '<a href="' + post.permalink + '" title="Edit ' + post.title + '">View</a>' + 
                                    '</p>' + 
                                '</div>';
 
@@ -860,5 +876,5 @@ jQuery(document).ready(function(){
  * @param msg    the message to write
  */
 function output(msg) {
-    //console.info(msg);
+    console.info(msg);
 }

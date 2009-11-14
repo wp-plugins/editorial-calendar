@@ -201,7 +201,14 @@ function edcal_postJSON($post) {
             "status" : "<?php echo(get_post_status()); ?>",
             "title" : "<?php the_title(); ?>",
             "author" : "<?php the_author(); ?>",
+            <?php if ( current_user_can('edit_post', $post->ID) ) {?>
             "editlink" : "<?php echo(get_edit_post_link($id)); ?>",
+            <?php } ?>
+
+            <?php if ( current_user_can('delete_post', $post->ID) ) {?>
+            "dellink" : "<?php echo(wp_nonce_url("post.php?action=delete&amp;post=$post->ID", 'delete-post_' . $post->ID)); ?>",
+            <?php } ?>
+
             "permalink" : "<?php echo(get_permalink($id)); ?>",
             "id" : "<?php the_ID(); ?>"
         },
