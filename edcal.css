@@ -33,7 +33,7 @@
 }
 
 .today {
-    background-color: lightblue;
+    background-color: #ffffcc;
 }
 
 .dayobj {
@@ -107,11 +107,11 @@
 }
 
 .draft {
-    background-color: gray;
+    background-color: #gray;
 }
 
 .publish {
-    background-color: wheat;
+    background-color: #acf9b3;
 }
 
 #loading {
@@ -135,6 +135,7 @@
 .postlist {
     position: relative;
     top: 1.5em;
+    height: 100%;
 }
 
 .page-numbers {
