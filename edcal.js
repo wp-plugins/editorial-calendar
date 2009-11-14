@@ -555,20 +555,21 @@ var edcal = {
         edcal.tID = setTimeout(function() {
             /*
              * Now that we are done moving the calendar we need to get the posts for the 
-             * new dates.
+             * new dates.  We want to load the posts between the place the calendar was
+             * at when the user started moving it and the place the calendar is at now.
              */
-            if (direction) {
+            if (!direction) {
                 edcal.getPosts(edcal._wDate.clone(), 
-                               edcal._wDate.clone().add(7 * (edcal.steps + 1)).days());
+                               edcal._wDate.clone().add(7 * (edcal.steps + 2)).days());
             } else {
-                edcal.getPosts(edcal._wDate.clone().add(-7 * (edcal.steps + 1)).days(), 
+                edcal.getPosts(edcal._wDate.clone().add(-7 * (edcal.steps + 2)).days(), 
                                edcal._wDate.clone());
             }
 
             edcal.steps = 0;
             edcal.tID = null;
             edcal.moveDate = edcal._wDate;
-        }, 200);
+        }, 1000);
     },
 
     /*
@@ -825,7 +826,7 @@ var edcal = {
        specified dates.
      */
     getPosts: function(/*Date*/ from, /*Date*/ to) {
-         output("getPosts(" + from.toString("yyyy-MM-dd") + ", " + to.toString("yyyy-MM-dd") + ")");
+         output("getPosts(" + from.toString("dd-MMM-yyyy") + ", " + to.toString("dd-MMM-yyyy") + ")");
 
          var shouldGet = edcal.cacheDates[from];
 
