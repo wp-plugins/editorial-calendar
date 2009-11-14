@@ -22,12 +22,25 @@ Author: EdCal Project
 Author URI: TBD
 */
 
+add_action('wp_ajax_edcal_changedate', 'edcal_changedate' );
+add_action('admin_menu', 'edcal_list_add_management_page');
+add_action('wp_ajax_edcal_posts', 'edcal_posts' );
+add_action("admin_print_scripts", 'edcal_scripts');
+
+/*
+ * This function adds our calendar page to the admin UI
+ */
 function edcal_list_add_management_page(  ) {
   if ( function_exists('add_management_page') ) {
     $page = add_posts_page( 'Calendar', 'Calendar', 'manage_categories', 'posts_list', 'edcal_list_admin' );
   }
 }
 
+/*
+ * This is a utility function to open a file add it to our
+ * output stream.  We use this to embed JavaScript and CSS
+ * files and cut down on the number of HTTP requests.
+ */
 function echoEdCalFile($myFile) {
     $fh = fopen($myFile, 'r');
     $theData = fread($fh, filesize($myFile));
@@ -39,7 +52,7 @@ function echoEdCalFile($myFile) {
  * This is the function that generates our admin page.  It adds the CSS files and 
  * generates the divs that we need for the JavaScript to work.
  */
- function edcal_list_admin(  ) {
+function edcal_list_admin() {
   include_once('edcal.php');
 
   /*
@@ -111,9 +124,11 @@ function echoEdCalFile($myFile) {
 </div>
   <?php
 }
- 
-add_action('admin_menu', 'edcal_list_add_management_page');
 
+/*
+ * We use these variables to hold the post dates for the filter when 
+ * we do our post query.
+ */
 $edcal_startDate;
 $edcal_endDate;
 
@@ -132,8 +147,6 @@ function edcal_filter_where($where = '') {
     $where .= " AND post_date >= '" . $edcal_startDate . "' AND post_date < '" . $edcal_endDate . "'";
     return $where;
 }
-
-add_action("admin_print_scripts", 'edcal_scripts');
 
 /*
  * This function adds all of the JavaScript files we need.
@@ -190,8 +203,11 @@ function edcal_posts(  ) {
   die;
 }
 
-add_action('wp_ajax_edcal_posts', 'edcal_posts' );
-
+/*
+ * This function sets up the post data and prints out the values we
+ * care about in a JSON data structure.  This prints out just the
+ * value part.
+ */
 function edcal_postJSON($post) {
     setup_postdata($post);
     ?>
@@ -223,7 +239,7 @@ function edcal_postJSON($post) {
  *
  * If the call is successful then it returns the updated post data.
  */
-function edcal_changedate(  ) {
+function edcal_changedate() {
   if (!current_user_can('edit_others_posts')) {
       /*
        * This is just a sanity check to make sure that the current
@@ -266,6 +282,14 @@ function edcal_changedate(  ) {
 
   $matches = strpos($post['post_date'], $edcal_oldDate) === 0;
 
+  /*
+   * We are doing optimistic concurrency checking on the dates.  If
+   * the user tries to move a post we want to make sure nobody else
+   * has moved that post since the page was last updated.  If the 
+   * old date in the database doesn't match the old date from the
+   * browser then we return an error to the browser along with the
+   * updated post data.
+   */
   if ($matches != 1) {
       ?>
       {
@@ -291,7 +315,9 @@ function edcal_changedate(  ) {
   }
 
   /*
-   * Posts have more than one date and we have to update them all
+   * Posts in WordPress have more than one date.  There is the GMT date,
+   * the date in the local time zone, the modified date in GMT and the
+   * modified date in the local time zone.  We update all of them.
    */
   $updated_post = array();
   $updated_post['ID'] = $edcal_postid;
@@ -300,10 +326,10 @@ function edcal_changedate(  ) {
   $updated_post['post_modified'] = $edcal_newDate . substr($post['post_modified'], strlen($edcal_newDate));
   $updated_post['post_modified_gmt'] = $edcal_newDate . substr($post['post_modified_gmt'], strlen($edcal_newDate));
 
-  // Update the post into the database
   if ( $edcal_postStatus != $post['post_status'] ) {
       /*
-       * If the post status changed that takes a few more steps
+       * We only want to update the post status if it has changed.
+       * If the post status has changed that takes a few more steps
        */
       wp_transition_post_status($edcal_postStatus, $post['post_status'], $post);
       $updated_post['post_status'] = $edcal_postStatus;
@@ -319,10 +345,14 @@ function edcal_changedate(  ) {
       do_action('wp_insert_post', $edcal_postid, $post);
   }
 
-  //check_and_publish_future_post($edcal_postid);
-
+  /*
+   * Now we finally update the post into the database
+   */
   wp_update_post( $updated_post );
   
+  /*
+   * We finish by returning the latest data for the post in the JSON
+   */
   global $post;
   $args = array(
     'posts_id' => $edcal_postid,
@@ -340,5 +370,3 @@ function edcal_changedate(  ) {
 
   die;
 }
-
-add_action('wp_ajax_edcal_changedate', 'edcal_changedate' );

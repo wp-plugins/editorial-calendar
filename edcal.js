@@ -559,9 +559,9 @@ var edcal = {
              */
             if (direction) {
                 edcal.getPosts(edcal._wDate.clone(), 
-                               edcal._wDate.clone().add(7 * edcal.steps).days());
+                               edcal._wDate.clone().add(7 * (edcal.steps + 1)).days());
             } else {
-                edcal.getPosts(edcal._wDate.clone().add(-7 * edcal.steps).days(), 
+                edcal.getPosts(edcal._wDate.clone().add(-7 * (edcal.steps + 1)).days(), 
                                edcal._wDate.clone());
             }
 
