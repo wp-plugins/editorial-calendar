@@ -890,5 +890,5 @@ jQuery(document).ready(function(){
  * @param msg    the message to write
  */
 function output(msg) {
-    console.info(msg);
+    //console.info(msg);
 }
