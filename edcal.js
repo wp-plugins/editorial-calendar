@@ -860,8 +860,8 @@ var edcal = {
                  * the JSON parser from JSON.org works faster than the native
                  * one used by JQuery.
                  */
-                res = JSON.parse(res);
-                jQuery.each(res, function(i, post) {
+                var parsedRes = JSON.parseIt(res);
+                jQuery.each(parsedRes, function(i, post) {
 
                     if (post) {
                         edcal.removePostItem(post.date, "post-" + post.id);
