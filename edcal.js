@@ -851,9 +851,15 @@ var edcal = {
             type: "GET",
             processData: false,
             timeout: 10000,
-            dataType: "json",
+            dataType: "text",
             success: function(res) {
                 jQuery("#loading").hide();
+                /*
+                 * These result here can get pretty large on a busy blog and
+                 * the JSON parser from JSON.org works faster than the native
+                 * one used by JQuery.
+                 */
+                res = JSON.parse(res);
                 jQuery.each(res, function(i, post) {
 
                     if (post) {
@@ -884,5 +890,5 @@ jQuery(document).ready(function(){
  * @param msg    the message to write
  */
 function output(msg) {
-    //console.info(msg);
+    console.info(msg);
 }
