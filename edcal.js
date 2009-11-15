@@ -301,9 +301,7 @@ var edcal = {
             revert: 'invalid',
             appendTo: 'body',
             helper: "clone",
-            start: function(event, ui) {
-                //jQuery.tooltip.block();
-            }
+            cursorAt: {left: 100, top: 25}
         });
     },
     

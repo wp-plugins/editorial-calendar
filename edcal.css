@@ -166,3 +166,7 @@
     border: thin solid lightgray;
     -moz-border-radius:11px;
 }
+
+.ui-draggable-dragging {
+    width: 8em;
+}
