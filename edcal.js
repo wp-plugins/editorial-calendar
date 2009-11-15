@@ -825,7 +825,7 @@ var edcal = {
      */
     getPosts: function(/*Date*/ from, /*Date*/ to) {
          output("getPosts(" + from.toString("dd-MMM-yyyy") + ", " + to.toString("dd-MMM-yyyy") + ")");
-
+         
          var shouldGet = edcal.cacheDates[from];
 
          if (shouldGet) {
@@ -846,14 +846,15 @@ var edcal = {
 
          jQuery("#loading").show();
 
-        jQuery.ajax( { 
-            url: url,
-            type: "GET",
-            processData: false,
-            timeout: 10000,
-            dataType: "text",
-            success: function(res) {
+         jQuery.ajax( { 
+             url: url,
+             type: "GET",
+             processData: false,
+             timeout: 10000,
+             dataType: "text",
+             success: function(res) {
                 jQuery("#loading").hide();
+
                 /*
                  * These result here can get pretty large on a busy blog and
                  * the JSON parser from JSON.org works faster than the native
@@ -866,16 +867,15 @@ var edcal = {
                         edcal.removePostItem(post.date, "post-" + post.id);
                         edcal.addPostItem(post, post.date);
                     }
-                 });
-            },
-            error:  function(xhr) {
-                 showError("There was an error contacting your blog.")
-                 if (xhr.responseText) {
-                     output("xhr.responseText: " + xhr.responseText);
-                 }
+                });
+             },
+             error:  function(xhr) {
+                showError("There was an error contacting your blog.")
+                if (xhr.responseText) {
+                    output("xhr.responseText: " + xhr.responseText);
+                }
             }
         });
-
     }
 };
 
