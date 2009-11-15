@@ -252,6 +252,7 @@ var edcal = {
             hoverClass: 'day-active',
             accept: '.post',
             greedy: true,
+            tolerance: 'pointer',
             drop: function(event, ui) {
                         //output('dropped ui.draggable.attr("id"): ' + ui.draggable.attr("id"));
                         //output('dropped on jQuery(this).attr("id"): ' + jQuery(this).attr("id"));
@@ -300,8 +301,7 @@ var edcal = {
          jQuery(post).draggable({ 
             revert: 'invalid',
             appendTo: 'body',
-            helper: "clone",
-            cursorAt: {left: 100, top: 25}
+            helper: "clone"
         });
     },
     
