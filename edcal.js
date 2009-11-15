@@ -301,7 +301,8 @@ var edcal = {
          jQuery(post).draggable({ 
             revert: 'invalid',
             appendTo: 'body',
-            helper: "clone"
+            helper: "clone",
+            addClasses: false
         });
     },
     
@@ -328,6 +329,9 @@ var edcal = {
      */
     addPostItem: function(/*post*/ post, /*string*/ dayobjId) {
          jQuery('#' + dayobjId + ' .postlist').append(edcal.createPostItem(post, dayobjId));
+    },
+
+    addPostItemDragAndToolltip: function(/*string*/ dayobjId) {
          edcal.draggablePost('#' + dayobjId + ' .post');
          edcal.addTooltip(dayobjId);
     },
@@ -785,21 +789,16 @@ var edcal = {
             timeout: 10000,
             dataType: "json",
             success: function(res) {
+                edcal.removePostItem(res.post.date, "post-" + res.post.id);
+                edcal.addPostItem(res.post, res.post.date);
+                edcal.addPostItemDragAndToolltip(res.post.date);
+
                 if (res.error) {
                     if (res.error === edcal.CONCURRENCY_ERROR) {
-                        edcal.removePostItem(res.post.date, "post-" + res.post.id);
-                    
-                        edcal.addPostItem(res.post, res.post.date);
                         edcal.showError("Someone else already moved " + res.post.title);
                     } else if (res.error === edcal.PERMISSION_ERROR) {
-                        edcal.removePostItem(res.post.date, "post-" + res.post.id);
-                    
-                        edcal.addPostItem(res.post, res.post.date);
                         edcal.showError("You don't have permission to edit posts");
                     }
-                } else {
-                    edcal.removePostItem(res.post.date, "post-" + res.post.id);
-                    edcal.addPostItem(res.post, res.post.date);
                 }
             },
             error:  function(xhr) {
@@ -861,13 +860,31 @@ var edcal = {
                  * one used by JQuery.
                  */
                 var parsedRes = JSON.parseIt(res);
+                var postDates = new Array();
                 jQuery.each(parsedRes, function(i, post) {
-
                     if (post) {
                         edcal.removePostItem(post.date, "post-" + post.id);
                         edcal.addPostItem(post, post.date);
+                        postDates[postDates.length] = post.date;
                     }
                 });
+
+                /*
+                 * If the blog has a very larger number of posts then adding
+                 * them all can make the UI a little slow.  Particularly IE 
+                 * pops up a warning giving the user a chance to abort the 
+                 * script.  Adding tooltips and making the items draggable is
+                 * a lot of what makes things slow.  Delaying those two operations
+                 * makes the UI show up much faster and the user has to wait
+                 * three seconds before they can drag.  It also makes IE
+                 * stop complaining.
+                 */
+                setTimeout(function() {
+                    output("adding tooltips and draggables to " + postDates.length + " items.");
+                    jQuery.each(postDates, function(i, postDate) {
+                        edcal.addPostItemDragAndToolltip(postDate);
+                    });
+                }, 300);
              },
              error:  function(xhr) {
                 showError("There was an error contacting your blog.")
