@@ -28,6 +28,6 @@ The editorial calendar lets WordPress administrators and editors manage the date
 == Changelog ==
 
 = 0.1 =
-* First version
+* This version is just for beta testers
 
 `<?php code(); // goes in backticks ?>`
