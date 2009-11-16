@@ -3,7 +3,7 @@ Contributors: MaryVogt, zgrossbart
 Tags: posts
 Requires at least: 2.8.5
 Tested up to: 2.8.6
-Stable tag: none
+Stable tag: 0.1
 
 THIS PLUGIN IS NOT READY FOR DOWNLOAD. Editorial calendar lets you see all your posts and drag and drop them to change the date.
 
