@@ -174,3 +174,7 @@
 #edcal-title-box {
     display: none;
 }
+
+#edcal-title-edit {
+    font-size: 11px;
+}
