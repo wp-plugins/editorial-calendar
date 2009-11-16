@@ -343,6 +343,48 @@ var edcal = {
              return false;
          }
     },
+
+    saveTitle: function(/*string*/ postId) {
+         
+         var url = edcal.ajax_url + "?action=edcal_changetitle&postid=" + postId + 
+             "&title=" + jQuery.URLEncode(jQuery("#edcal-title-edit-field").val());
+
+         jQuery("#post-" + postId).addClass("loadingclass");
+         
+         jQuery("#tooltip").hide();
+
+         jQuery.ajax( { 
+            url: url,
+            type: "POST",
+            processData: false,
+            timeout: 10000,
+            dataType: "json",
+            success: function(res) {
+                edcal.removePostItem(res.post.date, "post-" + res.post.id);
+                edcal.addPostItem(res.post, res.post.date);
+                edcal.addPostItemDragAndToolltip(res.post.date);
+            },
+            error:  function(xhr) {
+                 showError("There was an error contacting your blog.")
+                 if (xhr.responseText) {
+                     output("xhr.responseText: " + xhr.responseText);
+                 }
+            }
+        });
+    },
+
+    cancelEditTitle: function() {
+         jQuery("#edcal-title").show();
+         jQuery("#edcal-title-box").hide();
+    },
+
+    editTitle: function() {
+         output("editing title...");
+         jQuery("#edcal-title").hide();
+         jQuery("#edcal-title-box").show();
+
+         jQuery("#edcal-title-edit-field").select();
+    },
     
     /*
      * Adds a tooltip to every post in the specified day.
@@ -352,10 +394,16 @@ var edcal = {
              delay: 1500, 
              bodyHandler: function() {
                  var post = edcal.findPostForId(dayobjId, jQuery(this).attr("id"));
-                 edcal.findPostForId(jQuery(this).parent().parent().attr("id"),
-                                     jQuery(this).attr("id"));
                  var tooltip = '<div class="tooltip">' + 
-                                   '<h3>' + post.title + '</h3>' + 
+                                   '<h3 id="edcal-title">' + post.title + 
+                                       ' <a href="#" onclick="edcal.editTitle(); return false;" class="edit-post-status" id="edcal-title-edit">Edit</a>' + 
+                                   '</h3>' + 
+                                   '<div id="edcal-title-box">' + 
+                                       '<input type="text" value="' + post.title + '" id="edcal-title-edit-field"/>' + 
+                                       '<span id="edit-slug-buttons">' + 
+                                           '<a class="save button" href="#" onclick="edcal.saveTitle(\'' + post.id + '\'); return false;">Save</a> ' + 
+                                           '<a href="#" onclick="edcal.cancelEditTitle(); return false;" class="cancel">Cancel</a></span>' + 
+                                       '</div>' + 
                                    '<p>' + 
                                        '<i>by</i> ' + post.author + ' <i>on</i> ' + 
                                        edcal.getDayFromDayId(post.date).toString("MMMM d, yyyy") +
@@ -909,3 +957,17 @@ jQuery(document).ready(function(){
 function output(msg) {
     //console.info(msg);
 }
+
+/*
+ * This code is from the JQuery URL Encode plugin (http://plugins.jquery.com/project/URLEncode);
+ */
+jQuery.extend({URLEncode:function(c){var o='';var x=0;c=c.toString();var r=/(^[a-zA-Z0-9_.]*)/;
+  while(x<c.length){var m=r.exec(c.substr(x));
+    if(m!=null && m.length>1 && m[1]!=''){o+=m[1];x+=m[1].length;
+    }else{if(c[x]==' ')o+='+';else{var d=c.charCodeAt(x);var h=d.toString(16);
+    o+='%'+(h.length<2?'0':'')+h.toUpperCase();}x++;}}return o;},
+URLDecode:function(s){var o=s;var binVal,t;var r=/(%[^%]{2})/;
+  while((m=r.exec(o))!=null && m.length>1 && m[1]!=''){b=parseInt(m[1].substr(1),16);
+  t=String.fromCharCode(b);o=o.replace(m[1],t);}return o;}
+});
+

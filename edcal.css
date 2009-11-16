@@ -170,3 +170,7 @@
 .ui-draggable-dragging {
     width: 8em;
 }
+
+#edcal-title-box {
+    display: none;
+}

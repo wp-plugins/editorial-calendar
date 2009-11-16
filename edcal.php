@@ -23,6 +23,7 @@ Author URI: TBD
 */
 
 add_action('wp_ajax_edcal_changedate', 'edcal_changedate' );
+add_action('wp_ajax_edcal_changetitle', 'edcal_changetitle' );
 add_action('admin_menu', 'edcal_list_add_management_page');
 add_action('wp_ajax_edcal_posts', 'edcal_posts' );
 add_action("admin_print_scripts", 'edcal_scripts');
@@ -231,6 +232,42 @@ function edcal_postJSON($post) {
             "id" : "<?php the_ID(); ?>"
         },
   <?php
+}
+
+function edcal_changetitle() {
+  header("Content-Type: application/json");
+  $edcal_postid = isset($_GET['postid'])?$_GET['postid']:null;
+  $edcal_newTitle = isset($_GET['title'])?$_GET['title']:null;
+  
+  $post = get_post($edcal_postid, ARRAY_A);
+  setup_postdata($post);
+
+  $post['post_title'] = $edcal_newTitle;
+  
+  /*
+   * Now we finally update the post into the database
+   */
+  wp_update_post( $post );
+  
+  /*
+   * We finish by returning the latest data for the post in the JSON
+   */
+  global $post;
+  $args = array(
+    'posts_id' => $edcal_postid,
+	);
+
+  $post = get_post($edcal_postid);
+      ?>{
+        "post" :
+  <?php
+           edcal_postJSON($post);
+      ?>
+        }
+  <?php
+  
+
+  die;
 }
 
 /*
