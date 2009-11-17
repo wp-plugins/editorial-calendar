@@ -1,0 +1,43 @@
+This file lists all of the third-party JavaScript libraries we are using and where they came from.
+
+date.js
+This is an open source JavaScript date library that we use to provide and manipulate dates for the calendar.
+http://www.datejs.com/
+MIT License
+
+humanmsg.css
+humanmsg.js
+We use Humanized style error messages when we show concurrency errors and other issues the user might run into when dragging posts.
+http://code.google.com/p/humanmsg/
+Apache License 2.0
+
+jquery.bgiframe.js
+jquery.delegate.js
+jquery.tools.min.js
+JQuery tools supports the scrolling.
+http://flowplayer.org/tools/index.html
+MIT license
+
+jquery.tooltip.css
+jquery.tooltip.js
+The JQuery tooltip plugin manages the tooltips we show when you hover over a post.
+http://bassistance.de/jquery-plugins/jquery-plugin-tooltip/
+MIT License
+
+json2.js
+We use this library for faster JSON parsing.
+http://www.json.org/js.html
+It is available under the public domain.
+
+tools.scrollable-1.1.2.js
+tools.scrollable.mousewheel-1.0.1.js
+The scrollable library supports the mouse wheel scrolling and manages the calendar's vertical scrolling.
+http://flowplayer.org/tools/scrollable.html
+MIT License
+
+ui.core.js
+ui.draggable.js
+ui.droppable.js
+The draggable, droppable, and UI core support drag and drop.
+http://jqueryui.com/demos/draggable/
+MIT License
