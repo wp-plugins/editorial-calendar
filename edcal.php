@@ -234,6 +234,11 @@ function edcal_postJSON($post) {
   <?php
 }
 
+/*
+ * This is a helper AJAX function to change the title of a post.  It
+ * gets called from the save button in the tooltip when you change a
+ * post title in a calendar.
+ */
 function edcal_changetitle() {
   header("Content-Type: application/json");
   $edcal_postid = isset($_GET['postid'])?$_GET['postid']:null;
