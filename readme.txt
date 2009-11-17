@@ -1,6 +1,6 @@
 === Editorial Calendar ===
 Contributors: MaryVogt, zgrossbart
-Tags: posts
+Tags: posts, post, calendar, AJAX, admin, administration
 Requires at least: 2.8.5
 Tested up to: 2.8.6
 Stable tag: 0.1
