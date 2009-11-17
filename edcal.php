@@ -17,9 +17,9 @@
 
 /*
 Plugin Name: WordPress Editorial Calendar
-Description: An editorial calendar for setting the dates of your WordPress posts
-Author: EdCal Project
-Author URI: TBD
+Description: An editorial calendar for managing the dates of your WordPress posts
+Author: Mary Vogt and Zack Grossbart
+Author URI: http://www.zackgrossbart.com
 */
 
 add_action('wp_ajax_edcal_changedate', 'edcal_changedate' );
