@@ -11,7 +11,7 @@ THIS PLUGIN IS NOT READY FOR DOWNLOAD. Editorial calendar lets you see all your 
 
 *THIS PLUGIN IS NOT READY FOR DOWNLOAD. DO NOT RUN IT OUTSIDE OF A TEST ENVIRONMENT.*
 
-The editorial calendar lets WordPress administrators and editors manage the dates for multiple posts at once.  You see all of your posts in a calendar view and can arrange them via an easy drag and drop interface.  The editorial calendar great improves any blog that plans posts in advance or takes contributions from multiple users.
+The editorial calendar lets WordPress administrators and editors manage the dates for multiple posts at once.  You see all of your posts in a calendar view and can arrange them via an easy drag and drop interface.  The editorial calendar greatly improves any blog that plans posts in advance or takes contributions from multiple users.
 
 == Installation ==
 
