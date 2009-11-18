@@ -310,13 +310,22 @@ var edcal = {
           */
          var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
 
-         jQuery(post).draggable({ 
-            revert: 'invalid',
-            appendTo: 'body',
-            distance: is_chrome ? 0 : 10,
-            helper: "clone",
-            addClasses: false
-        });
+         if (is_chrome) {
+             jQuery(post).draggable({ 
+                revert: 'invalid',
+                appendTo: 'body',
+                helper: "clone",
+                addClasses: false
+            });
+         } else {
+             jQuery(post).draggable({ 
+                revert: 'invalid',
+                appendTo: 'body',
+                distance: 10,
+                helper: "clone",
+                addClasses: false
+             });
+         }
     },
     
     /*
