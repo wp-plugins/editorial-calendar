@@ -79,6 +79,7 @@
     z-index: 10;
     cursor: move;
     -moz-border-radius:11px;
+    -webkit-border-radius:11px;
     margin-left: 2px;
     margin-right: 2px;
     padding: 5px;
@@ -186,6 +187,7 @@
     padding-bottom: 0em;
     border: thin solid lightgray;
     -moz-border-radius:11px;
+    -webkit-border-radius:11px;
     -moz-box-shadow:0 4px 18px #C8C8C8;
 }
 
