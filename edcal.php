@@ -117,7 +117,9 @@ function edcal_list_admin() {
     <div class="icon32" id="icon-edit"><br/></div>
     <h2>Posts Calendar</h2>
 
-    <span id="loading"> </span>
+    <div id="loadingcont">
+        <div id="loading"> </div>
+    </div>
 
     <div id="topbar">
         <div id="topleft">

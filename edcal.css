@@ -143,10 +143,14 @@
     background-color: #dde4fb;
 }
 
+#loadingcont {
+    position: relative;
+}
+
 #loading {
     background-image: url('images/loading.gif'); 
     background-repeat: no-repeat;
-    position: relative;
+    position: absolute;
     width: 43px;
     height: 11px;
     display: block;
