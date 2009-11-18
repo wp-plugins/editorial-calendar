@@ -29,6 +29,7 @@
  
     /* this time we have very large space for the height */ 
     height:100%; 
+    margin-right: 10px;
 }
 
 .day {
@@ -68,21 +69,22 @@
     right: 5px;
 }
 
-.saturday .daylabel {
-    right: 20px;
-}
-
 .post {
     display: block;
     list-style-type: none;
     background: #FFFFE0;
     z-index: 10;
     cursor: move;
-    -moz-border-radius:11px;
-    -webkit-border-radius:11px;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
     margin-left: 2px;
     margin-right: 2px;
     padding: 5px;
+}
+
+.post:hover {
+    color: white;
+    background: black;
 }
 
 .day-active {
