@@ -304,6 +304,7 @@ var edcal = {
          jQuery(post).draggable({ 
             revert: 'invalid',
             appendTo: 'body',
+            distance: 25,
             helper: "clone",
             addClasses: false
         });
