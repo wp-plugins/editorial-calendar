@@ -658,9 +658,9 @@ var edcal = {
              */
             if (!direction) {
                 edcal.getPosts(edcal._wDate.clone(), 
-                               edcal._wDate.clone().add(7 * (edcal.steps + 2)).days());
+                               edcal._wDate.clone().add(7 * (edcal.steps + 1)).days());
             } else {
-                edcal.getPosts(edcal._wDate.clone().add(-7 * (edcal.steps + 2)).days(), 
+                edcal.getPosts(edcal._wDate.clone().add(-7 * (edcal.steps + 1)).days(), 
                                edcal._wDate.clone());
             }
 
@@ -807,8 +807,8 @@ var edcal = {
             }
         });
 
-        edcal.getPosts(Date.today().next().sunday().add(-61).days(), 
-                       Date.today().next().sunday().add(61).days());
+        edcal.getPosts(Date.today().next().sunday().add(-28).days(), 
+                       Date.today().next().sunday().add(35).days());
         
         /*
            Now we bind the listeners for all of our links and the window
