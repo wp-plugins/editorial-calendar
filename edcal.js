@@ -297,6 +297,9 @@ var edcal = {
         return jQuery('row' + edcal._wDate.toString("ddMMMyyyy"));
     },
 
+    /*
+     * This is a helper method to make an individual post item draggable.
+     */
     draggablePost: function(/*post selector*/ post) {
          jQuery(post).draggable({ 
             revert: 'invalid',
@@ -331,11 +334,18 @@ var edcal = {
          jQuery('#' + dayobjId + ' .postlist').append(edcal.createPostItem(post, dayobjId));
     },
 
+    /*
+       Makes all the posts in the specified day draggable
+       and adds the tooltip.
+     */
     addPostItemDragAndToolltip: function(/*string*/ dayobjId) {
          edcal.draggablePost('#' + dayobjId + ' .post');
          edcal.addTooltip(dayobjId);
     },
 
+    /*
+     * Confirms if you want to delete the specified post
+     */
     confirmDelete: function(/*string*/ posttitle) {
          if (confirm('You are about to delete this post ' + posttitle + '.\n\n Press cancel to stop, OK to delete.')) {
              return true;
@@ -344,6 +354,10 @@ var edcal = {
          }
     },
 
+    /*
+       This is an AJAX function to save the past title when
+       the user presses the save button on the tooltip.
+     */
     saveTitle: function(/*string*/ postId) {
          
          var url = edcal.ajax_url + "?action=edcal_changetitle&postid=" + postId + 
@@ -373,11 +387,17 @@ var edcal = {
         });
     },
 
+    /*
+     * Cancels the edit title action in the tooltip.
+     */
     cancelEditTitle: function() {
          jQuery("#edcal-title").show();
          jQuery("#edcal-title-box").hide();
     },
 
+    /*
+     * Shows the edit title UI in the tooltip.
+     */
     editTitle: function() {
          jQuery("#edcal-title").hide();
          jQuery("#edcal-title-box").show();
@@ -385,6 +405,10 @@ var edcal = {
          jQuery("#edcal-title-edit-field").select();
     },
 
+    /*
+       Switches back to the normal tooltip title view
+       and closes the tooltip.
+     */
     closeTooltip: function() {
          edcal.cancelEditTitle();
          jQuery("#tooltip").hide();
@@ -490,11 +514,6 @@ var edcal = {
     /*
        Gets all the post items for the specified day from
        the post cache.
- 
-       TODO - This function adds all of the posts to a
-       specific day in the calendar.  If there are too
-       many posts they'll overrun the calendar day.  We
-       need a better UI solution.
      */
     getPostItems: function(/*string*/ dayobjId) {
         var postsString = "";
