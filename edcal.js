@@ -755,7 +755,7 @@ var edcal = {
         // initialize scrollable  
         jQuery(".edcal_scrollable").scrollable({ 
                                     vertical:true,  
-                                    size: 6,
+                                    size: 5,
                                     keyboardSteps: 1,
                                     speed: 100
                                     // use mousewheel plugin 
