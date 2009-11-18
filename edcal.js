@@ -410,9 +410,12 @@ var edcal = {
     /*
      * Cancels the edit title action in the tooltip.
      */
-    cancelEditTitle: function() {
-         jQuery("#edcal-title").show();
+    cancelEditTitle: function(/*string*/ postTitle) {
+         jQuery("#edcal-title-edit-field").val(postTitle);
+
          jQuery("#edcal-title-box").hide();
+         jQuery("#edcal-title").show();
+         
     },
 
     /*
@@ -452,7 +455,7 @@ var edcal = {
                                        '<input type="text" value="' + post.title + '" id="edcal-title-edit-field"/>' + 
                                        '<span id="edit-slug-buttons">' + 
                                            '<a class="save button" href="#" onclick="edcal.saveTitle(\'' + post.id + '\'); return false;">Save</a> ' + 
-                                           '<a href="#" onclick="edcal.cancelEditTitle(); return false;" class="cancel">Cancel</a></span>' + 
+                                           '<a href="#" onclick="edcal.cancelEditTitle(\'' + post.title + '\'); return false;" class="cancel">Cancel</a></span>' + 
                                        '</div>' + 
                                    '<p>' + 
                                        '<i>by</i> ' + post.author + ' <i>on</i> ' + 
