@@ -422,6 +422,7 @@ var edcal = {
          jQuery("#edcal-title").hide();
          jQuery("#edcal-title-box").show();
 
+         jQuery("#edcal-title-edit-field").focus();
          jQuery("#edcal-title-edit-field").select();
     },
 
