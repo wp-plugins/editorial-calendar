@@ -119,10 +119,10 @@ function edcal_list_admin() {
 
     <div id="topbar">
         <div id="topleft">
-            <div id="loading"> </div>
+            <a href="#" class="prev page-numbers" id="prevmonth" style="border: none";>&laquo;</a><span id="currentRange"></span><a href="#" class="next page-numbers" id="nextmonth" style="border: none";>&raquo;</a> <span id="loading"> </span>
         </div>
         <div id="topright">
-            <a href="#" class="prev page-numbers" id="prevmonth" style="border: none";>&laquo;</a><span id="currentRange"></span><a href="#" class="next page-numbers" id="nextmonth" style="border: none";>&raquo;</a> <a href="#" id="moveToToday">Jump to Today</a>
+            <a href="#" id="moveToToday">Today</a>
         </div>
     </div>
     
@@ -186,7 +186,7 @@ function edcal_scripts(  ) {
  * This is an AJAX call that gets the posts between the from date 
  * and the to date.  
  */
-function edcal_posts(  ) {
+function edcal_posts() {
   header("Content-Type: application/json");
   global $edcal_startDate, $edcal_endDate;
   $edcal_startDate = isset($_GET['from'])?$_GET['from']:null;

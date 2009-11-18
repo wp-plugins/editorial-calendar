@@ -112,8 +112,9 @@
 
 #topleft {
     position: absolute;
-    left: 75px;
+    left: 10px;
     top: 5px;
+    width: 50%;
 }
 
 #topright {
@@ -147,9 +148,8 @@
     width: 43px;
     height: 11px;
     display: block;
-    position: absolute;
-    top: 5px;
-    right: 5px;
+    margin-left: 20em;
+    margin-top: -1em;
 }
 
 .loadingclass, .loadingclass:hover {
