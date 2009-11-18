@@ -301,10 +301,20 @@ var edcal = {
      * This is a helper method to make an individual post item draggable.
      */
     draggablePost: function(/*post selector*/ post) {
+         /*
+          * Click is a different operation than drag in our UI.  The problem is if
+          * the user is moving their mouse just a little bit we can think it is a 
+          * drag instead of a click.  We stop this by delaying the drag event until
+          * the user has dragged at least 10 pixels.  This works fine on IE and
+          * Firefox, but on Chrome it causes text selection so we don't delay on
+          * Chrome.
+          */
+         var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+
          jQuery(post).draggable({ 
             revert: 'invalid',
             appendTo: 'body',
-            distance: 25,
+            distance: is_chrome ? 0 : 10,
             helper: "clone",
             addClasses: false
         });
