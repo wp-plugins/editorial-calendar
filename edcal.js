@@ -309,8 +309,9 @@ var edcal = {
           * Chrome.
           */
          var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+         var is_safari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
 
-         if (is_chrome) {
+         if (is_chrome || is_safari) {
              jQuery(post).draggable({ 
                 revert: 'invalid',
                 appendTo: 'body',
