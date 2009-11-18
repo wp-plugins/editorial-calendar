@@ -386,6 +386,7 @@ var edcal = {
     },
 
     closeTooltip: function() {
+         edcal.cancelEditTitle();
          jQuery("#tooltip").hide();
     },
     

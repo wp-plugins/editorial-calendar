@@ -203,6 +203,7 @@
 
 #edcal-title-box {
     display: none;
+    padding-right: 15px;
 }
 
 #edcal-title-edit {
