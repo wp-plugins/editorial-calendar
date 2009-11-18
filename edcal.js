@@ -262,12 +262,11 @@ var edcal = {
 
                         // Step 0. Get the post object from the map
                         var post = edcal.findPostForId(ui.draggable.parent().parent().parent().attr("id"), ui.draggable.attr("id"));
-                        output("post: " + post);
                         
                         // Step 1. Remove the post from the posts map
-                        edcal.removePostFromMap(ui.draggable.parent().parent().attr("id"), 
+                        edcal.removePostFromMap(ui.draggable.parent().parent().parent().attr("id"), 
                                                 ui.draggable.attr("id"));
-
+                        
                         // Step 2. Remove the old element from the old parent.
                         jQuery('#' + ui.draggable.attr("id")).remove();
                         
@@ -328,7 +327,7 @@ var edcal = {
         if (edcal.posts[dayobjId]) {
             for (var i = 0; i < edcal.posts[dayobjId].length; i++) {
                 if (edcal.posts[dayobjId][i] &&
-                    "post-" + edcal.posts[dayobjId][i].POST_ID === postId) {
+                    "post-" + edcal.posts[dayobjId][i].id === postId) {
                     edcal.posts[dayobjId][i] = null;
                     return true;
                 }
@@ -830,8 +829,6 @@ var edcal = {
        the specified post on the server.
      */
     changeDate: function(/*string*/ newdate, /*Post*/ post) {
-         output("changeDate(" + newdate + ", " + post + ")");
-
          newdate = edcal.getDayFromDayId(newdate).toString("yyyy-MM-dd");
 
          var postStatus = "";
@@ -909,7 +906,7 @@ var edcal = {
        specified dates.
      */
     getPosts: function(/*Date*/ from, /*Date*/ to) {
-         output("getPosts(" + from.toString("dd-MMM-yyyy") + ", " + to.toString("dd-MMM-yyyy") + ")");
+         //output("getPosts(" + from.toString("dd-MMM-yyyy") + ", " + to.toString("dd-MMM-yyyy") + ")");
          
          var shouldGet = edcal.cacheDates[from];
 
