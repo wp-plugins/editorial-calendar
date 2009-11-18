@@ -119,7 +119,12 @@ function edcal_list_admin() {
 
     <div id="topbar">
         <div id="topleft">
-            <h3><a href="#" class="prev page-numbers" id="prevmonth" style="border: none";>&laquo;</a><span id="currentRange"></span><a href="#" class="next page-numbers" id="nextmonth" style="border: none";>&raquo;</a></h2> <span id="loading"> </span>
+            <h3>
+                <a href="#" title="Go back four weeks." class="prev page-numbers" id="prevmonth" style="border: none;">&laquo;</a>
+                <span id="currentRange"></span>
+                <a href="#" title="Skip ahead four weeks." class="next page-numbers" id="nextmonth" style="border: none;">&raquo;</a>
+            </h2>
+            <span id="loading"> </span>
         </div>
         <div id="topright">
             <a href="#" id="moveToToday">Today</a>
