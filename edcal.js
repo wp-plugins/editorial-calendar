@@ -391,7 +391,7 @@ var edcal = {
             url: url,
             type: "POST",
             processData: false,
-            timeout: 10000,
+            timeout: 100000,
             dataType: "json",
             success: function(res) {
                 edcal.removePostItem(res.post.date, "post-" + res.post.id);
@@ -879,7 +879,7 @@ var edcal = {
             url: url,
             type: "POST",
             processData: false,
-            timeout: 10000,
+            timeout: 100000,
             dataType: "json",
             success: function(res) {
                 edcal.removePostItem(res.post.date, "post-" + res.post.id);
@@ -942,7 +942,7 @@ var edcal = {
              url: url,
              type: "GET",
              processData: false,
-             timeout: 10000,
+             timeout: 100000,
              dataType: "text",
              success: function(res) {
                 jQuery("#loading").hide();

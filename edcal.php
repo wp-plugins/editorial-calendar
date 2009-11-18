@@ -117,6 +117,8 @@ function edcal_list_admin() {
     <div class="icon32" id="icon-edit"><br/></div>
     <h2>Posts Calendar</h2>
 
+    <span id="loading"> </span>
+
     <div id="topbar">
         <div id="topleft">
             <h3>
@@ -124,7 +126,6 @@ function edcal_list_admin() {
                 <span id="currentRange"></span>
                 <a href="#" title="Skip ahead four weeks." class="next page-numbers" id="nextmonth" style="border: none;">&raquo;</a>
             </h2>
-            <span id="loading"> </span>
         </div>
         <div id="topright">
             <a href="#" id="moveToToday">Today</a>
