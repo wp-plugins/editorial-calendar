@@ -170,8 +170,9 @@
 }
 
 #tooltip h3 {
-    max-width: 15em;
+    max-width: 20em;
     margin-bottom: -10px;
+    padding-left: 15px;
 }
 
 #tooltip {
@@ -181,10 +182,23 @@
     padding-bottom: 0em;
     border: thin solid lightgray;
     -moz-border-radius:11px;
+    -moz-box-shadow:0 4px 18px #C8C8C8;
 }
 
 .ui-draggable-dragging {
     width: 8em;
+}
+
+#tipclose {
+    width: 24px;
+    height: 23px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}
+
+.tooltip {
+    position: relative;
 }
 
 #edcal-title-box {

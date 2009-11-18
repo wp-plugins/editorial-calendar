@@ -96,6 +96,10 @@ function edcal_list_admin() {
         #loading {
             background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/loading.gif")); ?>');
         }
+
+        #tipclose {
+            background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/tip_close.gif")); ?>');
+        }
     </style>
   <?php
 

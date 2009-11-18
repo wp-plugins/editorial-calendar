@@ -379,11 +379,14 @@ var edcal = {
     },
 
     editTitle: function() {
-         output("editing title...");
          jQuery("#edcal-title").hide();
          jQuery("#edcal-title-box").show();
 
          jQuery("#edcal-title-edit-field").select();
+    },
+
+    closeTooltip: function() {
+         jQuery("#tooltip").hide();
     },
     
     /*
@@ -395,6 +398,7 @@ var edcal = {
              bodyHandler: function() {
                  var post = edcal.findPostForId(dayobjId, jQuery(this).attr("id"));
                  var tooltip = '<div class="tooltip">' + 
+                               '<a href="#" id="tipclose" onclick="edcal.closeTooltip(); return false;" title="close"> </a>' + 
                                    '<h3 id="edcal-title">' + post.title + 
                                        ' <a href="#" onclick="edcal.editTitle(); return false;" class="edit-post-status" id="edcal-title-edit">Edit</a>' + 
                                    '</h3>' + 
@@ -752,6 +756,9 @@ var edcal = {
             } else if ((evt.keyCode === 33 && !(evt.altKey || evt.ctrlKey)) || //page up
                 evt.keyCode === 38 && evt.ctrlKey){                            // Ctrl+up up arrow
                 edcal.move(4, false);
+                return false;
+            } else if (evt.keyCode === 27) { //escape key
+                edcal.closeTooltip();
                 return false;
             }
         });
