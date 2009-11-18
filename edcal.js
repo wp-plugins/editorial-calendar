@@ -399,7 +399,7 @@ var edcal = {
                 edcal.addPostItemDragAndToolltip(res.post.date);
             },
             error:  function(xhr) {
-                 showError("There was an error contacting your blog.")
+                 edcal.showError("There was an error contacting your blog.")
                  if (xhr.responseText) {
                      output("xhr.responseText: " + xhr.responseText);
                  }
@@ -980,7 +980,7 @@ var edcal = {
                 }, 300);
              },
              error:  function(xhr) {
-                showError("There was an error contacting your blog.")
+                edcal.showError("There was an error contacting your blog.")
                 if (xhr.responseText) {
                     output("xhr.responseText: " + xhr.responseText);
                 }
