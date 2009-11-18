@@ -78,6 +78,10 @@
     background: #FFFFE0;
     z-index: 10;
     cursor: move;
+    -moz-border-radius:11px;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding: 5px;
 }
 
 .day-active {
