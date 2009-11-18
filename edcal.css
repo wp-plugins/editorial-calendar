@@ -152,7 +152,7 @@
     right: 5px;
 }
 
-.loadingclass {
+.loadingclass, .loadingclass:hover {
     background-image: url('images/loading_post.gif'); 
     background-position: top right;
     background-repeat: no-repeat;
