@@ -69,8 +69,9 @@ var edcal = {
         
     /*
        This is the base URL we use to make AJAX calls back
-       to the server.  This values is set in code generated
-       from edcal.php.
+       to the server.  This value is set in code generated
+       from edcal.php that run in a script tag in the main
+       page.
      */
     ajax_url: '',
         
@@ -145,27 +146,27 @@ var edcal = {
         var count = 1;
 
         jQuery(gridid).each(function(){
-                       jQuery(this).css("position", "relative");
-                      
-                      jQuery(this).children("div").each(function(){
-                                                   jQuery(this).css({
-                                                               width: cellWidth + "%",
-                                                               height: cellHeight + "%",
-                                                               position: "absolute",
-                                                               left: x + "%",
-                                                               top: y + "%"
-                                                               });
-                                                  
-                                                  if ((count % cols) === 0){
-                                                  x = 0;
-                                                  y += cellHeight + padding;
-                                                  }else{
-                                                  x += cellWidth + padding;
-                                                  }
-                                                  
-                                                  count++;
-                                                  });
-                      });
+            jQuery(this).css("position", "relative");
+            
+            jQuery(this).children("div").each(function(){
+                jQuery(this).css({
+                    width: cellWidth + "%",
+                    height: cellHeight + "%",
+                    position: "absolute",
+                    left: x + "%",
+                    top: y + "%"
+                });
+                
+                if ((count % cols) === 0) {
+                    x = 0;
+                    y += cellHeight + padding;
+                } else {
+                    x += cellWidth + padding;
+                }
+                
+                count++;
+            });
+        });
     },
     
     /*
@@ -207,8 +208,9 @@ var edcal = {
         var newrow = '<div class="rowcont" id="' + 'row' + edcal._wDate.toString("ddMMMyyyy") + '">' + 
                      '<div id="' + 'row' + edcal._wDate.toString("ddMMMyyyy") + 'row" class="row">';
         for (var i = 0; i < 7; i++) {
-            newrow +='<div id="' + _date.toString("ddMMMyyyy") + '" class="day ' + _date.toString("dddd").toLowerCase() + ' '   + 
-                     _date.toString("MMM").toLowerCase() + '">';
+            newrow += '<div id="' + _date.toString("ddMMMyyyy") + '" class="day ' + 
+                      _date.toString("dddd").toLowerCase() + ' '   + 
+                      _date.toString("MMM").toLowerCase() + '">';
             
             newrow += '<div class="dayobj">';
             
@@ -254,45 +256,43 @@ var edcal = {
             greedy: true,
             tolerance: 'pointer',
             drop: function(event, ui) {
-                        //output('dropped ui.draggable.attr("id"): ' + ui.draggable.attr("id"));
-                        //output('dropped on jQuery(this).attr("id"): ' + jQuery(this).attr("id"));
-                        //output('ui.draggable.html(): ' + ui.draggable.html());
-
-                        var dayId = ui.draggable.parent().parent().parent().attr("id");
-
-                        // Step 0. Get the post object from the map
-                        var post = edcal.findPostForId(ui.draggable.parent().parent().parent().attr("id"), ui.draggable.attr("id"));
-                        
-                        // Step 1. Remove the post from the posts map
-                        edcal.removePostFromMap(ui.draggable.parent().parent().parent().attr("id"), 
-                                                ui.draggable.attr("id"));
-                        
-                        // Step 2. Remove the old element from the old parent.
-                        jQuery('#' + ui.draggable.attr("id")).remove();
-                        
-                        // Step 3. Add the item to the new DOM parent
-                        jQuery('#' + jQuery(this).attr("id") + ' .postlist').append(edcal.createPostItem(post, 
-                                                                                               jQuery(this).attr("id")));
-                        
-                        // Step 4. Don't forget to make the new item draggable
-                        //jQuery('#' + jQuery(this).attr("id") + ' .post').draggable({ revert: 'invalid'});
-
-                        // Step 5. And add the tooltip
-                        edcal.addTooltip(jQuery(this).attr("id"));
-
-                        if (dayId == jQuery(this).attr("id")) {
-                            /*
-                             * If they dropped back on to the day they started with we
-                             * don't want to go back to the server.
-                             */
-                            edcal.draggablePost('#' + jQuery(this).attr("id") + ' .post');
-                        } else {
-                            // Step6. Update the date on the server
-                            edcal.changeDate(jQuery(this).attr("id"), post);
+                           //output('dropped ui.draggable.attr("id"): ' + ui.draggable.attr("id"));
+                           //output('dropped on jQuery(this).attr("id"): ' + jQuery(this).attr("id"));
+                           //output('ui.draggable.html(): ' + ui.draggable.html());
+                           
+                           var dayId = ui.draggable.parent().parent().parent().attr("id");
+                           
+                           // Step 0. Get the post object from the map
+                           var post = edcal.findPostForId(ui.draggable.parent().parent().parent().attr("id"), 
+                                                          ui.draggable.attr("id"));
+                           
+                           // Step 1. Remove the post from the posts map
+                           edcal.removePostFromMap(ui.draggable.parent().parent().parent().attr("id"), 
+                                                   ui.draggable.attr("id"));
+                           
+                           // Step 2. Remove the old element from the old parent.
+                           jQuery('#' + ui.draggable.attr("id")).remove();
+                           
+                           // Step 3. Add the item to the new DOM parent
+                           jQuery('#' + jQuery(this).attr("id") + ' .postlist').append(edcal.createPostItem(post, 
+                                                                                                            jQuery(this).attr("id")));
+                           
+                           // Step 4. And add the tooltip
+                           edcal.addTooltip(jQuery(this).attr("id"));
+                           
+                           if (dayId == jQuery(this).attr("id")) {
+                               /*
+                                  If they dropped back on to the day they started with we
+                                  don't want to go back to the server.
+                                */
+                               edcal.draggablePost('#' + jQuery(this).attr("id") + ' .post');
+                            } else {
+                                // Step6. Update the date on the server
+                                edcal.changeDate(jQuery(this).attr("id"), post);
+                            }
                         }
-            }
-        });
-        
+            });
+
         return jQuery('row' + edcal._wDate.toString("ddMMMyyyy"));
     },
 
@@ -334,17 +334,17 @@ var edcal = {
        from the cache map.
      */
     removePostFromMap: function(/*string*/ dayobjId, /*string*/ postId) {
-        if (edcal.posts[dayobjId]) {
-            for (var i = 0; i < edcal.posts[dayobjId].length; i++) {
-                if (edcal.posts[dayobjId][i] &&
-                    "post-" + edcal.posts[dayobjId][i].id === postId) {
-                    edcal.posts[dayobjId][i] = null;
-                    return true;
-                }
-            }
-        }
-
-        return false;
+         if (edcal.posts[dayobjId]) {
+             for (var i = 0; i < edcal.posts[dayobjId].length; i++) {
+                 if (edcal.posts[dayobjId][i] &&
+                     "post-" + edcal.posts[dayobjId][i].id === postId) {
+                     edcal.posts[dayobjId][i] = null;
+                     return true;
+                 }
+             }
+         }
+         
+         return false;
     },
     
     /*
