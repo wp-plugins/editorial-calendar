@@ -452,7 +452,7 @@ var edcal = {
                                        ' <a href="#" onclick="edcal.editTitle(); return false;" class="edit-post-status" id="edcal-title-edit">Edit</a>' + 
                                    '</h3>' + 
                                    '<div id="edcal-title-box">' + 
-                                       '<input type="text" value="' + post.title + '" id="edcal-title-edit-field"/>' + 
+                                       '<input type="text" value="' + post.title + '" id="edcal-title-edit-field"/> &nbsp;&nbsp;' + 
                                        '<span id="edit-slug-buttons">' + 
                                            '<a class="save button" href="#" onclick="edcal.saveTitle(\'' + post.id + '\'); return false;">Save</a> ' + 
                                            '<a href="#" onclick="edcal.cancelEditTitle(\'' + post.title + '\'); return false;" class="cancel">Cancel</a></span>' + 
