@@ -168,11 +168,16 @@ function edcal_filter_where($where = '') {
 /*
  * This function adds all of the JavaScript files we need.
  *
- * TODO: This list is way too long.  We need to minimize and
- * combine most of these files.  I'm still on the fence if we
- * should include these files inline.
  */
 function edcal_scripts(  ) {
+    wp_enqueue_script( "edcal-lib", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/edcallib.min.js"), array( 'jquery' ) );
+    return;
+    
+    /*
+     * If you're using one of the specific libraries you should comment out the two lines
+     * above this comment.
+     */
+    
     wp_enqueue_script( "ui-core", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/ui.core.js"), array( 'jquery' ) );
     wp_enqueue_script( "ui-draggable", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/ui.draggable.js"), array( 'jquery' ) );
     wp_enqueue_script( "ui-droppable", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/ui.droppable.js"), array( 'jquery' ) );

@@ -1,4 +1,4 @@
-This file lists all of the third-party JavaScript libraries we are using and where they came from.
+This file lists all of the third-party JavaScript libraries we are using and where they came from.  All of these files are compressed and combined into the edcallib.min.js file.
 
 date.js
 This is an open source JavaScript date library that we use to provide and manipulate dates for the calendar.
