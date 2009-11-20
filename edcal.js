@@ -13,6 +13,16 @@
  * limitations under the License.
  *
  ******************************************************************************/
+ 
+/**
+ * This is a helper function to output messages on the HTML page.  It
+ * write them out to a text area.
+ * 
+ * @param msg    the message to write
+ */
+function output(msg) {
+    //console.info(msg);
+}
 
  /*
   This is the WordPress editorial calendar.  It is a continuous
@@ -78,7 +88,7 @@ var edcal = {
     /*
      * The cache of dates we have already loaded posts for.
      */
-    cacheDates : new Array(),
+    cacheDates : [],
         
     /*
      * The ID of the timer we use to batch new post requests
@@ -399,7 +409,7 @@ var edcal = {
                 edcal.addPostItemDragAndToolltip(res.post.date);
             },
             error:  function(xhr) {
-                 edcal.showError("There was an error contacting your blog.")
+                 edcal.showError("There was an error contacting your blog.");
                  if (xhr.responseText) {
                      output("xhr.responseText: " + xhr.responseText);
                  }
@@ -617,16 +627,18 @@ var edcal = {
 
         edcal.currentDirection = direction;
         
+        var i;
+        
         
         if (direction) {
-            for (var i = 0; i < steps; i++) {
+            for (i = 0; i < steps; i++) {
                 jQuery("#cal > div:first").remove();
                 edcal.createRow(jQuery("#cal"), true);
                 edcal._wDate.add(7).days();
             }
             edcal.alignCal();
         } else {
-            for (var i = 0; i < steps; i++) {
+            for (i = 0; i < steps; i++) {
                 jQuery("#cal > div:last").remove();
                 edcal.createRow(jQuery("#cal"), false);
                 edcal._wDate.add(-7).days();
@@ -769,8 +781,6 @@ var edcal = {
         
         edcal.moveTo(Date.today());
         
-        var steps = 1;
-        
         /*
          * The scrollable handles some basic binding.  This gets us 
          * up arrow, down arrow and the mouse wheel. 
@@ -899,7 +909,7 @@ var edcal = {
                 }
             },
             error:  function(xhr) {
-                 showError("There was an error contacting your blog.")
+                 showError("There was an error contacting your blog.");
                  if (xhr.responseText) {
                      output("xhr.responseText: " + xhr.responseText);
                  }
@@ -957,7 +967,7 @@ var edcal = {
                  * one used by JQuery.
                  */
                 var parsedRes = JSON.parseIt(res);
-                var postDates = new Array();
+                var postDates = [];
                 jQuery.each(parsedRes, function(i, post) {
                     if (post) {
                         edcal.removePostItem(post.date, "post-" + post.id);
@@ -984,7 +994,7 @@ var edcal = {
                 }, 300);
              },
              error:  function(xhr) {
-                edcal.showError("There was an error contacting your blog.")
+                edcal.showError("There was an error contacting your blog.");
                 if (xhr.responseText) {
                     output("xhr.responseText: " + xhr.responseText);
                 }
@@ -997,26 +1007,16 @@ jQuery(document).ready(function(){
     edcal.init();
 });
 
-/**
- * This is a helper function to output messages on the HTML page.  It
- * write them out to a text area.
- * 
- * @param msg    the message to write
- */
-function output(msg) {
-    //console.info(msg);
-}
-
 /*
  * This code is from the JQuery URL Encode plugin (http://plugins.jquery.com/project/URLEncode);
  */
 jQuery.extend({URLEncode:function(c){var o='';var x=0;c=c.toString();var r=/(^[a-zA-Z0-9_.]*)/;
   while(x<c.length){var m=r.exec(c.substr(x));
-    if(m!=null && m.length>1 && m[1]!=''){o+=m[1];x+=m[1].length;
-    }else{if(c[x]==' ')o+='+';else{var d=c.charCodeAt(x);var h=d.toString(16);
+    if(m!==null && m.length>1 && m[1]!=''){o+=m[1];x+=m[1].length;
+    }else{if(c[x]===' '){o+='+';}else{var d=c.charCodeAt(x);var h=d.toString(16);
     o+='%'+(h.length<2?'0':'')+h.toUpperCase();}x++;}}return o;},
 URLDecode:function(s){var o=s;var binVal,t;var r=/(%[^%]{2})/;
-  while((m=r.exec(o))!=null && m.length>1 && m[1]!=''){b=parseInt(m[1].substr(1),16);
+  while((m=r.exec(o))!==null && m.length>1 && m[1]!==''){b=parseInt(m[1].substr(1),16);
   t=String.fromCharCode(b);o=o.replace(m[1],t);}return o;}
 });
 
