@@ -219,7 +219,9 @@ function edcal_posts() {
   ?>[
   <?php
   foreach($myposts as $post) {
-      edcal_postJSON($post);
+      if (!is_sticky($id)) {
+          edcal_postJSON($post);
+      }
   }
 
   ?> ]
@@ -384,9 +386,23 @@ function edcal_changedate() {
    * the date in the local time zone, the modified date in GMT and the
    * modified date in the local time zone.  We update all of them.
    */
+  $post['post_date_gmt'] = $post['post_date'];
+
+  /*
+   * When a user creates a draft and never sets a date or publishes it 
+   * then the GMT date will have a timestamp of 00:00:00 to indicate 
+   * that the date hasn't been set.  In that case we need to specify
+   * an edit date or the wp_update_post function will strip our new
+   * date out and leave the post as publish immediately.
+   */
+  $needsEditDate = strpos($post['post_date_gmt'], "00:00:00") === 0;
+
   $updated_post = array();
   $updated_post['ID'] = $edcal_postid;
   $updated_post['post_date'] = $edcal_newDate . substr($post['post_date'], strlen($edcal_newDate));
+  if ($needsEditDate != -1) {
+      $updated_post['edit_date'] = $edcal_newDate . substr($post['post_date'], strlen($edcal_newDate));
+  }
   $updated_post['post_date_gmt'] = $edcal_newDate . substr($post['post_date_gmt'], strlen($edcal_newDate));
   $updated_post['post_modified'] = $edcal_newDate . substr($post['post_modified'], strlen($edcal_newDate));
   $updated_post['post_modified_gmt'] = $edcal_newDate . substr($post['post_modified_gmt'], strlen($edcal_newDate));
