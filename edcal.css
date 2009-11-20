@@ -115,14 +115,14 @@
     position: absolute;
     left: 10px;
     top: -14px;
-    width: 50%;
+    width: auto;
 }
 
 #topright {
     position: absolute;
-    left: 75%;
+    right: 2em;
     top: 0px;
-    width: 25%;
+    width: auto;
     text-align: right;
 }
 
