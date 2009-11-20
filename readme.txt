@@ -19,7 +19,23 @@ The editorial calendar lets WordPress administrators and editors manage the date
 1. Activate the plugin through the 'Plugins' menu in WordPress.
 1. Click the new 'Calendar' option under the 'Posts' menu.
 
+== Frequently Asked Questions ==
 
+= Can I use the editorial calendar with pages? =
+
+Right now the calendar only supports posts.  We are considering adding support for pages.  If you would like to see support for pages let us know.
+
+= Does the editorial calendar change the way my posts look? =
+
+No.  The calendar is only an administration tool.  It won't change the way your blog looks.
+
+= Why are my posts different colors? =
+
+The different color of each post indicates the status.  Gray is <code>draft</code>, blue is <code>publish</code>, and yellow is <code>future</code>.
+
+= Why does the calendar change my post status? =
+
+The calendar works with three types of post status: <code>draft</code>, <code>publish</code>, and <code>future</code>.  If you move a <code>publish</code> post to a date after the current day it becomes a <code>future</code> post.  If you drag a <code>future</code> post to a day before the current day it becomes a <code>draft</code> post.
 
 == Screenshots ==
 
