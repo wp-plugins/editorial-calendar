@@ -15,6 +15,7 @@ The editorial calendar lets WordPress administrators and editors manage the date
 
 == Installation ==
 
+1. <b>Backup your WordPress database</b>.
 1. Upload the plugin directory <code>editorial-calendar</code> to the <code>wp-content/plugins</code> directory.
 1. Activate the plugin through the 'Plugins' menu in WordPress.
 1. Click the new 'Calendar' option under the 'Posts' menu.
@@ -39,7 +40,9 @@ The calendar works with three types of post status: <code>draft</code>, <code>pu
 
 == Screenshots ==
 
-1. We'll get some screen shots soon
+1. See all of your posts and when they'll be posted.
+2. Get more information and edit post titles right in the calendar.
+3. Drag and drop posts to easily change dates and arrange your calendar.
 
 == Changelog ==
 
