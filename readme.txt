@@ -27,7 +27,7 @@ Right now the calendar only supports posts.  We are considering adding support f
 
 = Does the editorial calendar change the way my posts look? =
 
-No.  The calendar is only an administration tool.  It won't change the way your blog looks.
+No.  The calendar is only an administration tool.  None of your readers will know you are running the calendar unless you tell them.
 
 = Why are my posts different colors? =
 
@@ -45,5 +45,8 @@ The calendar works with three types of post status: <code>draft</code>, <code>pu
 
 = 0.1 =
 * This version is just for beta testers
+
+= 0.2 =
+* This version fixes a large number of bugs, makes many usability improvements, and has some significant performance increases.
 
 `<?php code(); // goes in backticks ?>`
