@@ -239,6 +239,7 @@ function edcal_postJSON($post) {
     ?>
         {
             "date" : "<?php the_time('d') ?><?php the_time('M') ?><?php the_time('Y') ?>", 
+            "time" : "<?php the_time() ?>", 
             "url" : "<?php the_permalink(); ?>", 
             "status" : "<?php echo(get_post_status()); ?>",
             "title" : "<?php the_title(); ?>",

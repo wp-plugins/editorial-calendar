@@ -469,7 +469,8 @@ var edcal = {
                                        '</div>' + 
                                    '<p>' + 
                                        '<i>by</i> ' + post.author + ' <i>on</i> ' + 
-                                       edcal.getDayFromDayId(post.date).toString("MMMM d, yyyy") +
+                                       edcal.getDayFromDayId(post.date).toString("MMMM d, yyyy") + ' at ' +
+                                       post.time + 
                                    '</p>' + 
                                    '<p>' + 
                                        'Status<b>: ' + post.status + '</b>' +
