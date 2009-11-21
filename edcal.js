@@ -862,6 +862,11 @@ var edcal = {
               * If the status of the post was a draft we leave it as a draft
               */
              postStatus = "draft";
+         } else if (post.status === "pending") {
+             /*
+              * If the status of the post was a pending we leave it as a draft
+              */
+             postStatus = "pending";
          } else {
              /*
                 If the post status was published or future we need to adjust

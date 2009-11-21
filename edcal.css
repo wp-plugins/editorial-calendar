@@ -135,7 +135,7 @@
     background-color: #FFFFE0;
 }
 
-.draft {
+.draft, .pending {
     background-color: #cccccc;
     
 }
