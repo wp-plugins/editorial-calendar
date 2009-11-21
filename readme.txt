@@ -40,7 +40,7 @@ The calendar works with three types of post status: <code>draft</code>, <code>pu
 
 == Screenshots ==
 
-1. See all of your posts and when they'll be posted.
+1. See all of your posts and when they'll be published.
 2. Get more information and edit post titles right in the calendar.
 3. Drag and drop posts to easily change dates and arrange your calendar.
 
