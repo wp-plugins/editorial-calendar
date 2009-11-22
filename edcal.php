@@ -220,7 +220,14 @@ function edcal_posts() {
   ?>[
   <?php
   foreach($myposts as $post) {
-      if (!is_sticky($id)) {
+      /*
+       * Sticky posts are ones that stick to the front page.
+       * They do technically have a date, but it doesn't 
+       * really make sense to drag and drop them around since
+       * the user has already indicated that they want them
+       * to stay on the front page.
+       */
+      if (!is_sticky($post->ID)) {
           edcal_postJSON($post);
       }
   }
