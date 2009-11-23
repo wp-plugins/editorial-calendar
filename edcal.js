@@ -223,8 +223,9 @@ var edcal = {
                       _date.toString("MMM").toLowerCase() + '">';
             
             newrow += '<div class="dayobj">';
-            
+
             newrow += '<div class="daylabel">';
+            newrow += '<a href="#" class="daynewlink" onclick="return false;">Add New</a> ';
             if (_date.toString("dd") == "01") {
                 newrow += _date.toString("MMM d");
             } else {
@@ -456,9 +457,16 @@ var edcal = {
              delay: 1500, 
              bodyHandler: function() {
                  var post = edcal.findPostForId(dayobjId, jQuery(this).attr("id"));
+
+                 var posttitle = post.title;
+
+                 if (posttitle === "") {
+                     posttitle = "[No Title]";
+                 }
+
                  var tooltip = '<div class="tooltip">' + 
                                '<a href="#" id="tipclose" onclick="edcal.closeTooltip(); return false;" title="close"> </a>' + 
-                                   '<h3 id="edcal-title">' + post.title + 
+                                   '<h3 id="edcal-title">' + posttitle + 
                                        ' <a href="#" onclick="edcal.editTitle(); return false;" class="edit-post-status" id="edcal-title-edit">Edit</a>' + 
                                    '</h3>' + 
                                    '<div id="edcal-title-box">' + 
@@ -568,7 +576,12 @@ var edcal = {
      * Gets the HTML string for a post.
      */
     getPostItemString: function(/*post*/ post) {
-         return '<li id="post-' + post.id + '" class="post ' + post.status + '">' + post.title + '</li>';
+         var posttitle = post.title;
+
+         if (posttitle === "") {
+             posttitle = "[No Title]";
+         }
+         return '<li id="post-' + post.id + '" class="post ' + post.status + '">' + posttitle + '</li>';
     },
     
     /*
@@ -847,6 +860,53 @@ var edcal = {
             }
         }
         jQuery(window).bind("resize", resizeWindow);
+
+        jQuery(".day").live("mouseover", function(evt) {
+            jQuery("#" + jQuery(this).attr("id") + " .daynewlink").show();
+        });
+
+        jQuery(".day").live("mouseout", function(evt) {
+            jQuery("#" + jQuery(this).attr("id") + " .daynewlink").hide();
+        });
+
+        jQuery(".daynewlink").live("click", function(evt) {
+            output("clicked on : " + jQuery(this).parent().parent().parent().attr("id"));
+            edcal.createEmptyDraft(jQuery(this).parent().parent().parent().attr("id"));
+        });
+    },
+
+    /*
+     * This function responds to the new post link on each calendar day.
+     * The function is kind of funny.  What I would really like to do is
+     * redirect the user to the edit page with a parameter on the URL to
+     * set a default post date, but WordPress doesn't support that.  Instead
+     * I create a new empty draft post on that day and take them to edit
+     * that post.
+     */
+    createEmptyDraft: function(/*string*/ date) {
+         /*
+          * We don't really let them set a time in the calendar, so we 
+          * put a default post time of 10:00 AM.
+          */
+         var formattedDate = jQuery.URLEncode(edcal.getDayFromDayId(date).toString("yyyy-MM-dd") + " 10:00:00");
+         var url = edcal.ajax_url + "?action=edcal_newdraft&date=" + formattedDate;
+
+         jQuery.ajax( { 
+            url: url,
+            type: "POST",
+            processData: false,
+            timeout: 100000,
+            dataType: "json",
+            success: function(res) {
+                window.location = res.editlink.replace("&amp;", "&");
+            },
+            error:  function(xhr) {
+                 edcal.showError("There was an error contacting your blog.");
+                 if (xhr.responseText) {
+                     output("xhr.responseText: " + xhr.responseText);
+                 }
+            }
+        });
     },
     
     /*
@@ -854,7 +914,7 @@ var edcal = {
        the specified post on the server.
      */
     changeDate: function(/*string*/ newdate, /*Post*/ post) {
-         newdate = edcal.getDayFromDayId(newdate).toString("yyyy-MM-dd");
+         var newdateFormatted = edcal.getDayFromDayId(newdate).toString("yyyy-MM-dd");
 
          var postStatus = "";
 
@@ -876,7 +936,7 @@ var edcal = {
                 was scheduled to get published in the future and they drag
                 it into the past we change the status to publish.
               */
-             var compare = Date.parse(newdate).compareTo(Date.today());
+             var compare = Date.parse(newdateFormatted).compareTo(Date.today());
              if (compare === -1) {
                  if (post.status === "publish") {
                      postStatus = "publish";
@@ -891,7 +951,7 @@ var edcal = {
 
          var url = edcal.ajax_url + "?action=edcal_changedate&postid=" + post.id + 
              "&postStatus=" + postStatus + 
-             "&newdate=" + newdate + "&olddate=" + edcal.getDayFromDayId(post.date).toString("yyyy-MM-dd");
+             "&newdate=" + newdateFormatted + "&olddate=" + edcal.getDayFromDayId(post.date).toString("yyyy-MM-dd");
 
          jQuery("#post-" + post.id).addClass("loadingclass");
 
@@ -907,6 +967,11 @@ var edcal = {
                 edcal.addPostItemDragAndToolltip(res.post.date);
 
                 if (res.error) {
+                    /*
+                     * If there was an error we need to remove the dropped
+                     * post item.
+                     */
+                    edcal.removePostItem(newdate, "post-" + res.post.id);
                     if (res.error === edcal.CONCURRENCY_ERROR) {
                         edcal.showError("Someone else already moved " + res.post.title);
                     } else if (res.error === edcal.PERMISSION_ERROR) {
@@ -915,7 +980,7 @@ var edcal = {
                 }
             },
             error:  function(xhr) {
-                 showError("There was an error contacting your blog.");
+                 edcal.showError("There was an error contacting your blog.");
                  if (xhr.responseText) {
                      output("xhr.responseText: " + xhr.responseText);
                  }

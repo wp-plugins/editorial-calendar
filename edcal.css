@@ -224,3 +224,7 @@
 #edcal-title-edit {
     font-size: 11px;
 }
+
+.daynewlink {
+    display: none;
+}

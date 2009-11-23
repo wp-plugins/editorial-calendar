@@ -24,6 +24,7 @@ Author URI: http://www.zackgrossbart.com
 */
 
 add_action('wp_ajax_edcal_changedate', 'edcal_changedate' );
+add_action('wp_ajax_edcal_newdraft', 'edcal_newdraft' );
 add_action('wp_ajax_edcal_changetitle', 'edcal_changetitle' );
 add_action('admin_menu', 'edcal_list_add_management_page');
 add_action('wp_ajax_edcal_posts', 'edcal_posts' );
@@ -300,6 +301,47 @@ function edcal_changetitle() {
   <?php
            edcal_postJSON($post);
       ?>
+        }
+  <?php
+  
+
+  die;
+}
+
+/*
+ * This is a helper function to create a new blank draft
+ * post on a specified date.
+ */
+function edcal_newdraft() {
+  header("Content-Type: application/json");
+  $edcal_date = isset($_GET['date'])?$_GET['date']:null;
+  
+  $my_post = array();
+  $my_post['post_title'] = ' ';
+  $my_post['post_status'] = 'draft';
+  
+  $my_post['post_date'] = $edcal_date;
+  $my_post['post_date_gmt'] = $edcal_date;
+  $my_post['post_modified'] = $edcal_date;
+  $my_post['post_modified_gmt'] = $edcal_date;
+
+
+  // Insert the post into the database
+  $my_post_id = wp_insert_post( $my_post );
+
+  
+  /*
+   * We finish by returning the latest data for the post in the JSON
+   */
+  global $post;
+  $args = array(
+    'posts_id' => $edcal_postid,
+	);
+
+  $post = get_post($edcal_postid);
+      ?>{
+        "newpostid" : "<?php echo($my_post_id); ?>",
+        "editlink" : "<?php echo(get_edit_post_link($my_post_id)); ?>",
         }
   <?php
   
