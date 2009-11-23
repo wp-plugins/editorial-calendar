@@ -404,7 +404,7 @@ function edcal_changedate() {
    * an edit date or the wp_update_post function will strip our new
    * date out and leave the post as publish immediately.
    */
-  $needsEditDate = strpos($post['post_date_gmt'], "00:00:00") === 0;
+  $needsEditDate = strpos($post['post_date_gmt'], "0000-00-00 00:00:00") === 0;
 
   $updated_post = array();
   $updated_post['ID'] = $edcal_postid;
