@@ -898,7 +898,11 @@ var edcal = {
             timeout: 100000,
             dataType: "json",
             success: function(res) {
-                window.location = res.editlink.replace("&amp;", "&");
+                if (res.editlink) {
+                    window.location = res.editlink.replace("&amp;", "&");
+                } else {
+                    edcal.showError("There was an error creating a new post for your blog.");
+                }
             },
             error:  function(xhr) {
                  edcal.showError("There was an error contacting your blog.");
