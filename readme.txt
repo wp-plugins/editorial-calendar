@@ -3,15 +3,15 @@ Contributors: MaryVogt, zgrossbart
 Tags: posts, post, calendar, AJAX, admin, administration
 Requires at least: 2.8.5
 Tested up to: 2.8.6
-Stable tag: 0.2
+Stable tag: 0.3
 
-THIS PLUGIN IS NOT READY FOR DOWNLOAD. Editorial calendar lets you see all your posts and drag and drop them to change the date.
+Editorial calendar makes it possible to see all your posts and drag and drop them to manage your blog.
 
 == Description ==
 
-*THIS PLUGIN IS NOT READY FOR DOWNLOAD. DO NOT RUN IT OUTSIDE OF A TEST ENVIRONMENT.*
-
 The editorial calendar lets WordPress administrators and editors manage the dates for multiple posts at once.  You see all of your posts in a calendar view and can arrange them via an easy drag and drop interface.  The editorial calendar greatly improves any blog that plans posts in advance or takes contributions from multiple users.
+
+This is the beta version and the first one ready for public use.  Please help us make this plugin better by giving us <a href="mailto:zack@grossbart.com">feedback</a>.  
 
 == Installation ==
 
@@ -46,10 +46,14 @@ The calendar works with three types of post status: <code>draft</code>, <code>pu
 
 == Changelog ==
 
-= 0.1 =
-* This version is just for beta testers
+= 0.3 =
+* Additional bug fixes and stabalizations as well as the ability to add new posts to a given date from the calendar.
 
 = 0.2 =
 * This version fixes a large number of bugs, makes many usability improvements, and has some significant performance increases.
+
+= 0.1 =
+* This version is just for beta testers
+
 
 `<?php code(); // goes in backticks ?>`
