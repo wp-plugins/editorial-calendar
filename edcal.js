@@ -871,7 +871,6 @@ var edcal = {
         });
 
         jQuery(".daynewlink").live("click", function(evt) {
-            output("clicked on : " + jQuery(this).parent().parent().parent().attr("id"));
             edcal.createEmptyDraft(jQuery(this).parent().parent().parent().attr("id"));
         });
     },

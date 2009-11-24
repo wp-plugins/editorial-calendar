@@ -67,6 +67,7 @@
     position: absolute;
     top: 0px;
     right: 5px;
+    font-size: 1.25em;
 }
 
 .post {
@@ -231,5 +232,4 @@
     padding-right: 0.5em;
     text-decoration: none;
     font-weight: bold;
-    font-size: 1.25em;
 }
