@@ -225,7 +225,8 @@ var edcal = {
             newrow += '<div class="dayobj">';
 
             newrow += '<div class="daylabel">';
-            newrow += '<a href="#" class="daynewlink" onclick="return false;">Add New</a> ';
+            newrow += '<a href="#" class="daynewlink" title="Add new post on ' + _date.toString("MMMM d") + '" ' + 
+                         'onclick="return false;">+</a>';
             if (_date.toString("dd") == "01") {
                 newrow += _date.toString("MMM d");
             } else {
