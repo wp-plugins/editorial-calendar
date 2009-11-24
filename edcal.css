@@ -233,3 +233,7 @@
     text-decoration: none;
     font-weight: bold;
 }
+
+#nextmonth, #prevmonth {
+    padding: 0.5em;
+}
