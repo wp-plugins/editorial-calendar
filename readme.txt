@@ -45,6 +45,10 @@ The different color of each post indicates the status.  Gray is <code>draft</cod
 
 The calendar works with three types of post status: <code>draft</code>, <code>publish</code>, and <code>future</code>.  If you move a <code>publish</code> post to a date after the current day it becomes a <code>future</code> post.  If you drag a <code>future</code> post to a day before the current day it becomes a <code>draft</code> post.
 
+= Why do I have posts names [No Title]? =
+
+If you add a new post from the calendar it will get inserted as a draft.  If you then cancel or just go backwards in your browser you'll be left with an empty post.  They don't cause any problems.  I would like to make this work better, but I'm waiting for a fix in a future version of WordPress.
+
 == Screenshots ==
 
 1. See all of your posts and when they'll be published.
