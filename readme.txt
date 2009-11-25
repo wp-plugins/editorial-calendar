@@ -13,6 +13,13 @@ The editorial calendar lets WordPress administrators and editors manage the date
 
 This is the beta version and the first one ready for public use.  Please help us make this plugin better by giving us <a href="mailto:zack@grossbart.com">feedback</a>.  
 
+Features:
+
+1. See all of your posts and when they'll be posted.
+1. Drag and drop to change your post dates.
+1. Edit and arrange post titles.
+1. Easily see the status of your posts.
+
 == Installation ==
 
 1. <b>Backup your WordPress database</b>.
