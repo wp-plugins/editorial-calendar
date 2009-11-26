@@ -15,225 +15,225 @@
  ******************************************************************************/
 
  #edcal_scrollable {
-	width: 98%;
-	/* required settings */ 
-	position:relative; 
-	overflow:hidden; 
+    width: 98%;
+    /* required settings */ 
+    position:relative; 
+    overflow:hidden; 
  
-	/* This height will be reset with JavaScript */ 
-	height: 100%;
+    /* This height will be reset with JavaScript */ 
+    height: 100%;
 }
 
 #cal {
-	position:absolute; 
+    position:absolute; 
  
-	/* this time we have very large space for the height */ 
-	height:100%; 
-	margin-right: 10px;
+    /* this time we have very large space for the height */ 
+    height:100%; 
+    margin-right: 10px;
 }
 
 .day {
-	/*background-color: #F2F2F2;*/
-	background-color: #e0e0e0;;
+    /*background-color: #F2F2F2;*/
+    background-color: #e0e0e0;;
 }
 
 .scrollHover {
-	background: lightblue;
+    background: lightblue;
 }
 
 .row {
-	height: 100%;
+    height: 100%;
 }
 
 .jan, .mar, .may, .jul, .sep, .nov {
-	background-color: #F1F1F1;
+    background-color: #F1F1F1;
 }
 
 .today {
-	background-color: wheat;
+    background-color: wheat;
 }
 
 .today .daylabel {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .dayobj {
-	position: relative;
-	width: 100%;
-	height: 100%;
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 .daylabel {
-	position: absolute;
-	top: 0px;
-	right: 5px;
-	font-size: 1.25em;
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    font-size: 1.25em;
 }
 
 .post {
-	display: block;
-	list-style-type: none;
-	background: #FFFFE0;
-	z-index: 10;
-	cursor: move;
-	-moz-border-radius:6px;
-	-webkit-border-radius:6px;
-	margin-left: 2px;
-	margin-right: 2px;
-	padding: 5px;
+    display: block;
+    list-style-type: none;
+    background: #FFFFE0;
+    z-index: 10;
+    cursor: move;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding: 5px;
 }
 
 .post:hover {
-	color: white;
-	background: black;
+    color: white;
+    background: black;
 }
 
 .day-active {
-	background-color: lightyellow;
+    background-color: lightyellow;
 }
 
 .dayhead {
-	font-weight: bold;
-	text-align: center;
-	color: gray;
+    font-weight: bold;
+    text-align: center;
+    color: gray;
 }
 
 #rowhead {
-	height: 1.5em;
-	top: 0px;
-	width: 98%
+    height: 1.5em;
+    top: 0px;
+    width: 98%
 }
 
 #topbar {
-	margin-bottom: 1em;
-	width: 98%;
-	margin-top: 1em;
-	position: relative;
-	height: 2em;
+    margin-bottom: 1em;
+    width: 98%;
+    margin-top: 1em;
+    position: relative;
+    height: 2em;
 }
 
 #topleft {
-	position: absolute;
-	left: 10px;
-	top: -14px;
-	width: auto;
+    position: absolute;
+    left: 10px;
+    top: -14px;
+    width: auto;
 }
 
 #topright {
-	position: absolute;
-	right: 2em;
-	top: 0px;
-	width: auto;
-	text-align: right;
+    position: absolute;
+    right: 2em;
+    top: 0px;
+    width: auto;
+    text-align: right;
 }
 
 #moveToToday {
-	margin-left: 2em;
-	text-decoration: none;
+    margin-left: 2em;
+    text-decoration: none;
 }
 
 .future {
-	background-color: #FFFFE0;
+    background-color: #FFFFE0;
 }
 
 .draft, .pending {
-	background-color: #cccccc;
-	
+    background-color: #cccccc;
+    
 }
 
 .publish {
-	background-color: #dde4fb;
+    background-color: #dde4fb;
 }
 
 #loadingcont {
-	position: relative;
+    position: relative;
 }
 
 #loading {
-	background-image: url('images/loading.gif'); 
-	background-repeat: no-repeat;
-	position: absolute;
-	width: 43px;
-	height: 11px;
-	display: block;
-	left: 20em;
-	top: -1.5em;
+    background-image: url('images/loading.gif'); 
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 43px;
+    height: 11px;
+    display: block;
+    left: 20em;
+    top: -1.5em;
 }
 
 .loadingclass, .loadingclass:hover {
-	background-image: url('images/loading_post.gif'); 
-	background-position: top right;
-	background-repeat: no-repeat;
-	cursor: auto;
+    background-image: url('images/loading_post.gif'); 
+    background-position: top right;
+    background-repeat: no-repeat;
+    cursor: auto;
 }
 
 .postlist {
-	position: relative;
-	top: 1.5em;
-	height: 85%;
-	overflow: auto;
+    position: relative;
+    top: 1.5em;
+    height: 85%;
+    overflow: auto;
 }
 
 .page-numbers {
-	text-decoration: none;
-	border: none;
-	border-bottom-style: none;
+    text-decoration: none;
+    border: none;
+    border-bottom-style: none;
 }
 
 #tooltip p {
-	margin-left: 1.5em;
+    margin-left: 1.5em;
 }
 
 #tooltip h3 {
-	max-width: 20em;
-	margin-bottom: -10px;
-	padding-right: 15px;
+    max-width: 20em;
+    margin-bottom: -10px;
+    padding-right: 15px;
 }
 
 #tooltip {
-	background: white;
-	opacity: 1;
-	padding: 1em;
-	padding-bottom: 0em;
-	border: thin solid lightgray;
-	-moz-border-radius:11px;
-	-webkit-border-radius:11px;
-	-moz-box-shadow:0 4px 18px #C8C8C8;
+    background: white;
+    opacity: 1;
+    padding: 1em;
+    padding-bottom: 0em;
+    border: thin solid lightgray;
+    -moz-border-radius:11px;
+    -webkit-border-radius:11px;
+    -moz-box-shadow:0 4px 18px #C8C8C8;
 }
 
 .ui-draggable-dragging {
-	width: 8em;
+    width: 8em;
 }
 
 #tipclose {
-	width: 24px;
-	height: 23px;
-	position: absolute;
-	top: 0px;
-	right: -10px;
+    width: 24px;
+    height: 23px;
+    position: absolute;
+    top: 0px;
+    right: -10px;
 }
 
 .tooltip {
-	position: relative;
+    position: relative;
 }
 
 #edcal-title-box {
-	display: none;
-	padding-right: 15px;
+    display: none;
+    padding-right: 15px;
 }
 
 #edcal-title-edit {
-	font-size: 11px;
+    font-size: 11px;
 }
 
 .daynewlink {
-	display: none;
-	padding-left: 0.5em;
-	padding-right: 0.5em;
-	text-decoration: none;
-	font-weight: bold;
+    display: none;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 #nextmonth, #prevmonth {
-	padding: 0.5em;
+    padding: 0.5em;
 }
