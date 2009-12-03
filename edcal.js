@@ -807,8 +807,8 @@ var edcal = {
              * the direction is an int instead of a boolean.  I don't
              * know why, but this works around it.
              */
-            if (direction == 1) {
-                direction = false;
+            if (direction === 1) {
+                direction == false;
             } else if (direction == 3) {
                 direction = true;
             }

@@ -176,8 +176,8 @@ function edcal_filter_where($where = '') {
  *
  */
 function edcal_scripts() {
-    wp_enqueue_script( "edcal-lib", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/edcallib.min.js"), array( 'jquery' ) );
-    return;
+    //wp_enqueue_script( "edcal-lib", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/edcallib.min.js"), array( 'jquery' ) );
+    //return;
     
     /*
      * If you're using one of the specific libraries you should comment out the two lines
