@@ -331,9 +331,9 @@ function edcal_newdraft() {
     $my_post['post_status'] = 'draft';
     
     $my_post['post_date'] = $edcal_date;
-    $my_post['post_date_gmt'] = $edcal_date;
+    $my_post['post_date_gmt'] = get_gmt_from_date($edcal_date);
     $my_post['post_modified'] = $edcal_date;
-    $my_post['post_modified_gmt'] = $edcal_date;
+    $my_post['post_modified_gmt'] = get_gmt_from_date($edcal_date);
     
     // Insert the post into the database
     $my_post_id = wp_insert_post( $my_post );
@@ -458,9 +458,13 @@ function edcal_changedate() {
     if ($needsEditDate != -1) {
         $updated_post['edit_date'] = $edcal_newDate . substr($post['post_date'], strlen($edcal_newDate));
     }
-    $updated_post['post_date_gmt'] = $edcal_newDate . substr($post['post_date_gmt'], strlen($edcal_newDate));
+    
+    /*
+     * We need to make sure to use the GMT formatting for the date.
+     */
+    $updated_post['post_date_gmt'] = get_gmt_from_date($updated_post['post_date']);
     $updated_post['post_modified'] = $edcal_newDate . substr($post['post_modified'], strlen($edcal_newDate));
-    $updated_post['post_modified_gmt'] = $edcal_newDate . substr($post['post_modified_gmt'], strlen($edcal_newDate));
+    $updated_post['post_modified_gmt'] = get_gmt_from_date($updated_post['post_date']);
     
     if ( $edcal_postStatus != $post['post_status'] ) {
         /*
