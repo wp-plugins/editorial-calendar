@@ -808,8 +808,8 @@ var edcal = {
              * know why, but this works around it.
              */
             if (direction === 1) {
-                direction == false;
-            } else if (direction == 3) {
+                direction = false;
+            } else if (direction === 3) {
                 direction = true;
             }
             
