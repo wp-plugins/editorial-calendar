@@ -29,6 +29,10 @@ Features:
 
 == Frequently Asked Questions ==
 
+= Can I see a demo of the calendar? =
+
+Check out our demo installation at <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/">http://www.zackgrossbart.com/extras/sandbox/wp-admin</a>.
+
 = Can I use the editorial calendar with pages? =
 
 Right now the calendar only supports posts.  We are considering adding support for pages.  If you would like to see support for pages let us know.
@@ -56,6 +60,9 @@ If you add a new post from the calendar it will get inserted as a draft.  If you
 3. Drag and drop posts to easily change dates and arrange your calendar.
 
 == Changelog ==
+
+= 0.4 =
+* We are now doing a better job arranging our tooltips and setting GMT dates correctly.
 
 = 0.3 =
 * Additional bug fixes and stabalizations as well as the ability to add new posts to a given date from the calendar.
