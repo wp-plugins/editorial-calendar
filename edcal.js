@@ -802,6 +802,17 @@ var edcal = {
          */
         api.onBeforeSeek(function(evt, direction) { 
                          // inside callbacks the "this" variable is a reference to the API 
+            /*
+             * Some times for reasons I haven't been able to figure out
+             * the direction is an int instead of a boolean.  I don't
+             * know why, but this works around it.
+             */
+            if (direction == 1) {
+                direction = false;
+            } else if (direction == 3) {
+                direction = true;
+            }
+            
             if (!edcal.isMoving) {
                 edcal.move(1, direction);
             }
