@@ -31,6 +31,21 @@ add_action('wp_ajax_edcal_posts', 'edcal_posts' );
 add_action("admin_print_scripts", 'edcal_scripts');
 
 /*
+ * This error code matches CONCURRENCY_ERROR from edcal.js
+ */
+$EDCAL_CONCURRENCY_ERROR = "4";
+
+/*
+ * This error code matches NONCE_ERROR from edcal.js
+ */
+$EDCAL_PERMISSION_ERROR = "5";
+
+/*
+ * This error code matches NONCE_ERROR from edcal.js
+ */
+$EDCAL_NONCE_ERROR = "6";
+
+/*
  * This function adds our calendar page to the admin UI
  */
 function edcal_list_add_management_page(  ) {
@@ -207,18 +222,7 @@ function edcal_scripts() {
  */
 function edcal_posts() {
     header("Content-Type: application/json");
-    if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'edit-calendar')) {
-       /*
-         * This is just a sanity check to make sure
-         * this isn't a CSRF attack.  Most of the time this
-         * will never be run because you can't see the calendar unless
-         * you are at least an editor
-         */
-        ?>
-        {
-            "error": 6,
-        }
-        <?php
+    if (!edcal_checknonce()) {
         die();
     }
 
@@ -295,31 +299,7 @@ function edcal_postJSON($post) {
  * post title in a calendar.
  */
 function edcal_changetitle() {
-    if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'edit-calendar')) {
-       /*
-         * This is just a sanity check to make sure
-         * this isn't a CSRF attack.  Most of the time this
-         * will never be run because you can't see the calendar unless
-         * you are at least an editor
-         */
-        ?>
-        {
-            "error": 6,
-        <?php
-
-        global $post;
-        $args = array(
-            'posts_id' => $edcal_postid,
-        );
-
-        $post = get_post($edcal_postid);
-        ?>
-            "post" :
-        <?php
-            edcal_postJSON($post);
-        ?> }
-
-        <?php
+    if (!edcal_checknonce()) {
         die();
     }
 
@@ -366,31 +346,7 @@ function edcal_changetitle() {
  * post on a specified date.
  */
 function edcal_newdraft() {
-    if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'edit-calendar')) {
-       /*
-         * This is just a sanity check to make sure
-         * this isn't a CSRF attack.  Most of the time this
-         * will never be run because you can't see the calendar unless
-         * you are at least an editor
-         */
-        ?>
-        {
-            "error": 6,
-        <?php
-
-        global $post;
-        $args = array(
-            'posts_id' => $edcal_postid,
-        );
-
-        $post = get_post($edcal_postid);
-        ?>
-            "post" :
-        <?php
-            edcal_postJSON($post);
-        ?> }
-
-        <?php
+    if (!edcal_checknonce()) {
         die();
     }
 
@@ -430,14 +386,13 @@ function edcal_newdraft() {
 }
 
 /*
- * This function changes the date on a post.  It does optimistic 
- * concurrency checking by comparing the original post date from
- * the browser with the one from the database.  If they don't match
- * then it returns an error code and the updated post data.
- *
- * If the call is successful then it returns the updated post data.
+ * This function checks the nonce for the URL.  It returns
+ * true if the nonce checks out and outputs a JSON error
+ * and returns false otherwise.
  */
-function edcal_changedate() {
+function edcal_checknonce() {
+    header("Content-Type: application/json");
+    global $EDCAL_NONCE_ERROR;
     if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'edit-calendar')) {
        /*
          * This is just a sanity check to make sure
@@ -447,26 +402,35 @@ function edcal_changedate() {
          */
         ?>
         {
-            "error": 6,
+            "error": <?php echo($EDCAL_NONCE_ERROR); ?>
+        }
         <?php
+        return false;
+    }
+    return true;
+}
 
-        global $post;
-        $args = array(
-            'posts_id' => $edcal_postid,
-        );
-
-        $post = get_post($edcal_postid);
-        ?>
-            "post" :
-        <?php
-            edcal_postJSON($post);
-        ?> }
-
-        <?php
+/*
+ * This function changes the date on a post.  It does optimistic 
+ * concurrency checking by comparing the original post date from
+ * the browser with the one from the database.  If they don't match
+ * then it returns an error code and the updated post data.
+ *
+ * If the call is successful then it returns the updated post data.
+ */
+function edcal_changedate() {
+    if (!edcal_checknonce()) {
         die();
     }
+    header("Content-Type: application/json");
+    global $edcal_startDate, $edcal_endDate;
+    $edcal_postid = isset($_GET['postid'])?$_GET['postid']:null;
+    $edcal_newDate = isset($_GET['newdate'])?$_GET['newdate']:null;
+    $edcal_oldDate = isset($_GET['olddate'])?$_GET['olddate']:null;
+    $edcal_postStatus = isset($_GET['postStatus'])?$_GET['postStatus']:null;
 
     if (!current_user_can('edit_others_posts')) {
+        global $EDCAL_PERMISSION_ERROR;
         /*
          * This is just a sanity check to make sure that the current
          * user has permission to edit posts.  Most of the time this
@@ -475,7 +439,7 @@ function edcal_changedate() {
          */
         ?>
         {
-            "error": 5,
+            "error": <?php echo($EDCAL_PERMISSION_ERROR); ?>,
         <?php
         
         global $post;
@@ -491,14 +455,8 @@ function edcal_changedate() {
         ?> }
         
         <?php
+        die();
     }
-    
-    header("Content-Type: application/json");
-    global $edcal_startDate, $edcal_endDate;
-    $edcal_postid = isset($_GET['postid'])?$_GET['postid']:null;
-    $edcal_newDate = isset($_GET['newdate'])?$_GET['newdate']:null;
-    $edcal_oldDate = isset($_GET['olddate'])?$_GET['olddate']:null;
-    $edcal_postStatus = isset($_GET['postStatus'])?$_GET['postStatus']:null;
     
     $post = get_post($edcal_postid, ARRAY_A);
     setup_postdata($post);
@@ -515,8 +473,9 @@ function edcal_changedate() {
      */
      
      if ($matches != 1) {
+        global $EDCAL_CONCURRENCY_ERROR;
         ?> {
-            "error": 4,
+            "error": <?php echo($EDCAL_CONCURRENCY_ERROR); ?>,
         <?php
         
         global $post;
