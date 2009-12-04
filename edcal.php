@@ -87,7 +87,7 @@ function edcal_list_admin() {
     <!-- This is just a little script so we can pass the AJAX URL -->
     <script type="text/javascript">
         jQuery(document).ready(function(){
-            edcal.ajax_url = '<?php echo admin_url("admin-ajax.php"); ?>';
+            edcal.ajax_url = '<?php echo wp_nonce_url(admin_url("admin-ajax.php"), "edit-calendar"); ?>';
         });
     </script>
 
@@ -176,8 +176,8 @@ function edcal_filter_where($where = '') {
  *
  */
 function edcal_scripts() {
-    wp_enqueue_script( "edcal-lib", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/edcallib.min.js"), array( 'jquery' ) );
-    return;
+   // wp_enqueue_script( "edcal-lib", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/edcallib.min.js"), array( 'jquery' ) );
+    //return;
     
     /*
      * If you're using one of the specific libraries you should comment out the two lines
@@ -207,6 +207,21 @@ function edcal_scripts() {
  */
 function edcal_posts() {
     header("Content-Type: application/json");
+    if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'edit-calendar')) {
+       /*
+         * This is just a sanity check to make sure
+         * this isn't a CSRF attack.  Most of the time this
+         * will never be run because you can't see the calendar unless
+         * you are at least an editor
+         */
+        ?>
+        {
+            "error": 6,
+        }
+        <?php
+        die();
+    }
+
     global $edcal_startDate, $edcal_endDate;
     $edcal_startDate = isset($_GET['from'])?$_GET['from']:null;
     $edcal_endDate = isset($_GET['to'])?$_GET['to']:null;
@@ -242,7 +257,7 @@ function edcal_posts() {
     ?> ]
     <?php
     
-    die;
+    die();
 }
 
 /*
@@ -280,6 +295,34 @@ function edcal_postJSON($post) {
  * post title in a calendar.
  */
 function edcal_changetitle() {
+    if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'edit-calendar')) {
+       /*
+         * This is just a sanity check to make sure
+         * this isn't a CSRF attack.  Most of the time this
+         * will never be run because you can't see the calendar unless
+         * you are at least an editor
+         */
+        ?>
+        {
+            "error": 6,
+        <?php
+
+        global $post;
+        $args = array(
+            'posts_id' => $edcal_postid,
+        );
+
+        $post = get_post($edcal_postid);
+        ?>
+            "post" :
+        <?php
+            edcal_postJSON($post);
+        ?> }
+
+        <?php
+        die();
+    }
+
     header("Content-Type: application/json");
     $edcal_postid = isset($_GET['postid'])?$_GET['postid']:null;
     $edcal_newTitle = isset($_GET['title'])?$_GET['title']:null;
@@ -315,7 +358,7 @@ function edcal_changetitle() {
     <?php
     
     
-    die;
+    die();
 }
 
 /*
@@ -323,6 +366,34 @@ function edcal_changetitle() {
  * post on a specified date.
  */
 function edcal_newdraft() {
+    if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'edit-calendar')) {
+       /*
+         * This is just a sanity check to make sure
+         * this isn't a CSRF attack.  Most of the time this
+         * will never be run because you can't see the calendar unless
+         * you are at least an editor
+         */
+        ?>
+        {
+            "error": 6,
+        <?php
+
+        global $post;
+        $args = array(
+            'posts_id' => $edcal_postid,
+        );
+
+        $post = get_post($edcal_postid);
+        ?>
+            "post" :
+        <?php
+            edcal_postJSON($post);
+        ?> }
+
+        <?php
+        die();
+    }
+
     header("Content-Type: application/json");
     $edcal_date = isset($_GET['date'])?$_GET['date']:null;
     
@@ -355,7 +426,7 @@ function edcal_newdraft() {
     
     <?php
     
-    die;
+    die();
 }
 
 /*
@@ -367,6 +438,34 @@ function edcal_newdraft() {
  * If the call is successful then it returns the updated post data.
  */
 function edcal_changedate() {
+    if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'edit-calendar')) {
+       /*
+         * This is just a sanity check to make sure
+         * this isn't a CSRF attack.  Most of the time this
+         * will never be run because you can't see the calendar unless
+         * you are at least an editor
+         */
+        ?>
+        {
+            "error": 6,
+        <?php
+
+        global $post;
+        $args = array(
+            'posts_id' => $edcal_postid,
+        );
+
+        $post = get_post($edcal_postid);
+        ?>
+            "post" :
+        <?php
+            edcal_postJSON($post);
+        ?> }
+
+        <?php
+        die();
+    }
+
     if (!current_user_can('edit_others_posts')) {
         /*
          * This is just a sanity check to make sure that the current
@@ -507,5 +606,5 @@ function edcal_changedate() {
     ?>}
     <?php
     
-    die;
+    die();
 }

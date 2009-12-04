@@ -109,6 +109,11 @@ var edcal = {
      * The constant for the user permission error
      */
     PERMISSION_ERROR: 5,
+
+    /*
+     * The constant for the nonce error
+     */
+    NONCE_ERROR: 6,
     
     /*
        The direction the calendar last moved.
@@ -392,7 +397,7 @@ var edcal = {
      */
     saveTitle: function(/*string*/ postId) {
          
-         var url = edcal.ajax_url + "?action=edcal_changetitle&postid=" + postId + 
+         var url = edcal.ajax_url + "&action=edcal_changetitle&postid=" + postId + 
              "&title=" + jQuery.URLEncode(jQuery("#edcal-title-edit-field").val());
 
          jQuery("#post-" + postId).addClass("loadingclass");
@@ -407,6 +412,15 @@ var edcal = {
             dataType: "json",
             success: function(res) {
                 edcal.removePostItem(res.post.date, "post-" + res.post.id);
+                if (res.error) {
+                    /*
+                     * If there was an error we need to remove the dropped
+                     * post item.
+                     */
+                    if (res.error === edcal.NONCE_ERROR) {
+                        edcal.showError("Invalid checksum for post. This is commonly a cross-site scripting error.");
+                    }
+                }
                 edcal.addPostItem(res.post, res.post.date);
                 edcal.addPostItemDragAndToolltip(res.post.date);
             },
@@ -900,7 +914,7 @@ var edcal = {
           * put a default post time of 10:00 AM.
           */
          var formattedDate = jQuery.URLEncode(edcal.getDayFromDayId(date).toString("yyyy-MM-dd") + " 10:00:00");
-         var url = edcal.ajax_url + "?action=edcal_newdraft&date=" + formattedDate;
+         var url = edcal.ajax_url + "&action=edcal_newdraft&date=" + formattedDate;
 
          jQuery.ajax( { 
             url: url,
@@ -909,6 +923,17 @@ var edcal = {
             timeout: 100000,
             dataType: "json",
             success: function(res) {
+                if (res.error) {
+                    /*
+                     * If there was an error we need to remove the dropped
+                     * post item.
+                     */
+                    if (res.error === edcal.NONCE_ERROR) {
+                        edcal.showError("Invalid checksum for post. This is commonly a cross-site scripting error.");
+                    }
+                    return;
+                }
+
                 if (res.editlink) {
                     window.location = res.editlink.replace("&amp;", "&");
                 } else {
@@ -964,7 +989,7 @@ var edcal = {
              }
          }
 
-         var url = edcal.ajax_url + "?action=edcal_changedate&postid=" + post.id + 
+         var url = edcal.ajax_url + "&action=edcal_changedate&postid=" + post.id + 
              "&postStatus=" + postStatus + 
              "&newdate=" + newdateFormatted + "&olddate=" + edcal.getDayFromDayId(post.date).toString("yyyy-MM-dd");
 
@@ -991,6 +1016,8 @@ var edcal = {
                         edcal.showError("Someone else already moved " + res.post.title);
                     } else if (res.error === edcal.PERMISSION_ERROR) {
                         edcal.showError("You don't have permission to edit posts");
+                    } else if (res.error === edcal.NONCE_ERROR) {
+                        edcal.showError("Invalid checksum for post. This is commonly a cross-site scripting error.");
                     }
                 }
             },
@@ -1033,7 +1060,7 @@ var edcal = {
          edcal.cacheDates[from] = true;
 
 
-         var url = edcal.ajax_url + "?action=edcal_posts&from=" + from.toString("yyyy-MM-dd") + "&to=" + to.toString("yyyy-MM-dd");
+         var url = edcal.ajax_url + "&action=edcal_posts&from=" + from.toString("yyyy-MM-dd") + "&to=" + to.toString("yyyy-MM-dd");
          output("url: " + url);
 
          jQuery("#loading").show();
@@ -1046,13 +1073,23 @@ var edcal = {
              dataType: "text",
              success: function(res) {
                 jQuery("#loading").hide();
-
                 /*
                  * These result here can get pretty large on a busy blog and
                  * the JSON parser from JSON.org works faster than the native
                  * one used by JQuery.
                  */
                 var parsedRes = JSON.parseIt(res);
+                
+                if (parsedRes.error) {
+                    /*
+                     * If there was an error we need to remove the dropped
+                     * post item.
+                     */
+                    if (parsedRes.error === edcal.NONCE_ERROR) {
+                        edcal.showError("Invalid checksum for post. This is commonly a cross-site scripting error.");
+                    }
+                    return;
+                }
                 var postDates = [];
                 jQuery.each(parsedRes, function(i, post) {
                     if (post) {
