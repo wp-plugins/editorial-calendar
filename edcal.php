@@ -107,7 +107,7 @@ function edcal_list_admin() {
     </script>
 
     <style type="text/css">
-        .loadingclass {
+        .loadingclass, .tiploading {
             background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/loading_post.gif")); ?>');
         }
 
@@ -191,7 +191,7 @@ function edcal_filter_where($where = '') {
  *
  */
 function edcal_scripts() {
-   // wp_enqueue_script( "edcal-lib", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/edcallib.min.js"), array( 'jquery' ) );
+    //wp_enqueue_script( "edcal-lib", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/edcallib.min.js"), array( 'jquery' ) );
     //return;
     
     /*
@@ -354,7 +354,7 @@ function edcal_newdraft() {
     $edcal_date = isset($_GET['date'])?$_GET['date']:null;
     
     $my_post = array();
-    $my_post['post_title'] = ' ';
+    $my_post['post_title'] = isset($_GET['title'])?$_GET['title']:null;;
     $my_post['post_status'] = 'draft';
     
     $my_post['post_date'] = $edcal_date;
@@ -370,16 +370,15 @@ function edcal_newdraft() {
      * We finish by returning the latest data for the post in the JSON
      */
     global $post;
-    $args = array(
-        'posts_id' => $edcal_postid,
-    );
-    
-    $post = get_post($edcal_postid);
+    $post = get_post($my_post_id);
     ?>{
-        "newpostid" : "<?php echo($my_post_id); ?>",
-        "editlink" : "<?php echo(get_edit_post_link($my_post_id)); ?>",
-    }
+        "post" :
+    <?php
     
+        edcal_postJSON($post);
+    
+    ?>
+    }
     <?php
     
     die();
