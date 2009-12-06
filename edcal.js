@@ -424,7 +424,7 @@ var edcal = {
                 edcal.addPostItem(res.post, res.post.date);
                 edcal.addPostItemDragAndToolltip(res.post.date);
             },
-            error:  function(xhr) {
+            error: function(xhr) {
                  edcal.showError("There was an error contacting your blog.");
                  if (xhr.responseText) {
                      output("xhr.responseText: " + xhr.responseText);
@@ -743,7 +743,7 @@ var edcal = {
     /*
      * Moves the calendar to the specified date.
      */
-    moveTo : function(/*Date*/ date) {
+    moveTo: function(/*Date*/ date) {
          edcal.isMoving = true;
          jQuery("#cal").empty();
          
@@ -778,7 +778,7 @@ var edcal = {
     /*
      * Initializes the calendar
      */
-    init : function() {
+    init: function() {
          if (jQuery("#edcal_scrollable").length === 0) {
              /*
               * This means we are on a page without the editorial 
@@ -940,7 +940,7 @@ var edcal = {
                     edcal.showError("There was an error creating a new post for your blog.");
                 }
             },
-            error:  function(xhr) {
+            error: function(xhr) {
                  edcal.showError("There was an error contacting your blog.");
                  if (xhr.responseText) {
                      output("xhr.responseText: " + xhr.responseText);
@@ -1021,7 +1021,7 @@ var edcal = {
                     }
                 }
             },
-            error:  function(xhr) {
+            error: function(xhr) {
                  edcal.showError("There was an error contacting your blog.");
                  if (xhr.responseText) {
                      output("xhr.responseText: " + xhr.responseText);
@@ -1116,7 +1116,7 @@ var edcal = {
                     });
                 }, 300);
              },
-             error:  function(xhr) {
+             error: function(xhr) {
                 edcal.showError("There was an error contacting your blog.");
                 if (xhr.responseText) {
                     output("xhr.responseText: " + xhr.responseText);
