@@ -206,6 +206,15 @@
     padding-bottom: 2em;
 }
 
+#edcal-title {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+#edcal-title-edit-field {
+    padding: 0.25em;
+}
+
 #edcal-title-new-field {
     padding: 0.25em;
     width: 20em;

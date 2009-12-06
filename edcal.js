@@ -466,17 +466,13 @@ var edcal = {
 
                  var posttitle = post.title;
 
-                 if (posttitle === "") {
-                     posttitle = "[No Title]";
-                 }
-
                  var tooltip = '<div class="tooltip">' + 
                                '<a href="#" id="tipclose" onclick="edcal.closeTooltip(); return false;" title="close"> </a>' + 
                                    '<h3 id="edcal-title">' + posttitle + 
                                        ' <a href="#" onclick="edcal.editTitle(); return false;" class="edit-post-status" id="edcal-title-edit">Edit</a>' + 
                                    '</h3>' + 
                                    '<div id="edcal-title-box">' + 
-                                       '<input type="text" value="' + post.title + '" id="edcal-title-edit-field"/> &nbsp;&nbsp;' + 
+                                       '<input type="text" postid="' + post.id + '" value="' + post.title + '" id="edcal-title-edit-field"/> &nbsp;&nbsp;' + 
                                        '<span id="edit-slug-buttons">' + 
                                            '<a class="save button" href="#" onclick="edcal.saveTitle(\'' + post.id + '\'); return false;">Save</a> ' + 
                                            '<a href="#" onclick="edcal.cancelEditTitle(\'' + post.title + '\'); return false;" class="cancel">Cancel</a></span>' + 
@@ -952,6 +948,16 @@ var edcal = {
                  */
                 edcal.createNewDraft(jQuery("#newPostButton").attr("adddate"), jQuery("#edcal-title-new-field").val(), false);
             }
+        });
+
+        jQuery("#edcal-title-edit-field").live("keyup", function(evt) {
+            if (evt.keyCode == 13) {    // enter key
+                /*
+                 * If the user presses enter we want to save the post title.
+                 */
+                edcal.saveTitle(jQuery(this).attr("postid"));
+            }
+
         });
     },
 
