@@ -63,6 +63,8 @@ If you add a new post from the calendar it will get inserted as a draft.  If you
 
 = 0.4 =
 * We are now doing a better job arranging our tooltips and setting GMT dates correctly.
+* Fixed a problem with the post times so posts dragged with the calendar don't change their time of day.
+* Added a new dialog for creating new drafts on specific dates of the calendar.
 
 = 0.3 =
 * Additional bug fixes and stabalizations as well as the ability to add new posts to a given date from the calendar.
