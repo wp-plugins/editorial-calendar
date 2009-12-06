@@ -1201,8 +1201,7 @@ var edcal = {
     },
     
     /**
-     * This is a helper function to output messages on the HTML page.  It
-     * write them out to a text area.
+     * Outputs info messages to the Firebug console if it is available.
      * 
      * @param msg    the message to write
      */
@@ -1213,11 +1212,12 @@ var edcal = {
     },
     
     /*
-     * Shows an error message
+     * Shows an error message and sends the message as an error to the 
+     * Firebug console if it is available.
      */
     showError: function(/*string*/ msg) {
         if (window.console) {
-            console.info(msg);
+            console.error(msg);
         }
         humanMsg.displayMsg(msg);
     },
