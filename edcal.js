@@ -1226,7 +1226,7 @@ var edcal = {
             console.error(msg);
         }
         humanMsg.displayMsg(msg);
-    },
+    }
 };
 
 jQuery(document).ready(function(){
