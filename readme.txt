@@ -3,7 +3,7 @@ Contributors: MaryVogt, zgrossbart
 Tags: posts, post, calendar, AJAX, admin, administration
 Requires at least: 2.8.5
 Tested up to: 2.8.6
-Stable tag: 0.3
+Stable tag: 0.4
 
 Editorial calendar makes it possible to see all your posts and drag and drop them to manage your blog.
 
@@ -64,7 +64,7 @@ If you add a new post from the calendar it will get inserted as a draft.  If you
 = 0.4 =
 * We are now doing a better job arranging our tooltips and setting GMT dates correctly.
 * Fixed a problem with the post times so posts dragged with the calendar don't change their time of day.
-* Added a new dialog for creating new drafts on specific dates of the calendar.
+* Added a dialog for creating new drafts on specific dates of the calendar.
 
 = 0.3 =
 * Additional bug fixes and stabalizations as well as the ability to add new posts to a given date from the calendar.
