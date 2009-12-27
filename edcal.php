@@ -50,7 +50,7 @@ $EDCAL_NONCE_ERROR = "6";
  */
 function edcal_list_add_management_page(  ) {
     if ( function_exists('add_management_page') ) {
-        $page = add_posts_page( 'Calendar', 'Calendar', 'manage_categories', 'posts_list', 'edcal_list_admin' );
+        $page = add_posts_page( 'Calendar', __('Calendar'), 'manage_categories', 'posts_list', 'edcal_list_admin' );
     }
 }
 
@@ -134,7 +134,7 @@ function edcal_list_admin() {
     
     <div class="wrap">
         <div class="icon32" id="icon-edit"><br/></div>
-        <h2>Posts Calendar</h2>
+        <h2><?php echo(__('Posts Calendar')) ?></h2>
         
         <div id="loadingcont">
             <div id="loading"> </div>
@@ -143,14 +143,14 @@ function edcal_list_admin() {
         <div id="topbar">
             <div id="topleft">
                 <h2>
-                    <a href="#" title="Go back four weeks." class="prev page-numbers" id="prevmonth" style="border: none;">&laquo;</a>
+                    <a href="#" title="<?php echo(__('Go back four weeks.')) ?>" class="prev page-numbers" id="prevmonth" style="border: none;">&laquo;</a>
                     <span id="currentRange"></span>
-                    <a href="#" title="Skip ahead four weeks." class="next page-numbers" id="nextmonth" style="border: none;">&raquo;</a>
+                    <a href="#" title="<?php echo(__('Skip ahead four weeks.')) ?>" class="next page-numbers" id="nextmonth" style="border: none;">&raquo;</a>
                 </h2>
             </div>
             
             <div id="topright">
-                <a href="#" id="moveToToday">Today</a>
+                <a href="#" id="moveToToday"><?php echo(__('Today')) ?></a>
             </div>
         </div>
         
