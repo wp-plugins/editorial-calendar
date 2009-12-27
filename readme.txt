@@ -57,6 +57,9 @@ The calendar works with three types of post status: <code>draft</code>, <code>pu
 
 == Changelog ==
 
+= 0.5 =
+* Added localization support for strings and dates
+
 = 0.4 =
 * We are now doing a better job arranging our tooltips and setting GMT dates correctly.
 * Fixed a problem with the post times so posts dragged with the calendar don't change their time of day.

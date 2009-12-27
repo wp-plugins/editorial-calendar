@@ -190,13 +190,13 @@ var edcal = {
        TODO:  We should localize these values 
      */
     createDaysHeader: function() {
-        var html = '<div class="dayhead">Sunday</div>';
-        html += '<div class="dayhead">Monday</div>';
-        html += '<div class="dayhead">Tuesday</div>';
-        html += '<div class="dayhead">Wednesday</div>';
-        html += '<div class="dayhead">Thursday</div>';
-        html += '<div class="dayhead">Friday</div>';
-        html += '<div class="dayhead">Saturday</div>';
+        var html = '<div class="dayhead">' + edcal.str_sunday + '</div>';
+        html += '<div class="dayhead">' + edcal.str_monday + '</div>';
+        html += '<div class="dayhead">' + edcal.str_tuesday + '</div>';
+        html += '<div class="dayhead">' + edcal.str_wednesday + '</div>';
+        html += '<div class="dayhead">' + edcal.str_thursday + '</div>';
+        html += '<div class="dayhead">' + edcal.str_friday + '</div>';
+        html += '<div class="dayhead">' + edcal.str_saturday + '</div>';
         
         jQuery("#rowhead").append(html);
         
@@ -220,7 +220,7 @@ var edcal = {
             newrow += '<div class="dayobj">';
 
             newrow += '<div class="daylabel">';
-            newrow += '<a href="#" adddate="' + _date.toString("MMMM d") + '" class="daynewlink" title="Add new post on ' + _date.toString("MMMM d") + '" ' + 
+            newrow += '<a href="#" adddate="' + _date.toString("MMMM d") + '" class="daynewlink" title="' + edcal.str_newpost + _date.toString("MMMM d") + '" ' + 
                          'onclick="return false;">+</a>';
             if (_date.toString("dd") == "01") {
                 newrow += _date.toString("MMM d");
@@ -374,7 +374,7 @@ var edcal = {
      * Confirms if you want to delete the specified post
      */
     confirmDelete: function(/*string*/ posttitle) {
-         if (confirm('You are about to delete this post ' + posttitle + '.\n\n Press cancel to stop, OK to delete.')) {
+         if (confirm(edcal.str_del_msg1 + posttitle + edcal.str_del_msg2)) {
              return true;
          } else {
              return false;
@@ -408,7 +408,7 @@ var edcal = {
                      * post item.
                      */
                     if (res.error === edcal.NONCE_ERROR) {
-                        edcal.showError("Invalid checksum for post. This is commonly a cross-site scripting error.");
+                        edcal.showError(edcal.checksum_error);
                     }
                 }
                 edcal.addPostItem(res.post, res.post.date);
@@ -416,7 +416,7 @@ var edcal = {
                 edcal.output("Finished saving the new title " + jQuery("#edcal-title-edit-field").val() + " for post " + postId);
             },
             error: function(xhr) {
-                 edcal.showError("There was an error contacting your blog.");
+                 edcal.showError(edcal.general_error);
                  if (xhr.responseText) {
                      edcal.output("xhr.responseText: " + xhr.responseText);
                  }
@@ -469,21 +469,21 @@ var edcal = {
                  var tooltip = '<div class="tooltip">' + 
                                '<a href="#" id="tipclose" onclick="edcal.closeTooltip(); return false;" title="close"> </a>' + 
                                    '<h3 id="edcal-title">' + posttitle + 
-                                       ' <a href="#" onclick="edcal.editTitle(); return false;" class="edit-post-status" id="edcal-title-edit">Edit</a>' + 
+                                       ' <a href="#" onclick="edcal.editTitle(); return false;" class="edit-post-status" id="edcal-title-edit">' + edcal.str_edit + '</a>' + 
                                    '</h3>' + 
                                    '<div id="edcal-title-box">' + 
                                        '<input type="text" postid="' + post.id + '" value="' + post.title + '" id="edcal-title-edit-field"/> &nbsp;&nbsp;' + 
                                        '<span id="edit-slug-buttons">' + 
                                            '<a class="save button" href="#" onclick="edcal.saveTitle(\'' + post.id + '\'); return false;">Save</a> ' + 
-                                           '<a href="#" onclick="edcal.cancelEditTitle(\'' + post.title + '\'); return false;" class="cancel">Cancel</a></span>' + 
+                                           '<a href="#" onclick="edcal.cancelEditTitle(\'' + post.title + '\'); return false;" class="cancel">' + edcal.str_cancel + '</a></span>' + 
                                        '</div>' + 
                                    '<p>' + 
-                                       '<i>by</i> ' + post.author + ' <i>on</i> ' + 
-                                       edcal.getDayFromDayId(post.date).toString("MMMM d, yyyy") + ' at ' +
+                                       '<i>' + edcal.str_by + '</i> ' + post.author + ' <i>' + edcal.str_on + '</i> ' + 
+                                       edcal.getDayFromDayId(post.date).toString("MMMM d, yyyy") + ' ' + edcal.str_at + ' ' +
                                        post.time + 
                                    '</p>' + 
                                    '<p>' + 
-                                       'Status<b>: ' + post.status + '</b>' +
+                                       edcal.str_status + '<b>' + post.status + '</b>' +
                                        '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
                                     if (post.editlink) {
                                         /*
@@ -491,17 +491,17 @@ var edcal = {
                                          * then server won't send the edit link URL and we shouldn't
                                          * show the edit link
                                          */
-                                       tooltip += '<a href="' + post.editlink + '" title="Edit ' + post.title + 
-                                           '">Edit</a>&nbsp; | &nbsp;';
+                                       tooltip += '<a href="' + post.editlink + '" title="' + edcal.str_edit + ' ' + post.title + 
+                                           '">' + edcal.str_edit + '</a>&nbsp; | &nbsp;';
                                     }
 
                                     if (post.dellink) {
                                         tooltip += '<a class="submitdelete" href="' + post.dellink + '" ' + 
                                         'onclick="return edcal.confirmDelete(\'' + post.title + '\');"' +
-                                        'title="Delete ' + post.title + '">Delete</a> &nbsp; | &nbsp;';
+                                        'title="' + edcal.str_del + ' ' + post.title + '">' + edcal.str_del + '</a> &nbsp; | &nbsp;';
                                     }
 
-                                    tooltip += '<a href="' + post.permalink + '" title="View ' + post.title + '">View</a>' + 
+                                    tooltip += '<a href="' + post.permalink + '" title="' + edcal.str_view + ' ' + post.title + '">' + edcal.str_view + '</a>' + 
                                    '</p>' + 
                                '</div>';
 
@@ -526,15 +526,15 @@ var edcal = {
              bodyHandler: function() {
                  var tooltip = '<div class="tooltip newposttip">' + 
                                    '<a href="#" id="tipclose" onclick="jQuery(\'#tooltip\').hide(); return false;" title="close"> </a>' + 
-                                   '<h3>Add a new post on ' + createLink.attr("adddate") + '</h3>' + 
+                                   '<h3>' + edcal.str_newpost + createLink.attr("adddate") + '</h3>' + 
                                    '<div id="edcal-title-new-section">' + 
-                                       'Post Title:<br />' + 
+                                       edcal.str_posttitle + '<br />' + 
                                        '<input type="text" class="text_input" id="edcal-title-new-field"/>' + 
                                    '</div>' + 
                                    '<div id="edit-slug-buttons">' + 
-                                       '<a class="save button disabled" id="newPostButton" href="#" adddate="' + date + '">Save Draft</a> ' + 
-                                       '<a class="save button disabled" id="newPostEditButton" href="#" adddate="' + date + '">Save and Edit Draft</a> ' + 
-                                       '<a href="#" onclick="jQuery(\'#tooltip\').hide(); return false;" class="cancel">Cancel</a>' + 
+                                       '<a class="save button disabled" id="newPostButton" href="#" adddate="' + date + '">' + edcal.str_savedraft + '</a> ' + 
+                                       '<a class="save button disabled" id="newPostEditButton" href="#" adddate="' + date + '">' + edcal.str_saveandedit + '</a> ' + 
+                                       '<a href="#" onclick="jQuery(\'#tooltip\').hide(); return false;" class="cancel">' + edcal.str_cancel + '</a>' + 
                                    '</div>' + 
                                '</div>';
                  return tooltip;
@@ -1002,7 +1002,7 @@ var edcal = {
                      * post item.
                      */
                     if (res.error === edcal.NONCE_ERROR) {
-                        edcal.showError("Invalid checksum for post. This is commonly a cross-site scripting error.");
+                        edcal.showError(edcal.checksum_error);
                     }
                     return;
                 }
@@ -1026,7 +1026,7 @@ var edcal = {
             error: function(xhr) {
                  jQuery("#edit-slug-buttons").removeClass("tiploading");
                  jQuery('#tooltip').hide();
-                 edcal.showError("There was an error contacting your blog.");
+                 edcal.showError(edcal.general_error);
                  if (xhr.responseText) {
                      edcal.output("xhr.responseText: " + xhr.responseText);
                  }
@@ -1101,16 +1101,16 @@ var edcal = {
                      */
                     edcal.removePostItem(newdate, "post-" + res.post.id);
                     if (res.error === edcal.CONCURRENCY_ERROR) {
-                        edcal.showError("Someone else already moved " + res.post.title);
+                        edcal.showError(edcal.concurrency_error + '<br />' + res.post.title);
                     } else if (res.error === edcal.PERMISSION_ERROR) {
-                        edcal.showError("You don't have permission to edit posts");
+                        edcal.showError(edcal.edcal.permission_error);
                     } else if (res.error === edcal.NONCE_ERROR) {
-                        edcal.showError("Invalid checksum for post. This is commonly a cross-site scripting error.");
+                        edcal.showError(edcal.checksum_error);
                     }
                 }
             },
             error: function(xhr) {
-                 edcal.showError("There was an error contacting your blog.");
+                 edcal.showError(edcal.general_error);
                  if (xhr.responseText) {
                      edcal.output("xhr.responseText: " + xhr.responseText);
                  }
@@ -1167,7 +1167,7 @@ var edcal = {
                      * post item.
                      */
                     if (parsedRes.error === edcal.NONCE_ERROR) {
-                        edcal.showError("Invalid checksum for post. This is commonly a cross-site scripting error.");
+                        edcal.showError(edcal.checksum_error);
                     }
                     return;
                 }
@@ -1198,7 +1198,7 @@ var edcal = {
                 }, 300);
              },
              error: function(xhr) {
-                edcal.showError("There was an error contacting your blog.");
+                edcal.showError(edcal.general_error);
                 if (xhr.responseText) {
                     edcal.output("xhr.responseText: " + xhr.responseText);
                 }

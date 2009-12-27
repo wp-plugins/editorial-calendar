@@ -103,6 +103,42 @@ function edcal_list_admin() {
     <script type="text/javascript">
         jQuery(document).ready(function(){
             edcal.ajax_url = '<?php echo wp_nonce_url(admin_url("admin-ajax.php"), "edit-calendar"); ?>';
+            
+            /*
+             * These strings are all localized values.  The WordPress localization mechanism 
+             * doesn't really extend to JavaScript so we localize the strings in PHP and then
+             * pass the values to JavaScript.
+             */
+            
+            edcal.str_on = '<?php echo(__('on')) ?>';
+            edcal.str_by = '<?php echo(__('by')) ?>';
+            edcal.str_at = '<?php echo(__('at')) ?>';
+            
+            edcal.str_sunday = '<?php echo(__('Sunday')) ?>';
+            edcal.str_monday = '<?php echo(__('Monday')) ?>';
+            edcal.str_tuesday = '<?php echo(__('Tuesday')) ?>';
+            edcal.str_wednesday = '<?php echo(__('Wednesday')) ?>';
+            edcal.str_thursday = '<?php echo(__('Thursday')) ?>';
+            edcal.str_friday = '<?php echo(__('Friday')) ?>';
+            edcal.str_saturday = '<?php echo(__('Saturday')) ?>';
+            
+            edcal.str_edit = '<?php echo(__('Edit')) ?>';
+            edcal.str_del = '<?php echo(__('Delete')) ?>';
+            edcal.str_view = '<?php echo(__('View')) ?>';
+            edcal.str_status = '<?php echo(__('Status:')) ?>';
+            edcal.str_cancel = '<?php echo(__('Cancel')) ?>';
+            edcal.str_posttitle = '<?php echo(__('Post Title:')) ?>';
+            edcal.str_savedraft = '<?php echo(__('Save Draft')) ?>';
+            edcal.str_saveandedit = '<?php echo(__('Save and Edit Draft')) ?>';
+            edcal.str_newpost = '<?php echo(__('Add a new post on ')) ?>';
+            
+            edcal.str_del_msg1 = '<?php echo(__('You are about to delete this post ')) ?>';
+            edcal.str_del_msg2 = '<?php echo(__('Press cancel to stop, OK to delete.')) ?>';
+            
+            edcal.concurrency_error = '<?php echo(__('Looks like someone else already moved this post.')) ?>';
+            edcal.permission_error = '<?php echo(__('You do not have permission to edit posts.')) ?>';
+            edcal.checksum_error = '<?php echo(__('Invalid checksum for post. This is commonly a cross-site scripting error.')) ?>';
+            edcal.general_error = '<?php echo(__('There was an error contacting your blog.')) ?>';
         });
     </script>
 
