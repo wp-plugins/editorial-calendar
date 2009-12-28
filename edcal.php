@@ -99,7 +99,7 @@ function edcal_list_admin() {
     echo '</style>';
     
     ?>
-    <!-- This is just a little script so we can pass the AJAX URL -->
+    <!-- This is just a little script so we can pass the AJAX URL and some localized strings -->
     <script type="text/javascript">
         jQuery(document).ready(function(){
             edcal.ajax_url = '<?php echo wp_nonce_url(admin_url("admin-ajax.php"), "edit-calendar"); ?>';
