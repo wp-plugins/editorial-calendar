@@ -240,7 +240,7 @@ var edcal = {
             _date.add(1).days();
         }
         
-        newrow += '</div></div';
+        newrow += '</div></div>';
         
         if (append) {
             parent.append(newrow);
