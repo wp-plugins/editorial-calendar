@@ -186,8 +186,6 @@ var edcal = {
     /*
        This function creates the days header at the top of the
        calendar.
- 
-       TODO:  We should localize these values 
      */
     createDaysHeader: function() {
         var html = '<div class="dayhead">' + edcal.str_sunday + '</div>';
