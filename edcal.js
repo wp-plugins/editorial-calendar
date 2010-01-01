@@ -1172,6 +1172,9 @@ var edcal = {
                 var postDates = [];
                 jQuery.each(parsedRes, function(i, post) {
                     if (post) {
+                        if (post.status === 'trash') {
+                            return;
+                        }
                         edcal.removePostItem(post.date, "post-" + post.id);
                         edcal.addPostItem(post, post.date);
                         postDates[postDates.length] = post.date;
