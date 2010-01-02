@@ -353,7 +353,7 @@ var edcal = {
     },
     
     /*
-     * Adds a post to al already existing calendar day.
+     * Adds a post to an already existing calendar day.
      */
     addPostItem: function(/*post*/ post, /*string*/ dayobjId) {
          jQuery('#' + dayobjId + ' .postlist').append(edcal.createPostItem(post, dayobjId));

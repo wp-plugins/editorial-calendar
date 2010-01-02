@@ -58,7 +58,9 @@ The calendar works with three types of post status: <code>draft</code>, <code>pu
 == Changelog ==
 
 = 0.5 =
-* Added localization support for strings and dates
+* Added localization support for strings and dates in the calendar
+* The calendar is no longer showing posts that you have put in your trash
+* Fixed a problem that caused posts to never show up when working with WordPress in non-English languages.
 
 = 0.4 =
 * We are now doing a better job arranging our tooltips and setting GMT dates correctly.
