@@ -767,7 +767,85 @@ var edcal = {
     },
     
     nextStartOfWeek: function(/*date*/ date) {
-         
+         if (edcal.locale) {
+             var local = edcal.locale.toUpperCase();
+
+             if (edcal.endsWith(local, "AS") ||
+                 edcal.endsWith(local, "AZ") ||
+                 edcal.endsWith(local, "BW") ||
+                 edcal.endsWith(local, "CA") ||
+                 edcal.endsWith(local, "CN") ||
+                 edcal.endsWith(local, "FO") ||
+                 edcal.endsWith(local, "GB") ||
+                 edcal.endsWith(local, "GE") ||
+                 edcal.endsWith(local, "GL") ||
+                 edcal.endsWith(local, "GU") ||
+                 edcal.endsWith(local, "HK") ||
+                 edcal.endsWith(local, "IE") ||
+                 edcal.endsWith(local, "IL") ||
+                 edcal.endsWith(local, "IN") ||
+                 edcal.endsWith(local, "IS") ||
+                 edcal.endsWith(local, "JM") ||
+                 edcal.endsWith(local, "JP") ||
+                 edcal.endsWith(local, "KG") ||
+                 edcal.endsWith(local, "KR") ||
+                 edcal.endsWith(local, "LA") ||
+                 edcal.endsWith(local, "MH") ||
+                 edcal.endsWith(local, "MN") ||
+                 edcal.endsWith(local, "MO") ||
+                 edcal.endsWith(local, "MP") ||
+                 edcal.endsWith(local, "MT") ||
+                 edcal.endsWith(local, "NZ") ||
+                 edcal.endsWith(local, "PH") ||
+                 edcal.endsWith(local, "PK") ||
+                 edcal.endsWith(local, "SG") ||
+                 edcal.endsWith(local, "SY") ||
+                 edcal.endsWith(local, "TH") ||
+                 edcal.endsWith(local, "TT") ||
+                 edcal.endsWith(local, "TW") ||
+                 edcal.endsWith(local, "UM") ||
+                 edcal.endsWith(local, "US") ||
+                 edcal.endsWith(local, "UZ") ||
+                 edcal.endsWith(local, "VI") ||
+                 edcal.endsWith(local, "ZW")) {
+                 return date.next().sunday();
+             } else if (edcal.endsWith(local, "MV")) {
+                 return date.next().friday();
+             } else if (edcal.endsWith(local, "AF") ||
+                        edcal.endsWith(local, "BH") ||
+                        edcal.endsWith(local, "DJ") ||
+                        edcal.endsWith(local, "DZ") ||
+                        edcal.endsWith(local, "EG") ||
+                        edcal.endsWith(local, "ER") ||
+                        edcal.endsWith(local, "ET") ||
+                        edcal.endsWith(local, "IQ") ||
+                        edcal.endsWith(local, "IR") ||
+                        edcal.endsWith(local, "JO") ||
+                        edcal.endsWith(local, "KE") ||
+                        edcal.endsWith(local, "KW") ||
+                        edcal.endsWith(local, "LY") ||
+                        edcal.endsWith(local, "MA") ||
+                        edcal.endsWith(local, "OM") ||
+                        edcal.endsWith(local, "QA") ||
+                        edcal.endsWith(local, "SA") ||
+                        edcal.endsWith(local, "SD") ||
+                        edcal.endsWith(local, "SO") ||
+                        edcal.endsWith(local, "TN") ||
+                        edcal.endsWith(local, "YE")) {
+                 return date.next().saturday();
+             } else {
+                 return date.next().monday();
+             }
+         } else {
+             /*
+              * If we have no locale set we'll assume American style
+              */
+             return date.next().sunday();
+         }
+    },
+
+    endsWith: function(/*string*/ str, /*string*/ expr) {
+         return (str.match(expr+"$")==expr);
     },
     
     /*
@@ -781,7 +859,7 @@ var edcal = {
            When we first start up our working date is 4 weeks before
            the next Sunday. 
         */
-        edcal._wDate = date.next().sunday().add(-28).days();
+        edcal._wDate = edcal.nextStartOfWeek(date).add(-28).days();
         
         /*
            After we remove and readd all the rows we are back to
@@ -887,8 +965,8 @@ var edcal = {
             }
         });
 
-        edcal.getPosts(Date.today().next().sunday().add(-28).days(), 
-                       Date.today().next().sunday().add(35).days());
+        edcal.getPosts(edcal.nextStartOfWeek(Date.today()).add(-28).days(), 
+                       edcal.nextStartOfWeek(Date.today()).add(35).days());
         
         /*
            Now we bind the listeners for all of our links and the window

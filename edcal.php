@@ -104,7 +104,7 @@ function edcal_list_admin() {
         jQuery(document).ready(function(){
             edcal.ajax_url = '<?php echo wp_nonce_url(admin_url("admin-ajax.php"), "edit-calendar"); ?>';
             
-            edcal.locale = '<?php get_locale() ?> ';
+            edcal.locale = '<?php echo(__('en-US')) ?>';
             
             /*
              * These strings are all localized values.  The WordPress localization mechanism 
