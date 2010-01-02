@@ -208,12 +208,12 @@ var edcal = {
     createRow: function(/*jQuery*/ parent, /*bool*/ append) {
         var _date = edcal._wDate.clone();
         
-        var newrow = '<div class="rowcont" id="' + 'row' + edcal._wDate.toString("ddMMMyyyy") + '">' + 
-                     '<div id="' + 'row' + edcal._wDate.toString("ddMMMyyyy") + 'row" class="row">';
+        var newrow = '<div class="rowcont" id="' + 'row' + edcal._wDate.toString("ddMMyyyy") + '">' + 
+                     '<div id="' + 'row' + edcal._wDate.toString("ddMMyyyy") + 'row" class="row">';
         for (var i = 0; i < 7; i++) {
-            newrow += '<div id="' + _date.toString("ddMMMyyyy") + '" class="day ' + 
+            newrow += '<div id="' + _date.toString("ddMMyyyy") + '" class="day ' + 
                       _date.toString("dddd").toLowerCase() + ' '   + 
-                      _date.toString("MMM").toLowerCase() + '">';
+                      _date.toString("MM").toLowerCase() + '">';
             
             newrow += '<div class="dayobj">';
 
@@ -229,7 +229,7 @@ var edcal = {
 
             newrow += '<ul class="postlist">';
 
-            newrow += edcal.getPostItems(_date.toString("ddMMMyyyy"));
+            newrow += edcal.getPostItems(_date.toString("ddMMyyyy"));
             
             newrow += '</ul>';
             
@@ -247,15 +247,15 @@ var edcal = {
             parent.prepend(newrow);
         }
         
-        edcal.alignGrid("#row" + edcal._wDate.toString("ddMMMyyyy") + "row", 7, 14.2, 100, 0.25);
+        edcal.alignGrid("#row" + edcal._wDate.toString("ddMMyyyy") + "row", 7, 14.2, 100, 0.25);
         
-        jQuery('#row' + edcal._wDate.toString("ddMMMyyyy") + ' .day').each( function() {
+        jQuery('#row' + edcal._wDate.toString("ddMMyyyy") + ' .day').each( function() {
             edcal.addTooltip(jQuery(this).attr("id"));
         });
 
-        edcal.draggablePost('#row' + edcal._wDate.toString("ddMMMyyyy") + ' .post');
+        edcal.draggablePost('#row' + edcal._wDate.toString("ddMMyyyy") + ' .post');
 
-        jQuery('#row' + edcal._wDate.toString("ddMMMyyyy") + ' .day').droppable({
+        jQuery('#row' + edcal._wDate.toString("ddMMyyyy") + ' .day').droppable({
             hoverClass: 'day-active',
             accept: '.post',
             greedy: true,
@@ -298,7 +298,7 @@ var edcal = {
                         }
             });
 
-        return jQuery('row' + edcal._wDate.toString("ddMMMyyyy"));
+        return jQuery('row' + edcal._wDate.toString("ddMMyyyy"));
     },
 
     /*
@@ -634,7 +634,7 @@ var edcal = {
            We want to set a class for the cell that represents the current day so we ca
            give it a background color.
          */
-        jQuery('#' + Date.today().toString("ddMMMyyyy")).addClass("today");
+        jQuery('#' + Date.today().toString("ddMMyyyy")).addClass("today");
     },
     
     /*
@@ -744,7 +744,7 @@ var edcal = {
        issue by adding the spaces back before we parse.
      */
     getDayFromDayId: function(/*dayId*/ day) {
-        return Date.parse(day.substring(0, 2) + ' ' + day.substring(2, 5) + ' ' + day.substring(5));
+        return Date.parse(day.substring(0, 2) + '/' + day.substring(2, 4) + '/' + day.substring(4));
     },
     
     /*

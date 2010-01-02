@@ -29,6 +29,7 @@ add_action('wp_ajax_edcal_changetitle', 'edcal_changetitle' );
 add_action('admin_menu', 'edcal_list_add_management_page');
 add_action('wp_ajax_edcal_posts', 'edcal_posts' );
 add_action("admin_print_scripts", 'edcal_scripts');
+add_action("init", 'edcal_load_language');
 
 /*
  * This error code matches CONCURRENCY_ERROR from edcal.js
@@ -45,12 +46,17 @@ $EDCAL_PERMISSION_ERROR = "5";
  */
 $EDCAL_NONCE_ERROR = "6";
 
+function edcal_load_language() {
+    $plugin_dir = basename(dirname(__FILE__));
+    load_plugin_textdomain( 'editorial-calendar', 'wp-content/plugins/' . $plugin_dir . '/languages/', $plugin_dir . '/languages/' );
+}
+
 /*
  * This function adds our calendar page to the admin UI
  */
 function edcal_list_add_management_page(  ) {
     if ( function_exists('add_management_page') ) {
-        $page = add_posts_page( 'Calendar', __('Calendar'), 'manage_categories', 'posts_list', 'edcal_list_admin' );
+        $page = add_posts_page( 'Calendar', __('Calendar', 'editorial-calendar'), 'manage_categories', 'posts_list', 'edcal_list_admin' );
     }
 }
 
@@ -113,7 +119,7 @@ function edcal_list_admin() {
              * specify the locale for the language they are adding.
              * 
              */
-            edcal.locale = '<?php echo(__('en-US')) ?>';
+            edcal.locale = '<?php echo(__('en-US', 'editorial-calendar')) ?>';
             
             /*
              * These strings are all localized values.  The WordPress localization mechanism 
@@ -121,35 +127,35 @@ function edcal_list_admin() {
              * pass the values to JavaScript.
              */
             
-            edcal.str_on = '<?php echo(__('on')) ?>';
-            edcal.str_by = '<?php echo(__('by')) ?>';
-            edcal.str_at = '<?php echo(__('at')) ?>';
+            edcal.str_on = '<?php echo(__('on', 'editorial-calendar')) ?>';
+            edcal.str_by = '<?php echo(__('by', 'editorial-calendar')) ?>';
+            edcal.str_at = '<?php echo(__('at', 'editorial-calendar')) ?>';
             
-            edcal.str_day1 = '<?php echo(__('Sunday')) ?>';
-            edcal.str_day2 = '<?php echo(__('Monday')) ?>';
-            edcal.str_day3 = '<?php echo(__('Tuesday')) ?>';
-            edcal.str_day4 = '<?php echo(__('Wednesday')) ?>';
-            edcal.str_day5 = '<?php echo(__('Thursday')) ?>';
-            edcal.str_day6 = '<?php echo(__('Friday')) ?>';
-            edcal.str_day7 = '<?php echo(__('Saturday')) ?>';
+            edcal.str_day1 = '<?php echo(__('Sunday', 'editorial-calendar')) ?>';
+            edcal.str_day2 = '<?php echo(__('Monday', 'editorial-calendar')) ?>';
+            edcal.str_day3 = '<?php echo(__('Tuesday', 'editorial-calendar')) ?>';
+            edcal.str_day4 = '<?php echo(__('Wednesday', 'editorial-calendar')) ?>';
+            edcal.str_day5 = '<?php echo(__('Thursday', 'editorial-calendar')) ?>';
+            edcal.str_day6 = '<?php echo(__('Friday', 'editorial-calendar')) ?>';
+            edcal.str_day7 = '<?php echo(__('Saturday', 'editorial-calendar')) ?>';
             
-            edcal.str_edit = '<?php echo(__('Edit')) ?>';
-            edcal.str_del = '<?php echo(__('Delete')) ?>';
-            edcal.str_view = '<?php echo(__('View')) ?>';
-            edcal.str_status = '<?php echo(__('Status:')) ?>';
-            edcal.str_cancel = '<?php echo(__('Cancel')) ?>';
-            edcal.str_posttitle = '<?php echo(__('Post Title:')) ?>';
-            edcal.str_savedraft = '<?php echo(__('Save Draft')) ?>';
-            edcal.str_saveandedit = '<?php echo(__('Save and Edit Draft')) ?>';
-            edcal.str_newpost = '<?php echo(__('Add a new post on ')) ?>';
+            edcal.str_edit = '<?php echo(__('Edit', 'editorial-calendar')) ?>';
+            edcal.str_del = '<?php echo(__('Delete', 'editorial-calendar')) ?>';
+            edcal.str_view = '<?php echo(__('View', 'editorial-calendar')) ?>';
+            edcal.str_status = '<?php echo(__('Status:', 'editorial-calendar')) ?>';
+            edcal.str_cancel = '<?php echo(__('Cancel', 'editorial-calendar')) ?>';
+            edcal.str_posttitle = '<?php echo(__('Post Title:', 'editorial-calendar')) ?>';
+            edcal.str_savedraft = '<?php echo(__('Save Draft', 'editorial-calendar')) ?>';
+            edcal.str_saveandedit = '<?php echo(__('Save and Edit Draft', 'editorial-calendar')) ?>';
+            edcal.str_newpost = '<?php echo(__('Add a new post on ', 'editorial-calendar')) ?>';
             
-            edcal.str_del_msg1 = '<?php echo(__('You are about to delete this post ')) ?>';
-            edcal.str_del_msg2 = '<?php echo(__('Press cancel to stop, OK to delete.')) ?>';
+            edcal.str_del_msg1 = '<?php echo(__('You are about to delete this post ', 'editorial-calendar')) ?>';
+            edcal.str_del_msg2 = '<?php echo(__('Press cancel to stop, OK to delete.', 'editorial-calendar')) ?>';
             
-            edcal.concurrency_error = '<?php echo(__('Looks like someone else already moved this post.')) ?>';
-            edcal.permission_error = '<?php echo(__('You do not have permission to edit posts.')) ?>';
-            edcal.checksum_error = '<?php echo(__('Invalid checksum for post. This is commonly a cross-site scripting error.')) ?>';
-            edcal.general_error = '<?php echo(__('There was an error contacting your blog.')) ?>';
+            edcal.concurrency_error = '<?php echo(__('Looks like someone else already moved this post.', 'editorial-calendar')) ?>';
+            edcal.permission_error = '<?php echo(__('You do not have permission to edit posts.', 'editorial-calendar')) ?>';
+            edcal.checksum_error = '<?php echo(__('Invalid checksum for post. This is commonly a cross-site scripting error.', 'editorial-calendar')) ?>';
+            edcal.general_error = '<?php echo(__('There was an error contacting your blog.', 'editorial-calendar')) ?>';
         });
     </script>
 
@@ -181,7 +187,7 @@ function edcal_list_admin() {
     
     <div class="wrap">
         <div class="icon32" id="icon-edit"><br/></div>
-        <h2><?php echo(__('Posts Calendar')) ?></h2>
+        <h2><?php echo(__('Posts Calendar', 'editorial-calendar')) ?></h2>
         
         <div id="loadingcont">
             <div id="loading"> </div>
@@ -190,14 +196,14 @@ function edcal_list_admin() {
         <div id="topbar">
             <div id="topleft">
                 <h2>
-                    <a href="#" title="<?php echo(__('Go back four weeks.')) ?>" class="prev page-numbers" id="prevmonth" style="border: none;">&laquo;</a>
+                    <a href="#" title="<?php echo(__('Go back four weeks.', 'editorial-calendar')) ?>" class="prev page-numbers" id="prevmonth" style="border: none;">&laquo;</a>
                     <span id="currentRange"></span>
-                    <a href="#" title="<?php echo(__('Skip ahead four weeks.')) ?>" class="next page-numbers" id="nextmonth" style="border: none;">&raquo;</a>
+                    <a href="#" title="<?php echo(__('Skip ahead four weeks.', 'editorial-calendar')) ?>" class="next page-numbers" id="nextmonth" style="border: none;">&raquo;</a>
                 </h2>
             </div>
             
             <div id="topright">
-                <a href="#" id="moveToToday"><?php echo(__('Today')) ?></a>
+                <a href="#" id="moveToToday"><?php echo(__('Today', 'editorial-calendar')) ?></a>
             </div>
         </div>
         
@@ -320,7 +326,7 @@ function edcal_postJSON($post) {
     setup_postdata($post);
     ?>
         {
-            "date" : "<?php the_time('d') ?><?php the_time('M') ?><?php the_time('Y') ?>", 
+            "date" : "<?php the_time('d') ?><?php the_time('m') ?><?php the_time('Y') ?>", 
             "time" : "<?php the_time() ?>", 
             "url" : "<?php the_permalink(); ?>", 
             "status" : "<?php echo(get_post_status()); ?>",
