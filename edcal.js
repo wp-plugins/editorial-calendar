@@ -1175,6 +1175,15 @@ var edcal = {
                         if (post.status === 'trash') {
                             return;
                         }
+
+                        /*
+                         * In some non-English locales the date comes back as all lower case.
+                         * This is a problem since we use the date as the ID so we replace
+                         * the first letter of the month name with the same letter in upper
+                         * case to make sure we don't get into trouble.
+                         */
+                        post.date = post.date.replace(post.date.substring(2, 3), post.date.substring(2, 3).toUpperCase())
+                        
                         edcal.removePostItem(post.date, "post-" + post.id);
                         edcal.addPostItem(post, post.date);
                         postDates[postDates.length] = post.date;
