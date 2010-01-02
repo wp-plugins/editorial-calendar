@@ -104,6 +104,8 @@ function edcal_list_admin() {
         jQuery(document).ready(function(){
             edcal.ajax_url = '<?php echo wp_nonce_url(admin_url("admin-ajax.php"), "edit-calendar"); ?>';
             
+            edcal.locale = '<?php get_locale() ?> ';
+            
             /*
              * These strings are all localized values.  The WordPress localization mechanism 
              * doesn't really extend to JavaScript so we localize the strings in PHP and then
@@ -114,13 +116,13 @@ function edcal_list_admin() {
             edcal.str_by = '<?php echo(__('by')) ?>';
             edcal.str_at = '<?php echo(__('at')) ?>';
             
-            edcal.str_sunday = '<?php echo(__('Sunday')) ?>';
-            edcal.str_monday = '<?php echo(__('Monday')) ?>';
-            edcal.str_tuesday = '<?php echo(__('Tuesday')) ?>';
-            edcal.str_wednesday = '<?php echo(__('Wednesday')) ?>';
-            edcal.str_thursday = '<?php echo(__('Thursday')) ?>';
-            edcal.str_friday = '<?php echo(__('Friday')) ?>';
-            edcal.str_saturday = '<?php echo(__('Saturday')) ?>';
+            edcal.str_day1 = '<?php echo(__('Sunday')) ?>';
+            edcal.str_day2 = '<?php echo(__('Monday')) ?>';
+            edcal.str_day3 = '<?php echo(__('Tuesday')) ?>';
+            edcal.str_day4 = '<?php echo(__('Wednesday')) ?>';
+            edcal.str_day5 = '<?php echo(__('Thursday')) ?>';
+            edcal.str_day6 = '<?php echo(__('Friday')) ?>';
+            edcal.str_day7 = '<?php echo(__('Saturday')) ?>';
             
             edcal.str_edit = '<?php echo(__('Edit')) ?>';
             edcal.str_del = '<?php echo(__('Delete')) ?>';

@@ -188,13 +188,13 @@ var edcal = {
        calendar.
      */
     createDaysHeader: function() {
-        var html = '<div class="dayhead">' + edcal.str_sunday + '</div>';
-        html += '<div class="dayhead">' + edcal.str_monday + '</div>';
-        html += '<div class="dayhead">' + edcal.str_tuesday + '</div>';
-        html += '<div class="dayhead">' + edcal.str_wednesday + '</div>';
-        html += '<div class="dayhead">' + edcal.str_thursday + '</div>';
-        html += '<div class="dayhead">' + edcal.str_friday + '</div>';
-        html += '<div class="dayhead">' + edcal.str_saturday + '</div>';
+        var html = '<div class="dayhead">' + edcal.str_day1 + '</div>';
+        html += '<div class="dayhead">' + edcal.str_day2 + '</div>';
+        html += '<div class="dayhead">' + edcal.str_day3 + '</div>';
+        html += '<div class="dayhead">' + edcal.str_day4 + '</div>';
+        html += '<div class="dayhead">' + edcal.str_day5 + '</div>';
+        html += '<div class="dayhead">' + edcal.str_day6 + '</div>';
+        html += '<div class="dayhead">' + edcal.str_day7 + '</div>';
         
         jQuery("#rowhead").append(html);
         
@@ -764,6 +764,10 @@ var edcal = {
         var lastDate = edcal.getDayFromDayId(items.eq(items.length - 1).children(".row").children(".day:last").attr("id"));
         
         jQuery("#currentRange").text(firstDate.toString("MMMM yyyy") + " - " + lastDate.toString("MMMM yyyy"));
+    },
+    
+    nextStartOfWeek: function(/*date*/ date) {
+         
     },
     
     /*
