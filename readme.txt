@@ -49,6 +49,10 @@ The different color of each post indicates the status.  Gray is <code>draft</cod
 
 The calendar works with three types of post status: <code>draft</code>, <code>publish</code>, and <code>future</code>.  If you move a <code>publish</code> post to a date after the current day it becomes a <code>future</code> post.  If you drag a <code>future</code> post to a day before the current day it becomes a <code>draft</code> post.
 
+= Why doesn't the calendar work with Live Countdown Timer =
+
+If you use the plugin <a href="http://wordpress.org/extend/plugins/live-countdown-timer/">Live Countdown Timer</a> the editorial calendar will not work.  There is a conflict in some JavaScript libraries.  They're working on it.  For now you must disable Live Countdown Timer if you want to use the WordPress Editorial Calendar.
+
 == Screenshots ==
 
 1. See all of your posts and when they'll be published.
