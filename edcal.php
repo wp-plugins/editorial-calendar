@@ -103,7 +103,16 @@ function edcal_list_admin() {
     <script type="text/javascript">
         jQuery(document).ready(function(){
             edcal.ajax_url = '<?php echo wp_nonce_url(admin_url("admin-ajax.php"), "edit-calendar"); ?>';
-            
+
+            /*
+             * We want to show the day of the first day of the week to match the user's 
+             * country code.  The problem is that we can't just use the WordPress locale.
+             * If the locale was fr-FR so we started the week on Monday it would still 
+             * say Sunday was the first day if we didn't have a proper language bundle
+             * for French.  Therefore we must depend on the language bundle writers to
+             * specify the locale for the language they are adding.
+             * 
+             */
             edcal.locale = '<?php echo(__('en-US')) ?>';
             
             /*

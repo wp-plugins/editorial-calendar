@@ -765,7 +765,15 @@ var edcal = {
         
         jQuery("#currentRange").text(firstDate.toString("MMMM yyyy") + " - " + lastDate.toString("MMMM yyyy"));
     },
-    
+
+    /*
+     * We want the calendar to start on the day of the week that matches the country
+     * code in the locale.  If their full locale is en-US, that means the country
+     * code is US.  
+     *
+     * This is the full list of start of the week days from unicode.org
+     * http://unicode.org/repos/cldr/trunk/common/supplemental/supplementalData.xml
+     */
     nextStartOfWeek: function(/*date*/ date) {
          if (edcal.locale) {
              var local = edcal.locale.toUpperCase();
@@ -844,6 +852,12 @@ var edcal = {
          }
     },
 
+    /*
+     * Just a little helper function to tell if a given string (str)
+     * ends with the given expression (expr).  I could adding this 
+     * function to the JavaScript string object, but I don't want to
+     * risk conflicts with other plugins.
+     */
     endsWith: function(/*string*/ str, /*string*/ expr) {
          return (str.match(expr+"$")==expr);
     },
@@ -1264,7 +1278,7 @@ var edcal = {
                          * the first letter of the month name with the same letter in upper
                          * case to make sure we don't get into trouble.
                          */
-                        post.date = post.date.replace(post.date.substring(2, 3), post.date.substring(2, 3).toUpperCase())
+                        post.date = post.date.replace(post.date.substring(2, 3), post.date.substring(2, 3).toUpperCase());
                         
                         edcal.removePostItem(post.date, "post-" + post.id);
                         edcal.addPostItem(post, post.date);
