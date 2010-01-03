@@ -3,7 +3,7 @@ Contributors: MaryVogt, zgrossbart
 Tags: posts, post, calendar, AJAX, admin, administration
 Requires at least: 2.8.5
 Tested up to: 2.8.6
-Stable tag: 0.4
+Stable tag: 0.5
 
 Editorial calendar makes it possible to see all your posts and drag and drop them to manage your blog.
 
@@ -65,7 +65,7 @@ If you use the plugin <a href="http://wordpress.org/extend/plugins/live-countdow
 * Added localization support for strings and dates in the calendar
 * The calendar is no longer showing posts that you have put in your trash
 * Fixed a problem that caused posts to never show up when working with WordPress in Croatian and other Eastern European languages.
-* The calendar now supports the ability to start the week on the preferred day of the country in the current locale.
+* The calendar now starts the week on the right day based on the configured locale in WordPress. 
 * Added language support files for Croatian.  Special thanks to <a href="http://www.ivanbrezakbrkan.com">Ivan Brezak Brkan</a>.
 
 = 0.4 =
