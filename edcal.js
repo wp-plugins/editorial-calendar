@@ -1077,7 +1077,8 @@ var edcal = {
           * We don't really let them set a time in the calendar, so we 
           * put a default post time of 10:00 AM.
           */
-         var formattedDate = jQuery.URLEncode(edcal.getDayFromDayId(date).toString("yyyy-MM-dd") + " 10:00:00");
+         var formattedDate = jQuery.URLEncode(edcal.getDayFromDayId(date).toString("yyyy-dd-MM") + " 10:00:00");
+         edcal.output("Creating post on: " + edcal.getDayFromDayId(date).toString("yyyy-dd-MM"));
          var url = edcal.ajax_url + "&action=edcal_newdraft&date=" + formattedDate + "&title=" + 
              jQuery.URLEncode(title);
 
