@@ -66,7 +66,7 @@ If you use the plugin <a href="http://wordpress.org/extend/plugins/live-countdow
 * The calendar is no longer showing posts that you have put in your trash
 * Fixed a problem that caused posts to never show up when working with WordPress in Croatian and other Eastern European languages.
 * The calendar now supports the ability to start the week on the preferred day of the country in the current locale.
-* Added language support files for Croatian
+* Added language support files for Croatian.  Special thanks to <a href="http://www.ivanbrezakbrkan.com">Ivan Brezak Brkan</a>.
 
 = 0.4 =
 * We are now doing a better job arranging our tooltips and setting GMT dates correctly.

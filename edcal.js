@@ -212,7 +212,7 @@ var edcal = {
                      '<div id="' + 'row' + edcal._wDate.toString("ddMMyyyy") + 'row" class="row">';
         for (var i = 0; i < 7; i++) {
             newrow += '<div id="' + _date.toString("ddMMyyyy") + '" class="day ' + 
-                      _date.toString("dddd").toLowerCase() + ' '   + 
+                      _date.toString("dddd").toLowerCase() + ' month-'   + 
                       _date.toString("MM").toLowerCase() + '">';
             
             newrow += '<div class="dayobj">';

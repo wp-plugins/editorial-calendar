@@ -45,7 +45,7 @@
     height: 100%;
 }
 
-.jan, .mar, .may, .jul, .sep, .nov {
+.month-01, .month-03, .month-05, .month-07, .month-09, .month-11 {
     background-color: #F1F1F1;
 }
 
