@@ -244,6 +244,13 @@ function edcal_filter_where($where = '') {
  *
  */
 function edcal_scripts() {
+    /*
+     * To get proper localization for dates we need to include the correct JavaScript file for the current
+     * locale.  We can do this based on the locale in the localized bundle to make sure the date locale matches
+     * the locale for the other strings.
+     */
+    wp_enqueue_script( "date", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/languages/date-".__('en-US', 'editorial-calendar').".js"), array( 'jquery' ) );
+
     wp_enqueue_script( "edcal-lib", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/edcallib.min.js"), array( 'jquery' ) );
     return;
     
@@ -261,8 +268,6 @@ function edcal_scripts() {
     wp_enqueue_script( "tooltip", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/jquery.tooltip.js"), array( 'jquery' ) );
     wp_enqueue_script( "humanMsg", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/humanmsg.js"), array( 'jquery' ) );
     
-
-    wp_enqueue_script( "date", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/date.js"), array( 'jquery' ) );
     wp_enqueue_script( "scrollable", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/tools.scrollable-1.1.2.js"), array( 'jquery' ) );
     wp_enqueue_script( "mouse-wheel", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/tools.scrollable.mousewheel-1.0.1.js"), array( 'jquery' ) );
 
