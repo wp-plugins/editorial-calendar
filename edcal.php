@@ -518,7 +518,9 @@ function edcal_changedate() {
     $post = get_post($edcal_postid, ARRAY_A);
     setup_postdata($post);
     
-    $matches = strpos($post['post_date'], $edcal_oldDate) === 0;
+    $post_date = strtotime($post['post_date']);
+    
+    $matches = strpos($post_date, $edcal_oldDate) === 0;
     
     /*
      * We are doing optimistic concurrency checking on the dates.  If
@@ -529,7 +531,7 @@ function edcal_changedate() {
      * updated post data.
      */
      
-     if ($matches != 1) {
+     if ($post_date == $old_date) {
         global $EDCAL_CONCURRENCY_ERROR;
         ?> {
             "error": <?php echo($EDCAL_CONCURRENCY_ERROR); ?>,
