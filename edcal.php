@@ -518,10 +518,6 @@ function edcal_changedate() {
     $post = get_post($edcal_postid, ARRAY_A);
     setup_postdata($post);
     
-    $post_date = strtotime($post['post_date']);
-    
-    $matches = strpos($post_date, $edcal_oldDate) === 0;
-    
     /*
      * We are doing optimistic concurrency checking on the dates.  If
      * the user tries to move a post we want to make sure nobody else
@@ -530,8 +526,7 @@ function edcal_changedate() {
      * browser then we return an error to the browser along with the
      * updated post data.
      */
-     
-     if ($post_date == $old_date) {
+     if (date('Y-d-m', strtotime($post['post_date'])) != date('Y-d-m', strtotime($edcal_oldDate))) {
         global $EDCAL_CONCURRENCY_ERROR;
         ?> {
             "error": <?php echo($EDCAL_CONCURRENCY_ERROR); ?>,
