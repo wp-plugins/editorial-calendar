@@ -1135,7 +1135,7 @@ var edcal = {
      */
     changeDate: function(/*string*/ newdate, /*Post*/ post) {
          edcal.output('Changing the date of "' + post.title + '" to ' + newdate);
-         var newdateFormatted = edcal.getDayFromDayId(newdate).toString("yyyy-MM-dd");
+         var newdateFormatted = edcal.getDayFromDayId(newdate).toString("yyyy-dd-MM");
 
          var postStatus = "";
 
@@ -1172,7 +1172,7 @@ var edcal = {
 
          var url = edcal.ajax_url + "&action=edcal_changedate&postid=" + post.id + 
              "&postStatus=" + postStatus + 
-             "&newdate=" + newdateFormatted + "&olddate=" + edcal.getDayFromDayId(post.date).toString("yyyy-MM-dd");
+             "&newdate=" + newdateFormatted + "&olddate=" + edcal.getDayFromDayId(post.date).toString("yyyy-dd-MM");
 
          jQuery("#post-" + post.id).addClass("loadingclass");
 

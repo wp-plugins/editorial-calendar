@@ -526,7 +526,7 @@ function edcal_changedate() {
      * browser then we return an error to the browser along with the
      * updated post data.
      */
-     if (date('Y-d-m', strtotime($post['post_date'])) != date('Y-d-m', strtotime($edcal_oldDate))) {
+     if (date('Y-m-d', strtotime($post['post_date'])) != date('Y-m-d', strtotime($edcal_oldDate))) {
         global $EDCAL_CONCURRENCY_ERROR;
         ?> {
             "error": <?php echo($EDCAL_CONCURRENCY_ERROR); ?>,
