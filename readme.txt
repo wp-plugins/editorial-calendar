@@ -3,7 +3,7 @@ Contributors: MaryVogt, zgrossbart
 Tags: posts, post, calendar, AJAX, admin, administration
 Requires at least: 2.8.5
 Tested up to: 2.8.6
-Stable tag: 0.5.2
+Stable tag: 0.5.3
 
 Editorial calendar makes it possible to see all your posts and drag and drop them to manage your blog.
 
@@ -60,6 +60,9 @@ If you use the plugin <a href="http://wordpress.org/extend/plugins/live-countdow
 3. Drag and drop posts to easily change dates and arrange your calendar.
 
 == Changelog ==
+
+= 0.5.3 =
+* Fixed a date formatting bug when we update posts into the WordPress database
 
 = 0.5.2 =
 * Fixed a bug that way causing an invalid concurrency error when changing post dates in non-American countries
