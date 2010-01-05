@@ -130,6 +130,8 @@ function edcal_list_admin() {
             edcal.str_on = '<?php echo(__('on', 'editorial-calendar')) ?>';
             edcal.str_by = '<?php echo(__('by', 'editorial-calendar')) ?>';
             edcal.str_at = '<?php echo(__('at', 'editorial-calendar')) ?>';
+
+            edcal.str_addPostLink = '<?php echo(__('Add a post', 'editorial-calendar')) ?>';
             
             edcal.str_day1 = '<?php echo(__('Sunday', 'editorial-calendar')) ?>';
             edcal.str_day2 = '<?php echo(__('Monday', 'editorial-calendar')) ?>';

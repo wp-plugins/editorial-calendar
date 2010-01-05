@@ -23,6 +23,18 @@
     height: 100%;
 }
 
+#rowhead, #edcal_scrollable {
+    -x-system-font:none;
+    font-family:"Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
+    font-size:11px;
+    font-size-adjust:none;
+    font-stretch:normal;
+    font-style:normal;
+    font-variant:normal;
+    font-weight:normal;
+    line-height:18px;
+}
+
 #cal {
     position:absolute; 
  
@@ -66,6 +78,17 @@
     font-size: 1.25em;
     text-align: right;
     padding-right: 10px;
+}
+
+.daynewlink {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: none;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    text-decoration: none;
+    z-index: 10;
 }
 
 .month-present .daylabel {
@@ -287,14 +310,6 @@
 
 #edcal-title-edit {
     font-size: 11px;
-}
-
-.daynewlink {
-    display: none;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    text-decoration: none;
-    font-weight: bold;
 }
 
 #nextmonth, #prevmonth {

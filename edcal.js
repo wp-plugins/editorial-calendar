@@ -251,9 +251,9 @@ var edcal = {
             
             newrow += '<div class="dayobj">';
 
-            newrow += '<div class="daylabel">';
             newrow += '<a href="#" adddate="' + _date.toString("MMMM d") + '" class="daynewlink" title="' + edcal.str_newpost + _date.toString("MMMM d") + '" ' + 
-                         'onclick="return false;">+</a>';
+                         'onclick="return false;">' + edcal.str_addPostLink + '</a>';
+            newrow += '<div class="daylabel">';
             if (_date.toString("dd") == "01") {
                 newrow += _date.toString("MMM d");
             } else {
@@ -1045,7 +1045,7 @@ var edcal = {
 
         jQuery(".day").live("mouseover", function(evt) {
             var createLink = jQuery("#" + jQuery(this).attr("id") + " .daynewlink");
-            createLink.show();
+            createLink.css("display", "block");
             edcal.addCreateTooltip(createLink);
         });
 
