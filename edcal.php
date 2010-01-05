@@ -175,6 +175,14 @@ function edcal_list_admin() {
         #tipclose {
             background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/tip_close.gif")); ?>');
         }
+
+        .today .daylabel {
+            background: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/today_bk.gif")); ?>') repeat-x left top;
+        }
+
+        #rowhead {
+            background: #6D6D6D url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/menu-bits.gif")); ?>') repeat-x scroll left top;
+        }
     </style>
     
     <?php

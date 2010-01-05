@@ -66,6 +66,9 @@ var edcal = {
      * True if the calendar is in the process of moving
      */
     isMoving: false,
+
+    firstDayOfMonth: null,
+    firstDayOfNextMonth: null,
         
     /*
        This is the base URL we use to make AJAX calls back
@@ -179,7 +182,7 @@ var edcal = {
        have to change the cell sizes in multiple places.
      */
     alignCal: function() {
-        edcal.alignGrid("#cal", 1, 100, 20, 0.25);         
+        edcal.alignGrid("#cal", 1, 100, 19, 1);         
     },
 
     
@@ -188,17 +191,47 @@ var edcal = {
        calendar.
      */
     createDaysHeader: function() {
-        var html = '<div class="dayhead">' + edcal.str_day1 + '</div>';
+        var html = '<div class="dayheadcont"><div class="dayhead firstday">' + edcal.str_day1 + '</div>';
         html += '<div class="dayhead">' + edcal.str_day2 + '</div>';
         html += '<div class="dayhead">' + edcal.str_day3 + '</div>';
         html += '<div class="dayhead">' + edcal.str_day4 + '</div>';
         html += '<div class="dayhead">' + edcal.str_day5 + '</div>';
         html += '<div class="dayhead">' + edcal.str_day6 + '</div>';
-        html += '<div class="dayhead">' + edcal.str_day7 + '</div>';
+        html += '<div class="dayhead lastday">' + edcal.str_day7 + '</div></div>';
         
         jQuery("#rowhead").append(html);
         
-        edcal.alignGrid("#rowhead", 7, 14.2, 100, 0.25);
+        edcal.alignGrid(".dayheadcont", 7, 13.9, 100, 0.5);
+    },
+
+    getDateClass: function(/*Date*/ date) {
+         if (!edcal.firstDayOfMonth) {
+             /*
+              * We only need to figure out the first and last day 
+              * of the month once
+              */
+             edcal.firstDayOfMonth = Date.today().moveToFirstDayOfMonth().clearTime();
+             edcal.firstDayOfNextMonth = Date.today().moveToLastDayOfMonth().clearTime();
+         }
+
+         if (date.between(edcal.firstDayOfMonth, edcal.firstDayOfNextMonth)) {
+             /*
+              * If the date isn't before the first of the 
+              * month and it isn't after the last of the 
+              * month then it is in the current month.
+              */
+             return "month-present";
+         } else if (date.compareTo(edcal.firstDayOfMonth) == 1) {
+             /*
+              * Then the date is before the current month
+              */
+             return "month-future";
+         } else if (date.compareTo(edcal.firstDayOfNextMonth) == -1) {
+             /*
+              * Then the date is after the current month
+              */
+             return "month-past";
+         }
     },
     
     /*
@@ -212,6 +245,7 @@ var edcal = {
                      '<div id="' + 'row' + edcal._wDate.toString("ddMMyyyy") + 'row" class="row">';
         for (var i = 0; i < 7; i++) {
             newrow += '<div id="' + _date.toString("ddMMyyyy") + '" class="day ' + 
+                      edcal.getDateClass(_date) + ' ' + 
                       _date.toString("dddd").toLowerCase() + ' month-'   + 
                       _date.toString("MM").toLowerCase() + '">';
             
@@ -247,7 +281,7 @@ var edcal = {
             parent.prepend(newrow);
         }
         
-        edcal.alignGrid("#row" + edcal._wDate.toString("ddMMyyyy") + "row", 7, 14.2, 100, 0.25);
+        edcal.alignGrid("#row" + edcal._wDate.toString("ddMMyyyy") + "row", 7, 13.9, 100, 0.5);
         
         jQuery('#row' + edcal._wDate.toString("ddMMyyyy") + ' .day').each( function() {
             edcal.addTooltip(jQuery(this).attr("id"));

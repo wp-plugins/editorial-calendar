@@ -15,7 +15,6 @@
  ******************************************************************************/
 
 #edcal_scrollable {
-    width: 98%;
     /* required settings */ 
     position:relative; 
     overflow:hidden; 
@@ -33,8 +32,16 @@
 }
 
 .day {
-    /*background-color: #F2F2F2;*/
-    background-color: #e0e0e0;;
+    border: thin solid rgb(164, 164, 164);
+    -moz-border-radius-topright:3px;
+    -moz-border-radius-topleft:3px;
+    -webkit-border-radius-topright:3px;
+    -webkit-border-radius-topright:3px;
+    background: white;
+}
+
+.day.month-past {
+    background: rgb(241, 241, 241);
 }
 
 .scrollHover {
@@ -43,18 +50,6 @@
 
 .row {
     height: 100%;
-}
-
-.month-01, .month-03, .month-05, .month-07, .month-09, .month-11 {
-    background-color: #F1F1F1;
-}
-
-.today {
-    background-color: wheat;
-}
-
-.today .daylabel {
-    font-weight: bold;
 }
 
 .dayobj {
@@ -66,8 +61,20 @@
 .daylabel {
     position: absolute;
     top: 0px;
-    right: 5px;
+    right: 0px;
+    left: 0px;
     font-size: 1.25em;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.month-present .daylabel {
+    background: #F5F5F5;
+}
+
+.today .daylabel {
+    font-weight: bold;
+    color: white;
 }
 
 .post {
@@ -94,14 +101,46 @@
 
 .dayhead {
     font-weight: bold;
-    text-align: center;
-    color: gray;
+    text-align: left;
+    text-indent: 5px;
+    color: #FFFFFF;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+    border-style-top:solid solid none;
+    border-width:1px 1px 0;
+    line-height: 23px;
+    min-width: 10em;
+    -x-system-font:none;
+    font-family:Georgia,"Times New Roman","Bitstream Charter",Times,serif;
+    font-size:13px;
+    font-size-adjust:none;
+    font-stretch:normal;
+    font-style:normal;
+    font-variant:normal;
+    font-weight:normal;
+}
+
+.dayheadcont {
+    position: relative;
+    margin-right: 10px;
+}
+
+.dayhead.firstday {
+    
+}
+
+.dayhead.lastday {
+    
 }
 
 #rowhead {
-    height: 1.5em;
+    height: 28px;
     top: 0px;
-    width: 98%
+    
+    -moz-border-radius-topleft:6px;
+    -moz-border-radius-topright:6px;
+    border-style-right:solid solid none;
+    border-style-left:solid solid none;
+    margin-bottom: 5px;
 }
 
 #topbar {
@@ -171,7 +210,7 @@
     position: relative;
     top: 1.5em;
     height: 85%;
-    overflow: auto;
+    overflow: hidden;
 }
 
 .page-numbers {
