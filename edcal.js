@@ -656,6 +656,12 @@ var edcal = {
          if (posttitle === "") {
              posttitle = "[No Title]";
          }
+
+         if (post.status === "draft" ||
+             post.status === "pending") {
+             posttitle += edcal.str_draft;
+         }
+
          return '<li id="post-' + post.id + '" class="post ' + post.status + '">' + posttitle + '</li>';
     },
     

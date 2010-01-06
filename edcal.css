@@ -96,26 +96,26 @@
 }
 
 .today .daylabel {
-    font-weight: bold;
+    color: white;
+}
+
+.today .daynewlink {
     color: white;
 }
 
 .post {
     display: block;
     list-style-type: none;
-    background: #FFFFE0;
     z-index: 10;
     cursor: move;
-    -moz-border-radius:6px;
-    -webkit-border-radius:6px;
     margin-left: 2px;
     margin-right: 2px;
-    padding: 5px;
+    font-size: 0.9em;
 }
 
 .post:hover {
-    color: white;
-    background: black;
+    color: red;
+    background: rgb(215, 215, 215);;
 }
 
 .day-active {
@@ -194,17 +194,9 @@
     text-decoration: none;
 }
 
-.future {
-    background-color: #FFFFE0;
-}
-
 .draft, .pending {
-    background-color: #cccccc;
+    color: gray
     
-}
-
-.publish {
-    background-color: #dde4fb;
 }
 
 #loadingcont {
@@ -238,8 +230,10 @@
 
 .page-numbers {
     text-decoration: none;
-    border: none;
     border-bottom-style: none;
+    border: none;
+    background: white;
+    color: #21759B;
 }
 
 #tooltip p {

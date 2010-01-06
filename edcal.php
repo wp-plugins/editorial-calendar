@@ -140,7 +140,8 @@ function edcal_list_admin() {
             edcal.str_day5 = '<?php echo(__('Thursday', 'editorial-calendar')) ?>';
             edcal.str_day6 = '<?php echo(__('Friday', 'editorial-calendar')) ?>';
             edcal.str_day7 = '<?php echo(__('Saturday', 'editorial-calendar')) ?>';
-            
+
+            edcal.str_draft = '<?php echo(__(' [DRAFT]', 'editorial-calendar')) ?>';
             edcal.str_edit = '<?php echo(__('Edit', 'editorial-calendar')) ?>';
             edcal.str_del = '<?php echo(__('Delete', 'editorial-calendar')) ?>';
             edcal.str_view = '<?php echo(__('View', 'editorial-calendar')) ?>';
@@ -205,11 +206,11 @@ function edcal_list_admin() {
         
         <div id="topbar">
             <div id="topleft">
-                <h2>
-                    <a href="#" title="<?php echo(__('Go back four weeks.', 'editorial-calendar')) ?>" class="prev page-numbers" id="prevmonth" style="border: none;">&laquo;</a>
+                <h3>
+                    <a href="#" title="<?php echo(__('Go back four weeks.', 'editorial-calendar')) ?>" class="save button prev page-numbers" id="prevmonth" style="border: thin solid gray;">&laquo;</a>
                     <span id="currentRange"></span>
-                    <a href="#" title="<?php echo(__('Skip ahead four weeks.', 'editorial-calendar')) ?>" class="next page-numbers" id="nextmonth" style="border: none;">&raquo;</a>
-                </h2>
+                    <a href="#" title="<?php echo(__('Skip ahead four weeks.', 'editorial-calendar')) ?>" class="save button next page-numbers" id="nextmonth" style="border: thin solid gray;">&raquo;</a>
+                </h3>
             </div>
             
             <div id="topright">
