@@ -314,7 +314,22 @@ var edcal = {
 
         jQuery('#row' + edcal._wDate.toString("ddMMyyyy") + ' .day').droppable({
             hoverClass: 'day-active',
-            accept: '.post.draggable',
+            accept: function(ui) {
+                /*
+                 * We only let them drag draft posts into the past.  If
+                 * they try to drag and scheduled post into the past we
+                 * reject the drag
+                 */
+                if (jQuery(this).hasClass("month-past")) {
+                    if (ui.hasClass("draft")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return true;
+                }
+            },
             greedy: true,
             tolerance: 'pointer',
             drop: function(event, ui) {

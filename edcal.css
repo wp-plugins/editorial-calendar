@@ -56,6 +56,10 @@
     background: rgb(241, 241, 241);
 }
 
+.day-active {
+    background-color: lightyellow;
+}
+
 .scrollHover {
     background: lightblue;
 }
@@ -126,10 +130,6 @@
 .post .postlink:hover {
     color: red;
     background: rgb(215, 215, 215);
-}
-
-.day-active {
-    background-color: lightyellow;
 }
 
 .dayhead {
