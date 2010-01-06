@@ -244,6 +244,10 @@ var edcal = {
     },
 
     showAddPostLink: function(/*string*/ dayid) {
+         if (edcal.inDrag) {
+             return;
+         }
+
          var createLink = jQuery("#" + dayid + " .daynewlink");
          createLink.css("display", "block");
          edcal.addCreateTooltip(createLink);
