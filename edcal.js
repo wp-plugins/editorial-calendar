@@ -67,8 +67,17 @@ var edcal = {
      */
     isMoving: false,
 
+    /*
+     * This is the first date of the current month
+     */
     firstDayOfMonth: null,
+
+    /*
+     * This is the first day of the next month
+     */
     firstDayOfNextMonth: null,
+
+    wp_dateFormat: "yyyy-dd-MM",
         
     /*
        This is the base URL we use to make AJAX calls back
@@ -1127,8 +1136,8 @@ var edcal = {
           * We don't really let them set a time in the calendar, so we 
           * put a default post time of 10:00 AM.
           */
-         var formattedDate = encodeURIComponent(edcal.getDayFromDayId(date).toString("yyyy-dd-MM") + " 10:00:00");
-         edcal.output("Creating post on: " + edcal.getDayFromDayId(date).toString("yyyy-dd-MM"));
+         var formattedDate = encodeURIComponent(edcal.getDayFromDayId(date).toString(edcal.wp_dateFormat) + " 10:00:00");
+         edcal.output("Creating post on: " + edcal.getDayFromDayId(date).toString(edcal.wp_dateFormat));
          var url = edcal.ajax_url + "&action=edcal_newdraft&date=" + formattedDate + "&title=" + 
              encodeURIComponent(title);
 
@@ -1185,7 +1194,7 @@ var edcal = {
      */
     changeDate: function(/*string*/ newdate, /*Post*/ post) {
          edcal.output('Changing the date of "' + post.title + '" to ' + newdate);
-         var newdateFormatted = edcal.getDayFromDayId(newdate).toString("yyyy-dd-MM");
+         var newdateFormatted = edcal.getDayFromDayId(newdate).toString(edcal.wp_dateFormat);
 
          var postStatus = "";
 
@@ -1222,7 +1231,7 @@ var edcal = {
 
          var url = edcal.ajax_url + "&action=edcal_changedate&postid=" + post.id + 
              "&postStatus=" + postStatus + 
-             "&newdate=" + newdateFormatted + "&olddate=" + edcal.getDayFromDayId(post.date).toString("yyyy-dd-MM");
+             "&newdate=" + newdateFormatted + "&olddate=" + edcal.getDayFromDayId(post.date).toString(edcal.wp_dateFormat);
 
          jQuery("#post-" + post.id).addClass("loadingclass");
 
