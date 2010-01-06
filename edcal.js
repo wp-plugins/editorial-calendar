@@ -1127,8 +1127,8 @@ var edcal = {
           * We don't really let them set a time in the calendar, so we 
           * put a default post time of 10:00 AM.
           */
-         var formattedDate = encodeURIComponent(edcal.getDayFromDayId(date).toString("yyyy-MM-dd") + " 10:00:00");
-         edcal.output("Creating post on: " + edcal.getDayFromDayId(date).toString("yyyy-MM-dd"));
+         var formattedDate = encodeURIComponent(edcal.getDayFromDayId(date).toString("yyyy-dd-MM") + " 10:00:00");
+         edcal.output("Creating post on: " + edcal.getDayFromDayId(date).toString("yyyy-dd-MM"));
          var url = edcal.ajax_url + "&action=edcal_newdraft&date=" + formattedDate + "&title=" + 
              encodeURIComponent(title);
 
@@ -1185,7 +1185,7 @@ var edcal = {
      */
     changeDate: function(/*string*/ newdate, /*Post*/ post) {
          edcal.output('Changing the date of "' + post.title + '" to ' + newdate);
-         var newdateFormatted = edcal.getDayFromDayId(newdate).toString("yyyy-MM-dd");
+         var newdateFormatted = edcal.getDayFromDayId(newdate).toString("yyyy-dd-MM");
 
          var postStatus = "";
 
@@ -1222,7 +1222,7 @@ var edcal = {
 
          var url = edcal.ajax_url + "&action=edcal_changedate&postid=" + post.id + 
              "&postStatus=" + postStatus + 
-             "&newdate=" + newdateFormatted + "&olddate=" + edcal.getDayFromDayId(post.date).toString("yyyy-MM-dd");
+             "&newdate=" + newdateFormatted + "&olddate=" + edcal.getDayFromDayId(post.date).toString("yyyy-dd-MM");
 
          jQuery("#post-" + post.id).addClass("loadingclass");
 
