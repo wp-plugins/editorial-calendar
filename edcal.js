@@ -68,6 +68,11 @@ var edcal = {
     isMoving: false,
 
     /*
+     * True if we are in the middle of dragging a post
+     */
+    inDrag: false,
+
+    /*
      * This is the first date of the current month
      */
     firstDayOfMonth: null,
