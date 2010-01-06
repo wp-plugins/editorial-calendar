@@ -111,11 +111,16 @@
     margin-left: 2px;
     margin-right: 2px;
     font-size: 0.9em;
+    padding-bottom: 1.5em;
 }
 
-.post:hover {
+.post .postactions {
+    display: none;
+}
+
+.post .postlink:hover {
     color: red;
-    background: rgb(215, 215, 215);;
+    background: rgb(215, 215, 215);
 }
 
 .day-active {

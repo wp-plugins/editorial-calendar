@@ -283,10 +283,6 @@ var edcal = {
         
         edcal.alignGrid("#row" + edcal._wDate.toString("ddMMyyyy") + "row", 7, 13.9, 100, 0.5);
         
-        jQuery('#row' + edcal._wDate.toString("ddMMyyyy") + ' .day').each( function() {
-            edcal.addTooltip(jQuery(this).attr("id"));
-        });
-
         edcal.draggablePost('#row' + edcal._wDate.toString("ddMMyyyy") + ' .post');
 
         jQuery('#row' + edcal._wDate.toString("ddMMyyyy") + ' .day').droppable({
@@ -315,9 +311,6 @@ var edcal = {
                            // Step 3. Add the item to the new DOM parent
                            jQuery('#' + jQuery(this).attr("id") + ' .postlist').append(edcal.createPostItem(post, 
                                                                                                             jQuery(this).attr("id")));
-                           
-                           // Step 4. And add the tooltip
-                           edcal.addTooltip(jQuery(this).attr("id"));
                            
                            if (dayId == jQuery(this).attr("id")) {
                                /*
@@ -399,7 +392,6 @@ var edcal = {
      */
     addPostItemDragAndToolltip: function(/*string*/ dayobjId) {
          edcal.draggablePost('#' + dayobjId + ' .post');
-         edcal.addTooltip(dayobjId);
     },
 
     /*
@@ -485,61 +477,6 @@ var edcal = {
     closeTooltip: function() {
          edcal.cancelEditTitle();
          jQuery("#tooltip").hide();
-    },
-    
-    /*
-     * Adds a tooltip to every post in the specified day.
-     */
-    addTooltip: function(/*string*/ dayobjId) {
-         jQuery('#' + dayobjId + ' .post').tooltip({ 
-             delay: 1500, 
-             bodyHandler: function() {
-                 var post = edcal.findPostForId(dayobjId, jQuery(this).attr("id"));
-
-                 var posttitle = post.title;
-
-                 var tooltip = '<div class="tooltip">' + 
-                               '<a href="#" id="tipclose" onclick="edcal.closeTooltip(); return false;" title="close"> </a>' + 
-                                   '<h3 id="edcal-title">' + posttitle + 
-                                       ' <a href="#" onclick="edcal.editTitle(); return false;" class="edit-post-status" id="edcal-title-edit">' + edcal.str_edit + '</a>' + 
-                                   '</h3>' + 
-                                   '<div id="edcal-title-box">' + 
-                                       '<input type="text" postid="' + post.id + '" value="' + post.title + '" id="edcal-title-edit-field"/> &nbsp;&nbsp;' + 
-                                       '<span id="edit-slug-buttons">' + 
-                                           '<a class="save button" href="#" onclick="edcal.saveTitle(\'' + post.id + '\'); return false;">Save</a> ' + 
-                                           '<a href="#" onclick="edcal.cancelEditTitle(\'' + post.title + '\'); return false;" class="cancel">' + edcal.str_cancel + '</a></span>' + 
-                                       '</div>' + 
-                                   '<p>' + 
-                                       '<i>' + edcal.str_by + '</i> ' + post.author + ' <i>' + edcal.str_on + '</i> ' + 
-                                       edcal.getDayFromDayId(post.date).toString("MMMM d, yyyy") + ' ' + edcal.str_at + ' ' +
-                                       post.time + 
-                                   '</p>' + 
-                                   '<p>' + 
-                                       edcal.str_status + '<b>' + post.status + '</b>' +
-                                       '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-                                    if (post.editlink) {
-                                        /*
-                                         * If the user doesn't have permission to edit a post then 
-                                         * then server won't send the edit link URL and we shouldn't
-                                         * show the edit link
-                                         */
-                                       tooltip += '<a href="' + post.editlink + '" title="' + edcal.str_edit + ' ' + post.title + 
-                                           '">' + edcal.str_edit + '</a>&nbsp; | &nbsp;';
-                                    }
-
-                                    if (post.dellink) {
-                                        tooltip += '<a class="submitdelete" href="' + post.dellink + '" ' + 
-                                        'onclick="return edcal.confirmDelete(\'' + post.title + '\');"' +
-                                        'title="' + edcal.str_del + ' ' + post.title + '">' + edcal.str_del + '</a> &nbsp; | &nbsp;';
-                                    }
-
-                                    tooltip += '<a href="' + post.permalink + '" title="' + edcal.str_view + ' ' + post.title + '">' + edcal.str_view + '</a>' + 
-                                   '</p>' + 
-                               '</div>';
-
-                 return tooltip;
-             } 
-         });
     },
     
     /*
@@ -646,6 +583,20 @@ var edcal = {
 
         return postsString;
     },
+
+    showActionLinks: function(/*string*/ postid) {
+         jQuery('#' + postid).css({
+             'padding-bottom': '0px'
+         });
+         jQuery('#' + postid + ' .postactions').show();
+    }, 
+
+    hideActionLinks: function(/*string*/ postid) {
+         jQuery('#' + postid).css({
+             'padding-bottom': '1.5em'
+         });
+         jQuery('#' + postid + ' .postactions').hide();
+    },
     
     /*
      * Gets the HTML string for a post.
@@ -662,7 +613,13 @@ var edcal = {
              posttitle += edcal.str_draft;
          }
 
-         return '<li id="post-' + post.id + '" class="post ' + post.status + '">' + posttitle + '</li>';
+         return '<li onmouseover="edcal.showActionLinks(\'post-' + post.id + '\');" ' + 
+             'onmouseout="edcal.hideActionLinks(\'post-' + post.id + '\');" ' + 
+             'id="post-' + post.id + '" class="post ' + post.status + '"><div class="postlink">' + posttitle + '</div>' + 
+             '<div class="postactions"><a href="' + post.editlink + '">' + edcal.str_edit + '</a> | ' +
+             '<a href="' + post.dellink + ' onclick="return edcal.confirmDelete(\'' + post.title + '\');">' + edcal.str_del + '</a> | ' +
+             '<a href="' + post.permalink + '">' + edcal.str_view + '</a>'  + 
+             '</div></li>';
     },
     
     /*
