@@ -168,10 +168,6 @@ function edcal_list_admin() {
             background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/loading_post.gif")); ?>');
         }
 
-        .loadingclass:hover {
-            background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/loading_post_hover.gif")); ?>');
-        }
-
         #loading {
             background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/loading.gif")); ?>');
         }
