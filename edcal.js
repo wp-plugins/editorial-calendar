@@ -664,6 +664,8 @@ var edcal = {
              posttitle += edcal.str_draft;
          }
 
+         posttitle = '<span class="posttime">' + post.time + '</span>: ' + posttitle;
+
          if (edcal.isPostEditable(post)) {
              return '<li onmouseover="edcal.showActionLinks(\'post-' + post.id + '\');" ' + 
                  'onmouseout="edcal.hideActionLinks(\'post-' + post.id + '\');" ' + 
@@ -1313,7 +1315,8 @@ var edcal = {
                     return;
                 }
                 var postDates = [];
-                jQuery.each(parsedRes, function(i, post) {
+                for (var i = parsedRes.length - 1; i > -1; i-- ) {
+                    var post = parsedRes[i];
                     if (post) {
                         if (post.status === 'trash') {
                             return;
@@ -1331,7 +1334,7 @@ var edcal = {
                         edcal.addPostItem(post, post.date);
                         postDates[postDates.length] = post.date;
                     }
-                });
+                }
 
                 /*
                  * If the blog has a very larger number of posts then adding
