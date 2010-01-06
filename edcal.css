@@ -111,6 +111,7 @@
     margin-right: 2px;
     font-size: 0.9em;
     padding-bottom: 1.5em;
+    cursor: pointer;
 }
 
 .post.draggable {
@@ -204,9 +205,8 @@
     text-decoration: none;
 }
 
-.draft, .pending {
+.publish {
     color: gray
-    
 }
 
 #loadingcont {
