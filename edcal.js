@@ -77,7 +77,7 @@ var edcal = {
      */
     firstDayOfNextMonth: null,
 
-    wp_dateFormat: "yyyy-dd-MM",
+    wp_dateFormat: "yyyy-MM-dd",
         
     /*
        This is the base URL we use to make AJAX calls back
@@ -314,7 +314,7 @@ var edcal = {
 
         jQuery('#row' + edcal._wDate.toString("ddMMyyyy") + ' .day').droppable({
             hoverClass: 'day-active',
-            accept: '.post',
+            accept: '.post.draggable',
             greedy: true,
             tolerance: 'pointer',
             drop: function(event, ui) {
@@ -811,8 +811,7 @@ var edcal = {
        issue by adding the spaces back before we parse.
      */
     getDayFromDayId: function(/*dayId*/ day) {
-         edcal.output("getDayFromDayId(" + day + ")");
-        return Date.parse(day.substring(0, 2) + '/' + day.substring(2, 4) + '/' + day.substring(4));
+         return Date.parseExact(day.substring(2, 4) + '/' + day.substring(0, 2) + '/' + day.substring(4), "MM/dd/yyyy");
     },
     
     /*
@@ -1216,7 +1215,7 @@ var edcal = {
                 was scheduled to get published in the future and they drag
                 it into the past we change the status to publish.
               */
-             var compare = Date.parse(newdateFormatted).compareTo(Date.today());
+             var compare = Date.parseExact(newdateFormatted, edcal.wp_dateFormat).compareTo(Date.today());
              if (compare === -1) {
                  if (post.status === "publish") {
                      postStatus = "publish";
