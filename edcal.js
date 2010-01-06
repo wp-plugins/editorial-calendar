@@ -704,7 +704,7 @@ var edcal = {
                  'onmouseout="edcal.hideActionLinks(\'post-' + post.id + '\');" ' + 
                  'id="post-' + post.id + '" class="post ' + post.status + '"><div class="postlink">' + posttitle + '</div>' + 
                  '<div class="postactions"><a href="' + post.editlink + '">' + edcal.str_edit + '</a> | ' +
-                 '<a href="' + post.dellink + ' onclick="return edcal.confirmDelete(\'' + post.title + '\');">' + edcal.str_del + '</a> | ' +
+                 '<a href="' + post.dellink + '" onclick="return edcal.confirmDelete(\'' + post.title + '\');">' + edcal.str_del + '</a> | ' +
                  '<a href="' + post.permalink + '">' + edcal.str_view + '</a>'  + 
                  '</div></li>';
          } else {
