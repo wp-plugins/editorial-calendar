@@ -664,7 +664,7 @@ var edcal = {
              posttitle += edcal.str_draft;
          }
 
-         posttitle = '<span class="posttime">' + post.time + '</span>: ' + posttitle;
+         posttitle = '<span class="posttime">' + post.formattedtime + '</span>: ' + posttitle;
 
          if (edcal.isPostEditable(post)) {
              return '<li onmouseover="edcal.showActionLinks(\'post-' + post.id + '\');" ' + 
