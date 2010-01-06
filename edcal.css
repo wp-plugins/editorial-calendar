@@ -110,8 +110,8 @@
     margin-left: 2px;
     margin-right: 2px;
     font-size: 0.9em;
-    padding-bottom: 1.5em;
-    cursor: pointer;
+    padding-bottom: 2em;
+    cursor: arrow;
 }
 
 .post.draggable {
@@ -120,6 +120,7 @@
 
 .post .postactions {
     display: none;
+    height: 2em;
 }
 
 .post .postlink:hover {

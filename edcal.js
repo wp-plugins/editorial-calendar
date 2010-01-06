@@ -640,7 +640,7 @@ var edcal = {
 
     hideActionLinks: function(/*string*/ postid) {
          jQuery('#' + postid).css({
-             'padding-bottom': '1.5em'
+             'padding-bottom': '2em'
          });
          jQuery('#' + postid + ' .postactions').hide();
     },
