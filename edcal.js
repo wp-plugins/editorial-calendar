@@ -1317,6 +1317,12 @@ var edcal = {
                     return;
                 }
                 var postDates = [];
+                
+                /*
+                   We get the posts back with the most recent post first.  That
+                   is what most blogs want.  However, we want them in the other
+                   order so we can show the earliest post in a given day first.
+                 */
                 for (var i = parsedRes.length; i >= 0; i--) {
                     var post = parsedRes[i];
                     if (post) {
