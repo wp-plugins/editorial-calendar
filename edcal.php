@@ -145,6 +145,7 @@ function edcal_list_admin() {
             edcal.str_edit = '<?php echo(__('Edit', 'editorial-calendar')) ?>';
             edcal.str_del = '<?php echo(__('Delete', 'editorial-calendar')) ?>';
             edcal.str_view = '<?php echo(__('View', 'editorial-calendar')) ?>';
+            edcal.str_republish = '<?php echo(__('Republish', 'editorial-calendar')) ?>';
             edcal.str_status = '<?php echo(__('Status:', 'editorial-calendar')) ?>';
             edcal.str_cancel = '<?php echo(__('Cancel', 'editorial-calendar')) ?>';
             edcal.str_posttitle = '<?php echo(__('Post Title:', 'editorial-calendar')) ?>';

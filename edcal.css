@@ -107,11 +107,14 @@
     display: block;
     list-style-type: none;
     z-index: 10;
-    cursor: move;
     margin-left: 2px;
     margin-right: 2px;
     font-size: 0.9em;
     padding-bottom: 1.5em;
+}
+
+.post.draggable {
+    cursor: move;
 }
 
 .post .postactions {

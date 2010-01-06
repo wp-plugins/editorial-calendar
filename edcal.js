@@ -223,12 +223,12 @@ var edcal = {
              return "month-present";
          } else if (date.compareTo(edcal.firstDayOfMonth) == 1) {
              /*
-              * Then the date is before the current month
+              * Then the date is after the current month
               */
              return "month-future";
          } else if (date.compareTo(edcal.firstDayOfNextMonth) == -1) {
              /*
-              * Then the date is after the current month
+              * Then the date is before the current month
               */
              return "month-past";
          }
@@ -361,19 +361,45 @@ var edcal = {
          var is_safari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
 
          if (is_chrome || is_safari) {
-             jQuery(post).draggable({ 
-                revert: 'invalid',
-                appendTo: 'body',
-                helper: "clone",
-                addClasses: false
-            });
+             jQuery(post).each(function() {
+                 var postObj = edcal.findPostForId(jQuery(this).parent().parent().parent().attr("id"), 
+                                                   jQuery(this).attr("id"));
+                 if (edcal.isPostEditable(postObj)) {
+                     jQuery(this).draggable({ 
+                         revert: 'invalid',
+                         appendTo: 'body',
+                         helper: "clone",
+                         addClasses: false,
+                         start: function() {
+                           edcal.inDrag = true;
+                         },
+                         stop: function() {
+                           edcal.inDrag = false;
+                         }
+                     });
+                     jQuery(this).addClass("draggable");
+                 }
+             });
          } else {
-             jQuery(post).draggable({ 
-                revert: 'invalid',
-                appendTo: 'body',
-                distance: 10,
-                helper: "clone",
-                addClasses: false
+             jQuery(post).each(function() {
+                 var postObj = edcal.findPostForId(jQuery(this).parent().parent().parent().attr("id"), 
+                                                   jQuery(this).attr("id"));
+                 if (edcal.isPostEditable(postObj)) {
+                     jQuery(this).draggable({ 
+                         revert: 'invalid',
+                         appendTo: 'body',
+                         helper: "clone",
+                         distance: 10,
+                         addClasses: false,
+                         start: function() {
+                           edcal.inDrag = true;
+                         },
+                         stop: function() {
+                           edcal.inDrag = false;
+                         }
+                     });
+                     jQuery(this).addClass("draggable");
+                 }
              });
          }
     },
@@ -602,6 +628,9 @@ var edcal = {
     },
 
     showActionLinks: function(/*string*/ postid) {
+         if (edcal.inDrag) {
+             return;
+         }
          jQuery('#' + postid).css({
              'padding-bottom': '0px'
          });
@@ -613,6 +642,11 @@ var edcal = {
              'padding-bottom': '1.5em'
          });
          jQuery('#' + postid + ' .postactions').hide();
+    },
+
+    isPostEditable: function(/*post*/ post) {
+
+         return post.status !== 'publish';
     },
     
     /*
@@ -630,13 +664,21 @@ var edcal = {
              posttitle += edcal.str_draft;
          }
 
-         return '<li onmouseover="edcal.showActionLinks(\'post-' + post.id + '\');" ' + 
-             'onmouseout="edcal.hideActionLinks(\'post-' + post.id + '\');" ' + 
-             'id="post-' + post.id + '" class="post ' + post.status + '"><div class="postlink">' + posttitle + '</div>' + 
-             '<div class="postactions"><a href="' + post.editlink + '">' + edcal.str_edit + '</a> | ' +
-             '<a href="' + post.dellink + ' onclick="return edcal.confirmDelete(\'' + post.title + '\');">' + edcal.str_del + '</a> | ' +
-             '<a href="' + post.permalink + '">' + edcal.str_view + '</a>'  + 
-             '</div></li>';
+         if (edcal.isPostEditable(post)) {
+             return '<li onmouseover="edcal.showActionLinks(\'post-' + post.id + '\');" ' + 
+                 'onmouseout="edcal.hideActionLinks(\'post-' + post.id + '\');" ' + 
+                 'id="post-' + post.id + '" class="post ' + post.status + '"><div class="postlink">' + posttitle + '</div>' + 
+                 '<div class="postactions"><a href="' + post.editlink + '">' + edcal.str_edit + '</a> | ' +
+                 '<a href="' + post.dellink + ' onclick="return edcal.confirmDelete(\'' + post.title + '\');">' + edcal.str_del + '</a> | ' +
+                 '<a href="' + post.permalink + '">' + edcal.str_view + '</a>'  + 
+                 '</div></li>';
+         } else {
+             return '<li onmouseover="edcal.showActionLinks(\'post-' + post.id + '\');" ' + 
+                 'onmouseout="edcal.hideActionLinks(\'post-' + post.id + '\');" ' + 
+                 'id="post-' + post.id + '" class="post ' + post.status + '"><div class="postlink">' + posttitle + '</div>' + 
+                 '<div class="postactions"><a href="' + post.editlink + '">' + edcal.str_republish + '</a>' +
+                 '</div></li>';
+         }
     },
     
     /*
