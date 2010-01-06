@@ -47,8 +47,8 @@
     border: thin solid rgb(164, 164, 164);
     -moz-border-radius-topright:3px;
     -moz-border-radius-topleft:3px;
-    -webkit-border-radius-topright:3px;
-    -webkit-border-radius-topright:3px;
+    -webkit-border-top-left-radius:3px;
+    -webkit-border-top-right-radius:3px;
     background: white;
 }
 
@@ -167,10 +167,10 @@
     height: 28px;
     top: 0px;
     
+    -webkit-border-top-left-radius:6px;
+    -webkit-border-top-right-radius:6px;
     -moz-border-radius-topleft:6px;
     -moz-border-radius-topright:6px;
-    -webkit-border-radius-topleft:6px;
-    -webkit-border-radius-topright:6px;
     border-style-right:solid solid none;
     border-style-left:solid solid none;
     margin-bottom: 5px;
