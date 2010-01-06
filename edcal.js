@@ -233,6 +233,16 @@ var edcal = {
              return "month-past";
          }
     },
+
+    showAddPostLink: function(/*string*/ dayid) {
+         var createLink = jQuery("#" + dayid + " .daynewlink");
+         createLink.css("display", "block");
+         edcal.addCreateTooltip(createLink);
+    },
+
+    hideAddPostLink: function(/*string*/ dayid) {
+         jQuery("#" + dayid + " .daynewlink").hide();
+    },
     
     /*
        Creates a row of the calendar and adds all of the CSS classes
@@ -244,7 +254,14 @@ var edcal = {
         var newrow = '<div class="rowcont" id="' + 'row' + edcal._wDate.toString("ddMMyyyy") + '">' + 
                      '<div id="' + 'row' + edcal._wDate.toString("ddMMyyyy") + 'row" class="row">';
         for (var i = 0; i < 7; i++) {
-            newrow += '<div id="' + _date.toString("ddMMyyyy") + '" class="day ' + 
+            /*
+             * Adding all of these calls in the string is kind of messy.  We
+             * could do this with the JQuery live function, but there are a lot
+             * of days in the calendar and the live function gets a little slow.
+             */
+            newrow += '<div onmouseover="edcal.showAddPostLink(\'' + _date.toString("ddMMyyyy") + '\');" ' + 
+                      'onmouseout="edcal.hideAddPostLink(\'' + _date.toString("ddMMyyyy") + '\');" ' + 
+                      'id="' + _date.toString("ddMMyyyy") + '" class="day ' + 
                       edcal.getDateClass(_date) + ' ' + 
                       _date.toString("dddd").toLowerCase() + ' month-'   + 
                       _date.toString("MM").toLowerCase() + '">';
@@ -1005,16 +1022,6 @@ var edcal = {
             }
         }
         jQuery(window).bind("resize", resizeWindow);
-
-        jQuery(".day").live("mouseover", function(evt) {
-            var createLink = jQuery("#" + jQuery(this).attr("id") + " .daynewlink");
-            createLink.css("display", "block");
-            edcal.addCreateTooltip(createLink);
-        });
-
-        jQuery(".day").live("mouseout", function(evt) {
-            jQuery("#" + jQuery(this).attr("id") + " .daynewlink").hide();
-        });
 
         jQuery("#newPostButton").live("click", function(evt) {
             edcal.createNewDraft(jQuery(this).attr("adddate"), jQuery("#edcal-title-new-field").val(), false);
