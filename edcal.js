@@ -270,6 +270,7 @@ var edcal = {
 
             newrow += '<a href="#" adddate="' + _date.toString("MMMM d") + '" class="daynewlink" title="' + edcal.str_newpost + _date.toString("MMMM d") + '" ' + 
                          'onclick="return false;">' + edcal.str_addPostLink + '</a>';
+            
             newrow += '<div class="daylabel">';
             if (_date.toString("dd") == "01") {
                 newrow += _date.toString("MMM d");
@@ -530,7 +531,7 @@ var edcal = {
              return;
          }
          
-         var date = createLink.parent().parent().parent().attr("id");
+         var date = createLink.parent().parent().attr("id");
          
          
          createLink.tooltip({ 
@@ -645,7 +646,6 @@ var edcal = {
     },
 
     isPostEditable: function(/*post*/ post) {
-
          return post.status !== 'publish';
     },
     
@@ -802,6 +802,7 @@ var edcal = {
        issue by adding the spaces back before we parse.
      */
     getDayFromDayId: function(/*dayId*/ day) {
+         edcal.output("getDayFromDayId(" + day + ")");
         return Date.parse(day.substring(0, 2) + '/' + day.substring(2, 4) + '/' + day.substring(4));
     },
     
@@ -1117,6 +1118,7 @@ var edcal = {
          if (!title || title === "") {
              return;
          }
+         edcal.output("createNewDraft(" + date + ", " + title + ")");
 
          edcal.output('Adding new draft "' + title + '" on ' + date);
 
@@ -1315,11 +1317,11 @@ var edcal = {
                     return;
                 }
                 var postDates = [];
-                for (var i = parsedRes.length - 1; i > -1; i-- ) {
+                for (var i = parsedRes.length; i >= 0; i--) {
                     var post = parsedRes[i];
                     if (post) {
                         if (post.status === 'trash') {
-                            return;
+                            continue;
                         }
 
                         /*

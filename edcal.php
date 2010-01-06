@@ -18,7 +18,7 @@
 /*
 Plugin Name: WordPress Editorial Calendar
 Description: An editorial calendar for managing the dates of your WordPress posts
-Version: 0.5.3
+Version: 0.6
 Author: Mary Vogt and Zack Grossbart
 Author URI: http://www.zackgrossbart.com
 */
@@ -215,7 +215,7 @@ function edcal_list_admin() {
             </div>
             
             <div id="topright">
-                <a href="#" id="moveToToday"><?php echo(__('Today', 'editorial-calendar')) ?></a>
+                <a href="#" title="<?php echo(__('Scroll the calendar so today is visible', 'editorial-calendar')) ?>" id="moveToToday"><?php echo(__('Today', 'editorial-calendar')) ?></a>
             </div>
         </div>
         

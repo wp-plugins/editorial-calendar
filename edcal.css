@@ -169,6 +169,8 @@
     
     -moz-border-radius-topleft:6px;
     -moz-border-radius-topright:6px;
+    -webkit-border-radius-topleft:6px;
+    -webkit-border-radius-topright:6px;
     border-style-right:solid solid none;
     border-style-left:solid solid none;
     margin-bottom: 5px;
@@ -233,7 +235,7 @@
     position: relative;
     top: 1.5em;
     height: 85%;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .page-numbers {
