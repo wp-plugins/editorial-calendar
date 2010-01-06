@@ -115,10 +115,9 @@
     margin-right: 2px;
     font-size: 0.9em;
     padding-bottom: 2em;
-    cursor: arrow;
 }
 
-.post.draggable {
+.post.draggable .postlink {
     cursor: move;
 }
 
