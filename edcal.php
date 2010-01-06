@@ -18,7 +18,7 @@
 /*
 Plugin Name: WordPress Editorial Calendar
 Description: An editorial calendar for managing the dates of your WordPress posts
-Version: 0.5.3
+Version: 0.5.4
 Author: Mary Vogt and Zack Grossbart
 Author URI: http://www.zackgrossbart.com
 */

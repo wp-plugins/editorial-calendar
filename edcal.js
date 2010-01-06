@@ -67,6 +67,8 @@ var edcal = {
      */
     isMoving: false,
         
+    wp_dateFormat: "yyyy-MM-dd",
+        
     /*
        This is the base URL we use to make AJAX calls back
        to the server.  This value is set in code generated
@@ -744,7 +746,7 @@ var edcal = {
        issue by adding the spaces back before we parse.
      */
     getDayFromDayId: function(/*dayId*/ day) {
-        return Date.parse(day.substring(0, 2) + '/' + day.substring(2, 4) + '/' + day.substring(4));
+        return Date.parseExact(day.substring(2, 4) + '/' + day.substring(0, 2) + '/' + day.substring(4), "MM/dd/yyyy");
     },
     
     /*
@@ -1077,8 +1079,8 @@ var edcal = {
           * We don't really let them set a time in the calendar, so we 
           * put a default post time of 10:00 AM.
           */
-         var formattedDate = encodeURIComponent(edcal.getDayFromDayId(date).toString("yyyy-dd-MM") + " 10:00:00");
-         edcal.output("Creating post on: " + edcal.getDayFromDayId(date).toString("yyyy-dd-MM"));
+         var formattedDate = encodeURIComponent(edcal.getDayFromDayId(date).toString(edcal.wp_dateFormat) + " 10:00:00");
+         edcal.output("Creating post on: " + edcal.getDayFromDayId(date).toString(edcal.wp_dateFormat));
          var url = edcal.ajax_url + "&action=edcal_newdraft&date=" + formattedDate + "&title=" + 
              encodeURIComponent(title);
 
@@ -1135,7 +1137,7 @@ var edcal = {
      */
     changeDate: function(/*string*/ newdate, /*Post*/ post) {
          edcal.output('Changing the date of "' + post.title + '" to ' + newdate);
-         var newdateFormatted = edcal.getDayFromDayId(newdate).toString("yyyy-dd-MM");
+         var newdateFormatted = edcal.getDayFromDayId(newdate).toString(edcal.wp_dateFormat);
 
          var postStatus = "";
 
@@ -1157,7 +1159,7 @@ var edcal = {
                 was scheduled to get published in the future and they drag
                 it into the past we change the status to publish.
               */
-             var compare = Date.parse(newdateFormatted).compareTo(Date.today());
+             var compare = Date.parseExact(newdateFormatted, edcal.wp_dateFormat).compareTo(Date.today());
              if (compare === -1) {
                  if (post.status === "publish") {
                      postStatus = "publish";
@@ -1172,7 +1174,7 @@ var edcal = {
 
          var url = edcal.ajax_url + "&action=edcal_changedate&postid=" + post.id + 
              "&postStatus=" + postStatus + 
-             "&newdate=" + newdateFormatted + "&olddate=" + edcal.getDayFromDayId(post.date).toString("yyyy-dd-MM");
+             "&newdate=" + newdateFormatted + "&olddate=" + edcal.getDayFromDayId(post.date).toString(edcal.wp_dateFormat);
 
          jQuery("#post-" + post.id).addClass("loadingclass");
 
@@ -1236,7 +1238,7 @@ var edcal = {
          edcal.cacheDates[from] = true;
 
 
-         var url = edcal.ajax_url + "&action=edcal_posts&from=" + from.toString("yyyy-MM-dd") + "&to=" + to.toString("yyyy-MM-dd");
+         var url = edcal.ajax_url + "&action=edcal_posts&from=" + from.toString(edcal.wp_dateFormat) + "&to=" + to.toString(edcal.wp_dateFormat);
          edcal.output("Calling AJAX URL: " + url);
 
          jQuery("#loading").show();
