@@ -21,6 +21,9 @@
  
     /* This height will be reset with JavaScript */ 
     height: 100%;
+    margin-top: 5px;
+    margin-left: 2.5px;
+    margin-right: 2.5px;
 }
 
 #rowhead, #edcal_scrollable {
@@ -153,7 +156,13 @@
 
 .dayheadcont {
     position: relative;
-    margin-right: 10px;
+    height: 28px;
+    top: 0px;
+    
+    -webkit-top-left-radius: 6px;
+    -webkit-top-right-radius: 6px;
+    -moz-border-radius-topleft: 6px;
+    -moz-border-radius-topright: 6px;
 }
 
 .dayhead.firstday {
@@ -165,16 +174,13 @@
 }
 
 #rowhead {
-    height: 28px;
-    top: 0px;
+    border-left: thin solid lightgray;
+    border-right: thin solid lightgray;
+    border-bottom: thin solid lightgray;
+    padding-bottom: 10px;
     
-    -webkit-border-top-left-radius:6px;
-    -webkit-border-top-right-radius:6px;
-    -moz-border-radius-topleft:6px;
-    -moz-border-radius-topright:6px;
-    border-style-right:solid solid none;
-    border-style-left:solid solid none;
-    margin-bottom: 5px;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
 }
 
 #topbar {

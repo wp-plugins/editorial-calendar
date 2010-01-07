@@ -180,7 +180,7 @@ function edcal_list_admin() {
             background: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/today_bk.gif")); ?>') repeat-x left top;
         }
 
-        #rowhead {
+        .dayheadcont {
             background: #6D6D6D url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/menu-bits.gif")); ?>') repeat-x scroll left top;
         }
     </style>
@@ -215,9 +215,10 @@ function edcal_list_admin() {
             </div>
         </div>
         
-        <div id="rowhead"></div>
-        <div id="edcal_scrollable" class="edcal_scrollable vertical">
-            <div id="cal"></div>
+        <div id="rowhead">
+            <div id="edcal_scrollable" class="edcal_scrollable vertical">
+                <div id="cal"></div>
+            </div>
         </div>
     </div>
     
