@@ -383,6 +383,35 @@ var edcal = {
      * This is a helper method to make an individual post item draggable.
      */
     draggablePost: function(/*post selector*/ post) {
+         jQuery(post).each(function() {
+             var postObj = edcal.findPostForId(jQuery(this).parent().parent().parent().attr("id"), 
+                                               jQuery(this).attr("id"));
+             if (edcal.isPostEditable(postObj)) {
+                 jQuery(this).draggable({ 
+                     revert: 'invalid',
+                     appendTo: 'body',
+                     helper: "clone",
+                     distance: edcal.dragDistance(),
+                     addClasses: false,
+                     start: function() {
+                       edcal.inDrag = true;
+                     },
+                     stop: function() {
+                       edcal.inDrag = false;
+                     },
+                     drag: function(event, ui) {
+                        edcal.handleDrag(event, ui);
+                     },
+                     containment: '#edcal_scrollable',
+                     scroll: false,
+                     refreshPositions: true
+                 });
+                 jQuery(this).addClass("draggable");
+             }
+         });
+    },
+
+    dragDistance: function() {
          /*
           * Click is a different operation than drag in our UI.  The problem is if
           * the user is moving their mouse just a little bit we can think it is a 
@@ -395,47 +424,26 @@ var edcal = {
          var is_safari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
 
          if (is_chrome || is_safari) {
-             jQuery(post).each(function() {
-                 var postObj = edcal.findPostForId(jQuery(this).parent().parent().parent().attr("id"), 
-                                                   jQuery(this).attr("id"));
-                 if (edcal.isPostEditable(postObj)) {
-                     jQuery(this).draggable({ 
-                         revert: 'invalid',
-                         appendTo: 'body',
-                         helper: "clone",
-                         addClasses: false,
-                         start: function() {
-                           edcal.inDrag = true;
-                         },
-                         stop: function() {
-                           edcal.inDrag = false;
-                         }
-                     });
-                     jQuery(this).addClass("draggable");
-                 }
-             });
+             return 10;
          } else {
-             jQuery(post).each(function() {
-                 var postObj = edcal.findPostForId(jQuery(this).parent().parent().parent().attr("id"), 
-                                                   jQuery(this).attr("id"));
-                 if (edcal.isPostEditable(postObj)) {
-                     jQuery(this).draggable({ 
-                         revert: 'invalid',
-                         appendTo: 'body',
-                         helper: "clone",
-                         distance: 10,
-                         addClasses: false,
-                         start: function() {
-                           edcal.inDrag = true;
-                         },
-                         stop: function() {
-                           edcal.inDrag = false;
-                         }
-                     });
-                     jQuery(this).addClass("draggable");
-                 }
-             });
+             return 0;
          }
+    },
+
+    handleDrag: function(event, ui) {
+         if (edcal.isMoving) {
+             return;
+         }
+
+         if (event.pageY < (edcal.position.top + 10)) {
+             //edcal.output("We are near the top of the calendar");
+             edcal.move(1, false);
+         } else if (event.pageY > (edcal.position.bottom - 10)) {
+             //edcal.output("We are near the bottom of the calendar");
+             edcal.move(1, true);
+         }
+         //edcal.output("event.x: " + event.pageX);
+         //edcal.output("event.y: " + event.pageY);
     },
     
     /*
@@ -987,6 +995,16 @@ var edcal = {
         edcal.isMoving = false;
          
     },
+
+    savePosition: function() {
+         var cal = jQuery("#edcal_scrollable");
+         edcal.position = {
+             top: cal.offset().top,
+             bottom: cal.offset().top + cal.height()
+         }
+
+         edcal.output("edcal.position.top: " + edcal.position.top);
+    },
     
     /*
      * Initializes the calendar
@@ -1096,6 +1114,7 @@ var edcal = {
             if (edcal.windowHeight != jQuery(window).height()) {
                 jQuery("#edcal_scrollable").css("height", edcal.getCalHeight() + "px");
                 edcal.windowHeight = jQuery(window).height();
+                edcal.savePosition();
             }
         }
         jQuery(window).bind("resize", resizeWindow);
@@ -1134,6 +1153,8 @@ var edcal = {
             }
 
         });
+
+        edcal.savePosition();
     },
 
     /*
