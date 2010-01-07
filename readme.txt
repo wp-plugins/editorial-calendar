@@ -13,9 +13,7 @@ The editorial calendar lets WordPress administrators and editors manage the date
 
 This is the beta version and the first one ready for public use.  Please help us make this plugin better by giving us <a href="mailto:zack@grossbart.com">feedback</a>.  
 
-<object width="425" height="344"><param name="movie" value="http://www.youtube.com/v/F4BnQZsgtZc&color1=0xb1b1b1&color2=0xcfcfcf&hl=en_US&feature=player_embedded&fs=1"></param><param name="allowFullScreen" value="true"></param><param name="allowScriptAccess" value="always"></param><embed src="http://www.youtube.com/v/F4BnQZsgtZc&color1=0xb1b1b1&color2=0xcfcfcf&hl=en_US&feature=player_embedded&fs=1" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="425" height="344"></embed></object>
-
-Big thank you to <a href="http://chrisg.org/drag-and-drop-post-scheduling-with-the-editorial-calendar-wordpress-plugin/">Chris Garret</a> for making this video.
+<a href="http://chrisg.org/drag-and-drop-post-scheduling-with-the-editorial-calendar-wordpress-plugin/">Chris Garret</a> liked the calendar so much he made a <a href="http://www.youtube.com/watch?v=F4BnQZsgtZc&feature=player_embedded" style="font-size: 1.25em">video</a> showing you how to use it.  Thanks Chris!
 
 Features:
 
