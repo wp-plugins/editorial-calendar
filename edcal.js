@@ -424,24 +424,30 @@ var edcal = {
          var is_safari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
 
          if (is_chrome || is_safari) {
-             return 10;
-         } else {
              return 0;
+         } else {
+             return 10;
          }
     },
 
     handleDrag: function(event, ui) {
-         if (edcal.isMoving) {
+         if (edcal.isMoving || edcal.isQueueing) {
              return;
          }
 
-         if (event.pageY < (edcal.position.top + 10)) {
-             //edcal.output("We are near the top of the calendar");
-             edcal.move(1, false);
-         } else if (event.pageY > (edcal.position.bottom - 10)) {
-             //edcal.output("We are near the bottom of the calendar");
-             edcal.move(1, true);
-         }
+         edcal.isQueueing = true;
+
+         setTimeout(function() {
+             if (event.pageY < (edcal.position.top + 10)) {
+                 //edcal.output("We are near the top of the calendar");
+                 edcal.move(1, false);
+             } else if (event.pageY > (edcal.position.bottom - 10)) {
+                 //edcal.output("We are near the bottom of the calendar");
+                 edcal.move(1, true);
+             }
+
+             edcal.isQueueing = false;
+         }, 1000);
          //edcal.output("event.x: " + event.pageX);
          //edcal.output("event.y: " + event.pageY);
     },
