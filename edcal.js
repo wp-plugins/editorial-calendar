@@ -412,6 +412,7 @@ var edcal = {
     },
 
     dragDistance: function() {
+         return 0;
          /*
           * Click is a different operation than drag in our UI.  The problem is if
           * the user is moving their mouse just a little bit we can think it is a 
@@ -437,17 +438,19 @@ var edcal = {
 
          edcal.isQueueing = true;
 
+         edcal.dragY = event.pageY;
+
          setTimeout(function() {
-             if (event.pageY < (edcal.position.top + 10)) {
+             if (edcal.dragY < (edcal.position.top + 10)) {
                  //edcal.output("We are near the top of the calendar");
                  edcal.move(1, false);
-             } else if (event.pageY > (edcal.position.bottom - 10)) {
+             } else if (edcal.dragY > (edcal.position.bottom - 10)) {
                  //edcal.output("We are near the bottom of the calendar");
                  edcal.move(1, true);
              }
 
              edcal.isQueueing = false;
-         }, 1000);
+         }, 250);
          //edcal.output("event.x: " + event.pageX);
          //edcal.output("event.y: " + event.pageY);
     },
