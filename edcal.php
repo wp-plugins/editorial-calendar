@@ -215,7 +215,7 @@ function edcal_list_admin() {
             </div>
         </div>
         
-        <div id="rowhead">
+        <div id="cal_cont">
             <div id="edcal_scrollable" class="edcal_scrollable vertical">
                 <div id="cal"></div>
             </div>

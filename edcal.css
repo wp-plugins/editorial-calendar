@@ -26,7 +26,7 @@
     margin-right: 2.5px;
 }
 
-#rowhead, #edcal_scrollable {
+#cal_cont, #edcal_scrollable {
     -x-system-font:none;
     font-family:"Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
     font-size:11px;
@@ -159,8 +159,8 @@
     height: 28px;
     top: 0px;
     
-    -webkit-top-left-radius: 6px;
-    -webkit-top-right-radius: 6px;
+    -webkit-border-top-left-radius: 6px;
+    -webkit-border-top-right-radius: 6px;
     -moz-border-radius-topleft: 6px;
     -moz-border-radius-topright: 6px;
 }
@@ -173,11 +173,11 @@
     
 }
 
-#rowhead {
+#cal_cont {
     border-left: thin solid lightgray;
     border-right: thin solid lightgray;
     border-bottom: thin solid lightgray;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     
     -moz-border-radius: 12px;
     -webkit-border-radius: 12px;

@@ -213,7 +213,7 @@ var edcal = {
         html += '<div class="dayhead">' + edcal.str_day6 + '</div>';
         html += '<div class="dayhead lastday">' + edcal.str_day7 + '</div></div>';
         
-        jQuery("#rowhead").prepend(html);
+        jQuery("#cal_cont").prepend(html);
         
         edcal.alignGrid(".dayheadcont", 7, 13.9, 100, 0.5);
     },
