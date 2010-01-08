@@ -82,7 +82,7 @@ var edcal = {
        True if the calendar is in the process of queueing scrolling
        during a drag.
      */
-    isQueueing: false,
+    isDragScrolling: false,
         
     /*
        This is the position of the calendar.  It is an array with
@@ -451,33 +451,30 @@ var edcal = {
        scrolling the calendar when that happens.
      */
     handleDrag: function(event, ui) {
-         if (edcal.isMoving || edcal.isQueueing) {
+         if (edcal.isMoving || edcal.isDragScrolling) {
              return;
          }
 
-         edcal.isQueueing = true;
+         edcal.isDragScrolling = true;
+         
+         if (event.pageY < (edcal.position.top + 10)) {
+             //edcal.output("We are near the top of the calendar");
+             edcal.move(1, false);
+         } else if (event.pageY > (edcal.position.bottom - 10)) {
+             //edcal.output("We are near the bottom of the calendar");
+             edcal.move(1, true);
+         }
 
          /*
-            We need to save the drag index because it will probably change
-            during the timeout.
-          */
-         edcal.dragY = event.pageY;
-
-         /*
-            We want to wait a little before we start scrolling so the calendar
-            doesn't scroll much faster than the user wants.
+            We want to start scrolling as soon as the user gets their mouse
+            close to the top, but if we just scrolle with every event then
+            the screen flies by way too fast.  We wait here so we scroll one
+            row and wait three quarters of a second.  That way it gives a
+            smooth scroll that doesn't go too fast to track.
           */
          setTimeout(function() {
-             if (edcal.dragY < (edcal.position.top + 10)) {
-                 //edcal.output("We are near the top of the calendar");
-                 edcal.move(1, false);
-             } else if (edcal.dragY > (edcal.position.bottom - 10)) {
-                 //edcal.output("We are near the bottom of the calendar");
-                 edcal.move(1, true);
-             }
-
-             edcal.isQueueing = false;
-         }, 250);
+             edcal.isDragScrolling = false;
+         }, 750);
     },
     
     /*
