@@ -71,6 +71,18 @@ var edcal = {
      * True if we are in the middle of dragging a post
      */
     inDrag: false,
+    
+    /*
+       True if the calendar is in the process of queueing scrolling
+       during a drag.
+     */
+    isQueueing: false,
+        
+    /*
+       This is the position of the calendar.  It is an array with
+       two fields:  top and bottom.
+     */
+    position: null,
 
     /*
      * This is the first date of the current month
@@ -218,6 +230,11 @@ var edcal = {
         edcal.alignGrid(".dayheadcont", 7, 13.9, 100, 0.5);
     },
 
+    /*
+       We have different styles for days in previous months,
+       the current month, and future months.  This function
+       figures out the right class based on the date.
+     */
     getDateClass: function(/*Date*/ date) {
          if (!edcal.firstDayOfMonth) {
              /*
@@ -248,6 +265,10 @@ var edcal = {
          }
     },
 
+    /*
+       Show the add post link.  This gets called when the mouse
+       is over a specific day.
+     */
     showAddPostLink: function(/*string*/ dayid) {
          if (edcal.inDrag) {
              return;
@@ -258,6 +279,10 @@ var edcal = {
          edcal.addCreateTooltip(createLink);
     },
 
+    /*
+       Hides the add new post link it is called when the mouse moves
+       outside of the calendar day.
+     */
     hideAddPostLink: function(/*string*/ dayid) {
          jQuery("#" + dayid + " .daynewlink").hide();
     },
@@ -391,7 +416,7 @@ var edcal = {
                      revert: 'invalid',
                      appendTo: 'body',
                      helper: "clone",
-                     distance: edcal.dragDistance(),
+                     distance: 0,
                      addClasses: false,
                      start: function() {
                        edcal.inDrag = true;
@@ -411,26 +436,11 @@ var edcal = {
          });
     },
 
-    dragDistance: function() {
-         return 0;
-         /*
-          * Click is a different operation than drag in our UI.  The problem is if
-          * the user is moving their mouse just a little bit we can think it is a 
-          * drag instead of a click.  We stop this by delaying the drag event until
-          * the user has dragged at least 10 pixels.  This works fine on IE and
-          * Firefox, but on Chrome it causes text selection so we don't delay on
-          * Chrome.
-          */
-         var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
-         var is_safari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
-
-         if (is_chrome || is_safari) {
-             return 0;
-         } else {
-             return 10;
-         }
-    },
-
+    /*
+       When the user is dragging we scroll the calendar when they get
+       close to the top or bottom of the calendar.  This function handles
+       scrolling the calendar when that happens.
+     */
     handleDrag: function(event, ui) {
          if (edcal.isMoving || edcal.isQueueing) {
              return;
@@ -438,8 +448,16 @@ var edcal = {
 
          edcal.isQueueing = true;
 
+         /*
+            We need to save the drag index because it will probably change
+            during the timeout.
+          */
          edcal.dragY = event.pageY;
 
+         /*
+            We want to wait a little before we start scrolling so the calendar
+            doesn't scroll much faster than the user wants.
+          */
          setTimeout(function() {
              if (edcal.dragY < (edcal.position.top + 10)) {
                  //edcal.output("We are near the top of the calendar");
@@ -451,8 +469,6 @@ var edcal = {
 
              edcal.isQueueing = false;
          }, 250);
-         //edcal.output("event.x: " + event.pageX);
-         //edcal.output("event.y: " + event.pageY);
     },
     
     /*
@@ -678,6 +694,10 @@ var edcal = {
         return postsString;
     },
 
+    /*
+       This function shows the action links for the post with the
+       specified ID.
+     */
     showActionLinks: function(/*string*/ postid) {
          if (edcal.inDrag) {
              return;
@@ -688,6 +708,10 @@ var edcal = {
          jQuery('#' + postid + ' .postactions').show();
     }, 
 
+    /*
+       Hides the action links for the post with the specified
+       post ID.
+     */
     hideActionLinks: function(/*string*/ postid) {
          jQuery('#' + postid).css({
              'padding-bottom': '2em'
@@ -695,6 +719,9 @@ var edcal = {
          jQuery('#' + postid + ' .postactions').hide();
     },
 
+    /*
+     * Returns true if the post is editable and false otherwise
+     */
     isPostEditable: function(/*post*/ post) {
          return post.status !== 'publish';
     },
@@ -739,7 +766,7 @@ var edcal = {
      */
     setClassforToday: function() {
         /*
-           We want to set a class for the cell that represents the current day so we ca
+           We want to set a class for the cell that represents the current day so we can
            give it a background color.
          */
         jQuery('#' + Date.today().toString("ddMMyyyy")).addClass("today");
@@ -980,11 +1007,11 @@ var edcal = {
          /*
            When we first start up our working date is 4 weeks before
            the next Sunday. 
-        */
+         */
         edcal._wDate = edcal.nextStartOfWeek(date).add(-28).days();
         
         /*
-           After we remove and readd all the rows we are back to
+           After we remove and redo all the rows we are back to
            moving in a going down direction.
          */
         edcal.currentDirection = true;
@@ -1005,6 +1032,11 @@ var edcal = {
          
     },
 
+    /*
+       When we handle dragging posts we need to know the size
+       of the calendar so we figure it out ahead of time and
+       save it.
+     */
     savePosition: function() {
          var cal = jQuery("#edcal_scrollable");
          edcal.position = {
@@ -1169,7 +1201,7 @@ var edcal = {
     /*
      * When the user presses the new post link on each calendar cell they get
      * a tooltip which prompts them to edit the title of the new post.  Once
-     * they provide a tittle we call this function.
+     * they provide a title we call this function.
      * 
      * date - the date for the new post
      * title - the title for the new post
@@ -1338,7 +1370,7 @@ var edcal = {
          if (shouldGet) {
              /*
               * TODO: We don't want to make extra AJAX calls for dates
-              * that we have already coverred.  This is cutting down on
+              * that we have already covered.  This is cutting down on
               * it somewhat, but we could get much better about this.
               */
              edcal.output("Using cached results for posts from " + from.toString("dd-MMM-yyyy") + " to " + to.toString("dd-MMM-yyyy"));
