@@ -62,6 +62,12 @@
   </div>
  */
 var edcal = {
+    
+    /*
+       This value is the number of weeks the user wants to see at one time
+       in the calendar.
+     */
+    weeksPref: 3,
     /*
      * True if the calendar is in the process of moving
      */
@@ -208,7 +214,7 @@ var edcal = {
        have to change the cell sizes in multiple places.
      */
     alignCal: function() {
-        edcal.alignGrid("#cal", 1, 100, 19, 1);         
+        edcal.alignGrid("#cal", 1, 100, (100 / edcal.weeksPref) - 1, 1);         
     },
 
     
@@ -342,6 +348,9 @@ var edcal = {
             parent.prepend(newrow);
         }
         
+        /*
+         * This is the horizontal alignment of an individual week
+         */
         edcal.alignGrid("#row" + edcal._wDate.toString("ddMMyyyy") + "row", 7, 13.9, 100, 0.5);
         
         edcal.draggablePost('#row' + edcal._wDate.toString("ddMMyyyy") + ' .post');
@@ -806,9 +815,9 @@ var edcal = {
          */
         if (edcal.currentDirection != direction) {
             if (direction) {        // into the future
-                edcal._wDate = edcal._wDate.add(77).days();
+                edcal._wDate = edcal._wDate.add((edcal.weeksPref + 7) * 7).days();
             } else {                // into the past
-                edcal._wDate = edcal._wDate.add(-77).days();
+                edcal._wDate = edcal._wDate.add(-((edcal.weeksPref + 7) * 7)).days();
             }
 
             edcal.steps = 0;
@@ -1008,7 +1017,8 @@ var edcal = {
            When we first start up our working date is 4 weeks before
            the next Sunday. 
          */
-        edcal._wDate = edcal.nextStartOfWeek(date).add(-28).days();
+        edcal._wDate = edcal.nextStartOfWeek(date).add(-21).days();
+        edcal.output("edcal._wDate: " + edcal._wDate);
         
         /*
            After we remove and redo all the rows we are back to
@@ -1016,10 +1026,12 @@ var edcal = {
          */
         edcal.currentDirection = true;
         
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < edcal.weeksPref + 6; i++) {
             edcal.createRow(jQuery("#cal"), true);
             edcal._wDate.add(7).days();
         }
+        
+        edcal.output("edcal._wDate after: " + edcal._wDate);
         
         edcal.alignCal();
         
@@ -1072,7 +1084,7 @@ var edcal = {
         // initialize scrollable  
         jQuery(".edcal_scrollable").scrollable({ 
                                     vertical:true,  
-                                    size: 5,
+                                    size: edcal.weeksPref,
                                     keyboardSteps: 1,
                                     speed: 100
                                     // use mousewheel plugin 
@@ -1129,8 +1141,10 @@ var edcal = {
             }
         });
 
-        edcal.getPosts(edcal.nextStartOfWeek(Date.today()).add(-28).days(), 
-                       edcal.nextStartOfWeek(Date.today()).add(35).days());
+        edcal.output("past days: " + (edcal.weeksPref * -7));
+        edcal.output("future days: " + (edcal.weeksPref * 7));
+        edcal.getPosts(edcal.nextStartOfWeek(Date.today()).add(edcal.weeksPref * -7).days(), 
+                       edcal.nextStartOfWeek(Date.today()).add(edcal.weeksPref * 7).days());
         
         /*
            Now we bind the listeners for all of our links and the window
