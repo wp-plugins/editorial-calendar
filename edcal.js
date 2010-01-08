@@ -699,6 +699,25 @@ var edcal = {
 
         return postsString;
     },
+    
+    /*
+       When you hover your mouse over a post we show the edit, delete,
+       and view links below it.  If there was another post below we don't
+       want it to jump around.  To make that work we set a padding on the
+       bottom of the post equal to the height of the div containing
+       the links.  When the div is shown we remove the padding on the
+       bottom.
+     
+       This function determines the right size for that padding.  We
+       call it once when we first get posts and again if we resize the
+       window.  The boolean indicates which case this is.
+     */
+    updatePostPadding: function(/*boolean*/ resized) {
+         if (resized || !edcal.actionButtonHeight) {
+             edcal.actionButtonHeight = jQuery(".postactions").height();
+             jQuery(".post").css("padding-bottom", edcal.actionButtonHeight + "px");
+         }
+    },
 
     /*
        This function shows the action links for the post with the
@@ -720,7 +739,7 @@ var edcal = {
      */
     hideActionLinks: function(/*string*/ postid) {
          jQuery('#' + postid).css({
-             'padding-bottom': '2em'
+             'padding-bottom': edcal.actionButtonHeight + "px"
          });
          jQuery('#' + postid + ' .postactions').hide();
     },
@@ -1053,7 +1072,7 @@ var edcal = {
              bottom: cal.offset().top + cal.height()
          }
 
-         edcal.output("edcal.position.top: " + edcal.position.top);
+         edcal.updatePostPadding(true);
     },
     
     /*
@@ -1464,6 +1483,7 @@ var edcal = {
                     jQuery.each(postDates, function(i, postDate) {
                         edcal.addPostItemDragAndToolltip(postDate);
                     });
+                    edcal.updatePostPadding(false);
                 }, 300);
              },
              error: function(xhr) {
