@@ -33,7 +33,7 @@ Features:
 
 = Can I see a demo of the calendar? =
 
-Check out our demo installation at <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/">http://www.zackgrossbart.com/extras/sandbox/wp-admin</a>.
+Check out our demo installation at <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=posts_list">Zack's WordPress Sandbox</a>.
 
 = Can I use the editorial calendar with pages? =
 
