@@ -458,10 +458,16 @@ var edcal = {
          edcal.isDragScrolling = true;
          
          if (event.pageY < (edcal.position.top + 10)) {
-             //edcal.output("We are near the top of the calendar");
+             /*
+                This means we're close enough to the top of the calendar to
+                start scrolling up.
+              */
              edcal.move(1, false);
          } else if (event.pageY > (edcal.position.bottom - 10)) {
-             //edcal.output("We are near the bottom of the calendar");
+             /*
+                This means we're close enough to the bottom of the calendar
+                to start scrolling down.
+              */
              edcal.move(1, true);
          }
 
@@ -553,7 +559,6 @@ var edcal = {
                 }
                 edcal.addPostItem(res.post, res.post.date);
                 edcal.addPostItemDragAndToolltip(res.post.date);
-                edcal.output("Finished saving the new title " + jQuery("#edcal-title-edit-field").val() + " for post " + postId);
             },
             error: function(xhr) {
                  edcal.showError(edcal.general_error);
@@ -823,7 +828,7 @@ var edcal = {
        up into the past.
      */
     move: function(steps, direction) {
-        /*
+         /*
            The working date is a marker for the last calendar row we created.
            If we are moving forward that will be the last row, if we are moving
            backward it will be the first row.  If we switch direction we need
@@ -839,7 +844,7 @@ var edcal = {
             edcal.steps = 0;
             edcal.moveDate = edcal._wDate;
         }
-
+        
         edcal.currentDirection = direction;
         
         var i;
@@ -1034,7 +1039,6 @@ var edcal = {
            the next Sunday. 
          */
         edcal._wDate = edcal.nextStartOfWeek(date).add(-21).days();
-        edcal.output("edcal._wDate: " + edcal._wDate);
         
         /*
            After we remove and redo all the rows we are back to
@@ -1046,8 +1050,6 @@ var edcal = {
             edcal.createRow(jQuery("#cal"), true);
             edcal._wDate.add(7).days();
         }
-        
-        edcal.output("edcal._wDate after: " + edcal._wDate);
         
         edcal.alignCal();
         
@@ -1157,10 +1159,8 @@ var edcal = {
             }
         });
 
-        edcal.output("past days: " + (edcal.weeksPref * -7));
-        edcal.output("future days: " + (edcal.weeksPref * 7));
-        edcal.getPosts(edcal.nextStartOfWeek(Date.today()).add(edcal.weeksPref * -7).days(), 
-                       edcal.nextStartOfWeek(Date.today()).add(edcal.weeksPref * 7).days());
+        edcal.getPosts(edcal.nextStartOfWeek(Date.today()).add(-21).days(), 
+                       edcal.nextStartOfWeek(Date.today()).add((edcal.weeksPref * 7) + 21).days());
         
         /*
            Now we bind the listeners for all of our links and the window
@@ -1244,15 +1244,12 @@ var edcal = {
          }
          edcal.output("createNewDraft(" + date + ", " + title + ")");
 
-         edcal.output('Adding new draft "' + title + '" on ' + date);
-
          jQuery("#edit-slug-buttons").addClass("tiploading");
          /*
           * We don't really let them set a time in the calendar, so we 
           * put a default post time of 10:00 AM.
           */
          var formattedDate = encodeURIComponent(edcal.getDayFromDayId(date).toString(edcal.wp_dateFormat) + " 10:00:00");
-         edcal.output("Creating post on: " + edcal.getDayFromDayId(date).toString(edcal.wp_dateFormat));
          var url = edcal.ajax_url + "&action=edcal_newdraft&date=" + formattedDate + "&title=" + 
              encodeURIComponent(title);
 
@@ -1279,7 +1276,6 @@ var edcal = {
                 if (!res.post) {
                     edcal.showError("There was an error creating a new post for your blog.");
                 } else {
-                    edcal.output('Finished adding new draft "' + title + '" on ' + date);
                     if (doEdit) {
                         /*
                          * If the user wanted to edit the post then we redirect
@@ -1361,8 +1357,6 @@ var edcal = {
                 edcal.addPostItem(res.post, res.post.date);
                 edcal.addPostItemDragAndToolltip(res.post.date);
                 
-                edcal.output('Finished changing the date of "' + post.title + '" to ' + newdate);
-
                 if (res.error) {
                     /*
                      * If there was an error we need to remove the dropped
@@ -1411,8 +1405,7 @@ var edcal = {
 
 
          var url = edcal.ajax_url + "&action=edcal_posts&from=" + from.toString("yyyy-MM-dd") + "&to=" + to.toString("yyyy-MM-dd");
-         edcal.output("Calling AJAX URL: " + url);
-
+         
          jQuery("#loading").show();
 
          jQuery.ajax( { 
@@ -1479,7 +1472,7 @@ var edcal = {
                  * stop complaining.
                  */
                 setTimeout(function() {
-                    edcal.output("Finished adding tooltips and draggable support to " + postDates.length + " posts.");
+                    edcal.output("Finished adding draggable support to " + postDates.length + " posts.");
                     jQuery.each(postDates, function(i, postDate) {
                         edcal.addPostItemDragAndToolltip(postDate);
                     });
