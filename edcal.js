@@ -1226,6 +1226,8 @@ var edcal = {
         });
 
         edcal.savePosition();
+        
+        edcal.addOptionsSection();
     },
 
     /*
@@ -1478,6 +1480,80 @@ var edcal = {
                     });
                     edcal.updatePostPadding(false);
                 }, 300);
+             },
+             error: function(xhr) {
+                edcal.showError(edcal.general_error);
+                if (xhr.responseText) {
+                    edcal.output("xhr.responseText: " + xhr.responseText);
+                }
+            }
+        });
+    },
+    
+    addOptionsSection: function() {
+         var html = 
+             '<div class="hide-if-no-js screen-meta-toggle" id="screen-options-link-wrap">' + 
+                '<a class="show-settings" ' + 
+                   'id="show-edcal-settings-link" ' + 
+                   'onclick="edcal.toggleOptions(); return false;" ' + 
+                   'href="#screen-options" ' + 
+                   'style="background-image: url(images/screen-options-right.gif);">Screen Options</a>' + 
+             '</div>';
+         
+         jQuery("#screen-meta-links").append(html);
+    },
+    
+    toggleOptions: function() {
+         if (!edcal.helpMeta) {
+             /*
+              * Save off the old HTML
+              */
+             edcal.helpMeta = jQuery("#contextual-help-wrap").html();
+             
+             jQuery("#contextual-help-wrap").html(
+                 '<h5>' + edcal.str_optionsheader + '</h5>' + 
+                 '<div class="metabox-prefs">' + 
+                    edcal.str_show + '<input type="text" value="' + edcal.weeksPref + '" maxlength="1" width="2" id="edcal_weeks_pref" class="screen-per-page"/> ' +
+                    edcal.str_show2 + '<br /><br />' + 
+                    '<input type="submit" value="' + edcal.str_apply + '" onclick="edcal.saveOptions(); return false;" class="button"/>' +
+                 '</div>');
+             
+             jQuery("#contextual-help-link-wrap").hide();
+             
+             jQuery('#contextual-help-wrap').slideDown('normal');
+             
+             jQuery("#show-edcal-settings-link").css("background-image", "url(images/screen-options-right-up.gif)");
+         } else {
+             jQuery('#contextual-help-wrap').slideUp('fast');
+             
+             /*
+              * restore the old HTML
+              */
+             jQuery("#contextual-help-wrap").html(edcal.helpMeta);
+             
+             edcal.helpMeta = null;
+             
+             jQuery("#show-edcal-settings-link").css("background-image", "url(images/screen-options-right.gif)");
+             jQuery("#contextual-help-link-wrap").show();
+         }
+    },
+    
+    saveOptions: function() {
+         var url = edcal.ajax_url + "&action=edcal_saveoptions&weeks=" + 
+             encodeURIComponent(jQuery("#edcal_weeks_pref").val());
+         
+         jQuery.ajax( { 
+             url: url,
+             type: "POST",
+             processData: false,
+             timeout: 100000,
+             dataType: "text",
+             success: function(res) {
+                /*
+                   Now we refresh the page because I'm too lazy to
+                   make changing the weeks work inline.
+                 */
+                window.location.href = window.location.href;
              },
              error: function(xhr) {
                 edcal.showError(edcal.general_error);

@@ -23,6 +23,7 @@ Author: Mary Vogt and Zack Grossbart
 Author URI: http://www.zackgrossbart.com
 */
 
+add_action('wp_ajax_edcal_saveoptions', 'edcal_saveoptions' );
 add_action('wp_ajax_edcal_changedate', 'edcal_changedate' );
 add_action('wp_ajax_edcal_newdraft', 'edcal_newdraft' );
 add_action('wp_ajax_edcal_changetitle', 'edcal_changetitle' );
@@ -109,6 +110,13 @@ function edcal_list_admin() {
     <script type="text/javascript">
         jQuery(document).ready(function(){
             edcal.ajax_url = '<?php echo wp_nonce_url(admin_url("admin-ajax.php"), "edit-calendar"); ?>';
+            <?php 
+                if (get_option("edcal_weeks_pref") != "") {
+            ?>
+                edcal.weeksPref = '<?php echo(get_option("edcal_weeks_pref")); ?>';
+            <?php
+                }
+            ?>
 
             /*
              * We want to show the day of the first day of the week to match the user's 
@@ -160,6 +168,11 @@ function edcal_list_admin() {
             edcal.permission_error = '<?php echo(__('You do not have permission to edit posts.', 'editorial-calendar')) ?>';
             edcal.checksum_error = '<?php echo(__('Invalid checksum for post. This is commonly a cross-site scripting error.', 'editorial-calendar')) ?>';
             edcal.general_error = '<?php echo(__('There was an error contacting your blog.', 'editorial-calendar')) ?>';
+            
+            edcal.str_optionsheader = '<?php echo(__('Calendar Options', 'editorial-calendar')) ?>';
+            edcal.str_apply = '<?php echo(__('Apply', 'editorial-calendar')) ?>';
+            edcal.str_show = '<?php echo(__('Show ', 'editorial-calendar')) ?>';
+            edcal.str_show2 = '<?php echo(__('weeks at a time', 'editorial-calendar')) ?>';
         });
     </script>
 
@@ -627,6 +640,32 @@ function edcal_changedate() {
     <?php
         edcal_postJSON($post);
     ?>}
+    <?php
+    
+    die();
+}
+
+/*
+ * This function saves the preferences
+ */
+function edcal_saveoptions() {
+    if (!edcal_checknonce()) {
+        die();
+    }
+
+    header("Content-Type: application/json");
+    $edcal_weeks = isset($_GET['weeks'])?$_GET['weeks']:null;
+    
+    add_option("edcal_weeks_pref", $edcal_weeks, "", "yes");
+    update_option("edcal_weeks_pref", $edcal_weeks);
+    
+    
+    /*
+     * We finish by returning the latest data for the post in the JSON
+     */
+    ?>{
+        "update" : "success"
+    }
     <?php
     
     die();
