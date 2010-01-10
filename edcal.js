@@ -1503,6 +1503,12 @@ var edcal = {
         });
     },
     
+    /*
+       This function adds the scren options tab to the top of the screen.  I wish
+       WordPress had a hook so I could provide this in PHP, but as of version 2.9.1
+       they just have an internal loop for their own screen options tabs so we're
+       doing this in JavaScript.
+     */
     addOptionsSection: function() {
          var html = 
              '<div class="hide-if-no-js screen-meta-toggle" id="screen-options-link-wrap">' + 
@@ -1510,16 +1516,20 @@ var edcal = {
                    'id="show-edcal-settings-link" ' + 
                    'onclick="edcal.toggleOptions(); return false;" ' + 
                    'href="#screen-options" ' + 
-                   'style="background-image: url(images/screen-options-right.gif);">Screen Options</a>' + 
+                   'style="background-image: url(images/screen-options-right.gif);">' + edcal.str_screenoptions + '</a>' + 
              '</div>';
          
          jQuery("#screen-meta-links").append(html);
     },
     
+    /*
+       Respond to clicks on the Screen Options tab by sliding it down when it
+       is up and sliding it up when it is down.
+     */
     toggleOptions: function() {
          if (!edcal.helpMeta) {
              /*
-              * Save off the old HTML
+                Show the screen options section.  We start by saving off the old HTML
               */
              edcal.helpMeta = jQuery("#contextual-help-wrap").html();
              
@@ -1553,7 +1563,15 @@ var edcal = {
          }
     },
     
+    /*
+       Save the number of weeks options with an AJAX call.  This happens
+       when you press the apply button.
+     */
     saveOptions: function() {
+         /*
+            We start by validating the number of weeks.  We only allow
+            1, 2, 3, 4, or 5 weeks at a time.
+          */
          if (jQuery("#edcal_weeks_pref").val() !== '1' &&
              jQuery("#edcal_weeks_pref").val() !== '2' &&
              jQuery("#edcal_weeks_pref").val() !== '3' &&

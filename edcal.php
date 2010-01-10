@@ -169,6 +169,7 @@ function edcal_list_admin() {
             edcal.checksum_error = '<?php echo(__('Invalid checksum for post. This is commonly a cross-site scripting error.', 'editorial-calendar')) ?>';
             edcal.general_error = '<?php echo(__('There was an error contacting your blog.', 'editorial-calendar')) ?>';
             
+            edcal.str_screenoptions = '<?php echo(__('Screen Options', 'editorial-calendar')) ?>';
             edcal.str_optionsheader = '<?php echo(__('Calendar Options', 'editorial-calendar')) ?>';
             edcal.str_apply = '<?php echo(__('Apply', 'editorial-calendar')) ?>';
             edcal.str_show = '<?php echo(__('Show ', 'editorial-calendar')) ?>';
