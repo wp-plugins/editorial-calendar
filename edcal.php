@@ -219,9 +219,9 @@ function edcal_list_admin() {
         <div id="topbar">
             <div id="topleft">
                 <h3>
-                    <a href="#" title="<?php echo(__('Go back four weeks.', 'editorial-calendar')) ?>" class="save button prev page-numbers" id="prevmonth" style="border: thin solid gray;">&laquo;</a>
+                    <a href="#" title="<?php echo(__('Jump back', 'editorial-calendar')) ?>" class="save button prev page-numbers" id="prevmonth" style="border: thin solid gray;">&laquo;</a>
                     <span id="currentRange"></span>
-                    <a href="#" title="<?php echo(__('Skip ahead four weeks.', 'editorial-calendar')) ?>" class="save button next page-numbers" id="nextmonth" style="border: thin solid gray;">&raquo;</a>
+                    <a href="#" title="<?php echo(__('Skip ahead', 'editorial-calendar')) ?>" class="save button next page-numbers" id="nextmonth" style="border: thin solid gray;">&raquo;</a>
                 </h3>
             </div>
             
