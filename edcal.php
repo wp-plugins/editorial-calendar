@@ -173,7 +173,8 @@ function edcal_list_admin() {
             edcal.str_apply = '<?php echo(__('Apply', 'editorial-calendar')) ?>';
             edcal.str_show = '<?php echo(__('Show ', 'editorial-calendar')) ?>';
             edcal.str_show2 = '<?php echo(__('weeks at a time', 'editorial-calendar')) ?>';
-            edcal.str_weekserror = '<?php echo(__('The calendar can only show 2, 3, 4, or 5 weeks at a time.', 'editorial-calendar')) ?>';
+            edcal.str_weekserror = '<?php echo(__('The calendar can only show between 1 and 5 weeks at a time.', 'editorial-calendar')) ?>';
+            edcal.str_weekstt = '<?php echo(__('Enter the number of weeks, between 1 and 5, for the calendar to show.', 'editorial-calendar')) ?>';
         });
     </script>
 

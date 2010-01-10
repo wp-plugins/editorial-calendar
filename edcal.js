@@ -926,7 +926,7 @@ var edcal = {
            work around a small JQuery issue.
          */
         var firstDate = edcal.getDayFromDayId(items.eq(0).children(".row").children(".day:first").attr("id"));
-        var lastDate = edcal.getDayFromDayId(items.eq(items.length - 1).children(".row").children(".day:last").attr("id"));
+        var lastDate = edcal.getDayFromDayId(items.eq(edcal.weeksPref).children(".row").children(".day:last").attr("id"));
         
         jQuery("#currentRange").text(firstDate.toString("MMMM yyyy") + " - " + lastDate.toString("MMMM yyyy"));
     },
@@ -1526,7 +1526,9 @@ var edcal = {
              jQuery("#contextual-help-wrap").html(
                  '<h5>' + edcal.str_optionsheader + '</h5>' + 
                  '<div class="metabox-prefs">' + 
-                    edcal.str_show + '<input type="text" value="' + edcal.weeksPref + '" maxlength="1" width="2" id="edcal_weeks_pref" class="screen-per-page"/> ' +
+                    edcal.str_show + '<input type="text" value="' + edcal.weeksPref + '" ' + 
+                                            'maxlength="1" width="2" id="edcal_weeks_pref" ' + 
+                                            'class="screen-per-page" title="' + edcal.str_weekstt + '" /> ' +
                     edcal.str_show2 + '<br /><br />' + 
                     '<button id="edcal_applyoptions" onclick="edcal.saveOptions(); return false;" class="save button">' + edcal.str_apply + '</button>' +
                  '</div>');
@@ -1552,7 +1554,8 @@ var edcal = {
     },
     
     saveOptions: function() {
-         if (jQuery("#edcal_weeks_pref").val() !== '2' &&
+         if (jQuery("#edcal_weeks_pref").val() !== '1' &&
+             jQuery("#edcal_weeks_pref").val() !== '2' &&
              jQuery("#edcal_weeks_pref").val() !== '3' &&
              jQuery("#edcal_weeks_pref").val() !== '4' &&
              jQuery("#edcal_weeks_pref").val() !== '5') {
