@@ -1226,7 +1226,6 @@ var edcal = {
         });
         
         jQuery("#edcal_weeks_pref").live("keyup", function(evt) {
-            edcal.output('jQuery("#edcal_weeks_pref").val(): ' + jQuery("#edcal_weeks_pref").val());
             if (jQuery("#edcal_weeks_pref").val().length > 0) {
                 jQuery("#edcal_applyoptions").removeClass("disabled");
             } else {
@@ -1557,7 +1556,7 @@ var edcal = {
              jQuery("#edcal_weeks_pref").val() !== '3' &&
              jQuery("#edcal_weeks_pref").val() !== '4' &&
              jQuery("#edcal_weeks_pref").val() !== '5') {
-             edcal.showError(edcal.str_weekserror);
+             humanMsg.displayMsg(edcal.str_weekserror);
              return;
          }
          
