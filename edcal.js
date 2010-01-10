@@ -926,7 +926,7 @@ var edcal = {
            work around a small JQuery issue.
          */
         var firstDate = edcal.getDayFromDayId(items.eq(0).children(".row").children(".day:first").attr("id"));
-        var lastDate = edcal.getDayFromDayId(items.eq(edcal.weeksPref).children(".row").children(".day:last").attr("id"));
+        var lastDate = edcal.getDayFromDayId(items.eq(edcal.weeksPref - 1).children(".row").children(".day:last").attr("id"));
         
         jQuery("#currentRange").text(firstDate.toString("MMMM yyyy") + " - " + lastDate.toString("MMMM yyyy"));
     },
@@ -1147,11 +1147,11 @@ var edcal = {
             
             if ((evt.keyCode === 34 && !(evt.altKey || evt.ctrlKey)) || //page down
                 evt.keyCode === 40 && evt.ctrlKey){                     // Ctrl+down down arrow
-                edcal.move(4, true);
+                edcal.move(edcal.weeksPref, true);
                 return false;
             } else if ((evt.keyCode === 33 && !(evt.altKey || evt.ctrlKey)) || //page up
                 evt.keyCode === 38 && evt.ctrlKey){                            // Ctrl+up up arrow
-                edcal.move(4, false);
+                edcal.move(edcal.weeksPref, false);
                 return false;
             } else if (evt.keyCode === 27) { //escape key
                 edcal.closeTooltip();
@@ -1172,12 +1172,12 @@ var edcal = {
         });
     
         jQuery("#prevmonth").click(function() {
-            edcal.move(4, false);
+            edcal.move(edcal.weeksPref, false);
             return false;
         });
     
         jQuery("#nextmonth").click(function() {
-            edcal.move(4, true);
+            edcal.move(edcal.weeksPref, true);
             return false;
         });
         
