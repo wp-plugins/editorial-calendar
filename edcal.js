@@ -436,7 +436,6 @@ var edcal = {
                      drag: function(event, ui) {
                         edcal.handleDrag(event, ui);
                      },
-                     containment: '#edcal_scrollable',
                      scroll: false,
                      refreshPositions: true
                  });
