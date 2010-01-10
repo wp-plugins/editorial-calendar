@@ -233,7 +233,7 @@ var edcal = {
         
         jQuery("#cal_cont").prepend(html);
         
-        edcal.alignGrid(".dayheadcont", 7, 13.9, 100, 0.5);
+        edcal.alignGrid(".dayheadcont", 7, 13.8, 100, 0.5);
     },
 
     /*
