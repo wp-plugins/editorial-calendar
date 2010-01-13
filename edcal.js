@@ -103,14 +103,6 @@ var edcal = {
     wp_dateFormat: "yyyy-MM-dd",
         
     /*
-       This is the base URL we use to make AJAX calls back
-       to the server.  This value is set in code generated
-       from edcal.php that run in a script tag in the main
-       page.
-     */
-    ajax_url: '',
-        
-    /*
      * The cache of dates we have already loaded posts for.
      */
     cacheDates : [],
@@ -525,6 +517,14 @@ var edcal = {
              return false;
          }
     },
+    
+    /*
+       This is a simple function that creates the AJAX URL with the
+       nonce value generated in edcal.php.
+     */
+    ajax_url: function() {
+         return ajaxurl + "?_wpnonce=" + edcal.wp_nonce;
+    },
 
     /*
        This is an AJAX function to save the past title when
@@ -532,7 +532,7 @@ var edcal = {
      */
     saveTitle: function(/*string*/ postId) {
          edcal.output("Saving the new title " + jQuery("#edcal-title-edit-field").val() + " for post " + postId);
-         var url = edcal.ajax_url + "&action=edcal_changetitle&postid=" + postId + 
+         var url = edcal.ajax_url() + "&action=edcal_changetitle&postid=" + postId + 
              "&title=" + encodeURIComponent(jQuery("#edcal-title-edit-field").val());
 
          jQuery("#post-" + postId).addClass("loadingclass");
@@ -1264,7 +1264,7 @@ var edcal = {
           * put a default post time of 10:00 AM.
           */
          var formattedDate = encodeURIComponent(edcal.getDayFromDayId(date).toString(edcal.wp_dateFormat) + " 10:00:00");
-         var url = edcal.ajax_url + "&action=edcal_newdraft&date=" + formattedDate + "&title=" + 
+         var url = edcal.ajax_url() + "&action=edcal_newdraft&date=" + formattedDate + "&title=" + 
              encodeURIComponent(title);
 
          jQuery.ajax( { 
@@ -1354,7 +1354,7 @@ var edcal = {
              }
          }
 
-         var url = edcal.ajax_url + "&action=edcal_changedate&postid=" + post.id + 
+         var url = edcal.ajax_url() + "&action=edcal_changedate&postid=" + post.id + 
              "&postStatus=" + postStatus + 
              "&newdate=" + newdateFormatted + "&olddate=" + edcal.getDayFromDayId(post.date).toString(edcal.wp_dateFormat);
 
@@ -1417,8 +1417,9 @@ var edcal = {
 
          edcal.cacheDates[from] = true;
 
-
-         var url = edcal.ajax_url + "&action=edcal_posts&from=" + from.toString("yyyy-MM-dd") + "&to=" + to.toString("yyyy-MM-dd");
+         edcal.output("edcal.ajax_url(): " + edcal.ajax_url());
+         
+         var url = edcal.ajax_url() + "&action=edcal_posts&from=" + from.toString("yyyy-MM-dd") + "&to=" + to.toString("yyyy-MM-dd");
          
          jQuery("#loading").show();
 
@@ -1580,7 +1581,7 @@ var edcal = {
              return;
          }
          
-         var url = edcal.ajax_url + "&action=edcal_saveoptions&weeks=" + 
+         var url = edcal.ajax_url() + "&action=edcal_saveoptions&weeks=" + 
              encodeURIComponent(jQuery("#edcal_weeks_pref").val());
          
          jQuery.ajax( { 

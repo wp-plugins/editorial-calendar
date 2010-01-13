@@ -63,6 +63,9 @@ If you use the plugin <a href="http://wordpress.org/extend/plugins/live-countdow
 
 == Changelog ==
 
+= 0.6 =
+* We are now supporting the define('FORCE_SSL_ADMIN', true); option in wp-config.php.
+
 = 0.5.4 =
 * I think this should finally fix the date format bugs we've been having.  Thanks for sticking with it guys.
 
