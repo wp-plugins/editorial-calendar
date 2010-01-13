@@ -64,7 +64,13 @@ If you use the plugin <a href="http://wordpress.org/extend/plugins/live-countdow
 == Changelog ==
 
 = 0.6 =
-* We are now supporting the define('FORCE_SSL_ADMIN', true); option in wp-config.php.
+* The new look and feel of the calendar makes it easier to scan over your posts while showing you more information.
+* You can customize the number of weeks you work with in the calendar using the screen options pull down in the upper right.
+* The calendar now starts with the current day as the first week.
+* When dragging posts the calendar will now automatically scroll when you move a post past the top or bottom of the calendar.
+* You can now access the edit, view, and delete post links directly in the calendar without bringing up a second dialog.
+* The calendar now prevents you from changing posts that have already been published.
+* The calendar now supports using HTTPS for admin with the define('FORCE_SSL_ADMIN', true); option in wp-config.php.
 
 = 0.5.4 =
 * I think this should finally fix the date format bugs we've been having.  Thanks for sticking with it guys.
