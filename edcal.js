@@ -417,7 +417,7 @@ var edcal = {
                      revert: 'invalid',
                      appendTo: 'body',
                      helper: "clone",
-                     distance: 0,
+                     distance: 1,
                      addClasses: false,
                      start: function() {
                        edcal.inDrag = true;
