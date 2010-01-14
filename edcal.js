@@ -818,6 +818,13 @@ var edcal = {
             //IE 4 compatible
             myHeight = document.body.clientHeight;
         }
+        
+        /*
+           We don't want to make the calendar too short even if the
+           user's screen is super short.
+         */
+        myHeight = Math.max(myHeight, 600)
+        
         return myHeight - 150;
     },
     
