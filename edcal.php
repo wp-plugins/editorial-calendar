@@ -326,8 +326,9 @@ function edcal_posts() {
     
     ?>[
     <?php
+    $size = sizeof($myposts);
     
-    foreach($myposts as $post) {
+    for($i = 0; $i < $size; $i++) {
         /*
          * Sticky posts are ones that stick to the front page.
          * They do technically have a date, but it doesn't 
@@ -336,8 +337,10 @@ function edcal_posts() {
          * to stay on the front page.
          */
         
+        $post = $myposts[$i];
+         
         if (!is_sticky($post->ID)) {
-            edcal_postJSON($post);
+            edcal_postJSON($post, $i < $size - 1);
         }
     }
     
@@ -352,16 +355,16 @@ function edcal_posts() {
  * care about in a JSON data structure.  This prints out just the
  * value part.
  */
-function edcal_postJSON($post) {
+function edcal_postJSON($post, $addComma = true) {
     setup_postdata($post);
     ?>
         {
             "date" : "<?php the_time('d') ?><?php the_time('m') ?><?php the_time('Y') ?>", 
             "time" : "<?php the_time() ?>", 
-            "formattedtime" : "<?php the_time(__('ga', 'editorial-calendar')) ?>", 
-            "url" : "<?php the_permalink(); ?>", 
+            "formattedtime" : "<?php json_encode(the_time(__('ga', 'editorial-calendar'))); ?>", 
+            "url" : "<?php json_encode(the_permalink()); ?>", 
             "status" : "<?php echo(get_post_status()); ?>",
-            "title" : "<?php the_title(); ?>",
+            "title" : <?php echo(json_encode(get_the_title())); ?>,
             "author" : "<?php the_author(); ?>",
             <?php if ( current_user_can('edit_post', $post->ID) ) {?>
             "editlink" : "<?php echo(get_edit_post_link($id)); ?>",
@@ -373,8 +376,11 @@ function edcal_postJSON($post) {
 
             "permalink" : "<?php echo(get_permalink($id)); ?>",
             "id" : "<?php the_ID(); ?>"
-        },
+        }
     <?php
+    if ($addComma) {
+        ?>,<?php
+    }
 }
 
 /*
