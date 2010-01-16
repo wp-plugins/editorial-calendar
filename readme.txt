@@ -71,6 +71,7 @@ If you use the plugin <a href="http://wordpress.org/extend/plugins/live-countdow
 * You can now access the edit, view, and delete post links directly in the calendar without bringing up a second dialog.
 * The calendar now prevents you from changing posts that have already been published.
 * The calendar now supports using HTTPS for admin with the define('FORCE_SSL_ADMIN', true); option in wp-config.php.
+* The calendar is now properly handling posts with apostrophe's in the title in Internet Explorer.
 
 = 0.5.4 =
 * I think this should finally fix the date format bugs we've been having.  Thanks for sticking with it guys.

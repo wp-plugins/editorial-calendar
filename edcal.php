@@ -350,6 +350,17 @@ function edcal_posts() {
     die();
 }
 
+function edcal_json_encode($string) {
+    /*
+     * WordPress escapes apostrophe's when they show up in post titles as &#039;
+     * This is the HTML ASCII code for a straight apostrophe.  This works well
+     * with Firefox, but IE complains with a very unhelpful error message.  We
+     * can replace them with a right curly apostrophe since that works in IE
+     * and Firefox.  It is also a little nicer typographically.  
+     */
+    return json_encode(str_replace("&#039;", "&#146;", $string));
+}
+
 /*
  * This function sets up the post data and prints out the values we
  * care about in a JSON data structure.  This prints out just the
@@ -361,10 +372,10 @@ function edcal_postJSON($post, $addComma = true) {
         {
             "date" : "<?php the_time('d') ?><?php the_time('m') ?><?php the_time('Y') ?>", 
             "time" : "<?php the_time() ?>", 
-            "formattedtime" : "<?php json_encode(the_time(__('ga', 'editorial-calendar'))); ?>", 
-            "url" : "<?php json_encode(the_permalink()); ?>", 
+            "formattedtime" : "<?php edcal_json_encode(the_time(__('ga', 'editorial-calendar'))); ?>", 
+            "url" : "<?php edcal_json_encode(the_permalink()); ?>", 
             "status" : "<?php echo(get_post_status()); ?>",
-            "title" : <?php echo(json_encode(get_the_title())); ?>,
+            "title" : <?php echo(edcal_json_encode(get_the_title())); ?>,
             "author" : "<?php the_author(); ?>",
             <?php if ( current_user_can('edit_post', $post->ID) ) {?>
             "editlink" : "<?php echo(get_edit_post_link($id)); ?>",
