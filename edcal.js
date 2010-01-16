@@ -1082,12 +1082,27 @@ var edcal = {
 
          edcal.updatePostPadding(true);
          
+         /*
+            When the user drags a post they get a "helper" element that clones
+            the post and displays it during the drag.  This means they get all
+            the same classes and styles.  However, the width of a post is based
+            on the width of a day in the calendar and not anything in a style.
+            That works well for the posts in the calendar, but it means we need
+            to dynamically determine the width of the post when dragging.
+     
+            This value will remain the same until the calendar resizes.  That is
+            why we do it here.  We need to get the width of the first visible day
+            in the calendar which is why we use the complicated selector.  We also
+            need to generate a style for it since the drag element doesn't exist
+            yet and using the live function would really slow down the drag operation.
+     
+            We base this on the width of a way since they might not have any posts
+            yet.
+          */
          jQuery('#edcal_poststyle').remove();
          jQuery('head').append('<style id="edcal_poststyle" type="text/css">.ui-draggable-dragging {' + 
-         							'width: ' + jQuery(".post:first").width() + 'px;' + 
-         						'</style>}');
-
-
+                                    'width: ' + jQuery(".rowcont:eq(2) .day:first").width() + 'px;' + 
+                               '</style>}');
     },
     
     /*
