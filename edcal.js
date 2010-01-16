@@ -1081,6 +1081,13 @@ var edcal = {
          }
 
          edcal.updatePostPadding(true);
+         
+         jQuery('#edcal_poststyle').remove();
+         jQuery('head').append('<style id="edcal_poststyle" type="text/css">.ui-draggable-dragging {' + 
+         							'width: ' + jQuery(".post:first").width() + 'px;' + 
+         						'</style>}');
+
+
     },
     
     /*
