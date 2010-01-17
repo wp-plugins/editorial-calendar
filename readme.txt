@@ -35,21 +35,25 @@ Features:
 
 Check out our demo installation at <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=posts_list">Zack's WordPress Sandbox</a>.
 
+= What languages is the calendar available in? =
+
+The calendar is available in English and Croatian. 
+
+= Can I add another language? =
+
+Yes please!  We are looking for translators.  It only takes 20 minutes.  If you're interested please <a href="mailto:zack@grossbart.com">contact us</a>.
+
 = Can I use the editorial calendar with pages? =
 
-Right now the calendar only supports posts.  We are considering adding support for pages.  If you would like to see support for pages let us know.
+Right now the calendar only supports posts.  We are considering adding pages.  If you would like to see support for pages let us know.
 
-= Does the editorial calendar change the way my posts look? =
+= Will my readers be able to tell I'm using the editorial calendar? =
 
 No.  The calendar is only an administration tool.  None of your readers will know you are running the calendar unless you tell them.
 
-= Why are my posts different colors? =
+= Why can't I move published posts? =
 
-The different color of each post indicates the status.  Gray is <code>draft</code>, blue is <code>publish</code>, and yellow is <code>future</code>.
-
-= Why does the calendar change my post status? =
-
-The calendar works with three types of post status: <code>draft</code>, <code>publish</code>, and <code>future</code>.  If you move a <code>publish</code> post to a date after the current day it becomes a <code>future</code> post.  If you drag a <code>future</code> post to a day before the current day it becomes a <code>draft</code> post.
+Moving published posts can cause problems with some RSS feeds and is generally not very popular.  Right now the calendar only allows you to move scheduled and draft posts.
 
 = Why doesn't the calendar work with Live Countdown Timer =
 
