@@ -496,7 +496,12 @@ var edcal = {
      * Adds a post to an already existing calendar day.
      */
     addPostItem: function(/*post*/ post, /*string*/ dayobjId) {
-         jQuery('#' + dayobjId + ' .postlist').append(edcal.createPostItem(post, dayobjId));
+         /*
+          * We are trying to select the .postlist item under this div.  It would
+          * be much more adaptable to reference the class by name, but this is
+          * significantly faster.  Especially on IE.
+          */
+         jQuery('#' + dayobjId + " > div > ul").append(edcal.createPostItem(post, dayobjId));
     },
 
     /*
