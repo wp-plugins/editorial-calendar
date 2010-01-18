@@ -135,47 +135,47 @@ function edcal_list_admin() {
              * pass the values to JavaScript.
              */
             
-            edcal.str_on = '<?php echo(__('on', 'editorial-calendar')) ?>';
-            edcal.str_by = '<?php echo(__('by', 'editorial-calendar')) ?>';
-            edcal.str_at = '<?php echo(__('at', 'editorial-calendar')) ?>';
+            edcal.str_on = <?php echo(edcal_json_encode(__('on', 'editorial-calendar'))) ?>;
+            edcal.str_by = <?php echo(edcal_json_encode(__('by', 'editorial-calendar'))) ?>;
+            edcal.str_at = <?php echo(edcal_json_encode(__('at', 'editorial-calendar'))) ?>;
 
-            edcal.str_addPostLink = '<?php echo(__('Add a post', 'editorial-calendar')) ?>';
+            edcal.str_addPostLink = <?php echo(edcal_json_encode(__('Add a post', 'editorial-calendar'))) ?>;
             
-            edcal.str_day1 = '<?php echo(__('Sunday', 'editorial-calendar')) ?>';
-            edcal.str_day2 = '<?php echo(__('Monday', 'editorial-calendar')) ?>';
-            edcal.str_day3 = '<?php echo(__('Tuesday', 'editorial-calendar')) ?>';
-            edcal.str_day4 = '<?php echo(__('Wednesday', 'editorial-calendar')) ?>';
-            edcal.str_day5 = '<?php echo(__('Thursday', 'editorial-calendar')) ?>';
-            edcal.str_day6 = '<?php echo(__('Friday', 'editorial-calendar')) ?>';
-            edcal.str_day7 = '<?php echo(__('Saturday', 'editorial-calendar')) ?>';
+            edcal.str_day1 = <?php echo(edcal_json_encode(__('Sunday', 'editorial-calendar'))) ?>;
+            edcal.str_day2 = <?php echo(edcal_json_encode(__('Monday', 'editorial-calendar'))) ?>;
+            edcal.str_day3 = <?php echo(edcal_json_encode(__('Tuesday', 'editorial-calendar'))) ?>;
+            edcal.str_day4 = <?php echo(edcal_json_encode(__('Wednesday', 'editorial-calendar'))) ?>;
+            edcal.str_day5 = <?php echo(edcal_json_encode(__('Thursday', 'editorial-calendar'))) ?>;
+            edcal.str_day6 = <?php echo(edcal_json_encode(__('Friday', 'editorial-calendar'))) ?>;
+            edcal.str_day7 = <?php echo(edcal_json_encode(__('Saturday', 'editorial-calendar'))) ?>;
 
-            edcal.str_draft = '<?php echo(__(' [DRAFT]', 'editorial-calendar')) ?>';
-            edcal.str_edit = '<?php echo(__('Edit', 'editorial-calendar')) ?>';
-            edcal.str_del = '<?php echo(__('Delete', 'editorial-calendar')) ?>';
-            edcal.str_view = '<?php echo(__('View', 'editorial-calendar')) ?>';
-            edcal.str_republish = '<?php echo(__('Republish', 'editorial-calendar')) ?>';
-            edcal.str_status = '<?php echo(__('Status:', 'editorial-calendar')) ?>';
-            edcal.str_cancel = '<?php echo(__('Cancel', 'editorial-calendar')) ?>';
-            edcal.str_posttitle = '<?php echo(__('Post Title:', 'editorial-calendar')) ?>';
-            edcal.str_savedraft = '<?php echo(__('Save Draft', 'editorial-calendar')) ?>';
-            edcal.str_saveandedit = '<?php echo(__('Save and Edit Draft', 'editorial-calendar')) ?>';
-            edcal.str_newpost = '<?php echo(__('Add a new post on ', 'editorial-calendar')) ?>';
+            edcal.str_draft = <?php echo(edcal_json_encode(__(' [DRAFT]', 'editorial-calendar'))) ?>;
+            edcal.str_edit = <?php echo(edcal_json_encode(__('Edit', 'editorial-calendar'))) ?>;
+            edcal.str_del = <?php echo(edcal_json_encode(__('Delete', 'editorial-calendar'))) ?>;
+            edcal.str_view = <?php echo(edcal_json_encode(__('View', 'editorial-calendar'))) ?>;
+            edcal.str_republish = <?php echo(edcal_json_encode(__('Republish', 'editorial-calendar'))) ?>;
+            edcal.str_status = <?php echo(edcal_json_encode(__('Status:', 'editorial-calendar'))) ?>;
+            edcal.str_cancel = <?php echo(edcal_json_encode(__('Cancel', 'editorial-calendar'))) ?>;
+            edcal.str_posttitle = <?php echo(edcal_json_encode(__('Post Title:', 'editorial-calendar'))) ?>;
+            edcal.str_savedraft = <?php echo(edcal_json_encode(__('Save Draft', 'editorial-calendar'))) ?>;
+            edcal.str_saveandedit = <?php echo(edcal_json_encode(__('Save and Edit Draft', 'editorial-calendar'))) ?>;
+            edcal.str_newpost = <?php echo(edcal_json_encode(__('Add a new post on ', 'editorial-calendar'))) ?>;
             
-            edcal.str_del_msg1 = '<?php echo(__('You are about to delete this post ', 'editorial-calendar')) ?>';
-            edcal.str_del_msg2 = '<?php echo(__('Press cancel to stop, OK to delete.', 'editorial-calendar')) ?>';
+            edcal.str_del_msg1 = <?php echo(edcal_json_encode(__('You are about to delete this post ', 'editorial-calendar'))) ?>;
+            edcal.str_del_msg2 = <?php echo(edcal_json_encode(__('Press cancel to stop, OK to delete.', 'editorial-calendar'))) ?>;
             
-            edcal.concurrency_error = '<?php echo(__('Looks like someone else already moved this post.', 'editorial-calendar')) ?>';
-            edcal.permission_error = '<?php echo(__('You do not have permission to edit posts.', 'editorial-calendar')) ?>';
-            edcal.checksum_error = '<?php echo(__('Invalid checksum for post. This is commonly a cross-site scripting error.', 'editorial-calendar')) ?>';
-            edcal.general_error = '<?php echo(__('There was an error contacting your blog.', 'editorial-calendar')) ?>';
+            edcal.concurrency_error = <?php echo(edcal_json_encode(__('Looks like someone else already moved this post.', 'editorial-calendar'))) ?>;
+            edcal.permission_error = <?php echo(edcal_json_encode(__('You do not have permission to edit posts.', 'editorial-calendar'))) ?>;
+            edcal.checksum_error = <?php echo(edcal_json_encode(__('Invalid checksum for post. This is commonly a cross-site scripting error.', 'editorial-calendar'))) ?>;
+            edcal.general_error = <?php echo(edcal_json_encode(__('There was an error contacting your blog.', 'editorial-calendar'))) ?>;
             
-            edcal.str_screenoptions = '<?php echo(__('Screen Options', 'editorial-calendar')) ?>';
-            edcal.str_optionsheader = '<?php echo(__('Calendar Options', 'editorial-calendar')) ?>';
-            edcal.str_apply = '<?php echo(__('Apply', 'editorial-calendar')) ?>';
-            edcal.str_show = '<?php echo(__('Show ', 'editorial-calendar')) ?>';
-            edcal.str_show2 = '<?php echo(__('weeks at a time', 'editorial-calendar')) ?>';
-            edcal.str_weekserror = '<?php echo(__('The calendar can only show between 1 and 5 weeks at a time.', 'editorial-calendar')) ?>';
-            edcal.str_weekstt = '<?php echo(__('Enter the number of weeks, between 1 and 5, for the calendar to show.', 'editorial-calendar')) ?>';
+            edcal.str_screenoptions = <?php echo(edcal_json_encode(__('Screen Options', 'editorial-calendar'))) ?>;
+            edcal.str_optionsheader = <?php echo(edcal_json_encode(__('Calendar Options', 'editorial-calendar'))) ?>;
+            edcal.str_apply = <?php echo(edcal_json_encode(__('Apply', 'editorial-calendar'))) ?>;
+            edcal.str_show = <?php echo(edcal_json_encode(__('Show ', 'editorial-calendar'))) ?>;
+            edcal.str_show2 = <?php echo(edcal_json_encode(__('weeks at a time', 'editorial-calendar'))) ?>;
+            edcal.str_weekserror = <?php echo(edcal_json_encode(__('The calendar can only show between 1 and 5 weeks at a time.', 'editorial-calendar'))) ?>;
+            edcal.str_weekstt = <?php echo(edcal_json_encode(__('Enter the number of weeks, between 1 and 5, for the calendar to show.', 'editorial-calendar'))) ?>;
         });
     </script>
 

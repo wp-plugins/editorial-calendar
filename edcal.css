@@ -96,6 +96,8 @@
     padding-right: 0.5em;
     text-decoration: none;
     z-index: 10;
+    overflow: hidden;
+    height: 1.5em;
 }
 
 .month-present .daylabel {

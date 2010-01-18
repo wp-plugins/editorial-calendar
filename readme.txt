@@ -37,7 +37,7 @@ Check out our demo installation at <a href="http://www.zackgrossbart.com/extras/
 
 = What languages is the calendar available in? =
 
-The calendar is available in English and Croatian. 
+The calendar is available in English, French, and Croatian. 
 
 = Can I add another language? =
 
@@ -76,6 +76,7 @@ If you use the plugin <a href="http://wordpress.org/extend/plugins/live-countdow
 * The calendar now prevents you from changing posts that have already been published.
 * The calendar now supports using HTTPS for admin with the define('FORCE_SSL_ADMIN', true); option in wp-config.php.
 * The calendar is now properly handling posts with apostrophe's in the title in Internet Explorer.
+* The calendar now supports French.  Thanks to the guys at <a href="http://stresslimitdesign.com/">StressLimitDesign</a>.
 
 = 0.5.4 =
 * I think this should finally fix the date format bugs we've been having.  Thanks for sticking with it guys.
