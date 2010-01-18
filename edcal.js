@@ -345,9 +345,9 @@ var edcal = {
          */
         edcal.alignGrid("#row" + edcal._wDate.toString("ddMMyyyy") + "row", 7, 13.9, 100, 0.5);
         
-        edcal.draggablePost('#row' + edcal._wDate.toString("ddMMyyyy") + ' .post');
+        edcal.draggablePost('#row' + edcal._wDate.toString("ddMMyyyy") + ' li.post');
 
-        jQuery('#row' + edcal._wDate.toString("ddMMyyyy") + ' .day').droppable({
+        jQuery('#row' + edcal._wDate.toString("ddMMyyyy") + ' > div > div.day').droppable({
             hoverClass: 'day-active',
             accept: function(ui) {
                 /*
@@ -509,7 +509,7 @@ var edcal = {
        and adds the tooltip.
      */
     addPostItemDragAndToolltip: function(/*string*/ dayobjId) {
-         edcal.draggablePost('#' + dayobjId + ' .post');
+         edcal.draggablePost('#' + dayobjId + ' > div > ul > li');
     },
 
     /*
@@ -739,7 +739,7 @@ var edcal = {
          jQuery('#' + postid).css({
              'padding-bottom': '0px'
          });
-         jQuery('#' + postid + ' .postactions').show();
+         jQuery('#' + postid + ' > div.postactions').show();
     }, 
 
     /*
@@ -750,7 +750,7 @@ var edcal = {
          jQuery('#' + postid).css({
              'padding-bottom': edcal.actionButtonHeight + "px"
          });
-         jQuery('#' + postid + ' .postactions').hide();
+         jQuery('#' + postid + ' > div.postactions').hide();
     },
 
     /*
