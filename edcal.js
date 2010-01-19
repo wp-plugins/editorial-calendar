@@ -272,7 +272,7 @@ var edcal = {
              return;
          }
 
-         var createLink = jQuery("#" + dayid + " .daynewlink");
+         var createLink = jQuery("#" + dayid + " a.daynewlink");
          createLink.css("display", "block");
          edcal.addCreateTooltip(createLink);
     },
@@ -282,7 +282,7 @@ var edcal = {
        outside of the calendar day.
      */
     hideAddPostLink: function(/*string*/ dayid) {
-         jQuery("#" + dayid + " .daynewlink").hide();
+         jQuery("#" + dayid + " a.daynewlink").hide();
     },
     
     /*
@@ -723,7 +723,7 @@ var edcal = {
      */
     updatePostPadding: function(/*boolean*/ resized) {
          if (resized || !edcal.actionButtonHeight) {
-             edcal.actionButtonHeight = jQuery(".postactions").height();
+             edcal.actionButtonHeight = jQuery("div.postactions").height();
              jQuery(".post").css("padding-bottom", edcal.actionButtonHeight + "px");
          }
     },
@@ -928,7 +928,7 @@ var edcal = {
        the calendar.  It looks like November 2009-December2009
      */
     setDateLabel: function(year) {
-        var api = jQuery(".edcal_scrollable").scrollable();
+        var api = jQuery("#edcal_scrollable").scrollable();
         var items = api.getVisibleItems();
         
         /*
@@ -1064,7 +1064,7 @@ var edcal = {
         
         edcal.alignCal();
         
-        var api = jQuery(".edcal_scrollable").scrollable();
+        var api = jQuery("#edcal_scrollable").scrollable();
         api.move(2);
         
         edcal.setDateLabel();
@@ -1133,7 +1133,7 @@ var edcal = {
         edcal.createDaysHeader();
         
         // initialize scrollable  
-        jQuery(".edcal_scrollable").scrollable({ 
+        jQuery("#edcal_scrollable").scrollable({ 
                                     vertical:true,  
                                     size: edcal.weeksPref,
                                     keyboardSteps: 1,
@@ -1141,7 +1141,7 @@ var edcal = {
                                     // use mousewheel plugin 
                                     }).mousewheel();
         
-        var api = jQuery(".edcal_scrollable").scrollable();
+        var api = jQuery("#edcal_scrollable").scrollable();
         
         edcal.moveTo(Date.today());
         
