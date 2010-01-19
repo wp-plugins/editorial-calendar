@@ -61,9 +61,10 @@ If you use the plugin <a href="http://wordpress.org/extend/plugins/live-countdow
 
 == Screenshots ==
 
-1. See all of your posts and when they'll be published.
-2. Get more information and edit post titles right in the calendar.
-3. Drag and drop posts to easily change dates and arrange your calendar.
+1. The calendar integrates seamlessly into the WordPress administrator console
+2. See the big picture with a view of all your posts and when they'll be published.
+3. Drag and drop posts to easily change dates and take control of your blog.
+4. Create and schedule new posts in one simple step.
 
 == Changelog ==
 
