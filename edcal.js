@@ -234,6 +234,21 @@ var edcal = {
        figures out the right class based on the date.
      */
     getDateClass: function(/*Date*/ date) {
+
+         var monthstyle;
+         var daystyle;
+
+         if (date.compareTo(Date.today()) == -1) {
+             /*
+              * Date is before today
+              */
+             daystyle = "beforeToday";
+         } else {
+             /*
+              * Date is after today
+              */
+             daystyle = "todayAndAfter";
+         }
          if (!edcal.firstDayOfMonth) {
              /*
               * We only need to figure out the first and last day 
@@ -242,25 +257,25 @@ var edcal = {
              edcal.firstDayOfMonth = Date.today().moveToFirstDayOfMonth().clearTime();
              edcal.firstDayOfNextMonth = Date.today().moveToLastDayOfMonth().clearTime();
          }
-
          if (date.between(edcal.firstDayOfMonth, edcal.firstDayOfNextMonth)) {
              /*
               * If the date isn't before the first of the 
               * month and it isn't after the last of the 
               * month then it is in the current month.
               */
-             return "month-present";
+             monthstyle = "month-present";
          } else if (date.compareTo(edcal.firstDayOfMonth) == 1) {
              /*
               * Then the date is after the current month
               */
-             return "month-future";
+             monthstyle = "month-future";
          } else if (date.compareTo(edcal.firstDayOfNextMonth) == -1) {
              /*
               * Then the date is before the current month
               */
-             return "month-past";
+             monthstyle = "month-past";
          }
+         return monthstyle+' '+daystyle;
     },
 
     /*

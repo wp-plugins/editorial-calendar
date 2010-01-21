@@ -139,7 +139,7 @@ function edcal_list_admin() {
             edcal.str_by = <?php echo(edcal_json_encode(__('by', 'editorial-calendar'))) ?>;
             edcal.str_at = <?php echo(edcal_json_encode(__('at', 'editorial-calendar'))) ?>;
 
-            edcal.str_addPostLink = <?php echo(edcal_json_encode(__('Add a post', 'editorial-calendar'))) ?>;
+            edcal.str_addPostLink = <?php echo(edcal_json_encode(__('Add a Post', 'editorial-calendar'))) ?>;
             
             edcal.str_day1 = <?php echo(edcal_json_encode(__('Sunday', 'editorial-calendar'))) ?>;
             edcal.str_day2 = <?php echo(edcal_json_encode(__('Monday', 'editorial-calendar'))) ?>;
@@ -192,6 +192,10 @@ function edcal_list_admin() {
             background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/tip_close.gif")); ?>');
         }
 
+        .month-present .daylabel {
+            background: #F5F5F5 url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/month-present_bk.gif")); ?>') repeat-x left top;
+        }
+
         .today .daylabel {
             background: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/today_bk.gif")); ?>') repeat-x left top;
         }
@@ -217,12 +221,12 @@ function edcal_list_admin() {
             <div id="loading"> </div>
         </div>
         
-        <div id="topbar">
-            <div id="topleft">
+        <div id="topbar" class="tablenav">
+            <div id="topleft" class="tablenav-pages">
                 <h3>
-                    <a href="#" title="<?php echo(__('Jump back', 'editorial-calendar')) ?>" class="save button prev page-numbers" id="prevmonth" style="border: thin solid gray;">&laquo;</a>
+                    <a href="#" title="<?php echo(__('Jump back', 'editorial-calendar')) ?>" class="prev page-numbers" id="prevmonth">&laquo;</a>
                     <span id="currentRange"></span>
-                    <a href="#" title="<?php echo(__('Skip ahead', 'editorial-calendar')) ?>" class="save button next page-numbers" id="nextmonth" style="border: thin solid gray;">&raquo;</a>
+                    <a href="#" title="<?php echo(__('Skip ahead', 'editorial-calendar')) ?>" class="next page-numbers" id="nextmonth">&raquo;</a>
                 </h3>
             </div>
             
