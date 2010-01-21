@@ -1106,7 +1106,7 @@ var edcal = {
           */
          jQuery('#edcal_poststyle').remove();
          jQuery('head').append('<style id="edcal_poststyle" type="text/css">.ui-draggable-dragging {' + 
-                                    'width: ' + jQuery(".rowcont:eq(2) .day:first").width() + 'px;' + 
+                                    'width: ' + (jQuery(".rowcont:eq(2) .day:first").width() - 5) + 'px;' + 
                                '</style>}');
     },
     
