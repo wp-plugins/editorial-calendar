@@ -1393,7 +1393,7 @@ var edcal = {
              "&newdate=" + newdateFormatted + "&olddate=" + edcal.getDayFromDayId(post.date).toString(edcal.wp_dateFormat);
 
          jQuery("#post-" + post.id).addClass("loadingclass");
-
+         
          jQuery.ajax( { 
             url: url,
             type: "POST",
