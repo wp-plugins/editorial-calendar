@@ -11,8 +11,6 @@ Editorial calendar makes it possible to see all your posts and drag and drop the
 
 The editorial calendar lets WordPress administrators and editors manage the dates for multiple posts at once.  You see all of your posts in a calendar view and can arrange them via an easy drag and drop interface.  The editorial calendar greatly improves any blog that plans posts in advance or takes contributions from multiple users.
 
-This is the beta version and the first one ready for public use.  Please help us make this plugin better by giving us <a href="mailto:zack@grossbart.com">feedback</a>.  
-
 <a href="http://chrisg.org/drag-and-drop-post-scheduling-with-the-editorial-calendar-wordpress-plugin/">Chris Garret</a> liked the calendar so much he made a <a href="http://www.youtube.com/watch?v=F4BnQZsgtZc&feature=player_embedded" style="font-size: 1.25em">video</a> showing you how to use it.  Thanks Chris!
 
 Features:
@@ -21,6 +19,8 @@ Features:
 1. Drag and drop to change your post dates.
 1. Edit and arrange post titles.
 1. Easily see the status of your posts.
+
+The editorial calendar is getting closer and closer to version 1.0.  We have a few more features to go.  Thank you to everyone who has helped us improve this plugin with their feedback.  If you have questions, problems, or idea for new features please let us know at <a href="mailto:wp-edcal@googlegroups.com">wp-edcal@googlegroups.com</a>.  
 
 == Installation ==
 
