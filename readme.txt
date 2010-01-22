@@ -35,17 +35,17 @@ The editorial calendar is getting closer and closer to version 1.0.  We have a f
 
 Check out our demo installation at <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=posts_list">Zack's WordPress Sandbox</a>.
 
-= What languages is the calendar available in? =
+= What languages does the calendar support? =
 
 The calendar is available in English, French, and Croatian. 
 
-= Can I add another language? =
+= Can I add new languages? =
 
-Yes please!  We are looking for translators.  It only takes 20 minutes.  If you're interested please <a href="mailto:zack@grossbart.com">contact us</a>.
+Yes please!  We are looking for translators.  It only takes about 20 minutes.  If you're interested please <a href="mailto:wp-edcal@googlegroups.com">contact us</a>.
 
 = Can I use the editorial calendar with pages? =
 
-Right now the calendar only supports posts.  We are considering adding pages.  If you would like to see support for pages let us know.
+Right now the calendar only supports posts.  We're considering adding pages.  If you would like to see support for pages let us know.
 
 = Will my readers be able to tell I'm using the editorial calendar? =
 
@@ -53,7 +53,7 @@ No.  The calendar is only an administration tool.  None of your readers will kno
 
 = Why can't I move published posts? =
 
-Moving published posts can cause problems with some RSS feeds and is generally not very popular.  Right now the calendar only allows you to move scheduled and draft posts.
+Moving published posts can cause problems with some RSS feeds and is generally not a very popular thing to do.  The calendar only allows you to move scheduled and draft posts.
 
 = Why doesn't the calendar work with Live Countdown Timer =
 
@@ -61,7 +61,7 @@ If you use the plugin <a href="http://wordpress.org/extend/plugins/live-countdow
 
 == Screenshots ==
 
-1. The calendar integrates seamlessly into the WordPress administrator console
+1. The calendar integrates seamlessly into the WordPress administration console
 2. See the big picture with a view of all your posts and when they'll be published.
 3. Drag and drop posts to easily change dates and take control of your blog.
 4. Create and schedule new posts in one simple step.
