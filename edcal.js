@@ -839,13 +839,13 @@ var edcal = {
             myHeight = document.body.clientHeight;
         }
         
+        myHeight = myHeight - 225
+        
         /*
            We don't want to make the calendar too short even if the
            user's screen is super short.
          */
-        myHeight = Math.max(myHeight, 600);
-        
-        return myHeight - 225;
+        return Math.max(myHeight, 600);
     },
     
     /*
