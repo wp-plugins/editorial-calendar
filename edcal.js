@@ -527,12 +527,54 @@ var edcal = {
          edcal.draggablePost('#' + dayobjId + ' > div > ul > li');
     },
 
+
+	/*
+		Deletes the post specified. Will only be executed once the user clicks the confirm link to proceed.
+	*/
+    deletePost: function(/*Post ID*/ postId) {
+	
+		var url = edcal.ajax_url() + "&action=edcal_deletepost&postid=" + postId;
+        edcal.output("Calling AJAX URL: " + url);
+
+		jQuery.ajax( { 
+			url: url,
+			type: "POST",
+			processData: false,
+			timeout: 100000,
+			dataType: "json",
+			success: function(res) {				
+                edcal.removePostItem(res.post.date, "post-" + res.post.id);
+                if (res.error) {
+                    /*
+                     * If there was an error we need to remove the dropped
+                     * post item.
+                     */
+                    if (res.error === edcal.NONCE_ERROR) {
+                        edcal.showError(edcal.checksum_error);
+                    }
+				} else {
+					edcal.output('Finished deleting the post: "' + res.post.title + '"');
+				}
+            },
+            error: function(xhr) {
+                 edcal.showError(edcal.general_error);
+                 if (xhr.responseText) {
+                     edcal.output("xhr.responseText: " + xhr.responseText);
+                 }
+            }
+        });
+    },
+
+
+
+
     /*
      * Confirms if you want to delete the specified post
      */
     confirmDelete: function(/*string*/ posttitle) {
          if (confirm(edcal.str_del_msg1 + posttitle + edcal.str_del_msg2)) {
              return true;
+	// [wes] might be better to call deletePost from here directly, rather than return control back to the agent... which will then follow the link and call deletePost 
          } else {
              return false;
          }

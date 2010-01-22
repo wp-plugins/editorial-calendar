@@ -29,6 +29,7 @@ add_action('wp_ajax_edcal_newdraft', 'edcal_newdraft' );
 add_action('wp_ajax_edcal_changetitle', 'edcal_changetitle' );
 add_action('admin_menu', 'edcal_list_add_management_page');
 add_action('wp_ajax_edcal_posts', 'edcal_posts' );
+add_action('wp_ajax_edcal_deletepost', 'edcal_deletepost' );
 add_action("admin_print_scripts", 'edcal_scripts');
 add_action("init", 'edcal_load_language');
 
@@ -161,8 +162,8 @@ function edcal_list_admin() {
             edcal.str_saveandedit = <?php echo(edcal_json_encode(__('Save and Edit Draft', 'editorial-calendar'))) ?>;
             edcal.str_newpost = <?php echo(edcal_json_encode(__('Add a new post on ', 'editorial-calendar'))) ?>;
             
-            edcal.str_del_msg1 = <?php echo(edcal_json_encode(__('You are about to delete this post ', 'editorial-calendar'))) ?>;
-            edcal.str_del_msg2 = <?php echo(edcal_json_encode(__('Press cancel to stop, OK to delete.', 'editorial-calendar'))) ?>;
+            edcal.str_del_msg1 = <?php echo(edcal_json_encode(__('You are about to delete the post "', 'editorial-calendar'))) ?>;
+            edcal.str_del_msg2 = <?php echo(edcal_json_encode(__('". Press Cancel to stop, OK to delete.', 'editorial-calendar'))) ?>;
             
             edcal.concurrency_error = <?php echo(edcal_json_encode(__('Looks like someone else already moved this post.', 'editorial-calendar'))) ?>;
             edcal.permission_error = <?php echo(edcal_json_encode(__('You do not have permission to edit posts.', 'editorial-calendar'))) ?>;
@@ -385,8 +386,8 @@ function edcal_postJSON($post, $addComma = true) {
             "editlink" : "<?php echo(get_edit_post_link($id)); ?>",
             <?php } ?>
 
-            <?php if ( current_user_can('delete_post', $post->ID) ) {?>
-            "dellink" : "<?php echo(wp_nonce_url("post.php?action=delete&amp;post=$post->ID", 'delete-post_' . $post->ID)); ?>",
+            <?php if ( current_user_can('delete_post', $post->ID) ) {	// [wes] changed delete link to edcal ajax link ?>
+            "dellink" : "javascript:edcal.deletePost(<?php echo $post->ID ?>)",
             <?php } ?>
 
             "permalink" : "<?php echo(get_permalink($id)); ?>",
@@ -397,6 +398,53 @@ function edcal_postJSON($post, $addComma = true) {
         ?>,<?php
     }
 }
+
+
+/* [wes]
+ * This is a helper AJAX function to delete a post. It gets called
+ * when a user clicks the delete button, and allows the user to 
+ * retain their position within the calendar without a page refresh.
+ * It is not called unless the user has permission to delete the post
+ */
+function edcal_deletepost() {
+	if (!edcal_checknonce()) {
+		die();
+	}
+
+    header("Content-Type: application/json");
+    $edcal_postid = isset($_GET['postid'])?$_GET['postid']:null;
+    $post = get_post($edcal_postid, ARRAY_A);
+	$title = $post['post_title'];
+	$date = date('dmY', strtotime($post['post_date'])); // [TODO] : is there a better way to generate the date string ... ??
+
+
+	$force = !EMPTY_TRASH_DAYS;					// wordpress 2.9 thing. deleted post hangs around (ie in a recycle bin) after deleted for this # of days
+	if ( $post->post_type == 'attachment' ) {
+		$force = ( $force || !MEDIA_TRASH );
+		if ( ! wp_delete_attachment($edcal_postid, $force) )
+			wp_die( __('Error in deleting...') );
+	} else {
+		if ( !wp_delete_post($edcal_postid, $force) )
+			wp_die( __('Error in deleting...') );
+	}
+
+//	return the following info so that jQuery can then remove post from edcal display :
+?>
+{
+    "post" :
+	{
+        "date" : "<?php echo $date ?>", 
+        "title" : "<?php echo $title ?>",
+        "id" : "<?php echo $edcal_postid ?>"
+	}
+}
+<?php
+
+	die();	
+}
+
+
+
 
 /*
  * This is a helper AJAX function to change the title of a post.  It
