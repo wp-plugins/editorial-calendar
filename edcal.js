@@ -845,7 +845,7 @@ var edcal = {
          */
         myHeight = Math.max(myHeight, 600);
         
-        return myHeight - 150;
+        return myHeight - 225;
     },
     
     /*
