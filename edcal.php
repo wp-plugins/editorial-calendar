@@ -204,6 +204,20 @@ function edcal_list_admin() {
         .dayheadcont {
             background: #6D6D6D url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/menu-bits.gif")); ?>') repeat-x scroll left top;
         }
+        
+        <?php
+        $userAgent = strToLower( $_SERVER['HTTP_USER_AGENT']);
+        if (strpos($userAgent, 'macintosh') || strpos($userAgent, 'mac platform x')) {
+            /*
+             * Bold titles look much better on Mac, but not on Window
+             */
+            ?>
+            .post.draggable .postlink {
+                font-weight: bold;
+            }
+            <?php
+        }
+        ?>
     </style>
     
     <?php
