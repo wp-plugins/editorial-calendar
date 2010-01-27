@@ -830,6 +830,15 @@ var edcal = {
          if (post.status === "draft" ||
              post.status === "pending") {
              posttitle += edcal.str_draft;
+         } else if (post.status !== "publish" &&
+                    post.status !== "future" &&
+                    post.status !== "pending") {
+             /*
+                There are some WordPress plugins that let you specify
+                custom post status.  In that case we just want to show
+                you the status.
+              */
+             posttitle += ' [' + post.status + ']';
          }
 
          posttitle = '<span class="posttime">' + post.formattedtime + '</span> ' + posttitle;
@@ -1400,41 +1409,8 @@ var edcal = {
          edcal.output('Changing the date of "' + post.title + '" to ' + newdate);
          var newdateFormatted = edcal.getDayFromDayId(newdate).toString(edcal.wp_dateFormat);
 
-         var postStatus = "";
-
-         if (post.status === "draft") {
-             /*
-              * If the status of the post was a draft we leave it as a draft
-              */
-             postStatus = "draft";
-         } else if (post.status === "pending") {
-             /*
-              * If the status of the post was a pending we leave it as a draft
-              */
-             postStatus = "pending";
-         } else {
-             /*
-                If the post status was published or future we need to adjust
-                it.  If you take a post that is published a move it after
-                the current day we change the status to future.  If the post
-                was scheduled to get published in the future and they drag
-                it into the past we change the status to publish.
-              */
-             var compare = Date.parseExact(newdateFormatted, edcal.wp_dateFormat).compareTo(Date.today());
-             if (compare === -1) {
-                 if (post.status === "publish") {
-                     postStatus = "publish";
-                 } else {
-                     postStatus = "draft";
-                 }
-                 
-             } else {
-                 postStatus = "future";
-             }
-         }
-
          var url = edcal.ajax_url() + "&action=edcal_changedate&postid=" + post.id + 
-             "&postStatus=" + postStatus + 
+             "&postStatus=" + post.status + 
              "&newdate=" + newdateFormatted + "&olddate=" + edcal.getDayFromDayId(post.date).toString(edcal.wp_dateFormat);
 
          jQuery("#post-" + post.id).addClass("loadingclass");
