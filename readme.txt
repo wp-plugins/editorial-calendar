@@ -35,6 +35,17 @@ The editorial calendar is getting closer and closer to version 1.0.  We have a f
 
 Check out our demo installation at <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=posts_list">Zack's WordPress Sandbox</a>.
 
+= How do I navigate the calendar?
+
+You can move around in the calendar using the arrows next to the months at the top or your mouse wheel, You can also move using your keyboard:
+
+<ul>
+<li>Move 1 week into the past - Up Arrow</li>
+<li>Move 1 week into the future - Down Arrow</li>
+<li>Jump multiple weeks into the past - Page Up or Ctrl+Up Arrow</li>
+<li>Jump multiple weeks into the future - Page Down or Ctrl+Down Arrow</li>
+</ul>
+
 = What languages does the calendar support? =
 
 The calendar is available in English, French, and Croatian. 
