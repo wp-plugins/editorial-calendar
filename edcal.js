@@ -366,11 +366,13 @@ var edcal = {
             hoverClass: 'day-active',
             accept: function(ui) {
                 /*
-                 * We only let them drag draft posts into the past.  If
-                 * they try to drag and scheduled post into the past we
-                 * reject the drag
+                   We only let them drag draft posts into the past.  If
+                   they try to drag and scheduled post into the past we
+                   reject the drag.  Using the class here is a little
+                   fragile, but it is much faster than doing date
+                   arithmetic every time the mouse twitches.
                  */
-                if (jQuery(this).hasClass("month-past")) {
+                if (jQuery(this).hasClass("beforeToday")) {
                     if (ui.hasClass("draft")) {
                         return true;
                     } else {
