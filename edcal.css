@@ -239,7 +239,7 @@
     top: -1.5em;
 }
 
-.loadingclass, .tiploading, .loadingclass:hover {
+.loadingclass > .postlink, .tiploading, .loadingclass:hover > .postlink {
     background-image: url('images/loading_post.gif'); 
     background-position: top right;
     background-repeat: no-repeat;

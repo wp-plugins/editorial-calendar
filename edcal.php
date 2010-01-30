@@ -181,7 +181,7 @@ function edcal_list_admin() {
     </script>
 
     <style type="text/css">
-        .loadingclass, .tiploading {
+        .loadingclass > .postlink, .loadingclass:hover > .postlink, .tiploading {
             background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/loading_post.gif")); ?>');
         }
 
