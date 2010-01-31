@@ -35,7 +35,7 @@ The editorial calendar is getting closer and closer to version 1.0.  We have a f
 
 Check out our demo installation at <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=posts_list">Zack's WordPress Sandbox</a>.
 
-= How do I navigate the calendar?
+= How do I navigate the calendar? =
 
 You can move around in the calendar using the arrows next to the months at the top or your mouse wheel, You can also move using your keyboard:
 
