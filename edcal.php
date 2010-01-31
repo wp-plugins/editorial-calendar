@@ -301,7 +301,7 @@ function edcal_scripts() {
 		wp_enqueue_script('editor');
 	add_thickbox();
     ?>
-    <link rel='stylesheet' id='thickbox-css'  href='<?php path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ))); ?>/../../../wp-includes/js/thickbox/thickbox.css?ver=20090514' type='text/css' media='all' />
+    <link rel='stylesheet' id='thickbox-css'  href='<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-includes/js/thickbox/thickbox.css?ver=20090514")); ?>' type='text/css' media='all' />
     <?php
 	wp_enqueue_script('media-upload');
     
