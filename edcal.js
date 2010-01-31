@@ -662,7 +662,11 @@ var edcal = {
          edcal.cancelEditTitle();
          jQuery("#tooltip").hide();
     },
-    
+
+    getMediaBar: function() {
+         return jQuery("#cal_mediabar").html();
+    },
+
     /*
      * Adds a tooltip to every add post link
      */
@@ -673,7 +677,6 @@ var edcal = {
          
          var date = createLink.parent().parent().attr("id");
          
-         
          createLink.tooltip({ 
              delay: 1500, 
              bodyHandler: function() {
@@ -682,7 +685,12 @@ var edcal = {
                                    '<h3>' + edcal.str_newpost + createLink.attr("adddate") + '</h3>' + 
                                    '<div id="edcal-title-new-section">' + 
                                        edcal.str_posttitle + '<br />' + 
-                                       '<input type="text" class="text_input" id="edcal-title-new-field"/>' + 
+                                       '<input type="text" class="text_input" id="edcal-title-new-field"/><br />' + 
+                                       edcal.str_postcontent + '<br />' + 
+                                       edcal.getMediaBar() +
+                                       '<div class="textarea-wrap">' + 
+                                           '<textarea tabindex="2" cols="15" rows="3" class="mceEditor" id="content" name="content"/>' + 
+                                       '</div>' + 
                                    '</div>' + 
                                    '<div id="edit-slug-buttons">' + 
                                        '<a class="save button disabled" id="newPostButton" href="#" adddate="' + date + '">' + edcal.str_savedraft + '</a> ' + 
@@ -698,6 +706,19 @@ var edcal = {
                    */
                   jQuery("#edcal-title-new-field").focus();
                   jQuery("#edcal-title-new-field").select();
+
+                  tb_init('a.thickbox, area.thickbox, input.thickbox');
+
+                  edCanvas = document.getElementById('content');
+                  edcal.output("window.edCanvas: " + window.edCanvas);
+                  edInsertContent = null;
+
+                  jQuery('a.thickbox').click(function(){
+                      if ( typeof tinyMCE != 'undefined' && tinyMCE.activeEditor ) {
+                          tinyMCE.get('content').focus();
+                          tinyMCE.activeEditor.windowManager.bookmark = tinyMCE.activeEditor.selection.getBookmark('simple');
+                      }
+                  });
              }
          });
          

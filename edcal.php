@@ -158,6 +158,7 @@ function edcal_list_admin() {
             edcal.str_status = <?php echo(edcal_json_encode(__('Status:', 'editorial-calendar'))) ?>;
             edcal.str_cancel = <?php echo(edcal_json_encode(__('Cancel', 'editorial-calendar'))) ?>;
             edcal.str_posttitle = <?php echo(edcal_json_encode(__('Post Title:', 'editorial-calendar'))) ?>;
+            edcal.str_postcontent = <?php echo(edcal_json_encode(__('Post Content:', 'editorial-calendar'))) ?>;
             edcal.str_savedraft = <?php echo(edcal_json_encode(__('Save Draft', 'editorial-calendar'))) ?>;
             edcal.str_saveandedit = <?php echo(edcal_json_encode(__('Save and Edit Draft', 'editorial-calendar'))) ?>;
             edcal.str_newpost = <?php echo(edcal_json_encode(__('Add a new post on ', 'editorial-calendar'))) ?>;
@@ -255,6 +256,14 @@ function edcal_list_admin() {
                 <div id="cal"></div>
             </div>
         </div>
+
+        <div id="cal_mediabar" style="display:none;">
+            <?php if ( current_user_can( 'upload_files' ) ) : ?>
+                <div id="media-buttons" class="hide-if-no-js">
+                    <?php do_action( 'media_buttons' ); ?>
+                </div>
+            <?php endif; ?>
+        </div>
     </div>
     
     <?php
@@ -288,6 +297,15 @@ function edcal_filter_where($where = '') {
  *
  */
 function edcal_scripts() {
+    if ( user_can_richedit() )
+		wp_enqueue_script('editor');
+	add_thickbox();
+    ?>
+    <link rel='stylesheet' id='thickbox-css'  href='<?php path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ))); ?>/../../../wp-includes/js/thickbox/thickbox.css?ver=20090514' type='text/css' media='all' />
+    <?php
+	wp_enqueue_script('media-upload');
+    
+
     /*
      * To get proper localization for dates we need to include the correct JavaScript file for the current
      * locale.  We can do this based on the locale in the localized bundle to make sure the date locale matches
