@@ -1301,11 +1301,13 @@ var edcal = {
         jQuery(window).bind("resize", resizeWindow);
 
         jQuery("#newPostButton").live("click", function(evt) {
-            edcal.createNewDraft(jQuery(this).attr("adddate"), jQuery("#edcal-title-new-field").val(), false);
+            edcal.createNewDraft(jQuery(this).attr("adddate"), jQuery("#edcal-title-new-field").val(), 
+                                 jQuery("#content").val(), false);
         });
         
         jQuery("#newPostEditButton").live("click", function(evt) {
-            edcal.createNewDraft(jQuery(this).attr("adddate"), jQuery("#edcal-title-new-field").val(), true);
+            edcal.createNewDraft(jQuery(this).attr("adddate"), jQuery("#edcal-title-new-field").val(), 
+                                 jQuery("#content").val(), true);
         });
 
         jQuery("#edcal-title-new-field").live("keyup", function(evt) {
@@ -1321,7 +1323,8 @@ var edcal = {
                 /*
                  * If the user presses enter we want to save the draft.
                  */
-                edcal.createNewDraft(jQuery("#newPostButton").attr("adddate"), jQuery("#edcal-title-new-field").val(), false);
+                edcal.createNewDraft(jQuery("#newPostButton").attr("adddate"), jQuery("#edcal-title-new-field").val(), 
+                                     jQuery("#content").val(), false);
             }
         });
 
@@ -1363,7 +1366,7 @@ var edcal = {
      * doEdit - should we edit the post immediately?  if true we send the user
      *          to the edit screen for their new post.
      */
-    createNewDraft: function(/*string*/ date, /*string*/ title, /*boolean*/ doEdit) {
+    createNewDraft: function(/*string*/ date, /*string*/ title, /*string*/ content, /*boolean*/ doEdit) {
          if (!title || title === "") {
              return;
          }
@@ -1375,13 +1378,16 @@ var edcal = {
           * put a default post time of 10:00 AM.
           */
          var formattedDate = encodeURIComponent(edcal.getDayFromDayId(date).toString(edcal.wp_dateFormat) + " 10:00:00");
-         var url = edcal.ajax_url() + "&action=edcal_newdraft&date=" + formattedDate + "&title=" + 
-             encodeURIComponent(title);
+         var url = edcal.ajax_url() + "&action=edcal_newdraft&";
+         var postData = "date=" + formattedDate + 
+                       "&title=" + encodeURIComponent(title) + 
+                       "&content=" + encodeURIComponent(content);
 
          jQuery.ajax( { 
             url: url,
             type: "POST",
             processData: false,
+            data: postData,
             timeout: 100000,
             dataType: "json",
             success: function(res) {

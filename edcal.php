@@ -536,10 +536,12 @@ function edcal_newdraft() {
     }
 
     header("Content-Type: application/json");
-    $edcal_date = isset($_GET['date'])?$_GET['date']:null;
+    
+    $edcal_date = isset($_POST["date"])?$_POST["date"]:null;
     
     $my_post = array();
-    $my_post['post_title'] = isset($_GET['title'])?$_GET['title']:null;;
+    $my_post['post_title'] = isset($_POST["title"])?$_POST["title"]:null;
+    $my_post['post_content'] = isset($_POST["content"])?$_POST["content"]:null;
     $my_post['post_status'] = 'draft';
     
     $my_post['post_date'] = $edcal_date;
