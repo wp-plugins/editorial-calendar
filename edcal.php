@@ -376,7 +376,8 @@ function edcal_posts() {
         
         $post = $myposts[$i];
          
-        if (!is_sticky($post->ID)) {
+        if (!is_sticky($post->ID) &&
+            current_user_can('edit_post', $post->ID)) {
             edcal_postJSON($post, $i < $size - 1);
         }
     }
