@@ -58,7 +58,7 @@ function edcal_load_language() {
  */
 function edcal_list_add_management_page(  ) {
     if ( function_exists('add_management_page') ) {
-        $page = add_posts_page( 'Calendar', __('Calendar', 'editorial-calendar'), 'manage_categories', 'posts_list', 'edcal_list_admin' );
+        $page = add_posts_page( 'Calendar', __('Calendar', 'editorial-calendar'), 'edit_posts', 'posts_list', 'edcal_list_admin' );
     }
 }
 

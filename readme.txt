@@ -79,6 +79,10 @@ If you use the plugin <a href="http://wordpress.org/extend/plugins/live-countdow
 
 == Changelog ==
 
+= 0.7 =
+* The calendar is now available for users with just author permissions and grays out posts the current user doesn't have permission to edit.
+
+
 = 0.6 =
 * The new look and feel of the calendar makes it easier to scan over your posts while showing you more information.
 * You can customize the number of weeks you work with in the calendar using the screen options pull down in the upper right.

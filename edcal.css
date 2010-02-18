@@ -219,7 +219,7 @@
     text-decoration: none;
 }
 
-.publish {
+.publish, .post.readonly {
     color: #a4a4a4;
     font-weight:normal;
 }

@@ -99,7 +99,10 @@ var edcal = {
      * This is the first day of the next month
      */
     firstDayOfNextMonth: null,
-
+        
+    /*
+     * The date format used by wordpress
+     */
     wp_dateFormat: "yyyy-MM-dd",
         
     /*
@@ -429,7 +432,7 @@ var edcal = {
          jQuery(post).each(function() {
              var postObj = edcal.findPostForId(jQuery(this).parent().parent().parent().attr("id"), 
                                                jQuery(this).attr("id"));
-             if (edcal.isPostEditable(postObj)) {
+             if (edcal.isPostMovable(postObj)) {
                  jQuery(this).draggable({ 
                      revert: 'invalid',
                      appendTo: 'body',
@@ -811,7 +814,9 @@ var edcal = {
        specified ID.
      */
     showActionLinks: function(/*string*/ postid) {
-         if (edcal.inDrag) {
+         var post = edcal.findPostForId(jQuery('#' + postid).parent().parent().parent().attr('id'), postid);
+         
+         if (edcal.inDrag || !edcal.isPostEditable(post)) {
              return;
          }
          jQuery('#' + postid).css({
@@ -832,10 +837,30 @@ var edcal = {
     },
 
     /*
-     * Returns true if the post is editable and false otherwise
+       Returns true if the post is movable and false otherwise.
+       This is based on the post date
+     */
+    isPostMovable: function(/*post*/ post) {
+         return post.editlink && post.status !== "publish";
+    },
+    
+    /*
+       Returns true if the post is editable and false otherwise.
+       This is based on user permissions
      */
     isPostEditable: function(/*post*/ post) {
-         return post.status !== 'publish';
+         return post.editlink;
+    },
+    
+    /*
+       Returns readonly if the post isn't editable
+     */
+    getPostEditableClass: function(/*post*/ post) {
+         if (post.editlink) {
+             return "";
+         } else {
+             return "readonly";
+         }
     },
     
     /*
@@ -864,10 +889,10 @@ var edcal = {
 
          posttitle = '<span class="posttime">' + post.formattedtime + '</span> ' + posttitle;
 
-         if (edcal.isPostEditable(post)) {
+         if (edcal.isPostMovable(post)) {
              return '<li onmouseover="edcal.showActionLinks(\'post-' + post.id + '\');" ' + 
                  'onmouseout="edcal.hideActionLinks(\'post-' + post.id + '\');" ' + 
-                 'id="post-' + post.id + '" class="post ' + post.status + '"><div class="postlink">' + posttitle + '</div>' + 
+                 'id="post-' + post.id + '" class="post ' + post.status + ' ' + edcal.getPostEditableClass(post) + '"><div class="postlink">' + posttitle + '</div>' + 
                  '<div class="postactions"><a href="' + post.editlink + '">' + edcal.str_edit + '</a> | ' +
                  '<a href="' + post.dellink + '" onclick="return edcal.confirmDelete(\'' + post.title + '\');">' + edcal.str_del + '</a> | ' +
                  '<a href="' + post.permalink + '">' + edcal.str_view + '</a>'  + 
@@ -875,7 +900,7 @@ var edcal = {
          } else {
              return '<li onmouseover="edcal.showActionLinks(\'post-' + post.id + '\');" ' + 
                  'onmouseout="edcal.hideActionLinks(\'post-' + post.id + '\');" ' + 
-                 'id="post-' + post.id + '" class="post ' + post.status + '"><div class="postlink">' + posttitle + '</div>' + 
+                 'id="post-' + post.id + '" class="post ' + post.status + ' ' + edcal.getPostEditableClass(post) + '"><div class="postlink">' + posttitle + '</div>' + 
                  '<div class="postactions"><a href="' + post.editlink + '">' + edcal.str_republish + '</a>' +
                  '</div></li>';
          }
