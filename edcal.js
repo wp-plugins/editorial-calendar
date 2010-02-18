@@ -710,7 +710,6 @@ var edcal = {
                   tb_init('a.thickbox, area.thickbox, input.thickbox');
 
                   edCanvas = document.getElementById('content');
-                  edcal.output("window.edCanvas: " + window.edCanvas);
                   edInsertContent = null;
 
                   jQuery('a.thickbox').click(function(){
@@ -761,13 +760,12 @@ var edcal = {
     removePostItem: function(/*string*/ dayobjId, /*string*/ postId) {
          if (edcal.findPostForId(dayobjId, postId)) {
              for (var i = 0; i < edcal.posts[dayobjId].length; i++) {
-                if (edcal.posts[dayobjId][i] &&
-                    "post-" + edcal.posts[dayobjId][i].id === postId) {
-                    edcal.posts[dayobjId][i] = null;
-                    jQuery("#" + postId).remove();
-                }
-            }
-
+                 if (edcal.posts[dayobjId][i] &&
+                     "post-" + edcal.posts[dayobjId][i].id === postId) {
+                     edcal.posts[dayobjId][i] = null;
+                     jQuery("#" + postId).remove();
+                 }
+             }
          }
     },
     
@@ -1451,24 +1449,25 @@ var edcal = {
             timeout: 100000,
             dataType: "json",
             success: function(res) {
-                edcal.removePostItem(res.post.date, "post-" + res.post.id);
-                edcal.addPostItem(res.post, res.post.date);
-                edcal.addPostItemDragAndToolltip(res.post.date);
-                
                 if (res.error) {
                     /*
                      * If there was an error we need to remove the dropped
                      * post item.
                      */
+                    edcal.output('removePostItem(' + newdate + ', "post-" + ' + res.post.id + ');');
                     edcal.removePostItem(newdate, "post-" + res.post.id);
                     if (res.error === edcal.CONCURRENCY_ERROR) {
                         edcal.showError(edcal.concurrency_error + '<br />' + res.post.title);
                     } else if (res.error === edcal.PERMISSION_ERROR) {
-                        edcal.showError(edcal.edcal.permission_error);
+                        edcal.showError(edcal.permission_error);
                     } else if (res.error === edcal.NONCE_ERROR) {
                         edcal.showError(edcal.checksum_error);
                     }
                 }
+                
+                edcal.removePostItem(res.post.date, "post-" + res.post.id);
+                edcal.addPostItem(res.post, res.post.date);
+                edcal.addPostItemDragAndToolltip(res.post.date);
             },
             error: function(xhr) {
                  edcal.showError(edcal.general_error);
