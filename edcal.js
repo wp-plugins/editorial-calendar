@@ -901,7 +901,9 @@ var edcal = {
              return '<li onmouseover="edcal.showActionLinks(\'post-' + post.id + '\');" ' + 
                  'onmouseout="edcal.hideActionLinks(\'post-' + post.id + '\');" ' + 
                  'id="post-' + post.id + '" class="post ' + post.status + ' ' + edcal.getPostEditableClass(post) + '"><div class="postlink">' + posttitle + '</div>' + 
-                 '<div class="postactions"><a href="' + post.editlink + '">' + edcal.str_republish + '</a>' +
+                 '<div class="postactions">' + 
+                 '<a href="' + post.permalink + '">' + edcal.str_view + '</a> | ' + 
+                 '<a href="' + post.editlink + '">' + edcal.str_republish + '</a>' +
                  '</div></li>';
          }
     },
