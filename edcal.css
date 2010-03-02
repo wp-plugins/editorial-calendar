@@ -63,7 +63,7 @@
     background: #fff;
 }
 
-.day-active {
+.day.day-active {
     background-color: lightyellow;
 }
 
@@ -330,4 +330,3 @@
     /*padding: 0.5em;*/
     font-size:12px;
 }
-
