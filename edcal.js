@@ -902,8 +902,8 @@ var edcal = {
                  'onmouseout="edcal.hideActionLinks(\'post-' + post.id + '\');" ' + 
                  'id="post-' + post.id + '" class="post ' + post.status + ' ' + edcal.getPostEditableClass(post) + '"><div class="postlink">' + posttitle + '</div>' + 
                  '<div class="postactions">' + 
-                 '<a href="' + post.permalink + '">' + edcal.str_view + '</a> | ' + 
-                 '<a href="' + post.editlink + '">' + edcal.str_republish + '</a>' +
+                 '<a href="' + post.editlink + '">' + edcal.str_republish + '</a> | ' +
+                 '<a href="' + post.permalink + '">' + edcal.str_view + '</a>' + 
                  '</div></li>';
          }
     },
