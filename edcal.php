@@ -614,8 +614,8 @@ function edcal_changedate() {
     $edcal_newDate = isset($_GET['newdate'])?$_GET['newdate']:null;
     $edcal_oldDate = isset($_GET['olddate'])?$_GET['olddate']:null;
     $edcal_postStatus = isset($_GET['postStatus'])?$_GET['postStatus']:null;
-
-    if (!current_user_can('edit_others_posts')) {
+    
+    if (!current_user_can('edit_post', $edcal_postid)) {
         global $EDCAL_PERMISSION_ERROR;
         /*
          * This is just a sanity check to make sure that the current
