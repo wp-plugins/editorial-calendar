@@ -154,6 +154,14 @@ var edcal = {
      * The date since the previous move
      */
     moveDate: null,
+
+    /*
+     * This is a number from 0-6 indicating when the start
+     * of the week is.  The user sets this in the Settings >
+     * General page and it is a single value for the entire 
+     * server.  We are setting this value in edcal.php
+     */
+    startOfWeek: null,
     
     /*
        A cache of all the posts we have loaded so far.  The
@@ -218,13 +226,34 @@ var edcal = {
        calendar.
      */
     createDaysHeader: function() {
-        var html = '<div class="dayheadcont"><div class="dayhead firstday">' + edcal.str_day1 + '</div>';
-        html += '<div class="dayhead">' + edcal.str_day2 + '</div>';
-        html += '<div class="dayhead">' + edcal.str_day3 + '</div>';
-        html += '<div class="dayhead">' + edcal.str_day4 + '</div>';
-        html += '<div class="dayhead">' + edcal.str_day5 + '</div>';
-        html += '<div class="dayhead">' + edcal.str_day6 + '</div>';
-        html += '<div class="dayhead lastday">' + edcal.str_day7 + '</div></div>';
+        /*
+         * The first day of the week in the calendar depends on 
+         * a wordpress setting and maybe the server locale.  This
+         * means we need to determine the days of the week dynamically.
+         * Luckily the Date.js library already has these strings
+         * localized for us.  All we need to do is figure out the
+         * first day of the week and then we can add a day from there.
+         */
+
+        var date = Date.today().next().sunday();
+
+        /*
+         * We need to call nextStartOfWeek to make sure the 
+         * edcal.startOfWeek variable gets initialized.
+         */
+        edcal.nextStartOfWeek(date.clone());
+        
+
+        var html = '<div class="dayheadcont"><div class="dayhead firstday">' + 
+            date.add(edcal.startOfWeek).days().toString('dddd') + 
+        '</div>';
+
+        html += '<div class="dayhead">' + date.add(1).days().toString('dddd') + '</div>';
+        html += '<div class="dayhead">' + date.add(1).days().toString('dddd') + '</div>';
+        html += '<div class="dayhead">' + date.add(1).days().toString('dddd') + '</div>';
+        html += '<div class="dayhead">' + date.add(1).days().toString('dddd') + '</div>';
+        html += '<div class="dayhead">' + date.add(1).days().toString('dddd') + '</div>';
+        html += '<div class="dayhead lastday">' + date.add(1).days().toString('dddd') + '</div>';
         
         jQuery("#cal_cont").prepend(html);
         
@@ -1053,81 +1082,99 @@ var edcal = {
      * http://unicode.org/repos/cldr/trunk/common/supplemental/supplementalData.xml
      */
     nextStartOfWeek: function(/*date*/ date) {
-         if (edcal.locale) {
-             var local = edcal.locale.toUpperCase();
+         if (edcal.startOfWeek === null) {
+             if (edcal.locale) {
+                 var local = edcal.locale.toUpperCase();
+    
+                 if (edcal.endsWith(local, "AS") ||
+                     edcal.endsWith(local, "AZ") ||
+                     edcal.endsWith(local, "BW") ||
+                     edcal.endsWith(local, "CA") ||
+                     edcal.endsWith(local, "CN") ||
+                     edcal.endsWith(local, "FO") ||
+                     edcal.endsWith(local, "GB") ||
+                     edcal.endsWith(local, "GE") ||
+                     edcal.endsWith(local, "GL") ||
+                     edcal.endsWith(local, "GU") ||
+                     edcal.endsWith(local, "HK") ||
+                     edcal.endsWith(local, "IE") ||
+                     edcal.endsWith(local, "IL") ||
+                     edcal.endsWith(local, "IN") ||
+                     edcal.endsWith(local, "IS") ||
+                     edcal.endsWith(local, "JM") ||
+                     edcal.endsWith(local, "JP") ||
+                     edcal.endsWith(local, "KG") ||
+                     edcal.endsWith(local, "KR") ||
+                     edcal.endsWith(local, "LA") ||
+                     edcal.endsWith(local, "MH") ||
+                     edcal.endsWith(local, "MN") ||
+                     edcal.endsWith(local, "MO") ||
+                     edcal.endsWith(local, "MP") ||
+                     edcal.endsWith(local, "MT") ||
+                     edcal.endsWith(local, "NZ") ||
+                     edcal.endsWith(local, "PH") ||
+                     edcal.endsWith(local, "PK") ||
+                     edcal.endsWith(local, "SG") ||
+                     edcal.endsWith(local, "SY") ||
+                     edcal.endsWith(local, "TH") ||
+                     edcal.endsWith(local, "TT") ||
+                     edcal.endsWith(local, "TW") ||
+                     edcal.endsWith(local, "UM") ||
+                     edcal.endsWith(local, "US") ||
+                     edcal.endsWith(local, "UZ") ||
+                     edcal.endsWith(local, "VI") ||
+                     edcal.endsWith(local, "ZW")) {
 
-             if (edcal.endsWith(local, "AS") ||
-                 edcal.endsWith(local, "AZ") ||
-                 edcal.endsWith(local, "BW") ||
-                 edcal.endsWith(local, "CA") ||
-                 edcal.endsWith(local, "CN") ||
-                 edcal.endsWith(local, "FO") ||
-                 edcal.endsWith(local, "GB") ||
-                 edcal.endsWith(local, "GE") ||
-                 edcal.endsWith(local, "GL") ||
-                 edcal.endsWith(local, "GU") ||
-                 edcal.endsWith(local, "HK") ||
-                 edcal.endsWith(local, "IE") ||
-                 edcal.endsWith(local, "IL") ||
-                 edcal.endsWith(local, "IN") ||
-                 edcal.endsWith(local, "IS") ||
-                 edcal.endsWith(local, "JM") ||
-                 edcal.endsWith(local, "JP") ||
-                 edcal.endsWith(local, "KG") ||
-                 edcal.endsWith(local, "KR") ||
-                 edcal.endsWith(local, "LA") ||
-                 edcal.endsWith(local, "MH") ||
-                 edcal.endsWith(local, "MN") ||
-                 edcal.endsWith(local, "MO") ||
-                 edcal.endsWith(local, "MP") ||
-                 edcal.endsWith(local, "MT") ||
-                 edcal.endsWith(local, "NZ") ||
-                 edcal.endsWith(local, "PH") ||
-                 edcal.endsWith(local, "PK") ||
-                 edcal.endsWith(local, "SG") ||
-                 edcal.endsWith(local, "SY") ||
-                 edcal.endsWith(local, "TH") ||
-                 edcal.endsWith(local, "TT") ||
-                 edcal.endsWith(local, "TW") ||
-                 edcal.endsWith(local, "UM") ||
-                 edcal.endsWith(local, "US") ||
-                 edcal.endsWith(local, "UZ") ||
-                 edcal.endsWith(local, "VI") ||
-                 edcal.endsWith(local, "ZW")) {
-                 return date.next().sunday();
-             } else if (edcal.endsWith(local, "MV")) {
-                 return date.next().friday();
-             } else if (edcal.endsWith(local, "AF") ||
-                        edcal.endsWith(local, "BH") ||
-                        edcal.endsWith(local, "DJ") ||
-                        edcal.endsWith(local, "DZ") ||
-                        edcal.endsWith(local, "EG") ||
-                        edcal.endsWith(local, "ER") ||
-                        edcal.endsWith(local, "ET") ||
-                        edcal.endsWith(local, "IQ") ||
-                        edcal.endsWith(local, "IR") ||
-                        edcal.endsWith(local, "JO") ||
-                        edcal.endsWith(local, "KE") ||
-                        edcal.endsWith(local, "KW") ||
-                        edcal.endsWith(local, "LY") ||
-                        edcal.endsWith(local, "MA") ||
-                        edcal.endsWith(local, "OM") ||
-                        edcal.endsWith(local, "QA") ||
-                        edcal.endsWith(local, "SA") ||
-                        edcal.endsWith(local, "SD") ||
-                        edcal.endsWith(local, "SO") ||
-                        edcal.endsWith(local, "TN") ||
-                        edcal.endsWith(local, "YE")) {
-                 return date.next().saturday();
+                     /*
+                      * Sunday
+                      */
+                     edcal.startOfWeek = 0;
+                 } else if (edcal.endsWith(local, "MV")) {
+                     /*
+                      * Friday
+                      */
+                     edcal.startOfWeek = 5;
+                 } else if (edcal.endsWith(local, "AF") ||
+                            edcal.endsWith(local, "BH") ||
+                            edcal.endsWith(local, "DJ") ||
+                            edcal.endsWith(local, "DZ") ||
+                            edcal.endsWith(local, "EG") ||
+                            edcal.endsWith(local, "ER") ||
+                            edcal.endsWith(local, "ET") ||
+                            edcal.endsWith(local, "IQ") ||
+                            edcal.endsWith(local, "IR") ||
+                            edcal.endsWith(local, "JO") ||
+                            edcal.endsWith(local, "KE") ||
+                            edcal.endsWith(local, "KW") ||
+                            edcal.endsWith(local, "LY") ||
+                            edcal.endsWith(local, "MA") ||
+                            edcal.endsWith(local, "OM") ||
+                            edcal.endsWith(local, "QA") ||
+                            edcal.endsWith(local, "SA") ||
+                            edcal.endsWith(local, "SD") ||
+                            edcal.endsWith(local, "SO") ||
+                            edcal.endsWith(local, "TN") ||
+                            edcal.endsWith(local, "YE")) {
+                     /*
+                      * Sunday
+                      */
+                     edcal.startOfWeek = 6;
+                 } else {
+                     /*
+                      * Monday
+                      */
+                     edcal.startOfWeek = 1;
+                 }
              } else {
-                 return date.next().monday();
+                 /*
+                  * If we have no locale set we'll assume American style and
+                  * make it Sunday.
+                  */
+                 edcal.startOfWeek = 0;
              }
-         } else {
-             /*
-              * If we have no locale set we'll assume American style
-              */
-             return date.next().sunday();
          }
+
+         return date.next().sunday().add(edcal.startOfWeek).days();
     },
 
     /*

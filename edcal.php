@@ -119,6 +119,8 @@ function edcal_list_admin() {
                 }
             ?>
 
+            edcal.startOfWeek = <?php echo(get_option("start_of_week")); ?>;
+
             /*
              * We want to show the day of the first day of the week to match the user's 
              * country code.  The problem is that we can't just use the WordPress locale.
@@ -142,14 +144,6 @@ function edcal_list_admin() {
 
             edcal.str_addPostLink = <?php echo(edcal_json_encode(__('Add a Post', 'editorial-calendar'))) ?>;
             
-            edcal.str_day1 = <?php echo(edcal_json_encode(__('Sunday', 'editorial-calendar'))) ?>;
-            edcal.str_day2 = <?php echo(edcal_json_encode(__('Monday', 'editorial-calendar'))) ?>;
-            edcal.str_day3 = <?php echo(edcal_json_encode(__('Tuesday', 'editorial-calendar'))) ?>;
-            edcal.str_day4 = <?php echo(edcal_json_encode(__('Wednesday', 'editorial-calendar'))) ?>;
-            edcal.str_day5 = <?php echo(edcal_json_encode(__('Thursday', 'editorial-calendar'))) ?>;
-            edcal.str_day6 = <?php echo(edcal_json_encode(__('Friday', 'editorial-calendar'))) ?>;
-            edcal.str_day7 = <?php echo(edcal_json_encode(__('Saturday', 'editorial-calendar'))) ?>;
-
             edcal.str_draft = <?php echo(edcal_json_encode(__(' [DRAFT]', 'editorial-calendar'))) ?>;
             edcal.str_edit = <?php echo(edcal_json_encode(__('Edit', 'editorial-calendar'))) ?>;
             edcal.str_del = <?php echo(edcal_json_encode(__('Delete', 'editorial-calendar'))) ?>;

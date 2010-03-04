@@ -83,6 +83,7 @@ If you use the plugin <a href="http://wordpress.org/extend/plugins/live-countdow
 * The calendar is now available for users with just author permissions and grays out posts the current user doesn't have permission to edit.
 * The calendar has been translated in Czech.  Thanks to Lukáš Adamec who uses the Calendar on his blog <a href="http://hornihrad.cz/">Horni Hrad</a>. 
 * Added a link to view published posts directly from the calendar.
+* The calendar will now use the WordPress preference for the day of the week and fall back on the server locale if it isn't set.
 
 
 = 0.6 =
