@@ -318,10 +318,10 @@ var edcal = {
          if (edcal.inDrag) {
              return;
          }
-
+		
          var createLink = jQuery("#" + dayid + " a.daynewlink");
          createLink.css("display", "block");
-         edcal.addCreateTooltip(createLink);
+		 createLink.bind('click', edcal.addPost);
     },
 
     /*
@@ -329,7 +329,8 @@ var edcal = {
        outside of the calendar day.
      */
     hideAddPostLink: function(/*string*/ dayid) {
-         jQuery("#" + dayid + " a.daynewlink").hide();
+         var link = jQuery("#" + dayid + " a.daynewlink").hide();
+		 link.unbind('click', edcal.addPost);
     },
     
     /*
@@ -688,19 +689,221 @@ var edcal = {
 
     /*
        Switches back to the normal tooltip title view
-       and closes the tooltip.
+       and closes the tooltip. (NOT USED)
      */
     closeTooltip: function() {
          edcal.cancelEditTitle();
          jQuery("#tooltip").hide();
     },
 
+	/*
+		NOT USED
+	 */
     getMediaBar: function() {
          return jQuery("#cal_mediabar").html();
     },
+	
+	/*
+	 * Called when the "Add a post" link is clicked.
+	 * Sets up a post object and displays the add form
+	 */
+	addPost: function( ) {
+		jQuery("#newPostButton").addClass("disabled");
+		jQuery("#newPostEditButton").addClass("disabled");
+		
+		var date = jQuery(this).parent().parent().attr("id");
+		var time = new Date();
+		var hours = time.getHours() + '';
+		var mins = time.getMinutes() + '';
+		var formattedtime = hours + ':' +(mins.length == 1 ? '0' + mins : mins);
+		var post = {
+			id: 0,
+			date: date,
+			formatteddate: edcal.getDayFromDayId(date).toString("MMMM d"),
+			time: formattedtime
+		}
+		edcal.showForm(post);
+		return false;
+	},
+	
+	/*
+	 * Called when the Edit link for a post is clicked.
+	 * Gets post details via an AJAX call and displays the edit form
+	 * with the fields populated.
+	 */
+	editPost: function(/*int*/ post_id) {
+		// Un-disable the save buttons because we're editing
+		jQuery("#newPostButton").removeClass("disabled");
+		jQuery("#newPostEditButton").removeClass("disabled");
+		
+		// Editing, so we need to make an ajax call to get body of post
+		edcal.getPost(post_id, edcal.showForm);
+		return false;
+	},
+	
+	
+	/*
+     * When the user presses the new post link on each calendar cell they get
+     * a tooltip which prompts them to add or edit a post.  Once
+     * they hit save we call this function.
+     * 
+     * post - post object containing data for the post
+	 * doEdit - should we edit the post immediately?  if true we send the user
+     *          to the edit screen for their new post.
+     */
+	savePost: function(/*object*/ post, /*boolean*/ doEdit) {
+		 if(typeof(post) === 'undefined' || post == null)
+			post = edcal.serializePost();
+			
+         if (!post.title || post.title === "") {
+             return;
+         }
+         edcal.output("savePost(" + post.date + ", " + post.title + ")");
 
+         jQuery("#edit-slug-buttons").addClass("tiploading");
+         
+		 var time;
+		 if(post.time != '')
+			time = post.time + ':00';
+		 else
+			time = '10:00:00'; // If we don't have a time set, default it to 10am
+         var formattedDate = encodeURIComponent(edcal.getDayFromDayId(post.date).toString(edcal.wp_dateFormat) + " " + time);
+         var url = edcal.ajax_url() + "&action=edcal_savepost&";
+         var postData = "date=" + formattedDate + 
+                       "&title=" + encodeURIComponent(post.title) + 
+                       "&content=" + encodeURIComponent(post.content) +
+					   "&id=" + encodeURIComponent(post.id);
+
+         jQuery.ajax( { 
+            url: url,
+            type: "POST",
+            processData: false,
+            data: postData,
+            timeout: 100000,
+            dataType: "json",
+            success: function(res) {
+                jQuery("#edit-slug-buttons").removeClass("tiploading");
+                jQuery('#tooltip').hide();
+                if (res.error) {
+                    /*
+                     * If there was an error we need to remove the dropped
+                     * post item.
+                     */
+                    if (res.error === edcal.NONCE_ERROR) {
+                        edcal.showError(edcal.checksum_error);
+                    }
+                    return;
+                }
+                
+                if (!res.post) {
+                    edcal.showError("There was an error creating a new post for your blog.");
+                } else {
+                    if (doEdit) {
+                        /*
+                         * If the user wanted to edit the post then we redirect
+                         * them to the edit page.
+                         */
+                        window.location = res.post.editlink.replace("&amp;", "&");
+                    } else {
+                        
+						if(res.post.id)
+							edcal.removePostItem(res.post.date, "post-" + res.post.id);
+						
+						edcal.addPostItem(res.post, res.post.date);
+                        edcal.addPostItemDragAndToolltip(res.post.date);
+                    }
+                }
+            },
+            error: function(xhr) {
+                 jQuery("#edit-slug-buttons").removeClass("tiploading");
+                 jQuery('#tooltip').hide();
+                 edcal.showError(edcal.general_error);
+                 if (xhr.responseText) {
+                     edcal.output("xhr.responseText: " + xhr.responseText);
+                 }
+            }
+        });
+		return false;
+	},
+	
+	/*
+	 * Collects form values for the post inputted by the user into an object
+	 */
+	serializePost: function() {
+		var post = {}
+		
+		jQuery('#tooltip').find('input, textarea, select').each(function() {
+			post[this.name] = this.value;
+		});
+		return post;
+	},
+	
+	/*
+	 * Accepts new or existing post data and then populates text fields as necessary
+	 */
+	showForm: function(post) {
+		edcal.resetForm();
+		
+		// show tooltip
+		jQuery('#tooltip').center().show();
+		
+		if(!post.id) {
+			jQuery('#tooltip').find('h3').text(edcal.str_newpost + post.formatteddate);
+		} else {
+			jQuery('#tooltip').find('h3').text(edcal.str_editpost + '"' + post.title + '"');
+			
+			// add post info to form
+			jQuery('#edcal-title-new-field').val(post.title);
+			jQuery('#content').val(post.content);
+			
+		}
+		
+		var time = post.time;
+		jQuery('#edcal-time').val(time);
+		
+		// set hidden fields: post.date, post.id
+		jQuery('#edcal-date').val(post.date);
+		jQuery('#edcal-id').val(post.id);
+		
+		  /*
+		   * Put the focus in the post title field when the tooltip opens.
+		   */
+		  jQuery("#edcal-title-new-field").focus();
+		  jQuery("#edcal-title-new-field").select();
+
+		  tb_init('a.thickbox, area.thickbox, input.thickbox');
+
+		  edCanvas = document.getElementById('content');
+		  edInsertContent = null;
+
+		  jQuery('a.thickbox').click(function(){
+			  if ( typeof tinyMCE != 'undefined' && tinyMCE.activeEditor ) {
+				  tinyMCE.get('content').focus();
+				  tinyMCE.activeEditor.windowManager.bookmark = tinyMCE.activeEditor.selection.getBookmark('simple');
+			  }
+		  });
+	},
+	
+	/*
+     * Hides the add/edit form
+     */
+    hideForm: function( ) {
+		jQuery('#tooltip').hide();
+		edcal.cancelEditTitle();
+		edcal.resetForm();
+	},
+    
+	/*
+	 * Clears all the input values in the add/edit form
+	 */
+	resetForm: function( ) {
+		jQuery('#tooltip').find('input, textarea, select').each(function() {
+			this.value = '';
+		});
+	},
+	
     /*
-     * Adds a tooltip to every add post link
+     * Adds a tooltip to every add post link. NOT USED
      */
     addCreateTooltip: function(/*JQuery*/ createLink) {
          if (createLink.hasClass('hasTooltip')) {
@@ -922,7 +1125,7 @@ var edcal = {
              return '<li onmouseover="edcal.showActionLinks(\'post-' + post.id + '\');" ' + 
                  'onmouseout="edcal.hideActionLinks(\'post-' + post.id + '\');" ' + 
                  'id="post-' + post.id + '" class="post ' + post.status + ' ' + edcal.getPostEditableClass(post) + '"><div class="postlink">' + posttitle + '</div>' + 
-                 '<div class="postactions"><a href="' + post.editlink + '">' + edcal.str_edit + '</a> | ' +
+                 '<div class="postactions"><a href="' + post.editlink + '" onclick="edcal.editPost('+ post.id +'); return false;">' + edcal.str_edit + '</a> | ' +
                  '<a href="' + post.dellink + '" onclick="return edcal.confirmDelete(\'' + post.title + '\');">' + edcal.str_del + '</a> | ' +
                  '<a href="' + post.permalink + '">' + edcal.str_view + '</a>'  + 
                  '</div></li>';
@@ -970,7 +1173,13 @@ var edcal = {
        up into the past.
      */
     move: function(steps, direction) {
-         /*
+		 /* 
+		  * If the add/edit post form is visible, don't go anywhere.
+		  */
+        if(jQuery('#tooltip').is(':visible'))
+			return;
+		 
+		 /*
            The working date is a marker for the last calendar row we created.
            If we are moving forward that will be the last row, if we are moving
            backward it will be the first row.  If we switch direction we need
@@ -1373,13 +1582,11 @@ var edcal = {
         jQuery(window).bind("resize", resizeWindow);
 
         jQuery("#newPostButton").live("click", function(evt) {
-            edcal.createNewDraft(jQuery(this).attr("adddate"), jQuery("#edcal-title-new-field").val(), 
-                                 jQuery("#content").val(), false);
+			return edcal.savePost(null, false);
         });
         
         jQuery("#newPostEditButton").live("click", function(evt) {
-            edcal.createNewDraft(jQuery(this).attr("adddate"), jQuery("#edcal-title-new-field").val(), 
-                                 jQuery("#content").val(), true);
+			return edcal.savePost(null, true);
         });
 
         jQuery("#edcal-title-new-field").live("keyup", function(evt) {
@@ -1395,8 +1602,7 @@ var edcal = {
                 /*
                  * If the user presses enter we want to save the draft.
                  */
-                edcal.createNewDraft(jQuery("#newPostButton").attr("adddate"), jQuery("#edcal-title-new-field").val(), 
-                                     jQuery("#content").val(), false);
+				return edcal.savePost(null, true);
             }
         });
 
@@ -1407,9 +1613,8 @@ var edcal = {
                  */
                 edcal.saveTitle(jQuery(this).attr("postid"));
             }
-
         });
-        
+		
         jQuery("#edcal_weeks_pref").live("keyup", function(evt) {
             if (jQuery("#edcal_weeks_pref").val().length > 0) {
                 jQuery("#edcal_applyoptions").removeClass("disabled");
@@ -1426,6 +1631,12 @@ var edcal = {
         edcal.savePosition();
         
         edcal.addOptionsSection();
+		
+		jQuery('#edcal-time').timePicker({
+			show24Hours: true,
+			separator:':',
+			step: 30
+		});
     },
 
     /*
@@ -1660,6 +1871,55 @@ var edcal = {
         });
     },
     
+	/*
+	 * Retreives a single post item based on the id
+	 * Can optionally pass a callback function that is triggered
+	 * when the call successfully completes. The post object is passed 
+	 * as a parameter for the callback.
+	 */
+	getPost: function(/*int*/ postid, /*function*/ callback) {
+		
+		if(postid == 0) return false;
+		
+		// show loading
+		jQuery("#loading").show();
+		
+		var url = edcal.ajax_url() + "&action=edcal_getpost&postid=" + postid;
+		
+		jQuery.ajax( { 
+            url: url,
+            type: "GET",
+            processData: false,
+            timeout: 100000,
+            dataType: "json",
+            success: function(res) {
+				// hide loading
+				jQuery("#loading").hide();
+				
+				edcal.output("xhr for getPost returned: " + res);
+                if (res.error) {
+                    if (res.error === edcal.NONCE_ERROR) {
+                        edcal.showError(edcal.checksum_error);
+                    }
+					return false;
+                }
+				if(typeof callback === 'function')
+					callback(res.post);
+				return res.post;
+            },
+            error: function(xhr) {
+				// hide loading
+				jQuery("#loading").hide();
+				
+                 edcal.showError(edcal.general_error);
+                 if (xhr.responseText) {
+                     edcal.output("xhr.responseText: " + xhr.responseText);
+                 }
+				 return false;
+            }
+        });
+	},
+	
     /*
        This function adds the scren options tab to the top of the screen.  I wish
        WordPress had a hook so I could provide this in PHP, but as of version 2.9.1
@@ -1785,6 +2045,17 @@ var edcal = {
         humanMsg.displayMsg(msg);
     }
 };
+
+/*
+ * Helper function for jQuery to center a div
+ */
+jQuery.fn.center = function () {
+    this.css("position","absolute");
+    this.css("top", ( jQuery(window).height() - this.outerHeight() ) / 2+jQuery(window).scrollTop() + "px");
+    this.css("left", ( jQuery(window).width() - this.outerWidth() ) / 2+jQuery(window).scrollLeft() + "px");
+    return this;
+}
+
 
 jQuery(document).ready(function(){
     edcal.init();

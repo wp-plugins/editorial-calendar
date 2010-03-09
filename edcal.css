@@ -270,6 +270,26 @@
     padding-right: 15px;
 }
 
+#tooltip h4 {
+	margin: 0 0 3px 0;
+}
+
+	#tooltip #edcal-time-section h4 {
+		display: inline;
+	}
+
+#tooltip .edcal-form-row {
+	margin-bottom: 5px;
+}
+
+#tooltip #cal_mediabar {
+	font-size: 11px;
+}
+
+#tooltip #media-buttons {
+	padding: 5px 0;
+}
+
 #tooltip {
     background: white;
     opacity: 1;

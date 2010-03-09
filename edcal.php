@@ -25,10 +25,12 @@ Author URI: http://www.zackgrossbart.com
 
 add_action('wp_ajax_edcal_saveoptions', 'edcal_saveoptions' );
 add_action('wp_ajax_edcal_changedate', 'edcal_changedate' );
-add_action('wp_ajax_edcal_newdraft', 'edcal_newdraft' );
+//add_action('wp_ajax_edcal_newdraft', 'edcal_newdraft' );
+add_action('wp_ajax_edcal_savepost', 'edcal_savepost' );
 add_action('wp_ajax_edcal_changetitle', 'edcal_changetitle' );
 add_action('admin_menu', 'edcal_list_add_management_page');
 add_action('wp_ajax_edcal_posts', 'edcal_posts' );
+add_action('wp_ajax_edcal_getpost', 'edcal_getpost' );
 add_action('wp_ajax_edcal_deletepost', 'edcal_deletepost' );
 add_action("admin_print_scripts", 'edcal_scripts');
 add_action("init", 'edcal_load_language');
@@ -91,11 +93,11 @@ function edcal_list_admin() {
      * be used on this page and nowhere else.
      */
      
-    echo '<!-- This is the styles from jquery.tooltip.css -->';
+    echo '<!-- This is the styles from time picker.css -->';
     echo '<style type="text/css">';
-    echoEdCalFile(dirname( __FILE__ ) . "/lib/jquery.tooltip.css");
+    echoEdCalFile(dirname( __FILE__ ) . "/lib/timePicker.css");
     echo '</style>';
-    
+	
     echo '<!-- This is the styles from humanmsg.css -->';
     echo '<style type="text/css">';
     echoEdCalFile(dirname( __FILE__ ) . "/lib/humanmsg.css");
@@ -156,6 +158,7 @@ function edcal_list_admin() {
             edcal.str_savedraft = <?php echo(edcal_json_encode(__('Save Draft', 'editorial-calendar'))) ?>;
             edcal.str_saveandedit = <?php echo(edcal_json_encode(__('Save and Edit Draft', 'editorial-calendar'))) ?>;
             edcal.str_newpost = <?php echo(edcal_json_encode(__('Add a new post on ', 'editorial-calendar'))) ?>;
+			edcal.str_editpost = <?php echo(edcal_json_encode(__('Edit Post: ', 'editorial-calendar'))) ?>;
             
             edcal.str_del_msg1 = <?php echo(edcal_json_encode(__('You are about to delete the post "', 'editorial-calendar'))) ?>;
             edcal.str_del_msg2 = <?php echo(edcal_json_encode(__('". Press Cancel to stop, OK to delete.', 'editorial-calendar'))) ?>;
@@ -250,14 +253,46 @@ function edcal_list_admin() {
                 <div id="cal"></div>
             </div>
         </div>
-
-        <div id="cal_mediabar" style="display:none;">
-            <?php if ( current_user_can( 'upload_files' ) ) : ?>
-                <div id="media-buttons" class="hide-if-no-js">
-                    <?php do_action( 'media_buttons' ); ?>
-                </div>
-            <?php endif; ?>
-        </div>
+		
+		<div id="tooltip" style="display:none;">
+		   <div class="tooltip newposttip">
+		   <a href="#" id="tipclose" onclick="edcal.hideForm(); return false;" title="close"> </a>
+		   <h3><!-- Placeholder for the form title; added dynamically --></h3>
+		   <div id="edcal-title-new-section">
+				<div class="edcal-form-row">
+					<h4><?php _e('Post Title:', 'editorial-calendar') ?></h4>
+					<input type="text" class="text_input" id="edcal-title-new-field" name="title" /><br />
+				</div>
+			   
+				<div class="edcal-form-row">
+				   <h4><?php _e('Post Content:', 'editorial-calendar') ?></h4>
+				   <div id="cal_mediabar">
+						<?php if ( current_user_can( 'upload_files' ) ) : ?>
+							<div id="media-buttons" class="hide-if-no-js">
+								<?php do_action( 'media_buttons' ); ?>
+							</div>
+						<?php endif; ?>
+					</div>
+				   <div class="textarea-wrap edcal-form-row">
+					   <textarea tabindex="2" cols="15" rows="3" class="mceEditor" id="content" name="content"></textarea>
+				   </div>
+			   </div>
+			   <div id="edcal-time-section" class="edcal-form-row">
+					<h4><?php _e('Time:', 'editorial-calendar') ?></h4>
+					<!--<input type="text" id="edcal-hh" name="hh" value="" size="2" maxlength="2" autocomplete="off" /> : <input type="text" id="edcal-mn" name="mn" value="" size="2" maxlength="2" autocomplete="off" />-->
+					<input type="text" id="edcal-time" name="time" value="" size="5" maxlength="5" autocomplete="off" />
+			   </div>
+		   </div>
+		   <div id="edit-slug-buttons" class="edcal-form-row">
+			   <a class="save button disabled" id="newPostButton" href="#"><?php _e('Save Draft', 'editorial-calendar') ?></a>
+			   <a class="save button disabled" id="newPostEditButton" href="#"><?php _e('Save and Edit Draft', 'editorial-calendar') ?></a>
+			   <a href="#" onclick="edcal.hideForm(); return false;" class="cancel"><?php _e('Cancel', 'editorial-calendar') ?></a>
+		   </div>
+		   <input type="hidden" id="edcal-date" name="date" value="" />
+		   <input type="hidden" id="edcal-id" name="id" value="" />
+		   </div>
+		</div>
+		
     </div>
     
     <?php
@@ -307,8 +342,8 @@ function edcal_scripts() {
      */
     wp_enqueue_script( "date", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/languages/date-".__('en-US', 'editorial-calendar').".js"), array( 'jquery' ) );
 
-    wp_enqueue_script( "edcal-lib", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/edcallib.min.js"), array( 'jquery' ) );
-    return;
+    //wp_enqueue_script( "edcal-lib", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/edcallib.min.js"), array( 'jquery' ) );
+    //return;
     
     /*
      * If you're using one of the specific libraries you should comment out the two lines
@@ -319,11 +354,10 @@ function edcal_scripts() {
     wp_enqueue_script( "ui-draggable", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/ui.draggable.js"), array( 'jquery' ) );
     wp_enqueue_script( "ui-droppable", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/ui.droppable.js"), array( 'jquery' ) );
     
-    
     wp_enqueue_script( "bgiframe", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/jquery.bgiframe.js"), array( 'jquery' ) );
-    wp_enqueue_script( "tooltip", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/jquery.tooltip.js"), array( 'jquery' ) );
     wp_enqueue_script( "humanMsg", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/humanmsg.js"), array( 'jquery' ) );
-    
+    wp_enqueue_script( "jquery-timepicker", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/jquery.timepicker.js"), array( 'jquery' ) );
+	
     wp_enqueue_script( "scrollable", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/tools.scrollable-1.1.2.js"), array( 'jquery' ) );
     wp_enqueue_script( "mouse-wheel", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/tools.scrollable.mousewheel-1.0.1.js"), array( 'jquery' ) );
 
@@ -359,7 +393,7 @@ function edcal_posts() {
     <?php
     $size = sizeof($myposts);
     
-    for($i = 0; $i < $size; $i++) {
+    for($i = 0; $i < $size; $i++) {	
         /*
          * Sticky posts are ones that stick to the front page.
          * They do technically have a date, but it doesn't 
@@ -381,6 +415,39 @@ function edcal_posts() {
     die();
 }
 
+/*
+ * This is for an AJAX call that returns a post with the specified ID
+ */
+function edcal_getpost() {
+	
+	header("Content-Type: application/json");
+	
+	// If nonce fails, return
+	if (!edcal_checknonce()) die();
+	
+	$post_id = intval($_GET['postid']);
+	
+	// If a proper post_id wasn't passed, return
+	if(!$post_id) die();
+	
+	$post = query_posts( array('p' => $post_id) );
+	
+	// get_post and setup_postdata don't get along, so we're doing a mini-loop
+	if(have_posts()) :
+		while(have_posts()) : the_post();
+			?>
+			{
+			"post" :
+				<?php
+				edcal_postJSON($post[0], false, true);
+				?>
+			}
+			<?php
+		endwhile;
+	endif;
+	die();
+}
+
 function edcal_json_encode($string) {
     /*
      * WordPress escapes apostrophe's when they show up in post titles as &#039;
@@ -395,14 +462,14 @@ function edcal_json_encode($string) {
 /*
  * This function sets up the post data and prints out the values we
  * care about in a JSON data structure.  This prints out just the
- * value part.
+ * value part. If $fullPost is set to true, post_content is also returned.
  */
-function edcal_postJSON($post, $addComma = true) {
+function edcal_postJSON($post, $addComma = true, $fullPost = false) {
     setup_postdata($post);
     ?>
         {
             "date" : "<?php the_time('d') ?><?php the_time('m') ?><?php the_time('Y') ?>", 
-            "time" : "<?php the_time() ?>", 
+            "time" : "<?php the_time('G:i') ?>", 
             "formattedtime" : "<?php edcal_json_encode(the_time(__('ga', 'editorial-calendar'))); ?>", 
             "url" : "<?php edcal_json_encode(the_permalink()); ?>", 
             "status" : "<?php echo(get_post_status()); ?>",
@@ -418,6 +485,11 @@ function edcal_postJSON($post, $addComma = true) {
 
             "permalink" : "<?php echo(get_permalink($id)); ?>",
             "id" : "<?php the_ID(); ?>"
+			
+			<?php if($fullPost) : ?>
+			, "content" : "<?php echo esc_js(get_the_content()) ?>"
+			
+			<?php endif; ?>
         }
     <?php
     if ($addComma) {
@@ -546,23 +618,81 @@ function edcal_newdraft() {
     // Insert the post into the database
     $my_post_id = wp_insert_post( $my_post );
     
-    
     /*
      * We finish by returning the latest data for the post in the JSON
      */
     global $post;
     $post = get_post($my_post_id);
+
     ?>{
         "post" :
     <?php
     
-        edcal_postJSON($post);
+        edcal_postJSON($post, false);
     
     ?>
     }
     <?php
     
     die();
+}
+
+/*
+ * This is a helper function to create a new draft post on a specified date
+ * or update an existing post
+ */
+function edcal_savepost() {
+	
+	if (!edcal_checknonce()) {
+        die();
+    }
+
+    header("Content-Type: application/json");
+    
+    $edcal_date = isset($_POST["date"])?$_POST["date"]:null;
+    
+    $my_post = array();
+	
+	// If the post id is not specified, we're creating a new post
+	if($_POST['id'])
+		$my_post['ID'] = intval($_POST['id']);
+	else
+		$my_post['post_status'] = 'draft'; // if new post, set the status to draft
+	
+    $my_post['post_title'] = isset($_POST["title"])?$_POST["title"]:null;
+    $my_post['post_content'] = isset($_POST["content"])?$_POST["content"]:null;
+    
+    $my_post['post_date'] = $edcal_date;
+    $my_post['post_date_gmt'] = get_gmt_from_date($edcal_date);
+    $my_post['post_modified'] = $edcal_date;
+    $my_post['post_modified_gmt'] = get_gmt_from_date($edcal_date);
+    
+    // Insert the post into the database
+	if($my_post['ID'])
+		$my_post_id = wp_update_post( $my_post );
+	else
+		$my_post_id = wp_insert_post( $my_post );
+		
+	// TODO: throw error if update/insert or getsinglepost fails
+	/*
+     * We finish by returning the latest data for the post in the JSON
+     */
+	$post = query_posts( array('p' => $my_post_id) );
+	
+	// get_post and setup_postdata don't get along, so we're doing a mini-loop
+	if(have_posts()) :
+		while(have_posts()) : the_post();
+			?>
+			{
+			"post" :
+				<?php
+				edcal_postJSON($post[0], false);
+				?>
+			}
+			<?php
+		endwhile;
+	endif;
+	die();
 }
 
 /*
