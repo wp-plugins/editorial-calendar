@@ -357,3 +357,7 @@
     /*padding: 0.5em;*/
     font-size:12px;
 }
+
+#tooltip .mceEditor {
+    height: 10em;
+}

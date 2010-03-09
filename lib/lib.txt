@@ -18,10 +18,10 @@ JQuery tools supports the scrolling.
 http://flowplayer.org/tools/index.html
 MIT license
 
-jquery.tooltip.css
-jquery.tooltip.js
-The JQuery tooltip plugin manages the tooltips we show when you click on a post.  This plugin has many customizations from the origional and shouldn't be upgraded.
-http://bassistance.de/jquery-plugins/jquery-plugin-tooltip/
+timePicker.css
+jquery.timepicker.js
+The JQuery time picker shows a nice time picker when you edit the post time.
+http://labs.perifer.se/timedatepicker
 MIT License
 
 json2.js
