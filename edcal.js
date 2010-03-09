@@ -848,9 +848,9 @@ var edcal = {
 		jQuery('#tooltip').center().show();
 		
 		if(!post.id) {
-			jQuery('#tooltip').find('h3').text(edcal.str_newpost + post.formatteddate);
+			jQuery('#tooltip h3').text(edcal.str_newpost + post.formatteddate);
 		} else {
-			jQuery('#tooltip').find('h3').text(edcal.str_editpost + '"' + post.title + '"');
+			jQuery('#tooltip h3').html(edcal.str_editpost + '<span class="tiptitle">' + post.title + '</span>');
 			
 			// add post info to form
 			jQuery('#edcal-title-new-field').val(post.title);

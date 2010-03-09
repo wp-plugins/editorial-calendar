@@ -266,19 +266,21 @@ function edcal_list_admin() {
 			   
 				<div class="edcal-form-row">
 				   <h4><?php _e('Post Content:', 'editorial-calendar') ?></h4>
-				   <div id="cal_mediabar">
+				   <!--
+                   <div id="cal_mediabar">
 						<?php if ( current_user_can( 'upload_files' ) ) : ?>
 							<div id="media-buttons" class="hide-if-no-js">
 								<?php do_action( 'media_buttons' ); ?>
 							</div>
 						<?php endif; ?>
-					</div>
-				   <div class="textarea-wrap edcal-form-row">
+				   </div>
+                   -->
+				   <div class="textarea-wrap">
 					   <textarea tabindex="2" cols="15" rows="3" class="mceEditor" id="content" name="content"></textarea>
 				   </div>
 			   </div>
 			   <div id="edcal-time-section" class="edcal-form-row">
-					<h4><?php _e('Time:', 'editorial-calendar') ?></h4>
+					<h4><?php _e('Post Time:', 'editorial-calendar') ?></h4>
 					<!--<input type="text" id="edcal-hh" name="hh" value="" size="2" maxlength="2" autocomplete="off" /> : <input type="text" id="edcal-mn" name="mn" value="" size="2" maxlength="2" autocomplete="off" />-->
 					<input type="text" id="edcal-time" name="time" value="" size="5" maxlength="5" autocomplete="off" />
 			   </div>
