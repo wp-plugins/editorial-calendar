@@ -281,6 +281,7 @@
 
 #tooltip #edcal-time {
     margin-left: 1em;
+    width: 7em;
 }
 
 #tooltip .edcal-form-row {
