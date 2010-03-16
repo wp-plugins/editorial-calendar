@@ -155,10 +155,10 @@ function edcal_list_admin() {
             edcal.str_cancel = <?php echo(edcal_json_encode(__('Cancel', 'editorial-calendar'))) ?>;
             edcal.str_posttitle = <?php echo(edcal_json_encode(__('Post Title:', 'editorial-calendar'))) ?>;
             edcal.str_postcontent = <?php echo(edcal_json_encode(__('Post Content:', 'editorial-calendar'))) ?>;
-            edcal.str_savedraft = <?php echo(edcal_json_encode(__('Save Draft', 'editorial-calendar'))) ?>;
-            edcal.str_saveandedit = <?php echo(edcal_json_encode(__('Save and Edit Draft', 'editorial-calendar'))) ?>;
             edcal.str_newpost = <?php echo(edcal_json_encode(__('Add a new post on ', 'editorial-calendar'))) ?>;
 			edcal.str_editpost = <?php echo(edcal_json_encode(__('Edit Post: ', 'editorial-calendar'))) ?>;
+            edcal.str_update = <?php echo(edcal_json_encode(__('Update', 'editorial-calendar'))) ?>;
+            edcal.str_publish = <?php echo(edcal_json_encode(__('Schedule', 'editorial-calendar'))) ?>;
             
             edcal.str_del_msg1 = <?php echo(edcal_json_encode(__('You are about to delete the post "', 'editorial-calendar'))) ?>;
             edcal.str_del_msg2 = <?php echo(edcal_json_encode(__('". Press Cancel to stop, OK to delete.', 'editorial-calendar'))) ?>;
@@ -287,7 +287,7 @@ function edcal_list_admin() {
 		   </div>
 		   <div id="edit-slug-buttons" class="edcal-form-row">
 			   <a class="save button disabled" id="newPostButton" href="#"><?php _e('Save Draft', 'editorial-calendar') ?></a>
-			   <a class="save button disabled" id="newPostEditButton" href="#"><?php _e('Save and Edit Draft', 'editorial-calendar') ?></a>
+			   <a class="button-primary disabled" id="newPostScheduleButton" href="#"><?php _e('Schedule', 'editorial-calendar') ?></a>
 			   <a href="#" onclick="edcal.hideForm(); return false;" class="cancel"><?php _e('Cancel', 'editorial-calendar') ?></a>
 		   </div>
 		   <input type="hidden" id="edcal-date" name="date" value="" />
@@ -656,11 +656,12 @@ function edcal_savepost() {
     $my_post = array();
 	
 	// If the post id is not specified, we're creating a new post
-	if($_POST['id'])
+	if($_POST['id']) {
 		$my_post['ID'] = intval($_POST['id']);
-	else
-		$my_post['post_status'] = 'draft'; // if new post, set the status to draft
-	
+    } else {
+        $my_post['post_status'] = 'draft'; // if new post, set the status to draft
+    }
+        
     $my_post['post_title'] = isset($_POST["title"])?$_POST["title"]:null;
     $my_post['post_content'] = isset($_POST["content"])?$_POST["content"]:null;
     
@@ -668,6 +669,12 @@ function edcal_savepost() {
     $my_post['post_date_gmt'] = get_gmt_from_date($edcal_date);
     $my_post['post_modified'] = $edcal_date;
     $my_post['post_modified_gmt'] = get_gmt_from_date($edcal_date);
+    
+    if($_POST['dopublish']) {
+        wp_transition_post_status("future", $my_post['post_status'], $my_post);
+        $my_post['post_status'] = 'future';
+    }
+    
     
     // Insert the post into the database
 	if($my_post['ID'])

@@ -325,7 +325,7 @@
 
 #edcal-title-new-field {
     padding: 0.25em;
-    width: 20em;
+    width: 100%;
 }
 
 #edcal-title-new-section {
@@ -361,4 +361,8 @@
 
 #tooltip .mceEditor {
     height: 10em;
+}
+
+#newPostScheduleButton.disabled {
+    color: #AAAAAA;
 }

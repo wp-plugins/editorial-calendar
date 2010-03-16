@@ -709,12 +709,12 @@ var edcal = {
 	 */
 	addPost: function( ) {
 		jQuery("#newPostButton").addClass("disabled");
-		jQuery("#newPostEditButton").addClass("disabled");
+		jQuery("#newPostScheduleButton").addClass("disabled");
 		
 		var date = jQuery(this).parent().parent().attr("id");
 		var time = new Date();
-		var hours = time.getHours() + '';
-		var mins = time.getMinutes() + '';
+		var hours = '10';
+		var mins = '00';
 		var formattedtime = hours + ':' +(mins.length == 1 ? '0' + mins : mins);
 		var post = {
 			id: 0,
@@ -734,7 +734,7 @@ var edcal = {
 	editPost: function(/*int*/ post_id) {
 		// Un-disable the save buttons because we're editing
 		jQuery("#newPostButton").removeClass("disabled");
-		jQuery("#newPostEditButton").removeClass("disabled");
+		jQuery("#newPostScheduleButton").removeClass("disabled");
 		
 		// Editing, so we need to make an ajax call to get body of post
 		edcal.getPost(post_id, edcal.showForm);
@@ -751,13 +751,14 @@ var edcal = {
 	 * doEdit - should we edit the post immediately?  if true we send the user
      *          to the edit screen for their new post.
      */
-	savePost: function(/*object*/ post, /*boolean*/ doEdit) {
+	savePost: function(/*object*/ post, /*boolean*/ doEdit, /*boolean*/ doPublish) {
 		 if(typeof(post) === 'undefined' || post == null)
 			post = edcal.serializePost();
 			
          if (!post.title || post.title === "") {
              return;
          }
+         
          edcal.output("savePost(" + post.date + ", " + post.title + ")");
 
          jQuery("#edit-slug-buttons").addClass("tiploading");
@@ -773,6 +774,10 @@ var edcal = {
                        "&title=" + encodeURIComponent(post.title) + 
                        "&content=" + encodeURIComponent(post.content) +
 					   "&id=" + encodeURIComponent(post.id);
+         
+         if (doPublish) {
+             postData += "&dopublish=" + encodeURIComponent(doPublish);
+         }
 
          jQuery.ajax( { 
             url: url,
@@ -855,8 +860,19 @@ var edcal = {
 			// add post info to form
 			jQuery('#edcal-title-new-field').val(post.title);
 			jQuery('#content').val(post.content);
-			
 		}
+        
+        if (post.status === "future") {
+            jQuery('#newPostScheduleButton').text(edcal.str_update);
+            jQuery('#newPostButton').hide();
+        }
+        
+        if (edcal.getDayFromDayId(post.date).compareTo(Date.today()) == -1) {
+            /*
+             * We only allow drafts in the past
+             */
+            jQuery('#newPostScheduleButton').hide();
+        }
 		
 		var time = post.time;
 		jQuery('#edcal-time').val(time);
@@ -900,65 +916,11 @@ var edcal = {
 		jQuery('#tooltip').find('input, textarea, select').each(function() {
 			this.value = '';
 		});
+        
+        jQuery('#newPostScheduleButton').show().text(edcal.str_publish);
+        jQuery('#newPostButton').show();
 	},
 	
-    /*
-     * Adds a tooltip to every add post link. NOT USED
-     */
-    addCreateTooltip: function(/*JQuery*/ createLink) {
-         if (createLink.hasClass('hasTooltip')) {
-             return;
-         }
-         
-         var date = createLink.parent().parent().attr("id");
-         
-         createLink.tooltip({ 
-             delay: 1500, 
-             bodyHandler: function() {
-                 var tooltip = '<div class="tooltip newposttip">' + 
-                                   '<a href="#" id="tipclose" onclick="jQuery(\'#tooltip\').hide(); return false;" title="close"> </a>' + 
-                                   '<h3>' + edcal.str_newpost + createLink.attr("adddate") + '</h3>' + 
-                                   '<div id="edcal-title-new-section">' + 
-                                       edcal.str_posttitle + '<br />' + 
-                                       '<input type="text" class="text_input" id="edcal-title-new-field"/><br />' + 
-                                       edcal.str_postcontent + '<br />' + 
-                                       edcal.getMediaBar() +
-                                       '<div class="textarea-wrap">' + 
-                                           '<textarea tabindex="2" cols="15" rows="3" class="mceEditor" id="content" name="content"/>' + 
-                                       '</div>' + 
-                                   '</div>' + 
-                                   '<div id="edit-slug-buttons">' + 
-                                       '<a class="save button disabled" id="newPostButton" href="#" adddate="' + date + '">' + edcal.str_savedraft + '</a> ' + 
-                                       '<a class="save button disabled" id="newPostEditButton" href="#" adddate="' + date + '">' + edcal.str_saveandedit + '</a> ' + 
-                                       '<a href="#" onclick="jQuery(\'#tooltip\').hide(); return false;" class="cancel">' + edcal.str_cancel + '</a>' + 
-                                   '</div>' + 
-                               '</div>';
-                 return tooltip;
-             },
-             showHandler: function() {
-                  /*
-                   * Put the focus in the post title field when the tooltip opens.
-                   */
-                  jQuery("#edcal-title-new-field").focus();
-                  jQuery("#edcal-title-new-field").select();
-
-                  tb_init('a.thickbox, area.thickbox, input.thickbox');
-
-                  edCanvas = document.getElementById('content');
-                  edInsertContent = null;
-
-                  jQuery('a.thickbox').click(function(){
-                      if ( typeof tinyMCE != 'undefined' && tinyMCE.activeEditor ) {
-                          tinyMCE.get('content').focus();
-                          tinyMCE.activeEditor.windowManager.bookmark = tinyMCE.activeEditor.selection.getBookmark('simple');
-                      }
-                  });
-             }
-         });
-         
-         createLink.addClass('hasTooltip');
-    },
-    
     /*
        Creates the HTML for a post item and adds the data for
        the post to the posts cache.
@@ -1582,20 +1544,20 @@ var edcal = {
         jQuery(window).bind("resize", resizeWindow);
 
         jQuery("#newPostButton").live("click", function(evt) {
-			return edcal.savePost(null, false);
+			return edcal.savePost(null, false, false);
         });
         
-        jQuery("#newPostEditButton").live("click", function(evt) {
-			return edcal.savePost(null, true);
+        jQuery("#newPostScheduleButton").live("click", function(evt) {
+			return edcal.savePost(null, false, true);
         });
 
         jQuery("#edcal-title-new-field").live("keyup", function(evt) {
             if (jQuery("#edcal-title-new-field").val().length > 0) {
                 jQuery("#newPostButton").removeClass("disabled");
-                jQuery("#newPostEditButton").removeClass("disabled");
+                jQuery("#newPostScheduleButton").removeClass("disabled");
             } else {
                 jQuery("#newPostButton").addClass("disabled");
-                jQuery("#newPostEditButton").addClass("disabled");
+                jQuery("#newPostScheduleButton").addClass("disabled");
             }
 
             if (evt.keyCode == 13) {    // enter key
