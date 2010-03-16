@@ -180,11 +180,11 @@ function edcal_list_admin() {
 
     <style type="text/css">
         .loadingclass > .postlink, .loadingclass:hover > .postlink, .tiploading {
-            background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/loading_post.gif")); ?>');
+            background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/loading.gif")); ?>');
         }
 
         #loading {
-            background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/loading.gif")); ?>');
+            background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/loading.gif")); ?>');
         }
 
         #tipclose {
