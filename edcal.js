@@ -764,6 +764,25 @@ var edcal = {
          edcal.output("savePost(" + post.date + ", " + post.title + ")");
 
          jQuery("#edit-slug-buttons").addClass("tiploading");
+
+         /*
+            The date.js library has a bug where it gives the wrong
+            24 hour value for 12AM and 12PM.  I've filed a bug report,
+            but we still need to work aorund the issue.  Hackito
+            ergo sum.
+          */
+         edcal.output("post.time: " + post.time);
+         if (post.time === "12:00 PM") {
+             post.time = "12:00";
+         } else if (post.time === "12:30 PM") {
+             post.time = "12:30";
+         } else if (post.time === "12:00 AM") {
+             post.time = "00:00";
+         } else if (post.time === "12:30 AM") {
+             post.time = "00:30";
+         }
+
+         edcal.output("post.time after: " + post.time);
          
 		 var time;
 		 if(post.time != '')
