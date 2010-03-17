@@ -122,6 +122,7 @@ function edcal_list_admin() {
             ?>
 
             edcal.startOfWeek = <?php echo(get_option("start_of_week")); ?>;
+            edcal.timeFormat = "<?php echo(get_option("time_format")); ?>";
 
             /*
              * We want to show the day of the first day of the week to match the user's 
@@ -467,12 +468,21 @@ function edcal_json_encode($string) {
  * value part. If $fullPost is set to true, post_content is also returned.
  */
 function edcal_postJSON($post, $addComma = true, $fullPost = false) {
+    $timeFormat = get_option("time_format");
+    if ($timeFormat == "g:i a") {
+        $timeFormat = "ga";
+    } else if ($timeFormat == "g:i A") {
+        $timeFormat = "gA";
+    } else if ($timeFormat == "H:i") {
+        $timeFormat = "H";
+    }
+    
     setup_postdata($post);
     ?>
         {
             "date" : "<?php the_time('d') ?><?php the_time('m') ?><?php the_time('Y') ?>", 
-            "time" : "<?php the_time('G:i') ?>", 
-            "formattedtime" : "<?php edcal_json_encode(the_time(__('ga', 'editorial-calendar'))); ?>", 
+            "time" : "<?php the_time() ?>", 
+            "formattedtime" : "<?php edcal_json_encode(the_time($timeFormat)); ?>", 
             "url" : "<?php edcal_json_encode(the_permalink()); ?>", 
             "status" : "<?php echo(get_post_status()); ?>",
             "title" : <?php echo(edcal_json_encode(get_the_title())); ?>,

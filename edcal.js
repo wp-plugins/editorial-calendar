@@ -716,6 +716,9 @@ var edcal = {
 		var hours = '10';
 		var mins = '00';
 		var formattedtime = hours + ':' +(mins.length == 1 ? '0' + mins : mins);
+        if (edcal.timeFormat !== 'H:i') {
+            formattedtime += " AM";
+        }
 		var post = {
 			id: 0,
 			date: date,
@@ -1593,9 +1596,9 @@ var edcal = {
         edcal.savePosition();
         
         edcal.addOptionsSection();
-		
-		jQuery('#edcal-time').timePicker({
-			show24Hours: true,
+        
+        jQuery('#edcal-time').timePicker({
+			show24Hours: edcal.timeFormat === 'H:i',
 			separator:':',
 			step: 30
 		});
