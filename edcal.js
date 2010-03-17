@@ -318,10 +318,10 @@ var edcal = {
          if (edcal.inDrag) {
              return;
          }
-		
+        
          var createLink = jQuery("#" + dayid + " a.daynewlink");
          createLink.css("display", "block");
-		 createLink.bind('click', edcal.addPost);
+         createLink.bind('click', edcal.addPost);
     },
 
     /*
@@ -330,7 +330,7 @@ var edcal = {
      */
     hideAddPostLink: function(/*string*/ dayid) {
          var link = jQuery("#" + dayid + " a.daynewlink").hide();
-		 link.unbind('click', edcal.addPost);
+         link.unbind('click', edcal.addPost);
     },
     
     /*
@@ -563,21 +563,21 @@ var edcal = {
     },
 
 
-	/*
-		Deletes the post specified. Will only be executed once the user clicks the confirm link to proceed.
-	*/
+    /*
+        Deletes the post specified. Will only be executed once the user clicks the confirm link to proceed.
+    */
     deletePost: function(/*Post ID*/ postId) {
-	
-		var url = edcal.ajax_url() + "&action=edcal_deletepost&postid=" + postId;
+    
+        var url = edcal.ajax_url() + "&action=edcal_deletepost&postid=" + postId;
         edcal.output("Calling AJAX URL: " + url);
 
-		jQuery.ajax( { 
-			url: url,
-			type: "POST",
-			processData: false,
-			timeout: 100000,
-			dataType: "json",
-			success: function(res) {				
+        jQuery.ajax( { 
+            url: url,
+            type: "POST",
+            processData: false,
+            timeout: 100000,
+            dataType: "json",
+            success: function(res) {                
                 edcal.removePostItem(res.post.date, "post-" + res.post.id);
                 if (res.error) {
                     /*
@@ -587,9 +587,9 @@ var edcal = {
                     if (res.error === edcal.NONCE_ERROR) {
                         edcal.showError(edcal.checksum_error);
                     }
-				} else {
-					edcal.output('Finished deleting the post: "' + res.post.title + '"');
-				}
+                } else {
+                    edcal.output('Finished deleting the post: "' + res.post.title + '"');
+                }
             },
             error: function(xhr) {
                  edcal.showError(edcal.general_error);
@@ -609,7 +609,7 @@ var edcal = {
     confirmDelete: function(/*string*/ posttitle) {
          if (confirm(edcal.str_del_msg1 + posttitle + edcal.str_del_msg2)) {
              return true;
-	// [wes] might be better to call deletePost from here directly, rather than return control back to the agent... which will then follow the link and call deletePost 
+    // [wes] might be better to call deletePost from here directly, rather than return control back to the agent... which will then follow the link and call deletePost 
          } else {
              return false;
          }
@@ -696,67 +696,68 @@ var edcal = {
          jQuery("#tooltip").hide();
     },
 
-	/*
-		NOT USED
-	 */
+    /*
+        NOT USED
+     */
     getMediaBar: function() {
          return jQuery("#cal_mediabar").html();
     },
-	
-	/*
-	 * Called when the "Add a post" link is clicked.
-	 * Sets up a post object and displays the add form
-	 */
-	addPost: function( ) {
-		jQuery("#newPostButton").addClass("disabled");
-		jQuery("#newPostScheduleButton").addClass("disabled");
-		
-		var date = jQuery(this).parent().parent().attr("id");
-		
-		var formattedtime = '10:00';
+    
+    /*
+     * Called when the "Add a post" link is clicked.
+     * Sets up a post object and displays the add form
+     */
+    addPost: function( ) {
+        jQuery("#newPostButton").addClass("disabled");
+        jQuery("#newPostScheduleButton").addClass("disabled");
+        
+        var date = jQuery(this).parent().parent().attr("id");
+        
+        var formattedtime = '10:00';
         if (edcal.timeFormat !== 'H:i') {
             formattedtime += " AM";
         }
-		
-		var post = {
-			id: 0,
-			date: date,
-			formatteddate: edcal.getDayFromDayId(date).toString("MMMM d"),
-			time: formattedtime
-		}
-		edcal.showForm(post);
-		return false;
-	},
-	
-	/*
-	 * Called when the Edit link for a post is clicked.
-	 * Gets post details via an AJAX call and displays the edit form
-	 * with the fields populated.
-	 */
-	editPost: function(/*int*/ post_id) {
-		// Un-disable the save buttons because we're editing
-		jQuery("#newPostButton").removeClass("disabled");
-		jQuery("#newPostScheduleButton").removeClass("disabled");
-		
-		// Editing, so we need to make an ajax call to get body of post
-		edcal.getPost(post_id, edcal.showForm);
-		return false;
-	},
-	
-	
-	/*
+        
+        var post = {
+            id: 0,
+            date: date,
+            formatteddate: edcal.getDayFromDayId(date).toString("MMMM d"),
+            time: formattedtime
+        };
+        edcal.showForm(post);
+        return false;
+    },
+    
+    /*
+     * Called when the Edit link for a post is clicked.
+     * Gets post details via an AJAX call and displays the edit form
+     * with the fields populated.
+     */
+    editPost: function(/*int*/ post_id) {
+        // Un-disable the save buttons because we're editing
+        jQuery("#newPostButton").removeClass("disabled");
+        jQuery("#newPostScheduleButton").removeClass("disabled");
+        
+        // Editing, so we need to make an ajax call to get body of post
+        edcal.getPost(post_id, edcal.showForm);
+        return false;
+    },
+    
+    
+    /*
      * When the user presses the new post link on each calendar cell they get
      * a tooltip which prompts them to add or edit a post.  Once
      * they hit save we call this function.
      * 
      * post - post object containing data for the post
-	 * doEdit - should we edit the post immediately?  if true we send the user
+     * doEdit - should we edit the post immediately?  if true we send the user
      *          to the edit screen for their new post.
      */
-	savePost: function(/*object*/ post, /*boolean*/ doEdit, /*boolean*/ doPublish) {
-		 if(typeof(post) === 'undefined' || post == null)
-			post = edcal.serializePost();
-			
+    savePost: function(/*object*/ post, /*boolean*/ doEdit, /*boolean*/ doPublish) {
+         if(typeof(post) === 'undefined' || post === null) {
+            post = edcal.serializePost();
+         }
+            
          if (!post.title || post.title === "") {
              return;
          }
@@ -784,20 +785,21 @@ var edcal = {
 
          edcal.output("post.time after: " + post.time);
          
-		 var time;
-		 if(post.time != '')
-			time = Date.parse(post.time);
-		 else
-			time = Date.parse('10:00:00'); // If we don't have a time set, default it to 10am
-		 
+         var time;
+         if(post.time != '') {
+            time = Date.parse(post.time);
+         } else {
+            time = Date.parse('10:00:00'); // If we don't have a time set, default it to 10am
+         }
+         
          var formattedtime = time.format('H:i:s');
-		 
+         
          var formattedDate = encodeURIComponent(edcal.getDayFromDayId(post.date).toString(edcal.wp_dateFormat) + " " + formattedtime);
          var url = edcal.ajax_url() + "&action=edcal_savepost&";
          var postData = "date=" + formattedDate + 
                        "&title=" + encodeURIComponent(post.title) + 
                        "&content=" + encodeURIComponent(post.content) +
-					   "&id=" + encodeURIComponent(post.id);
+                       "&id=" + encodeURIComponent(post.id);
          
          if (doPublish) {
              postData += "&dopublish=" + encodeURIComponent(doPublish);
@@ -835,10 +837,11 @@ var edcal = {
                         window.location = res.post.editlink.replace("&amp;", "&");
                     } else {
                         
-						if(res.post.id)
-							edcal.removePostItem(res.post.date, "post-" + res.post.id);
-						
-						edcal.addPostItem(res.post, res.post.date);
+                        if (res.post.id) {
+                            edcal.removePostItem(res.post.date, "post-" + res.post.id);
+                        }
+                        
+                        edcal.addPostItem(res.post, res.post.date);
                         edcal.addPostItemDragAndToolltip(res.post.date);
                     }
                 }
@@ -852,39 +855,39 @@ var edcal = {
                  }
             }
         });
-		return false;
-	},
-	
-	/*
-	 * Collects form values for the post inputted by the user into an object
-	 */
-	serializePost: function() {
-		var post = {}
-		
-		jQuery('#tooltip').find('input, textarea, select').each(function() {
-			post[this.name] = this.value;
-		});
-		return post;
-	},
-	
-	/*
-	 * Accepts new or existing post data and then populates text fields as necessary
-	 */
-	showForm: function(post) {
-		edcal.resetForm();
-		
-		// show tooltip
-		jQuery('#tooltip').center().show();
-		
-		if(!post.id) {
-			jQuery('#tooltip h3').text(edcal.str_newpost + post.formatteddate);
-		} else {
-			jQuery('#tooltip h3').html(edcal.str_editpost + '<span class="tiptitle">' + post.title + '</span>');
-			
-			// add post info to form
-			jQuery('#edcal-title-new-field').val(post.title);
-			jQuery('#content').val(post.content);
-		}
+        return false;
+    },
+    
+    /*
+     * Collects form values for the post inputted by the user into an object
+     */
+    serializePost: function() {
+        var post = {};
+        
+        jQuery('#tooltip').find('input, textarea, select').each(function() {
+            post[this.name] = this.value;
+        });
+        return post;
+    },
+    
+    /*
+     * Accepts new or existing post data and then populates text fields as necessary
+     */
+    showForm: function(post) {
+        edcal.resetForm();
+        
+        // show tooltip
+        jQuery('#tooltip').center().show();
+        
+        if(!post.id) {
+            jQuery('#tooltip h3').text(edcal.str_newpost + post.formatteddate);
+        } else {
+            jQuery('#tooltip h3').html(edcal.str_editpost + '<span class="tiptitle">' + post.title + '</span>');
+            
+            // add post info to form
+            jQuery('#edcal-title-new-field').val(post.title);
+            jQuery('#content').val(post.content);
+        }
         
         if (post.status === "future") {
             jQuery('#newPostScheduleButton').text(edcal.str_update);
@@ -897,54 +900,54 @@ var edcal = {
              */
             jQuery('#newPostScheduleButton').hide();
         }
-		
-		var time = post.time;
-		jQuery('#edcal-time').val(time);
-		
-		// set hidden fields: post.date, post.id
-		jQuery('#edcal-date').val(post.date);
-		jQuery('#edcal-id').val(post.id);
-		
-		  /*
-		   * Put the focus in the post title field when the tooltip opens.
-		   */
-		  jQuery("#edcal-title-new-field").focus();
-		  jQuery("#edcal-title-new-field").select();
+        
+        var time = post.time;
+        jQuery('#edcal-time').val(time);
+        
+        // set hidden fields: post.date, post.id
+        jQuery('#edcal-date').val(post.date);
+        jQuery('#edcal-id').val(post.id);
+        
+          /*
+           * Put the focus in the post title field when the tooltip opens.
+           */
+          jQuery("#edcal-title-new-field").focus();
+          jQuery("#edcal-title-new-field").select();
 
-		  tb_init('a.thickbox, area.thickbox, input.thickbox');
+          tb_init('a.thickbox, area.thickbox, input.thickbox');
 
-		  edCanvas = document.getElementById('content');
-		  edInsertContent = null;
+          edCanvas = document.getElementById('content');
+          edInsertContent = null;
 
-		  jQuery('a.thickbox').click(function(){
-			  if ( typeof tinyMCE != 'undefined' && tinyMCE.activeEditor ) {
-				  tinyMCE.get('content').focus();
-				  tinyMCE.activeEditor.windowManager.bookmark = tinyMCE.activeEditor.selection.getBookmark('simple');
-			  }
-		  });
-	},
-	
-	/*
+          jQuery('a.thickbox').click(function(){
+              if ( typeof tinyMCE != 'undefined' && tinyMCE.activeEditor ) {
+                  tinyMCE.get('content').focus();
+                  tinyMCE.activeEditor.windowManager.bookmark = tinyMCE.activeEditor.selection.getBookmark('simple');
+              }
+          });
+    },
+    
+    /*
      * Hides the add/edit form
      */
     hideForm: function( ) {
-		jQuery('#tooltip').hide();
-		edcal.cancelEditTitle();
-		edcal.resetForm();
-	},
+        jQuery('#tooltip').hide();
+        edcal.cancelEditTitle();
+        edcal.resetForm();
+    },
     
-	/*
-	 * Clears all the input values in the add/edit form
-	 */
-	resetForm: function( ) {
-		jQuery('#tooltip').find('input, textarea, select').each(function() {
-			this.value = '';
-		});
+    /*
+     * Clears all the input values in the add/edit form
+     */
+    resetForm: function( ) {
+        jQuery('#tooltip').find('input, textarea, select').each(function() {
+            this.value = '';
+        });
         
         jQuery('#newPostScheduleButton').show().text(edcal.str_publish);
         jQuery('#newPostButton').show();
-	},
-	
+    },
+    
     /*
        Creates the HTML for a post item and adds the data for
        the post to the posts cache.
@@ -1159,13 +1162,14 @@ var edcal = {
        up into the past.
      */
     move: function(steps, direction) {
-		 /* 
-		  * If the add/edit post form is visible, don't go anywhere.
-		  */
-        if(jQuery('#tooltip').is(':visible'))
-			return;
-		 
-		 /*
+         /* 
+          * If the add/edit post form is visible, don't go anywhere.
+          */
+        if(jQuery('#tooltip').is(':visible')) {
+            return;
+    }
+         
+         /*
            The working date is a marker for the last calendar row we created.
            If we are moving forward that will be the last row, if we are moving
            backward it will be the first row.  If we switch direction we need
@@ -1568,17 +1572,21 @@ var edcal = {
         jQuery(window).bind("resize", resizeWindow);
 
         jQuery("#newPostButton").live("click", function(evt) {
-			// if the button is disabled, don't do anything
-			if( jQuery(this).hasClass('disabled') ) return false;
-			// Otherwise, save the post
-			return edcal.savePost(null, false, false);
+            // if the button is disabled, don't do anything
+            if( jQuery(this).hasClass('disabled') ) {
+                return false;
+            }
+            // Otherwise, save the post
+            return edcal.savePost(null, false, false);
         });
         
         jQuery("#newPostScheduleButton").live("click", function(evt) {
-			// if the button is disabled, don't do anything
-			if( jQuery(this).hasClass('disabled') ) return false;
-			// Otherwise, save the post
-			return edcal.savePost(null, false, true);
+            // if the button is disabled, don't do anything
+            if( jQuery(this).hasClass('disabled') ) {
+                return false;
+            }
+            // Otherwise, save the post
+            return edcal.savePost(null, false, true);
         });
 
         jQuery("#edcal-title-new-field").live("keyup", function(evt) {
@@ -1594,7 +1602,7 @@ var edcal = {
                 /*
                  * If the user presses enter we want to save the draft.
                  */
-				return edcal.savePost(null, true);
+                return edcal.savePost(null, true);
             }
         });
 
@@ -1606,7 +1614,7 @@ var edcal = {
                 edcal.saveTitle(jQuery(this).attr("postid"));
             }
         });
-		
+        
         jQuery("#edcal_weeks_pref").live("keyup", function(evt) {
             if (jQuery("#edcal_weeks_pref").val().length > 0) {
                 jQuery("#edcal_applyoptions").removeClass("disabled");
@@ -1625,10 +1633,10 @@ var edcal = {
         edcal.addOptionsSection();
         
         jQuery('#edcal-time').timePicker({
-			show24Hours: edcal.timeFormat === 'H:i',
-			separator:':',
-			step: 30
-		});
+            show24Hours: edcal.timeFormat === 'H:i',
+            separator:':',
+            step: 30
+        });
     },
 
     /*
@@ -1863,55 +1871,58 @@ var edcal = {
         });
     },
     
-	/*
-	 * Retreives a single post item based on the id
-	 * Can optionally pass a callback function that is triggered
-	 * when the call successfully completes. The post object is passed 
-	 * as a parameter for the callback.
-	 */
-	getPost: function(/*int*/ postid, /*function*/ callback) {
-		
-		if(postid == 0) return false;
-		
-		// show loading
-		jQuery("#loading").show();
-		
-		var url = edcal.ajax_url() + "&action=edcal_getpost&postid=" + postid;
-		
-		jQuery.ajax( { 
+    /*
+     * Retreives a single post item based on the id
+     * Can optionally pass a callback function that is triggered
+     * when the call successfully completes. The post object is passed 
+     * as a parameter for the callback.
+     */
+    getPost: function(/*int*/ postid, /*function*/ callback) {
+        
+        if (postid === 0) {
+            return false;
+        }
+        
+        // show loading
+        jQuery("#loading").show();
+        
+        var url = edcal.ajax_url() + "&action=edcal_getpost&postid=" + postid;
+        
+        jQuery.ajax( { 
             url: url,
             type: "GET",
             processData: false,
             timeout: 100000,
             dataType: "json",
             success: function(res) {
-				// hide loading
-				jQuery("#loading").hide();
-				
-				edcal.output("xhr for getPost returned: " + res);
+                // hide loading
+                jQuery("#loading").hide();
+                
+                edcal.output("xhr for getPost returned: " + res);
                 if (res.error) {
                     if (res.error === edcal.NONCE_ERROR) {
                         edcal.showError(edcal.checksum_error);
                     }
-					return false;
+                    return false;
                 }
-				if(typeof callback === 'function')
-					callback(res.post);
-				return res.post;
+                if (typeof callback === 'function') {
+                    callback(res.post);
+                }
+                return res.post;
             },
             error: function(xhr) {
-				// hide loading
-				jQuery("#loading").hide();
-				
+                // hide loading
+                jQuery("#loading").hide();
+                
                  edcal.showError(edcal.general_error);
                  if (xhr.responseText) {
                      edcal.output("xhr.responseText: " + xhr.responseText);
                  }
-				 return false;
+                 return false;
             }
         });
-	},
-	
+    },
+    
     /*
        This function adds the scren options tab to the top of the screen.  I wish
        WordPress had a hook so I could provide this in PHP, but as of version 2.9.1
@@ -2046,7 +2057,7 @@ jQuery.fn.center = function () {
     this.css("top", ( jQuery(window).height() - this.outerHeight() ) / 2+jQuery(window).scrollTop() + "px");
     this.css("left", ( jQuery(window).width() - this.outerWidth() ) / 2+jQuery(window).scrollLeft() + "px");
     return this;
-}
+};
 
 
 jQuery(document).ready(function(){
