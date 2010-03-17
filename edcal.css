@@ -260,6 +260,10 @@
     color: #21759B;
 }*/
 
+#tooltip {
+    width: 30em;
+}
+
 #tooltip p {
     margin-left: 1.5em;
 }
@@ -282,6 +286,7 @@
 #tooltip #edcal-time {
     margin-left: 1em;
     width: 7em;
+    background-color: white;
 }
 
 #tooltip .edcal-form-row {

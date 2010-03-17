@@ -771,14 +771,7 @@ var edcal = {
 		 else
 			time = Date.parse('10:00:00'); // If we don't have a time set, default it to 10am
 		 
-		 // If user inputted an invalid date, show them an error
-		 if(time == null) {
-			edcal.showError(edcal.date_error);
-			jQuery("#edit-slug-buttons").removeClass("tiploading");
-			return false;
-		 }
-		 
-		 var formattedtime = time.format('H:i:s');
+         var formattedtime = time.format('H:i:s');
 		 
          var formattedDate = encodeURIComponent(edcal.getDayFromDayId(post.date).toString(edcal.wp_dateFormat) + " " + formattedtime);
          var url = edcal.ajax_url() + "&action=edcal_savepost&";
