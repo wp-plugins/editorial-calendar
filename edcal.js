@@ -712,13 +712,12 @@ var edcal = {
 		jQuery("#newPostScheduleButton").addClass("disabled");
 		
 		var date = jQuery(this).parent().parent().attr("id");
-		var time = new Date();
-		var hours = '10';
-		var mins = '00';
-		var formattedtime = hours + ':' +(mins.length == 1 ? '0' + mins : mins);
+		
+		var formattedtime = '10:00';
         if (edcal.timeFormat !== 'H:i') {
             formattedtime += " AM";
         }
+		
 		var post = {
 			id: 0,
 			date: date,
@@ -768,10 +767,20 @@ var edcal = {
          
 		 var time;
 		 if(post.time != '')
-			time = post.time + ':00';
+			time = Date.parse(post.time);
 		 else
-			time = '10:00:00'; // If we don't have a time set, default it to 10am
-         var formattedDate = encodeURIComponent(edcal.getDayFromDayId(post.date).toString(edcal.wp_dateFormat) + " " + time);
+			time = Date.parse('10:00:00'); // If we don't have a time set, default it to 10am
+		 
+		 // If user inputted an invalid date, show them an error
+		 if(time == null) {
+			edcal.showError(edcal.date_error);
+			jQuery("#edit-slug-buttons").removeClass("tiploading");
+			return false;
+		 }
+		 
+		 var formattedtime = time.format('H:i:s');
+		 
+         var formattedDate = encodeURIComponent(edcal.getDayFromDayId(post.date).toString(edcal.wp_dateFormat) + " " + formattedtime);
          var url = edcal.ajax_url() + "&action=edcal_savepost&";
          var postData = "date=" + formattedDate + 
                        "&title=" + encodeURIComponent(post.title) + 
@@ -1547,15 +1556,21 @@ var edcal = {
         jQuery(window).bind("resize", resizeWindow);
 
         jQuery("#newPostButton").live("click", function(evt) {
+			// if the button is disabled, don't do anything
+			if( jQuery(this).hasClass('disabled') ) return false;
+			// Otherwise, save the post
 			return edcal.savePost(null, false, false);
         });
         
         jQuery("#newPostScheduleButton").live("click", function(evt) {
+			// if the button is disabled, don't do anything
+			if( jQuery(this).hasClass('disabled') ) return false;
+			// Otherwise, save the post
 			return edcal.savePost(null, false, true);
         });
 
         jQuery("#edcal-title-new-field").live("keyup", function(evt) {
-            if (jQuery("#edcal-title-new-field").val().length > 0) {
+            if (jQuery("#edcal-title-new-field").val().length > 0 && jQuery('#edcal-time').val().length > 0) {
                 jQuery("#newPostButton").removeClass("disabled");
                 jQuery("#newPostScheduleButton").removeClass("disabled");
             } else {

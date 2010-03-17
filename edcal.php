@@ -168,6 +168,7 @@ function edcal_list_admin() {
             edcal.permission_error = <?php echo(edcal_json_encode(__('You do not have permission to edit posts.', 'editorial-calendar'))) ?>;
             edcal.checksum_error = <?php echo(edcal_json_encode(__('Invalid checksum for post. This is commonly a cross-site scripting error.', 'editorial-calendar'))) ?>;
             edcal.general_error = <?php echo(edcal_json_encode(__('There was an error contacting your blog.', 'editorial-calendar'))) ?>;
+			edcal.date_error = <?php echo(edcal_json_encode(__('Enter a valid post time.', 'editorial-calendar'))) ?>;
             
             edcal.str_screenoptions = <?php echo(edcal_json_encode(__('Screen Options', 'editorial-calendar'))) ?>;
             edcal.str_optionsheader = <?php echo(edcal_json_encode(__('Calendar Options', 'editorial-calendar'))) ?>;
@@ -277,13 +278,12 @@ function edcal_list_admin() {
 				   </div>
                    -->
 				   <div class="textarea-wrap">
-					   <textarea tabindex="2" cols="15" rows="3" class="mceEditor" id="content" name="content"></textarea>
+					   <textarea cols="15" rows="3" class="mceEditor" id="content" name="content"></textarea>
 				   </div>
 			   </div>
 			   <div id="edcal-time-section" class="edcal-form-row">
 					<h4><?php _e('Post Time:', 'editorial-calendar') ?></h4>
-					<!--<input type="text" id="edcal-hh" name="hh" value="" size="2" maxlength="2" autocomplete="off" /> : <input type="text" id="edcal-mn" name="mn" value="" size="2" maxlength="2" autocomplete="off" />-->
-					<input type="text" id="edcal-time" name="time" value="" size="5" maxlength="5" autocomplete="off" />
+					<input type="text" id="edcal-time" name="time" value="" size="8" maxlength="8" autocomplete="off" />
 			   </div>
 		   </div>
 		   <div id="edit-slug-buttons" class="edcal-form-row">
@@ -344,6 +344,8 @@ function edcal_scripts() {
      * the locale for the other strings.
      */
     wp_enqueue_script( "date", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/languages/date-".__('en-US', 'editorial-calendar').".js"), array( 'jquery' ) );
+
+	wp_enqueue_script( "date-extras", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/date.extras.js"), array( 'jquery' ) );
 
     wp_enqueue_script( "edcal-lib", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/edcallib.min.js"), array( 'jquery' ) );
     return;
