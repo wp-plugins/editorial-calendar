@@ -260,10 +260,6 @@
     color: #21759B;
 }*/
 
-#tooltip {
-    width: 65%;
-}
-
 #edit-slug-buttons {
     position: relative;
 }
@@ -408,4 +404,5 @@
 
 #tooltip .mceEditor {
     height: 15em;
+    width: 35em;
 }

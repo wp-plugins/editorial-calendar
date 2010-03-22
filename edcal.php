@@ -161,6 +161,7 @@ function edcal_list_admin() {
             edcal.str_update = <?php echo(edcal_json_encode(__('Update', 'editorial-calendar'))) ?>;
             edcal.str_publish = <?php echo(edcal_json_encode(__('Schedule', 'editorial-calendar'))) ?>;
             edcal.str_save = <?php echo(edcal_json_encode(__('Save', 'editorial-calendar'))) ?>;
+            edcal.str_edit_post_title = <?php echo(edcal_json_encode(__('Edit Post', 'editorial-calendar'))) ?>;
             
             edcal.str_del_msg1 = <?php echo(edcal_json_encode(__('You are about to delete the post "', 'editorial-calendar'))) ?>;
             edcal.str_del_msg2 = <?php echo(edcal_json_encode(__('". Press Cancel to stop, OK to delete.', 'editorial-calendar'))) ?>;
@@ -296,9 +297,9 @@ function edcal_list_admin() {
                        <div id="edcal-status-section" class="edcal-form-row">
                             <h4><?php _e('Status:', 'editorial-calendar') ?></h4>
                             <select name="status" id="edcal-status">
-                                <option value="future">Scheduled</option>
-                                <option value="pending">Pending Review</option>
-                                <option value="draft">Draft</option>
+                                <option value="future"><?php _e('Scheduled', 'editorial-calendar') ?></option>
+                                <!--<option value="pending">Pending Review</option>-->
+                                <option value="draft"><?php _e('Draft', 'editorial-calendar') ?></option>
                             </select>
                        </div>
                    </div>

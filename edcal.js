@@ -881,6 +881,7 @@ var edcal = {
         if(!post.id) {
             jQuery('#tooltiptitle').text(edcal.str_newpost_title + post.formatteddate);
         } else {
+            jQuery('#tooltiptitle').text(edcal.str_edit_post_title);
             jQuery('#tooltip h3').html('<span class="tiptitle">' + post.title + '</span>');
             
             // add post info to form
@@ -903,6 +904,18 @@ var edcal = {
             jQuery('#edcal-status').val('draft');
             jQuery('#newPostScheduleButton').text(edcal.str_save);
         }
+        
+        /*
+           If you have a status that isn't draft or future we
+           just make it read only.
+         */
+        if (post.status && post.status !== 'draft' && post.status !== 'future') {
+            jQuery('#edcal-status').attr('disabled', 'true');
+            jQuery('#edcal-status').append('<option class="temp" value="' + post.status + '">' + post.status + '</option>');
+            jQuery('#edcal-status').val(post.status);
+        }
+        
+        
         
         if (edcal.getDayFromDayId(post.date).compareTo(Date.today()) == -1) {
             /*
@@ -956,6 +969,13 @@ var edcal = {
         });
         
         jQuery('#newPostScheduleButton').show().text(edcal.str_publish);
+        
+        jQuery('#tooltiptitle').text('');
+        jQuery('#tooltip h3').html('');
+        
+        jQuery('#edcal-status').removeAttr('disabled');
+        
+        jQuery('#edcal-status .temp').remove();
     },
     
     /*
