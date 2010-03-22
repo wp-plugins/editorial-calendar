@@ -282,7 +282,7 @@
     font-weight:bold;
     left: 0.5em;
     position:absolute;
-    top: -12px;
+    top: -14px;
 }
 
 #tooltip p {
@@ -381,11 +381,11 @@
 }
 
 #tipclose {
-    width: 24px;
-    height: 23px;
+    width: 16px;
+    height: 15px;
     position: absolute;
-    top: -14px;
-    right: -10px;
+    top: -12px;
+    right: -5px;
 }
 
 .tiptitle {
