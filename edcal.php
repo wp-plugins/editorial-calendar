@@ -154,8 +154,8 @@ function edcal_list_admin() {
             edcal.str_republish = <?php echo(edcal_json_encode(__('Republish', 'editorial-calendar'))) ?>;
             edcal.str_status = <?php echo(edcal_json_encode(__('Status:', 'editorial-calendar'))) ?>;
             edcal.str_cancel = <?php echo(edcal_json_encode(__('Cancel', 'editorial-calendar'))) ?>;
-            edcal.str_posttitle = <?php echo(edcal_json_encode(__('Post Title:', 'editorial-calendar'))) ?>;
-            edcal.str_postcontent = <?php echo(edcal_json_encode(__('Post Content:', 'editorial-calendar'))) ?>;
+            edcal.str_posttitle = <?php echo(edcal_json_encode(__('Title', 'editorial-calendar'))) ?>;
+            edcal.str_postcontent = <?php echo(edcal_json_encode(__('Content', 'editorial-calendar'))) ?>;
             edcal.str_newpost = <?php echo(edcal_json_encode(__('Add a new post on ', 'editorial-calendar'))) ?>;
             edcal.str_newpost_title = <?php echo(edcal_json_encode(__('New Post - ', 'editorial-calendar'))) ?>;
             edcal.str_update = <?php echo(edcal_json_encode(__('Update', 'editorial-calendar'))) ?>;
@@ -269,13 +269,13 @@ function edcal_list_admin() {
                <a href="#" id="tipclose" onclick="edcal.hideForm(); return false;" title="close"> </a>
     		   <h3><!-- Placeholder for the form title; added dynamically --></h3>
     		   <div id="edcal-title-new-section">
-    				<div class="edcal-form-row">
-    					<h4><?php _e('Post Title:', 'editorial-calendar') ?></h4>
-    					<input type="text" class="text_input" id="edcal-title-new-field" name="title" /><br />
+    				<div id="edcal-title-row" class="edcal-form-row">
+    					<h4 class="edcal-form-label"><?php _e('Title', 'editorial-calendar') ?></h4>
+    					<input type="text" class="text_input edcal-form-control" id="edcal-title-new-field" name="title" /><br />
     				</div>
     			   
-    				<div class="edcal-form-row">
-    				   <h4><?php _e('Post Content:', 'editorial-calendar') ?></h4>
+    				<div id="edcal-content-row" class="edcal-form-row">
+    				   <h4 class="edcal-form-label"><?php _e('Content', 'editorial-calendar') ?></h4>
     				   <!--
                        <div id="cal_mediabar">
     						<?php if ( current_user_can( 'upload_files' ) ) : ?>
@@ -285,25 +285,23 @@ function edcal_list_admin() {
     						<?php endif; ?>
     				   </div>
                        -->
-    				   <div class="textarea-wrap">
+    				   <div class="textarea-wrap edcal-form-control">
     					   <textarea cols="15" rows="3" class="mceEditor" id="content" name="content"></textarea>
     				   </div>
     			   </div>
-                   <div id="edcal-time-status-section">
-                       <div id="edcal-time-section" class="edcal-form-row">
-                            <h4><?php _e('Post Time:', 'editorial-calendar') ?></h4>
-                            <input type="text" id="edcal-time" name="time" value="" size="8" readonly="true" maxlength="8" autocomplete="off" />
-                       </div>
-                       <div id="edcal-status-section" class="edcal-form-row">
-                            <h4><?php _e('Status:', 'editorial-calendar') ?></h4>
-                            <select name="status" id="edcal-status">
-                                <option value="future"><?php _e('Scheduled', 'editorial-calendar') ?></option>
-                                <!--<option value="pending">Pending Review</option>-->
-                                <option value="draft"><?php _e('Draft', 'editorial-calendar') ?></option>
-                            </select>
-                       </div>
+                   <div id="edcal-time-section" class="edcal-form-row">
+                        <h4 class="edcal-form-label"><?php _e('Time', 'editorial-calendar') ?></h4>
+                        <input type="text" class="edcal-form-control" id="edcal-time" name="time" value="" size="8" readonly="true" maxlength="8" autocomplete="off" />
                    </div>
-    		   </div>
+                   <div id="edcal-status-section" class="edcal-form-row">
+                        <h4 class="edcal-form-label"><?php _e('Status', 'editorial-calendar') ?></h4>
+                        <select name="status" id="edcal-status" class="edcal-form-control">
+                            <option value="future"><?php _e('Scheduled', 'editorial-calendar') ?></option>
+                            <!--<option value="pending">Pending Review</option>-->
+                            <option value="draft"><?php _e('Draft', 'editorial-calendar') ?></option>
+                        </select>
+                   </div>
+               </div>
     		   <div id="edit-slug-buttons" class="edcal-form-row">
                    <a class="button-primary disabled" id="newPostScheduleButton" href="#"><?php _e('Schedule', 'editorial-calendar') ?></a>
     			   <a href="#" onclick="edcal.hideForm(); return false;" class="button-secondary cancel"><?php _e('Cancel', 'editorial-calendar') ?></a>
