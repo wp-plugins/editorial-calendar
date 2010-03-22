@@ -280,8 +280,7 @@
 
 #tooltiptitle {
     font-weight:bold;
-    left: 0px;
-    padding-right:10px;
+    left: 0.5em;
     position:absolute;
     top: -12px;
 }
@@ -358,8 +357,7 @@
 }
 
 .newposttip {
-    padding: 1em;
-    padding-bottom: 2em;
+    padding: 1em 1em 1em 0.5em;
     position: relative;
 }
 
@@ -386,8 +384,8 @@
     width: 24px;
     height: 23px;
     position: absolute;
-    top: -12px;
-    right: -5px;
+    top: -14px;
+    right: -10px;
 }
 
 .tiptitle {
