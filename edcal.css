@@ -261,7 +261,7 @@
 }*/
 
 #tooltip {
-    width: 40em;
+    width: 35em;
 }
 
 #edit-slug-buttons {
@@ -270,8 +270,8 @@
 
 #newPostScheduleButton {
     position: absolute;
-    left: 85%;
-    top: 0px;
+    right: 0px;
+    top: -5px;
 }
 
 #newPostScheduleButton.disabled {
@@ -376,7 +376,7 @@
 }
 
 #edcal-title-new-section {
-    padding-top: 1.5em;
+    padding-top: 1em;
     padding-bottom: 0.5em;
 }
 
