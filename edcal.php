@@ -157,9 +157,10 @@ function edcal_list_admin() {
             edcal.str_posttitle = <?php echo(edcal_json_encode(__('Post Title:', 'editorial-calendar'))) ?>;
             edcal.str_postcontent = <?php echo(edcal_json_encode(__('Post Content:', 'editorial-calendar'))) ?>;
             edcal.str_newpost = <?php echo(edcal_json_encode(__('Add a new post on ', 'editorial-calendar'))) ?>;
-			edcal.str_editpost = <?php echo(edcal_json_encode(__('Edit Post: ', 'editorial-calendar'))) ?>;
+            edcal.str_newpost_title = <?php echo(edcal_json_encode(__('New Post - ', 'editorial-calendar'))) ?>;
             edcal.str_update = <?php echo(edcal_json_encode(__('Update', 'editorial-calendar'))) ?>;
             edcal.str_publish = <?php echo(edcal_json_encode(__('Schedule', 'editorial-calendar'))) ?>;
+            edcal.str_save = <?php echo(edcal_json_encode(__('Save', 'editorial-calendar'))) ?>;
             
             edcal.str_del_msg1 = <?php echo(edcal_json_encode(__('You are about to delete the post "', 'editorial-calendar'))) ?>;
             edcal.str_del_msg2 = <?php echo(edcal_json_encode(__('". Press Cancel to stop, OK to delete.', 'editorial-calendar'))) ?>;
@@ -194,6 +195,10 @@ function edcal_list_admin() {
 
         .month-present .daylabel {
             background: #F5F5F5 url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/month-present_bk.gif")); ?>') repeat-x left top;
+        }
+        
+        #tooltip {
+            background: white url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/month-present_bk.gif")); ?>') repeat-x left top;
         }
 
         .today .daylabel {
@@ -256,42 +261,54 @@ function edcal_list_admin() {
         </div>
 		
 		<div id="tooltip" style="display:none;">
-		   <div class="tooltip newposttip">
-		   <a href="#" id="tipclose" onclick="edcal.hideForm(); return false;" title="close"> </a>
-		   <h3><!-- Placeholder for the form title; added dynamically --></h3>
-		   <div id="edcal-title-new-section">
-				<div class="edcal-form-row">
-					<h4><?php _e('Post Title:', 'editorial-calendar') ?></h4>
-					<input type="text" class="text_input" id="edcal-title-new-field" name="title" /><br />
-				</div>
-			   
-				<div class="edcal-form-row">
-				   <h4><?php _e('Post Content:', 'editorial-calendar') ?></h4>
-				   <!--
-                   <div id="cal_mediabar">
-						<?php if ( current_user_can( 'upload_files' ) ) : ?>
-							<div id="media-buttons" class="hide-if-no-js">
-								<?php do_action( 'media_buttons' ); ?>
-							</div>
-						<?php endif; ?>
-				   </div>
-                   -->
-				   <div class="textarea-wrap">
-					   <textarea cols="15" rows="3" class="mceEditor" id="content" name="content"></textarea>
-				   </div>
-			   </div>
-			   <div id="edcal-time-section" class="edcal-form-row">
-					<h4><?php _e('Post Time:', 'editorial-calendar') ?></h4>
-					<input type="text" id="edcal-time" name="time" value="" size="8" readonly="true" maxlength="8" autocomplete="off" />
-			   </div>
-		   </div>
-		   <div id="edit-slug-buttons" class="edcal-form-row">
-			   <a class="save button disabled" id="newPostButton" href="#"><?php _e('Save Draft', 'editorial-calendar') ?></a>
-			   <a class="button-primary disabled" id="newPostScheduleButton" href="#"><?php _e('Schedule', 'editorial-calendar') ?></a>
-			   <a href="#" onclick="edcal.hideForm(); return false;" class="cancel"><?php _e('Cancel', 'editorial-calendar') ?></a>
-		   </div>
-		   <input type="hidden" id="edcal-date" name="date" value="" />
-		   <input type="hidden" id="edcal-id" name="id" value="" />
+           <div class="tooltip newposttip">
+               <div id="tooltiptitle">
+                   <?php _e('Edit Post', 'editorial-calendar') ?>
+               </div>
+               <a href="#" id="tipclose" onclick="edcal.hideForm(); return false;" title="close"> </a>
+    		   <h3><!-- Placeholder for the form title; added dynamically --></h3>
+    		   <div id="edcal-title-new-section">
+    				<div class="edcal-form-row">
+    					<h4><?php _e('Post Title:', 'editorial-calendar') ?></h4>
+    					<input type="text" class="text_input" id="edcal-title-new-field" name="title" /><br />
+    				</div>
+    			   
+    				<div class="edcal-form-row">
+    				   <h4><?php _e('Post Content:', 'editorial-calendar') ?></h4>
+    				   <!--
+                       <div id="cal_mediabar">
+    						<?php if ( current_user_can( 'upload_files' ) ) : ?>
+    							<div id="media-buttons" class="hide-if-no-js">
+    								<?php do_action( 'media_buttons' ); ?>
+    							</div>
+    						<?php endif; ?>
+    				   </div>
+                       -->
+    				   <div class="textarea-wrap">
+    					   <textarea cols="15" rows="3" class="mceEditor" id="content" name="content"></textarea>
+    				   </div>
+    			   </div>
+                   <div id="edcal-time-status-section">
+                       <div id="edcal-time-section" class="edcal-form-row">
+                            <h4><?php _e('Post Time:', 'editorial-calendar') ?></h4>
+                            <input type="text" id="edcal-time" name="time" value="" size="8" readonly="true" maxlength="8" autocomplete="off" />
+                       </div>
+                       <div id="edcal-status-section" class="edcal-form-row">
+                            <h4><?php _e('Status:', 'editorial-calendar') ?></h4>
+                            <select name="status" id="edcal-status">
+                                <option value="future">Scheduled</option>
+                                <option value="pending">Pending Review</option>
+                                <option value="draft">Draft</option>
+                            </select>
+                       </div>
+                   </div>
+    		   </div>
+    		   <div id="edit-slug-buttons" class="edcal-form-row">
+                   <a class="button-primary disabled" id="newPostScheduleButton" href="#"><?php _e('Schedule', 'editorial-calendar') ?></a>
+    			   <a href="#" onclick="edcal.hideForm(); return false;" class="button-secondary cancel"><?php _e('Cancel', 'editorial-calendar') ?></a>
+    		   </div>
+    		   <input type="hidden" id="edcal-date" name="date" value="" />
+    		   <input type="hidden" id="edcal-id" name="id" value="" />
 		   </div>
 		</div>
 		
@@ -681,9 +698,9 @@ function edcal_savepost() {
     $my_post['post_modified'] = $edcal_date;
     $my_post['post_modified_gmt'] = get_gmt_from_date($edcal_date);
     
-    if($_POST['dopublish']) {
-        wp_transition_post_status("future", $my_post['post_status'], $my_post);
-        $my_post['post_status'] = 'future';
+    if($_POST['status']) {
+        wp_transition_post_status($_POST['status'], $my_post['post_status'], $my_post);
+        $my_post['post_status'] = $_POST['status'];
     }
     
     

@@ -708,7 +708,6 @@ var edcal = {
      * Sets up a post object and displays the add form
      */
     addPost: function( ) {
-        jQuery("#newPostButton").addClass("disabled");
         jQuery("#newPostScheduleButton").addClass("disabled");
         
         var date = jQuery(this).parent().parent().attr("id");
@@ -735,7 +734,6 @@ var edcal = {
      */
     editPost: function(/*int*/ post_id) {
         // Un-disable the save buttons because we're editing
-        jQuery("#newPostButton").removeClass("disabled");
         jQuery("#newPostScheduleButton").removeClass("disabled");
         
         // Editing, so we need to make an ajax call to get body of post
@@ -799,10 +797,11 @@ var edcal = {
          var postData = "date=" + formattedDate + 
                        "&title=" + encodeURIComponent(post.title) + 
                        "&content=" + encodeURIComponent(post.content) +
-                       "&id=" + encodeURIComponent(post.id);
+                       "&id=" + encodeURIComponent(post.id) + 
+                       "&status=" + encodeURIComponent(post.status);
          
          if (doPublish) {
-             postData += "&dopublish=" + encodeURIComponent(doPublish);
+             postData += "&dopublish=" + encodeURIComponent('future');
          }
 
          jQuery.ajax( { 
@@ -880,9 +879,9 @@ var edcal = {
         jQuery('#tooltip').center().show();
         
         if(!post.id) {
-            jQuery('#tooltip h3').text(edcal.str_newpost + post.formatteddate);
+            jQuery('#tooltiptitle').text(edcal.str_newpost_title + post.formatteddate);
         } else {
-            jQuery('#tooltip h3').html(edcal.str_editpost + '<span class="tiptitle">' + post.title + '</span>');
+            jQuery('#tooltip h3').html('<span class="tiptitle">' + post.title + '</span>');
             
             // add post info to form
             jQuery('#edcal-title-new-field').val(post.title);
@@ -891,7 +890,18 @@ var edcal = {
         
         if (post.status === "future") {
             jQuery('#newPostScheduleButton').text(edcal.str_update);
-            jQuery('#newPostButton').hide();
+        }
+        
+        if (post.status) {
+            jQuery('#edcal-status').val(post.status);
+            if (post.status === 'future') {
+                jQuery('#newPostScheduleButton').text(edcal.str_publish);
+            } else {
+                jQuery('#newPostScheduleButton').text(edcal.str_save);
+            }
+        } else {
+            jQuery('#edcal-status').val('draft');
+            jQuery('#newPostScheduleButton').text(edcal.str_save);
         }
         
         if (edcal.getDayFromDayId(post.date).compareTo(Date.today()) == -1) {
@@ -945,7 +955,6 @@ var edcal = {
         });
         
         jQuery('#newPostScheduleButton').show().text(edcal.str_publish);
-        jQuery('#newPostButton').show();
     },
     
     /*
@@ -1114,7 +1123,7 @@ var edcal = {
              return '<li onmouseover="edcal.showActionLinks(\'post-' + post.id + '\');" ' + 
                  'onmouseout="edcal.hideActionLinks(\'post-' + post.id + '\');" ' + 
                  'id="post-' + post.id + '" class="post ' + post.status + ' ' + edcal.getPostEditableClass(post) + '"><div class="postlink">' + posttitle + '</div>' + 
-                 '<div class="postactions"><a href="' + post.editlink + '" onclick="edcal.editPost('+ post.id +'); return false;">' + edcal.str_edit + '</a> | ' +
+                 '<div class="postactions"><a href="#" onclick="edcal.editPost('+ post.id +'); return false;">' + edcal.str_edit + '</a> | ' +
                  '<a href="' + post.dellink + '" onclick="return edcal.confirmDelete(\'' + post.title + '\');">' + edcal.str_del + '</a> | ' +
                  '<a href="' + post.permalink + '">' + edcal.str_view + '</a>'  + 
                  '</div></li>';
@@ -1571,15 +1580,6 @@ var edcal = {
         }
         jQuery(window).bind("resize", resizeWindow);
 
-        jQuery("#newPostButton").live("click", function(evt) {
-            // if the button is disabled, don't do anything
-            if( jQuery(this).hasClass('disabled') ) {
-                return false;
-            }
-            // Otherwise, save the post
-            return edcal.savePost(null, false, false);
-        });
-        
         jQuery("#newPostScheduleButton").live("click", function(evt) {
             // if the button is disabled, don't do anything
             if( jQuery(this).hasClass('disabled') ) {
@@ -1589,12 +1589,10 @@ var edcal = {
             return edcal.savePost(null, false, true);
         });
 
-        jQuery("#edcal-title-new-field").live("keyup", function(evt) {
+        jQuery("#edcal-title-new-field").bind("keyup", function(evt) {
             if (jQuery("#edcal-title-new-field").val().length > 0 && jQuery('#edcal-time').val().length > 0) {
-                jQuery("#newPostButton").removeClass("disabled");
                 jQuery("#newPostScheduleButton").removeClass("disabled");
             } else {
-                jQuery("#newPostButton").addClass("disabled");
                 jQuery("#newPostScheduleButton").addClass("disabled");
             }
 
@@ -1603,6 +1601,14 @@ var edcal = {
                  * If the user presses enter we want to save the draft.
                  */
                 return edcal.savePost(null, true);
+            }
+        });
+        
+        jQuery("#edcal-status").bind("change", function(evt) {
+            if (jQuery('#edcal-status').val() === 'future') {
+                jQuery('#newPostScheduleButton').text(edcal.str_publish);
+            } else {
+                jQuery('#newPostScheduleButton').text(edcal.str_save);
             }
         });
 

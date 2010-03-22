@@ -261,7 +261,29 @@
 }*/
 
 #tooltip {
-    width: 30em;
+    width: 40em;
+}
+
+#edit-slug-buttons {
+    position: relative;
+}
+
+#newPostScheduleButton {
+    position: absolute;
+    left: 85%;
+    top: 0px;
+}
+
+#newPostScheduleButton.disabled {
+    color: #AAAAAA;
+}
+
+#tooltiptitle {
+    font-weight:bold;
+    left: 0px;
+    padding-right:10px;
+    position:absolute;
+    top: -12px;
 }
 
 #tooltip p {
@@ -272,14 +294,16 @@
     max-width: 20em;
     margin-bottom: -10px;
     padding-right: 15px;
-    margin-top: -10px;
+    margin-top: 0px;
+    font-size: 13px;
+    font-weight: bold;
 }
 
 #tooltip h4 {
 	margin: 0 0 3px 0;
 }
 
-#tooltip #edcal-time-section h4 {
+#tooltip #edcal-time-status-section h4 {
     display: inline;
 }
 
@@ -287,6 +311,25 @@
     margin-left: 1em;
     width: 7em;
     background-color: white;
+}
+
+#edcal-time-status-section {
+    position: relative;
+    height: 5em;
+}
+
+#edcal-time-section {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 48%;
+}
+
+#edcal-status-section {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    width: 48%;
 }
 
 #tooltip .edcal-form-row {
@@ -317,6 +360,7 @@
 .newposttip {
     padding: 1em;
     padding-bottom: 2em;
+    position: relative;
 }
 
 #edcal-title {
@@ -342,8 +386,8 @@
     width: 24px;
     height: 23px;
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: -12px;
+    right: -5px;
 }
 
 .tiptitle {
@@ -366,8 +410,4 @@
 
 #tooltip .mceEditor {
     height: 10em;
-}
-
-#newPostScheduleButton.disabled {
-    color: #AAAAAA;
 }
