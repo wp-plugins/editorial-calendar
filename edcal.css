@@ -261,7 +261,7 @@
 }*/
 
 #tooltip {
-    width: 35em;
+    width: 65%;
 }
 
 #edit-slug-buttons {
@@ -407,5 +407,5 @@
 }
 
 #tooltip .mceEditor {
-    height: 10em;
+    height: 15em;
 }

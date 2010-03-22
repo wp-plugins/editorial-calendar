@@ -917,24 +917,25 @@ var edcal = {
         // set hidden fields: post.date, post.id
         jQuery('#edcal-date').val(post.date);
         jQuery('#edcal-id').val(post.id);
-        
-          /*
-           * Put the focus in the post title field when the tooltip opens.
-           */
-          jQuery("#edcal-title-new-field").focus();
-          jQuery("#edcal-title-new-field").select();
 
-          tb_init('a.thickbox, area.thickbox, input.thickbox');
+        /*
+         * Put the focus in the post title field when the tooltip opens.
+         */
 
-          edCanvas = document.getElementById('content');
-          edInsertContent = null;
+        jQuery("#edcal-title-new-field").focus();
+        jQuery("#edcal-title-new-field").select();
 
-          jQuery('a.thickbox').click(function(){
-              if ( typeof tinyMCE != 'undefined' && tinyMCE.activeEditor ) {
-                  tinyMCE.get('content').focus();
-                  tinyMCE.activeEditor.windowManager.bookmark = tinyMCE.activeEditor.selection.getBookmark('simple');
-              }
-          });
+        tb_init('a.thickbox, area.thickbox, input.thickbox');
+
+        edCanvas = document.getElementById('content');
+        edInsertContent = null;
+
+        jQuery('a.thickbox').click(function(){
+            if ( typeof tinyMCE != 'undefined' && tinyMCE.activeEditor ) {
+                tinyMCE.get('content').focus();
+                tinyMCE.activeEditor.windowManager.bookmark = tinyMCE.activeEditor.selection.getBookmark('simple');
+            }
+        });
     },
     
     /*
