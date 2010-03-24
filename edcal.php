@@ -390,6 +390,7 @@ function edcal_scripts() {
  */
 function edcal_posts() {
     header("Content-Type: application/json");
+    edcal_addNoCacheHeaders();
     if (!edcal_checknonce()) {
         die();
     }
@@ -441,6 +442,7 @@ function edcal_posts() {
 function edcal_getpost() {
 	
 	header("Content-Type: application/json");
+    edcal_addNoCacheHeaders();
 	
 	// If nonce fails, return
 	if (!edcal_checknonce()) die();
@@ -539,6 +541,8 @@ function edcal_deletepost() {
 	}
 
     header("Content-Type: application/json");
+    edcal_addNoCacheHeaders();
+    
     $edcal_postid = isset($_GET['postid'])?$_GET['postid']:null;
     $post = get_post($edcal_postid, ARRAY_A);
 	$title = $post['post_title'];
@@ -584,6 +588,8 @@ function edcal_changetitle() {
     }
 
     header("Content-Type: application/json");
+    edcal_addNoCacheHeaders();
+    
     $edcal_postid = isset($_GET['postid'])?$_GET['postid']:null;
     $edcal_newTitle = isset($_GET['title'])?$_GET['title']:null;
     
@@ -631,6 +637,7 @@ function edcal_newdraft() {
     }
 
     header("Content-Type: application/json");
+    edcal_addNoCacheHeaders();
     
     $edcal_date = isset($_POST["date"])?$_POST["date"]:null;
     
@@ -677,6 +684,7 @@ function edcal_savepost() {
     }
 
     header("Content-Type: application/json");
+    edcal_addNoCacheHeaders();
     
     $edcal_date = isset($_POST["date"])?$_POST["date"]:null;
     
@@ -738,6 +746,8 @@ function edcal_savepost() {
  */
 function edcal_checknonce() {
     header("Content-Type: application/json");
+    edcal_addNoCacheHeaders();
+    
     global $EDCAL_NONCE_ERROR;
     if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'edit-calendar')) {
        /*
@@ -769,6 +779,8 @@ function edcal_changedate() {
         die();
     }
     header("Content-Type: application/json");
+    edcal_addNoCacheHeaders();
+    
     global $edcal_startDate, $edcal_endDate;
     $edcal_postid = isset($_GET['postid'])?$_GET['postid']:null;
     $edcal_newDate = isset($_GET['newdate'])?$_GET['newdate']:null;
@@ -920,6 +932,8 @@ function edcal_saveoptions() {
     }
 
     header("Content-Type: application/json");
+    edcal_addNoCacheHeaders();
+    
     $edcal_weeks = isset($_GET['weeks'])?$_GET['weeks']:null;
     
     add_option("edcal_weeks_pref", $edcal_weeks, "", "yes");
@@ -935,4 +949,13 @@ function edcal_saveoptions() {
     <?php
     
     die();
+}
+
+/*
+ * Add the no cache headers to make sure that our responses aren't
+ * cached by the browser.
+ */
+function edcal_addNoCacheHeaders() {
+    header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+    header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
 }
