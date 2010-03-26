@@ -518,7 +518,7 @@ function edcal_postJSON($post, $addComma = true, $fullPost = false) {
             "id" : "<?php the_ID(); ?>"
 			
 			<?php if($fullPost) : ?>
-			, "content" : "<?php echo esc_js(get_the_content()) ?>"
+			, "content" : <?php echo edcal_json_encode(get_the_content()) ?>
 			
 			<?php endif; ?>
         }
