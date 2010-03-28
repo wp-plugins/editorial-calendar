@@ -771,13 +771,13 @@ var edcal = {
             ergo sum.
           */
          edcal.output("post.time: " + post.time);
-         if (post.time === "12:00 PM") {
+         if (post.time.toUpperCase() === "12:00 PM") {
              post.time = "12:00";
-         } else if (post.time === "12:30 PM") {
+         } else if (post.time.toUpperCase() === "12:30 PM") {
              post.time = "12:30";
-         } else if (post.time === "12:00 AM") {
+         } else if (post.time.toUpperCase() === "12:00 AM") {
              post.time = "00:00";
-         } else if (post.time === "12:30 AM") {
+         } else if (post.time.toUpperCase() === "12:30 AM") {
              post.time = "00:30";
          }
 
