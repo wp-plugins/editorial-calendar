@@ -479,7 +479,7 @@ var edcal = {
                         edcal.handleDrag(event, ui);
                      },
                      scroll: false,
-                     refreshPositions: true
+                     refreshPositions: true,
                  });
                  jQuery(this).addClass("draggable");
              }
@@ -1042,25 +1042,6 @@ var edcal = {
     },
     
     /*
-       When you hover your mouse over a post we show the edit, delete,
-       and view links below it.  If there was another post below we don't
-       want it to jump around.  To make that work we set a padding on the
-       bottom of the post equal to the height of the div containing
-       the links.  When the div is shown we remove the padding on the
-       bottom.
-     
-       This function determines the right size for that padding.  We
-       call it once when we first get posts and again if we resize the
-       window.  The boolean indicates which case this is.
-     */
-    updatePostPadding: function(/*boolean*/ resized) {
-         if (resized || !edcal.actionButtonHeight) {
-             edcal.actionButtonHeight = jQuery("div.postactions").height();
-             jQuery(".post").css("padding-bottom", edcal.actionButtonHeight + "px");
-         }
-    },
-
-    /*
        This function shows the action links for the post with the
        specified ID.
      */
@@ -1070,9 +1051,6 @@ var edcal = {
          if (edcal.inDrag || !edcal.isPostEditable(post)) {
              return;
          }
-         jQuery('#' + postid).css({
-             'padding-bottom': '0px'
-         });
          jQuery('#' + postid + ' > div.postactions').show();
     }, 
 
@@ -1081,9 +1059,6 @@ var edcal = {
        post ID.
      */
     hideActionLinks: function(/*string*/ postid) {
-         jQuery('#' + postid).css({
-             'padding-bottom': edcal.actionButtonHeight + "px"
-         });
          jQuery('#' + postid + ' > div.postactions').hide();
     },
 
@@ -1463,8 +1438,6 @@ var edcal = {
              bottom: cal.offset().top + cal.height()
          };
 
-         edcal.updatePostPadding(true);
-         
          /*
             When the user drags a post they get a "helper" element that clones
             the post and displays it during the drag.  This means they get all
@@ -1886,7 +1859,6 @@ var edcal = {
                     jQuery.each(postDates, function(i, postDate) {
                         edcal.addPostItemDragAndToolltip(postDate);
                     });
-                    edcal.updatePostPadding(false);
                 }, 300);
              },
              error: function(xhr) {
