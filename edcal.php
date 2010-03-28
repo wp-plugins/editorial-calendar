@@ -145,7 +145,7 @@ function edcal_list_admin() {
             edcal.str_by = <?php echo(edcal_json_encode(__('by', 'editorial-calendar'))) ?>;
             edcal.str_at = <?php echo(edcal_json_encode(__('at', 'editorial-calendar'))) ?>;
 
-            edcal.str_addPostLink = <?php echo(edcal_json_encode(__('Add a Post', 'editorial-calendar'))) ?>;
+            edcal.str_addPostLink = <?php echo(edcal_json_encode(__('New Post', 'editorial-calendar'))) ?>;
             
             edcal.str_draft = <?php echo(edcal_json_encode(__(' [DRAFT]', 'editorial-calendar'))) ?>;
             edcal.str_edit = <?php echo(edcal_json_encode(__('Edit', 'editorial-calendar'))) ?>;

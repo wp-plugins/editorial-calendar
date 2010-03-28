@@ -521,7 +521,7 @@ var edcal = {
           */
          setTimeout(function() {
              edcal.isDragScrolling = false;
-         }, 500);
+         }, 300);
     },
     
     /*
