@@ -323,6 +323,10 @@
     background-color: white;
 }
 
+#tooltip #edcal-time-section h4, #tooltip #edcal-status-section h4 {
+    top: 3px;
+}
+
 #edcal-time-status-section {
     position: relative;
     height: 5em;
