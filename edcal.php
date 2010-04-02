@@ -32,7 +32,7 @@ add_action('admin_menu', 'edcal_list_add_management_page');
 add_action('wp_ajax_edcal_posts', 'edcal_posts' );
 add_action('wp_ajax_edcal_getpost', 'edcal_getpost' );
 add_action('wp_ajax_edcal_deletepost', 'edcal_deletepost' );
-add_action("admin_print_scripts", 'edcal_scripts');
+//add_action("admin_print_scripts", 'edcal_scripts');
 add_action("init", 'edcal_load_language');
 
 /*
@@ -60,7 +60,8 @@ function edcal_load_language() {
  */
 function edcal_list_add_management_page(  ) {
     if ( function_exists('add_management_page') ) {
-        $page = add_posts_page( 'Calendar', __('Calendar', 'editorial-calendar'), 'edit_posts', 'posts_list', 'edcal_list_admin' );
+        $page = add_posts_page( __('Calendar', 'editorial-calendar'), __('Calendar', 'editorial-calendar'), 'edit_posts', 'cal', 'edcal_list_admin' );
+        add_action( "admin_print_scripts-$page", 'edcal_scripts' );
     }
 }
 
