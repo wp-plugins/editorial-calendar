@@ -86,6 +86,7 @@ If you use the plugin <a href="http://wordpress.org/extend/plugins/live-countdow
 * Added a link to view published posts directly from the calendar.
 * The calendar will now use the WordPress preference for the first day of the week and fall back on the server locale if it isn't set.
 * The calendar is also using the WordPress preferences for time format.
+* The calendar is now loading JavaScript in a more specific way.  That makes other pages load faster and avoids a potential JavaScript conflict with other plugins.
 
 
 = 0.6 =
