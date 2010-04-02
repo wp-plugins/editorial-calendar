@@ -279,7 +279,7 @@
 }
 
 #tooltip {
-    width: 35em;
+    min-width: 35em;
 }
 
 #tooltip .mceEditor {
@@ -348,10 +348,6 @@
     position: relative;
 }
 
-#edcal-content-row {
-    height: 16em;
-}
-
 #edcal-title-row, #edcal-time-section, #edcal-status-section {
     height: 2em;
 }
@@ -373,6 +369,16 @@
     left: 7em;
     top: 0px;
     width: 75%;
+}
+
+#tooltip #edcal-content-row .edcal-form-label {
+    position: static;
+    float: left;
+}
+
+#tooltip #edcal-content-row .edcal-form-control {
+    position: static;
+    margin-left: 7em;
 }
 
 #edcal-status-section .edcal-form-control {
