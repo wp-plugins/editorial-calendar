@@ -291,7 +291,8 @@
     font-weight:bold;
     left: 0.5em;
     position:absolute;
-    top: -14px;
+    top: -8px;
+    text-shadow: #fff 0px 1px 0px;
 }
 
 #tooltip p {
@@ -302,7 +303,7 @@
     max-width: 20em;
     margin-bottom: -10px;
     padding-right: 15px;
-    margin-top: 0px;
+    margin-top: 1em;
     font-size: 13px;
     font-weight: bold;
 }
@@ -403,8 +404,8 @@
     padding: 1em;
     padding-bottom: 0em;
     border: thin solid lightgray;
-    -moz-border-radius:11px;
-    -webkit-border-radius:11px;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
     -moz-box-shadow:0 4px 8px #C8C8C8;
     position: relative;
     z-index: 25;
@@ -438,8 +439,8 @@
     width: 16px;
     height: 15px;
     position: absolute;
-    top: -12px;
-    right: -5px;
+    top: -5px;
+    right: -4px;
 }
 
 #edcal-title-box {

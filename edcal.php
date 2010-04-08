@@ -200,7 +200,7 @@ function edcal_list_admin() {
         }
         
         #tooltip {
-            background: white url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/month-present_bk.gif")); ?>') repeat-x left top;
+            background: white url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/gray-grad.png")); ?>') repeat-x left top;
         }
 
         .today .daylabel {
