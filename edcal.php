@@ -178,7 +178,7 @@ function edcal_list_admin() {
             edcal.str_show = <?php echo(edcal_json_encode(__('Show ', 'editorial-calendar'))) ?>;
             edcal.str_show2 = <?php echo(edcal_json_encode(__('weeks at a time', 'editorial-calendar'))) ?>;
             edcal.str_weekserror = <?php echo(edcal_json_encode(__('The calendar can only show between 1 and 5 weeks at a time.', 'editorial-calendar'))) ?>;
-            edcal.str_weekstt = <?php echo(edcal_json_encode(__('Enter the number of weeks, between 1 and 5, for the calendar to show.', 'editorial-calendar'))) ?>;
+            edcal.str_weekstt = <?php echo(edcal_json_encode(__('Select the number of weeks for the calendar to show.', 'editorial-calendar'))) ?>;
         });
     </script>
 
