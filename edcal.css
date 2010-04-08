@@ -456,3 +456,7 @@
     /*padding: 0.5em;*/
     font-size:12px;
 }
+
+#edcal_weeks_pref {
+    width: 4em;
+}

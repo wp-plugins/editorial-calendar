@@ -1951,16 +1951,26 @@ var edcal = {
                 Show the screen options section.  We start by saving off the old HTML
               */
              edcal.helpMeta = jQuery("#contextual-help-wrap").html();
-             
-             jQuery("#contextual-help-wrap").html(
-                 '<h5>' + edcal.str_optionsheader + '</h5>' + 
+
+             var optionsHtml = '<h5>' + edcal.str_optionsheader + '</h5>' + 
                  '<div class="metabox-prefs">' + 
-                    edcal.str_show + '<input type="text" value="' + edcal.weeksPref + '" ' + 
-                                            'maxlength="1" width="2" id="edcal_weeks_pref" ' + 
-                                            'class="screen-per-page" title="' + edcal.str_weekstt + '" /> ' +
+                    edcal.str_show + '<select id="edcal_weeks_pref" ' + 'class="screen-per-page" title="' + edcal.str_weekstt + '"> ';
+
+             var weeks = parseInt(edcal.weeksPref, 10);
+             for (i = 1; i < 6; i++) {
+                 if (i === weeks) {
+                     optionsHtml += '<option selected="true">' + i + '</option>';
+                 } else {
+                     optionsHtml += '<option>' + i + '</option>';
+                 }
+             }
+
+             optionsHtml += '</select>' + 
                     edcal.str_show2 + '<br /><br />' + 
                     '<button id="edcal_applyoptions" onclick="edcal.saveOptions(); return false;" class="save button">' + edcal.str_apply + '</button>' +
-                 '</div>');
+                 '</div>';
+             
+             jQuery("#contextual-help-wrap").html(optionsHtml);
              
              jQuery("#contextual-help-link-wrap").hide();
              
