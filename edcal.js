@@ -921,7 +921,7 @@ var edcal = {
             /*
              * We only allow drafts in the past
              */
-            jQuery('#newPostScheduleButton').hide();
+            jQuery('#futureoption').hide();
         }
         
         var time = post.time;
@@ -968,7 +968,9 @@ var edcal = {
             this.value = '';
         });
         
-        jQuery('#newPostScheduleButton').show().text(edcal.str_publish);
+        jQuery('#futureoption').show();
+        
+        jQuery('#newPostScheduleButton').text(edcal.str_publish);
         
         jQuery('#tooltiptitle').text('');
         jQuery('#tooltip h3').html('');

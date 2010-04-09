@@ -283,7 +283,7 @@ function edcal_list_admin() {
                    <div id="edcal-status-section" class="edcal-form-row">
                         <h4 class="edcal-form-label"><?php _e('Status', 'editorial-calendar') ?></h4>
                         <select name="status" id="edcal-status" class="edcal-form-control">
-                            <option value="future"><?php _e('Scheduled', 'editorial-calendar') ?></option>
+                            <option id="futureoption" value="future"><?php _e('Scheduled', 'editorial-calendar') ?></option>
                             <!--<option value="pending">Pending Review</option>-->
                             <option value="draft"><?php _e('Draft', 'editorial-calendar') ?></option>
                         </select>
