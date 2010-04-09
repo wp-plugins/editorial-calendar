@@ -9,16 +9,21 @@ Editorial calendar makes it possible to see all your posts and drag and drop the
 
 == Description ==
 
-The editorial calendar lets WordPress administrators and editors manage the dates for multiple posts at once.  You see all of your posts in a calendar view and can arrange them via an easy drag and drop interface.  The editorial calendar greatly improves any blog that plans posts in advance or takes contributions from multiple users.
+Did you remember to write a post for next Tuesday?  What about the Tuesday after that?  WordPress doesn't make it easy to see what posts happen on what days.  The editorial calendar gives you an overview of your blog and when each post will be available.  You can drag and drop to move posts, quickly edit posts right in the calendar, and manage your entire blog.  
 
 <a href="http://chrisg.org/drag-and-drop-post-scheduling-with-the-editorial-calendar-wordpress-plugin/">Chris Garret</a> liked the calendar so much he made a <a href="http://www.youtube.com/watch?v=F4BnQZsgtZc&feature=player_embedded" style="font-size: 1.25em">video</a> showing you how to use it.  Thanks Chris!
 
-Features:
+<h4>Try it out</h4>
+You don't have to install the calendar to give it a try.  Just check out the demo installation at <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=cal">Zack's WordPress Sandbox</a>.
+
+<h4>Features</h4>
 
 1. See all of your posts and when they'll be posted.
 1. Drag and drop to change your post dates.
-1. Edit and arrange post titles.
+1. Quick edit post titles, contents, and times.
 1. Easily see the status of your posts.
+
+<h4>Make it better</h4>
 
 The editorial calendar is getting closer and closer to version 1.0.  We have a few more features to go.  Thank you to everyone who has helped us improve this plugin with their feedback.  If you have questions, problems, or idea for new features please let us know at <a href="mailto:wp-edcal@googlegroups.com">wp-edcal@googlegroups.com</a>.  
 
@@ -33,7 +38,7 @@ The editorial calendar is getting closer and closer to version 1.0.  We have a f
 
 = Can I see a demo of the calendar? =
 
-Check out our demo installation at <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=posts_list">Zack's WordPress Sandbox</a>.
+Check out our demo installation at <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=cal">Zack's WordPress Sandbox</a>.
 
 = How do I navigate the calendar? =
 
@@ -48,15 +53,25 @@ You can move around in the calendar using the arrows next to the months at the t
 
 = What languages does the calendar support? =
 
-The calendar is available in English, French, and Croatian. 
+The calendar is available in English, French, Czechoslovakian, and Croatian. 
 
 = Can I add new languages? =
 
 Yes please!  We are looking for translators.  It only takes about 20 minutes.  If you're interested please <a href="mailto:wp-edcal@googlegroups.com">contact us</a>.
 
+= What users can us the calendar? =
+
+The editorial calendar appears differently based on your permissions.  Administrators and Editors can use every feature available in the calendar.  Authors can use the calendar to edit and move their own posts, but other people's posts are read-only.  Contributors and Subscribers can't see the calendar.
+
+
 = Can I use the editorial calendar with pages? =
 
 Right now the calendar only supports posts.  We're considering adding pages.  If you would like to see support for pages let us know.
+
+= Does the calendar support group blogs? =
+
+If your blog has multiple authors the calendar will work just fine.  We are currently working on new features to add for multi-author blogs.  If you have any ideas please <a href="mailto:wp-edcal@googlegroups.com">contact us</a>.
+
 
 = Will my readers be able to tell I'm using the editorial calendar? =
 
@@ -66,7 +81,7 @@ No.  The calendar is only an administration tool.  None of your readers will kno
 
 Moving published posts can cause problems with some RSS feeds and is generally not a very popular thing to do.  The calendar only allows you to move scheduled and draft posts.
 
-= Why doesn't the calendar work with Live Countdown Timer =
+= Why doesn't the calendar work with Live Countdown Timer? =
 
 If you use the plugin <a href="http://wordpress.org/extend/plugins/live-countdown-timer/">Live Countdown Timer</a> the editorial calendar will not work.  There is a conflict in some JavaScript libraries.  They're working on it.  For now you must disable Live Countdown Timer if you want to use the WordPress Editorial Calendar.
 
