@@ -921,7 +921,7 @@ var edcal = {
             /*
              * We only allow drafts in the past
              */
-            jQuery('#futureoption').hide();
+            jQuery('#edcal-status').attr('disabled', 'true');
         }
         
         var time = post.time;
@@ -968,7 +968,7 @@ var edcal = {
             this.value = '';
         });
         
-        jQuery('#futureoption').show();
+        jQuery('#edcal-status').removeAttr('disabled');
         
         jQuery('#newPostScheduleButton').text(edcal.str_publish);
         

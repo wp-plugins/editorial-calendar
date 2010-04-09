@@ -163,6 +163,7 @@ function edcal_list_admin() {
             edcal.str_publish = <?php echo(edcal_json_encode(__('Schedule', 'editorial-calendar'))) ?>;
             edcal.str_save = <?php echo(edcal_json_encode(__('Save', 'editorial-calendar'))) ?>;
             edcal.str_edit_post_title = <?php echo(edcal_json_encode(__('Edit Post', 'editorial-calendar'))) ?>;
+            edcal.str_scheduled = <?php echo(edcal_json_encode(__('Scheduled', 'editorial-calendar'))) ?>;
             
             edcal.str_del_msg1 = <?php echo(edcal_json_encode(__('You are about to delete the post "', 'editorial-calendar'))) ?>;
             edcal.str_del_msg2 = <?php echo(edcal_json_encode(__('". Press Cancel to stop, OK to delete.', 'editorial-calendar'))) ?>;
