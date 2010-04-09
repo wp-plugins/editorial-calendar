@@ -124,7 +124,7 @@
 }
 
 .posttime {
-    color: #999999;
+    font-weight: bold;
 }
 
 .post.draggable .postlink {
