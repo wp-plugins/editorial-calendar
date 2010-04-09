@@ -366,7 +366,8 @@
     position: absolute;
     left: 0px;
     top: 0px;
-    width: 7em;
+    width: 5.5em;
+    text-align: right;
 }
 
 #tooltip .edcal-form-control {
@@ -386,8 +387,12 @@
     margin-left: 7em;
 }
 
+#tooltip #edcal-status-section h4 {
+    width: 4em;
+}
+
 #edcal-status-section .edcal-form-control {
-    left: 5em;
+    left: 6em;
     width: auto;
 }
 
