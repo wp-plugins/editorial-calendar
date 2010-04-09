@@ -75,7 +75,8 @@ If you use the plugin <a href="http://wordpress.org/extend/plugins/live-countdow
 1. The calendar integrates seamlessly into the WordPress administration console
 2. See the big picture with a view of all your posts and when they'll be published.
 3. Drag and drop posts to easily change dates and take control of your blog.
-4. Create and schedule new posts in one simple step.
+4. Create, edit, and schedule posts in one simple quick edit dialog.
+5. Show as much or as little of your blog as you like.
 
 == Changelog ==
 
