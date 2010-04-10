@@ -5,7 +5,7 @@ Requires at least: 2.8.5
 Tested up to: 2.9.2
 Stable tag: 0.6
 
-Editorial calendar makes it possible to see all your posts and drag and drop them to manage your blog.
+The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
 
 == Description ==
 
@@ -20,7 +20,7 @@ You don't have to install the calendar to give it a try.  Just check out the dem
 
 1. See all of your posts and when they'll be posted.
 1. Drag and drop to change your post dates.
-1. Quick edit post titles, contents, and times.
+1. Quickedit post titles, contents, and times.
 1. Easily see the status of your posts.
 
 <h4>Make it better</h4>
@@ -40,7 +40,7 @@ The editorial calendar is getting closer and closer to version 1.0.  We have a f
 
 Check out our demo installation at <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=cal">Zack's WordPress Sandbox</a>.
 
-= How do I navigate the calendar? =
+= How do I navigate in the calendar? =
 
 You can move around in the calendar using the arrows next to the months at the top or your mouse wheel, You can also move using your keyboard:
 
@@ -59,7 +59,7 @@ The calendar is available in English, French, Czechoslovakian, and Croatian.
 
 Yes please!  We are looking for translators.  It only takes about 20 minutes.  If you're interested please <a href="mailto:wp-edcal@googlegroups.com">contact us</a>.
 
-= What users can us the calendar? =
+= What users can use the calendar? =
 
 The editorial calendar appears differently based on your permissions.  Administrators and Editors can use every feature available in the calendar.  Authors can use the calendar to edit and move their own posts, but other people's posts are read-only.  Contributors and Subscribers can't see the calendar.
 
@@ -73,9 +73,9 @@ Right now the calendar only supports posts.  We're considering adding pages.  If
 If your blog has multiple authors the calendar will work just fine.  We are currently working on new features to add for multi-author blogs.  If you have any ideas please <a href="mailto:wp-edcal@googlegroups.com">contact us</a>.
 
 
-= Will my readers be able to tell I'm using the editorial calendar? =
+= Can my readers tell I'm using the editorial calendar? =
 
-No.  The calendar is only an administration tool.  None of your readers will know you are running the calendar unless you tell them.
+No.  The calendar is only an administration tool.  None of your readers will know you're running it unless you tell them.
 
 = Why can't I move published posts? =
 
@@ -90,20 +90,20 @@ If you use the plugin <a href="http://wordpress.org/extend/plugins/live-countdow
 1. The calendar integrates seamlessly into the WordPress administration console
 2. See the big picture with a view of all your posts and when they'll be published.
 3. Drag and drop posts to easily change dates and take control of your blog.
-4. Create, edit, and schedule posts in one simple quick edit dialog.
+4. Create, edit, and schedule posts in one simple quickedit dialog.
 5. Show as much or as little of your blog as you like.
 
 == Changelog ==
 
 = 0.7 =
 * You can now edit post contents, title, and time directly in the calendar.  You can also schedule a post for publication.
-* The calendar is now available for users with just author permissions and grays out the posts the current user doesn't have permission to edit.
-* The calendar has been translated in Czech.  Thanks to Lukáš Adamec who uses the Calendar on his blog <a href="http://hornihrad.cz/">Horni Hrad</a>. 
+* The calendar is now available for Authors and grays out the posts the current user doesn't have permission to edit.
+* The calendar has been translated into Czech.  Thanks to Lukáš Adamec, who uses the Calendar on his blog <a href="http://hornihrad.cz/">Horni Hrad</a>. 
 * Added a link to view published posts directly from the calendar.
 * The calendar will now use the WordPress preference for the first day of the week and fall back on the server locale if it isn't set.
 * The calendar is also using the WordPress preferences for time format.
-* The calendar is now loading JavaScript in a more specific way.  That makes other pages load faster and avoids a potential JavaScript conflict with other plugins.
-* The number of visible weeks field in the screen options is now a drop down instead of a text box.
+* The calendar is now loading JavaScript libraries for just the calendar page.  That makes other pages load faster and avoids potential JavaScript conflicts with other plugins.
+* The visible weeks preference in the screen options is now a dropdown instead of a text box.
 
 
 = 0.6 =
