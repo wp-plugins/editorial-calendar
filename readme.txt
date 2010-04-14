@@ -99,7 +99,7 @@ If you use the plugin <a href="http://wordpress.org/extend/plugins/live-countdow
 * You can now edit post contents, title, and time directly in the calendar.  You can also schedule a post for publication.
 * The layout of posts in the calendar has been optimized to you can see the maximum number of posts in a single day without scrolling.
 * The calendar is now available for Authors and grays out the posts the current user doesn't have permission to edit.
-* The calendar has been translated into Czech.  Thanks to Lukáš Adamec, who uses the Calendar on his blog <a href="http://hornihrad.cz/">Horni Hrad</a>. 
+* The calendar has been translated into Czech.  Thanks to Luk&#225;&#353; Adamec, who uses the Calendar on his blog <a href="http://hornihrad.cz/">Horni Hrad</a>. 
 * Added a link to view published posts directly from the calendar.
 * The calendar will now use the WordPress preference for the first day of the week and fall back on the server locale if it isn't set.
 * The calendar is also using the WordPress preferences for time format.
