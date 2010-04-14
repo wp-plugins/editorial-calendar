@@ -97,6 +97,7 @@ If you use the plugin <a href="http://wordpress.org/extend/plugins/live-countdow
 
 = 0.8 =
 * The calendar now supports Greek.  Thanks to <a href="http://aenaon.biz/">Mihalis Papanousis</a>.
+* The calendar now supports Polish.  Thanks to Krzysztof Nowak.
 
 = 0.7 =
 * You can now edit post contents, title, and time directly in the calendar.  You can also schedule a post for publication.
