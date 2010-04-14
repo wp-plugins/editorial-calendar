@@ -53,7 +53,7 @@ You can move around in the calendar using the arrows next to the months at the t
 
 = What languages does the calendar support? =
 
-The calendar is available in English, French, Czechoslovakian, and Croatian. 
+The calendar is available in Croatian, Czechoslovakian, English, French, and Greek. 
 
 = Can I add new languages? =
 
