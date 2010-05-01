@@ -203,6 +203,14 @@ function edcal_list_admin() {
         #tooltip {
             background: white url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/gray-grad.png")); ?>') repeat-x left top;
         }
+        
+        .sticky {
+            background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/pin16.png")); ?>'); 
+        }
+        
+        .stickytitle {
+            background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/icons32.png")); ?>'); 
+        }
 
         .today .daylabel {
             background: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/today_bk.gif")); ?>') repeat-x left top;
@@ -255,6 +263,7 @@ function edcal_list_admin() {
                    <?php _e('Edit Post', 'editorial-calendar') ?>
                </div>
                <a href="#" id="tipclose" onclick="edcal.hideForm(); return false;" title="close"> </a>
+               <div id="tooltipimage"><!-- Placeholder for the form image; added dynamically --></div>
     		   <h3><!-- Placeholder for the form title; added dynamically --></h3>
     		   <div id="edcal-title-new-section">
     				<div id="edcal-title-row" class="edcal-form-row">
@@ -413,9 +422,9 @@ function edcal_posts() {
         
         $post = $myposts[$i];
          
-        if (!is_sticky($post->ID)) {
+        //if (!is_sticky($post->ID)) {
             edcal_postJSON($post, $i < $size - 1);
-        }
+        //}
     }
     
     ?> ]
@@ -490,6 +499,7 @@ function edcal_postJSON($post, $addComma = true, $fullPost = false) {
             "date" : "<?php the_time('d') ?><?php the_time('m') ?><?php the_time('Y') ?>", 
             "time" : "<?php the_time() ?>", 
             "formattedtime" : "<?php edcal_json_encode(the_time($timeFormat)); ?>", 
+            "sticky" : "<?php echo(is_sticky($post->ID)); ?>",
             "url" : "<?php edcal_json_encode(the_permalink()); ?>", 
             "status" : "<?php echo(get_post_status()); ?>",
             "title" : <?php echo(edcal_json_encode(get_the_title())); ?>,

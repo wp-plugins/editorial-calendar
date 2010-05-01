@@ -882,7 +882,14 @@ var edcal = {
             jQuery('#tooltiptitle').text(edcal.str_newpost_title + post.formatteddate);
         } else {
             jQuery('#tooltiptitle').text(edcal.str_edit_post_title);
-            jQuery('#tooltip h3').html('<span class="tiptitle">' + post.title + '</span>');
+            if (post.sticky === '1') {
+                jQuery('#tooltipimage').addClass('stickytitle');
+            } else {
+                jQuery('#tooltipimage').removeClass('stickytitle');
+            }
+            
+            jQuery('#tooltip h3').html('<span class="tiptitle">' + post.title + '</span> ' + 
+                                       '<span class="tipauthor">' + edcal.str_by + ' ' + post.author + '</span>');
             
             // add post info to form
             jQuery('#edcal-title-new-field').val(post.title);
@@ -967,6 +974,8 @@ var edcal = {
         jQuery('#tooltip').find('input, textarea, select').each(function() {
             this.value = '';
         });
+        
+        jQuery('#tooltipimage').removeClass('stickytitle');
         
         jQuery('#edcal-status').removeAttr('disabled');
         
@@ -1116,11 +1125,17 @@ var edcal = {
          }
 
          posttitle = '<span class="posttime">' + post.formattedtime + '</span> ' + posttitle;
+         
+         var classString = '';
+         
+         if (post.sticky === '1') {
+             classString += 'sticky';
+         }
 
          if (edcal.isPostMovable(post)) {
              return '<li onmouseover="edcal.showActionLinks(\'post-' + post.id + '\');" ' + 
                  'onmouseout="edcal.hideActionLinks(\'post-' + post.id + '\');" ' + 
-                 'id="post-' + post.id + '" class="post ' + post.status + ' ' + edcal.getPostEditableClass(post) + '"><div class="postlink">' + posttitle + '</div>' + 
+                 'id="post-' + post.id + '" class="post ' + post.status + ' ' + edcal.getPostEditableClass(post) + '"><div class="postlink ' + classString + '">' + posttitle + '</div>' + 
                  '<div class="postactions"><a href="#" onclick="edcal.editPost('+ post.id +'); return false;">' + edcal.str_edit + '</a> | ' +
                  '<a href="' + post.dellink + '" onclick="return edcal.confirmDelete(\'' + post.title + '\');">' + edcal.str_del + '</a> | ' +
                  '<a href="' + post.permalink + '">' + edcal.str_view + '</a>'  + 
@@ -1128,7 +1143,7 @@ var edcal = {
          } else {
              return '<li onmouseover="edcal.showActionLinks(\'post-' + post.id + '\');" ' + 
                  'onmouseout="edcal.hideActionLinks(\'post-' + post.id + '\');" ' + 
-                 'id="post-' + post.id + '" class="post ' + post.status + ' ' + edcal.getPostEditableClass(post) + '"><div class="postlink">' + posttitle + '</div>' + 
+                 'id="post-' + post.id + '" class="post ' + post.status + ' ' + edcal.getPostEditableClass(post) + '"><div class="postlink ' + classString + '">' + posttitle + '</div>' + 
                  '<div class="postactions">' + 
                  '<a href="' + post.editlink + '">' + edcal.str_republish + '</a> | ' +
                  '<a href="' + post.permalink + '">' + edcal.str_view + '</a>' + 
