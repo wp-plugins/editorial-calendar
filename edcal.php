@@ -152,6 +152,7 @@ function edcal_list_admin() {
             edcal.str_stick = <?php echo(edcal_json_encode(__(' [STICKY]', 'editorial-calendar'))) ?>;
             edcal.str_draft_sticky = <?php echo(edcal_json_encode(__(' [DRAFT, STICKY]', 'editorial-calendar'))) ?>;
             edcal.str_edit = <?php echo(edcal_json_encode(__('Edit', 'editorial-calendar'))) ?>;
+            edcal.str_quick_edit = <?php echo(edcal_json_encode(__('Quick Edit', 'editorial-calendar'))) ?>;
             edcal.str_del = <?php echo(edcal_json_encode(__('Delete', 'editorial-calendar'))) ?>;
             edcal.str_view = <?php echo(edcal_json_encode(__('View', 'editorial-calendar'))) ?>;
             edcal.str_republish = <?php echo(edcal_json_encode(__('Republish', 'editorial-calendar'))) ?>;

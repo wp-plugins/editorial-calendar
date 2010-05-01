@@ -298,6 +298,8 @@
 .tipauthor {
     font-weight: normal;
     font-style: italic;
+    position: relative;
+    left: 2em;
 }
 
 #tooltip p {

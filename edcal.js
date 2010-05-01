@@ -882,7 +882,7 @@ var edcal = {
             jQuery('#tooltiptitle').text(edcal.str_newpost_title + post.formatteddate);
         } else {
             jQuery('#tooltiptitle').text(edcal.str_edit_post_title);
-            jQuery('#tooltip h3').html('<span class="tiptitle">' + post.title + '</span> ' + 
+            jQuery('#tooltip h3').html('<span class="tiptitle">' + post.title + '</span><br />' + 
                                        '<span class="tipauthor">' + edcal.str_by + ' ' + post.author + '</span>');
             
             // add post info to form
@@ -1133,7 +1133,8 @@ var edcal = {
              return '<li onmouseover="edcal.showActionLinks(\'post-' + post.id + '\');" ' + 
                  'onmouseout="edcal.hideActionLinks(\'post-' + post.id + '\');" ' + 
                  'id="post-' + post.id + '" class="post ' + post.status + ' ' + edcal.getPostEditableClass(post) + '"><div class="postlink ' + classString + '">' + posttitle + '</div>' + 
-                 '<div class="postactions"><a href="#" onclick="edcal.editPost('+ post.id +'); return false;">' + edcal.str_edit + '</a> | ' +
+                 '<div class="postactions"><a href="#" onclick="edcal.editPost('+ post.id +'); return false;">' + edcal.str_quick_edit + '</a> | ' +
+                 '<a href="' + post.editlink + '">' + edcal.str_edit + '</a> | ' +
                  '<a href="' + post.dellink + '" onclick="return edcal.confirmDelete(\'' + post.title + '\');">' + edcal.str_del + '</a> | ' +
                  '<a href="' + post.permalink + '">' + edcal.str_view + '</a>'  + 
                  '</div></li>';
