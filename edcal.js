@@ -882,12 +882,6 @@ var edcal = {
             jQuery('#tooltiptitle').text(edcal.str_newpost_title + post.formatteddate);
         } else {
             jQuery('#tooltiptitle').text(edcal.str_edit_post_title);
-            if (post.sticky === '1') {
-                jQuery('#tooltipimage').addClass('stickytitle');
-            } else {
-                jQuery('#tooltipimage').removeClass('stickytitle');
-            }
-            
             jQuery('#tooltip h3').html('<span class="tiptitle">' + post.title + '</span> ' + 
                                        '<span class="tipauthor">' + edcal.str_by + ' ' + post.author + '</span>');
             
@@ -974,8 +968,6 @@ var edcal = {
         jQuery('#tooltip').find('input, textarea, select').each(function() {
             this.value = '';
         });
-        
-        jQuery('#tooltipimage').removeClass('stickytitle');
         
         jQuery('#edcal-status').removeAttr('disabled');
         
@@ -1110,7 +1102,16 @@ var edcal = {
              posttitle = "[No Title]";
          }
 
-         if (post.status === "draft" ||
+         if ((post.status === "draft" ||
+             post.status === "pending") &&
+             post.sticky === '1') {
+             /*
+              * Then this post is a sticky draft
+              */
+             posttitle += edcal.str_draft_sticky;
+         } else if (post.sticky === '1') {
+             posttitle += edcal.str_sticky;
+         } else if (post.status === "draft" ||
              post.status === "pending") {
              posttitle += edcal.str_draft;
          } else if (post.status !== "publish" &&
@@ -1128,10 +1129,6 @@ var edcal = {
          
          var classString = '';
          
-         if (post.sticky === '1') {
-             classString += 'sticky';
-         }
-
          if (edcal.isPostMovable(post)) {
              return '<li onmouseover="edcal.showActionLinks(\'post-' + post.id + '\');" ' + 
                  'onmouseout="edcal.hideActionLinks(\'post-' + post.id + '\');" ' + 

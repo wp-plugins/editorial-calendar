@@ -131,12 +131,6 @@
     cursor: move;
 }
 
-.sticky {
-    background-image: url('images/pin16.png'); 
-    background-repeat: no-repeat;
-    text-indent: 20px;
-}
-
 .post .postactions {
     display: none;
 }
@@ -299,15 +293,6 @@
     position:absolute;
     top: -8px;
     text-shadow: #fff 0px 1px 0px;
-}
-
-.stickytitle {
-    background: url("../images/icons32.png") no-repeat scroll -552px -5px transparent;
-    text-indent: 32px;
-    float:left;
-    height:36px;
-    margin:14px 6px 0 0;
-    width:36px;
 }
 
 .tipauthor {

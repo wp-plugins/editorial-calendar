@@ -149,6 +149,8 @@ function edcal_list_admin() {
             edcal.str_addPostLink = <?php echo(edcal_json_encode(__('New Post', 'editorial-calendar'))) ?>;
             
             edcal.str_draft = <?php echo(edcal_json_encode(__(' [DRAFT]', 'editorial-calendar'))) ?>;
+            edcal.str_stick = <?php echo(edcal_json_encode(__(' [STICKY]', 'editorial-calendar'))) ?>;
+            edcal.str_draft_sticky = <?php echo(edcal_json_encode(__(' [DRAFT, STICKY]', 'editorial-calendar'))) ?>;
             edcal.str_edit = <?php echo(edcal_json_encode(__('Edit', 'editorial-calendar'))) ?>;
             edcal.str_del = <?php echo(edcal_json_encode(__('Delete', 'editorial-calendar'))) ?>;
             edcal.str_view = <?php echo(edcal_json_encode(__('View', 'editorial-calendar'))) ?>;
@@ -204,14 +206,6 @@ function edcal_list_admin() {
             background: white url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/gray-grad.png")); ?>') repeat-x left top;
         }
         
-        .sticky {
-            background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/pin16.png")); ?>'); 
-        }
-        
-        .stickytitle {
-            background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/icons32.png")); ?>'); 
-        }
-
         .today .daylabel {
             background: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/today_bk.gif")); ?>') repeat-x left top;
         }
