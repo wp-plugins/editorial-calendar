@@ -1133,8 +1133,9 @@ var edcal = {
              return '<li onmouseover="edcal.showActionLinks(\'post-' + post.id + '\');" ' + 
                  'onmouseout="edcal.hideActionLinks(\'post-' + post.id + '\');" ' + 
                  'id="post-' + post.id + '" class="post ' + post.status + ' ' + edcal.getPostEditableClass(post) + '"><div class="postlink ' + classString + '">' + posttitle + '</div>' + 
-                 '<div class="postactions"><a href="#" onclick="edcal.editPost('+ post.id +'); return false;">' + edcal.str_quick_edit + '</a> | ' +
+                 '<div class="postactions">' + 
                  '<a href="' + post.editlink + '">' + edcal.str_edit + '</a> | ' +
+                 '<a href="#" onclick="edcal.editPost('+ post.id +'); return false;">' + edcal.str_quick_edit + '</a> | ' +
                  '<a href="' + post.dellink + '" onclick="return edcal.confirmDelete(\'' + post.title + '\');">' + edcal.str_del + '</a> | ' +
                  '<a href="' + post.permalink + '">' + edcal.str_view + '</a>'  + 
                  '</div></li>';
