@@ -51,6 +51,10 @@ You can move around in the calendar using the arrows next to the months at the t
 <li>Jump multiple weeks into the future - Page Down or Ctrl+Down Arrow</li>
 </ul>
 
+= How do I change the first day of the week? =
+
+The editorial calendar follows the Week Starts On preference on the WordPress General Settings page.  Just change the setting and the calendar will use that day of the week as the first one.
+
 = What languages does the calendar support? =
 
 The calendar is available in Croatian, Czechoslovakian, English, French, and Greek. 
@@ -62,7 +66,6 @@ Yes please!  We are looking for translators.  It only takes about 20 minutes.  I
 = What users can use the calendar? =
 
 The editorial calendar appears differently based on your permissions.  Administrators and Editors can use every feature available in the calendar.  Authors can use the calendar to edit and move their own posts, but other people's posts are read-only.  Contributors and Subscribers can't see the calendar.
-
 
 = Can I use the editorial calendar with pages? =
 
@@ -80,10 +83,6 @@ No.  The calendar is only an administration tool.  None of your readers will kno
 = Why can't I move published posts? =
 
 Moving published posts can cause problems with some RSS feeds and is generally not a very popular thing to do.  The calendar only allows you to move scheduled and draft posts.
-
-= Why doesn't the calendar work with Live Countdown Timer? =
-
-If you use the plugin <a href="http://wordpress.org/extend/plugins/live-countdown-timer/">Live Countdown Timer</a> the editorial calendar will not work.  There is a conflict in some JavaScript libraries.  They're working on it.  For now you must disable Live Countdown Timer if you want to use the WordPress Editorial Calendar.
 
 == Screenshots ==
 
