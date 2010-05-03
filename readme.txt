@@ -94,9 +94,12 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
-= 0.8 =
+= 1.0 =
+* We got the message from our users and added an edit link that takes you to the WordPress edit page in addition to the quick edit dialog in the calendar.
+* The calendar quick edit screen now shows the post author.
+* Sticky posts are now available in the calendar.  Schedule them like any other post.
 * The calendar now supports Greek.  Thanks to <a href="http://aenaon.biz/">Mihalis Papanousis</a>.
-* The calendar now supports Polish.  Thanks to Krzysztof Nowak who uses the Editorial Calendar on his site <a href="http://classica-mediaevalia.pl">Classica, mediaevalia et cetera</a>.
+* We also support Polish.  Thanks to Krzysztof Nowak who uses the Editorial Calendar on his site <a href="http://classica-mediaevalia.pl">Classica, mediaevalia et cetera</a>.
 
 = 0.7 =
 * You can now edit post contents, title, and time directly in the calendar.  You can also schedule a post for publication.
