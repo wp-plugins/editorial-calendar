@@ -479,7 +479,7 @@ var edcal = {
                         edcal.handleDrag(event, ui);
                      },
                      scroll: false,
-                     refreshPositions: true,
+                     refreshPositions: true
                  });
                  jQuery(this).addClass("draggable");
              }
@@ -1446,7 +1446,7 @@ var edcal = {
          
          edcal.currentDirection = true;
          
-         var count = parseInt(edcal.weeksPref) + 6;
+         var count = edcal.weeksPref + 6;
          
          for (var i = 0; i < count; i++) {
              edcal.createRow(jQuery("#cal"), true);
