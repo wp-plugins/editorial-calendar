@@ -117,7 +117,7 @@ function edcal_list_admin() {
             <?php 
                 if (get_option("edcal_weeks_pref") != "") {
             ?>
-                edcal.weeksPref = '<?php echo(get_option("edcal_weeks_pref")); ?>';
+                edcal.weeksPref = <?php echo(get_option("edcal_weeks_pref")); ?>;
             <?php
                 }
             ?>

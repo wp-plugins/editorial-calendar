@@ -97,6 +97,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 = 1.0 =
 * We got the message from our users and added an edit link that takes you to the WordPress edit page in addition to the quick edit dialog in the calendar.
 * The calendar will now remember the last date and start there again the next time you access it.
+* Fixed a large performance problem that was causing the calendar to load the posts for and render many more weeks than it needed to.  The calendar is now faster than ever!
 * The calendar quick edit screen now shows the post author.
 * Sticky posts are now available in the calendar.  Schedule them like any other post.
 * The calendar now supports Greek.  Thanks to <a href="http://aenaon.biz/">Mihalis Papanousis</a>.

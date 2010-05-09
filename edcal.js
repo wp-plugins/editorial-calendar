@@ -241,7 +241,7 @@ var edcal = {
          * We need to call nextStartOfWeek to make sure the 
          * edcal.startOfWeek variable gets initialized.
          */
-        edcal.nextStartOfWeek(date.clone());
+        edcal.nextStartOfWeek(date);
         
 
         var html = '<div class="dayheadcont"><div class="dayhead firstday">' + 
@@ -569,8 +569,7 @@ var edcal = {
     deletePost: function(/*Post ID*/ postId) {
     
         var url = edcal.ajax_url() + "&action=edcal_deletepost&postid=" + postId;
-        edcal.output("Calling AJAX URL: " + url);
-
+        
         jQuery.ajax( { 
             url: url,
             type: "POST",
@@ -1188,9 +1187,9 @@ var edcal = {
           */
         if(jQuery('#tooltip').is(':visible')) {
             return;
-    }
-         
-         /*
+        }
+        
+        /*
            The working date is a marker for the last calendar row we created.
            If we are moving forward that will be the last row, if we are moving
            backward it will be the first row.  If we switch direction we need
@@ -1206,9 +1205,6 @@ var edcal = {
             edcal.steps = 0;
             edcal.moveDate = edcal._wDate;
         }
-        
-        jQuery.cookie('edcal_date', 
-                      edcal.nextStartOfWeek(edcal._wDate.clone()).add(21).days().toString('yyyy-dd-MM'));
         
         edcal.currentDirection = direction;
         
@@ -1248,6 +1244,7 @@ var edcal = {
         }
 
         edcal.tID = setTimeout(function() {
+            
             /*
              * Now that we are done moving the calendar we need to get the posts for the 
              * new dates.  We want to load the posts between the place the calendar was
@@ -1265,6 +1262,21 @@ var edcal = {
             edcal.tID = null;
             edcal.moveDate = edcal._wDate;
         }, 1000);
+        
+        if (direction) {
+            /*
+               If we are going into the future then wDate is way in the
+               future so we need to get the current date which is four weeks
+               plus the number of visible weeks before the end of the current _wDate.
+             */
+            jQuery.cookie('edcal_date', edcal._wDate.clone().add(-(edcal.weeksPref + 4)).weeks().toString('yyyy-dd-MM'));
+        } else {
+            /*
+               If we are going into the past then the current date is two
+               weeks after the current _wDate
+             */
+            jQuery.cookie('edcal_date', edcal._wDate.clone().add(3).weeks().toString('yyyy-dd-MM'));
+        }
     },
 
     /*
@@ -1305,6 +1317,7 @@ var edcal = {
      * http://unicode.org/repos/cldr/trunk/common/supplemental/supplementalData.xml
      */
     nextStartOfWeek: function(/*date*/ date) {
+         date = date.clone();
          if (edcal.startOfWeek === null) {
              if (edcal.locale) {
                  var local = edcal.locale.toUpperCase();
@@ -1417,34 +1430,37 @@ var edcal = {
          edcal.isMoving = true;
          jQuery("#cal").empty();
          
+         jQuery.cookie('edcal_date', date.toString('yyyy-dd-MM'));
+         
+         
          /*
            When we first start up our working date is 4 weeks before
-           the next Sunday. 
-         */
-        edcal._wDate = edcal.nextStartOfWeek(date).add(-21).days();
-        
-        jQuery.cookie('edcal_date', date.toString('yyyy-dd-MM'));
-        
-        /*
+           the next Sunday.
+          */
+         edcal._wDate = edcal.nextStartOfWeek(date).add(-21).days();
+         
+         /*
            After we remove and redo all the rows we are back to
            moving in a going down direction.
-         */
-        edcal.currentDirection = true;
-        
-        for (var i = 0; i < edcal.weeksPref + 6; i++) {
-            edcal.createRow(jQuery("#cal"), true);
-            edcal._wDate.add(7).days();
-        }
-        
-        edcal.alignCal();
-        
-        var api = jQuery("#edcal_scrollable").scrollable();
-        api.move(2);
-        
-        edcal.setDateLabel();
-        edcal.setClassforToday();
-        edcal.isMoving = false;
+          */
          
+         edcal.currentDirection = true;
+         
+         var count = parseInt(edcal.weeksPref) + 6;
+         
+         for (var i = 0; i < count; i++) {
+             edcal.createRow(jQuery("#cal"), true);
+             edcal._wDate.add(7).days();
+         }
+         
+         edcal.alignCal();
+         
+         var api = jQuery("#edcal_scrollable").scrollable();
+         api.move(2);
+         
+         edcal.setDateLabel();
+         edcal.setClassforToday();
+         edcal.isMoving = false;
     },
 
     /*
@@ -1524,15 +1540,13 @@ var edcal = {
         var curDate = jQuery.cookie('edcal_date');
         
         if (curDate) {
-            edcal.output('Using preset date: ' + curDate);
             curDate = Date.parseExact(curDate, 'yyyy-dd-MM');
+            edcal.output('Resetting to date from the edcal_Date cookie: ' + curDate);
+        } else {
+            curDate = Date.today();
         }
         
-        if (curDate) {
-            edcal.moveTo(curDate);
-        } else {
-            edcal.moveTo(Date.today());
-        }
+        edcal.moveTo(curDate.clone());
         
         /*
          * The scrollable handles some basic binding.  This gets us 
@@ -1580,9 +1594,9 @@ var edcal = {
                 return false;
             }
         });
-
-        edcal.getPosts(edcal.nextStartOfWeek(Date.today()).add(-21).days(), 
-                       edcal.nextStartOfWeek(Date.today()).add((edcal.weeksPref * 7) + 21).days());
+        
+        edcal.getPosts(edcal.nextStartOfWeek(curDate).add(-3).weeks(), 
+                       edcal.nextStartOfWeek(curDate).add(edcal.weeksPref + 3).weeks());
         
         /*
            Now we bind the listeners for all of our links and the window
@@ -1590,6 +1604,8 @@ var edcal = {
          */
         jQuery("#moveToToday").click(function() {
             edcal.moveTo(Date.today());
+            edcal.getPosts(edcal.nextStartOfWeek(Date.today()).add(-3).weeks(), 
+                           edcal.nextStartOfWeek(Date.today()).add(edcal.weeksPref + 3).weeks());
             return false;
         });
     
@@ -1807,7 +1823,7 @@ var edcal = {
        specified dates.
      */
     getPosts: function(/*Date*/ from, /*Date*/ to) {
-         edcal.output("Getting posts from " + from.toString("dd-MMM-yyyy") + " to " + to.toString("dd-MMM-yyyy"));
+         edcal.output("Getting posts from " + from + " to " + to);
          
          var shouldGet = edcal.cacheDates[from];
 
