@@ -19,6 +19,11 @@ JQuery tools supports the scrolling.
 http://flowplayer.org/tools/index.html
 MIT license
 
+jquery.cookie.js
+A nice utility for setting and reading cookies.
+http://plugins.jquery.com/project/Cookie
+MIT license
+
 timePicker.css
 jquery.timepicker.js
 The JQuery time picker shows a nice time picker when you edit the post time.

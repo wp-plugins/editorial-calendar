@@ -1207,6 +1207,9 @@ var edcal = {
             edcal.moveDate = edcal._wDate;
         }
         
+        jQuery.cookie('edcal_date', 
+                      edcal.nextStartOfWeek(edcal._wDate.clone()).add(21).days().toString('yyyy-dd-MM'));
+        
         edcal.currentDirection = direction;
         
         var i;
@@ -1420,6 +1423,8 @@ var edcal = {
          */
         edcal._wDate = edcal.nextStartOfWeek(date).add(-21).days();
         
+        jQuery.cookie('edcal_date', date.toString('yyyy-dd-MM'));
+        
         /*
            After we remove and redo all the rows we are back to
            moving in a going down direction.
@@ -1510,7 +1515,24 @@ var edcal = {
         
         var api = jQuery("#edcal_scrollable").scrollable();
         
-        edcal.moveTo(Date.today());
+        /*
+           When the user moves the calendar around we remember their
+           date and save it in a cookie.  Then we read the cookie back
+           when we reload so the calendar stays where the user left
+           it last.
+         */
+        var curDate = jQuery.cookie('edcal_date');
+        
+        if (curDate) {
+            edcal.output('Using preset date: ' + curDate);
+            curDate = Date.parseExact(curDate, 'yyyy-dd-MM');
+        }
+        
+        if (curDate) {
+            edcal.moveTo(curDate);
+        } else {
+            edcal.moveTo(Date.today());
+        }
         
         /*
          * The scrollable handles some basic binding.  This gets us 
