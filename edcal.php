@@ -17,10 +17,11 @@
 
 /*
 Plugin Name: WordPress Editorial Calendar
-Description: An editorial calendar for managing the dates of your WordPress posts
+Description: The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
 Version: 0.8
-Author: Mary Vogt and Zack Grossbart
+Author: Colin Vernon, Justin Evans, Mary Vogt, and Zack Grossbart
 Author URI: http://www.zackgrossbart.com
+Plugin URI: http://www.zackgrossbart.com
 */
 
 add_action('wp_ajax_edcal_saveoptions', 'edcal_saveoptions' );

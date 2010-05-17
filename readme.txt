@@ -3,7 +3,7 @@ Contributors: cvernon, justinstresslimit, MaryVogt, zgrossbart
 Tags: posts, post, calendar, AJAX, admin, administration
 Requires at least: 2.8.5
 Tested up to: 2.9.2
-Stable tag: 0.7
+Stable tag: 0.8
 
 The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
 
@@ -94,8 +94,8 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
-= 1.0 =
-* We got the message from our users and added an edit link that takes you to the WordPress edit page in addition to the quick edit dialog in the calendar.
+= 0.8 =
+* We got the message and added an edit link that takes you to the WordPress edit page in addition to a link for the quick edit dialog in the calendar.
 * The calendar will now remember the last date and start there again the next time you access it.
 * Fixed a large performance problem that was causing the calendar to load the posts for and render many more weeks than it needed to.  The calendar is now faster than ever!
 * The calendar quick edit screen now shows the post author.
