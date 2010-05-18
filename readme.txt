@@ -59,6 +59,10 @@ The editorial calendar follows the Week Starts On preference on the WordPress Ge
 
 The calendar is available in Croatian, Czechoslovakian, English, French, and Greek. 
 
+= How does the calendar work =
+
+The calendar is written in JavaScript.  It contacts your blog when it scrolls to get data about your posts.  Just like Google Maps.  <a href="http://www.zackgrossbart.com/hackito/edcal/">Creating a JQuery Powered Posts Calendar for WordPress</a> explains a lot of the technical details.
+
 = Can I add new languages? =
 
 Yes please!  We are looking for translators.  It only takes about 20 minutes.  If you're interested please <a href="mailto:wp-edcal@googlegroups.com">contact us</a>.
