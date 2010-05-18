@@ -40,6 +40,18 @@ The editorial calendar is getting closer and closer to version 1.0.  We have a f
 
 Check out our demo installation at <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=cal">Zack's WordPress Sandbox</a>.
 
+= What are other people saying about the calendar? =
+
+From time to time people write articles about the editorial calendar.  We appreciate every one.
+
+<a href="http://chrisg.org/drag-and-drop-post-scheduling-with-the-editorial-calendar-wordpress-plugin/">Drag and Drop Post Scheduling with the Editorial Calendar WordPress plugin</a> by <a href="http://chrisg.org/">Chris Garrett</a>
+
+<a href="http://theincidentaleconomist.com/wordpress-plug-in-plug-editorial-calendar/">WordPress Plug-In Plug: Editorial Calendar</a> on <a href="http://theincidentaleconomist.com/">The Incidental Economist</a>
+
+<a href="http://wordcastnet.com/2010/01/12/visually-manage-your-post-publication-dates-with-the-editorial-calendar-wordpress-plugin/">Visually Manage Your Post Publication Dates with the Editorial Calendar WordPress Plugin</a> on <a href="http://wordcastnet.com/">WordCast</a>
+
+<a href="http://websuccessdiva.com/seo-copywriting-checklist/">SEO Copywriting Checklist for Wordpress Blogs</a> on <a href="http://websuccessdiva.com/">@WebSuccessDiva</a> is a good article about SEO and using an editorial calendar.
+
 = How do I navigate in the calendar? =
 
 You can move around in the calendar using the arrows next to the months at the top or your mouse wheel, You can also move using your keyboard:
@@ -58,6 +70,10 @@ The editorial calendar follows the Week Starts On preference on the WordPress Ge
 = What languages does the calendar support? =
 
 The calendar is available in Croatian, Czechoslovakian, English, French, and Greek. 
+
+= How does the calendar work =
+
+The calendar is written in JavaScript.  It contacts your blog when it scrolls to get data about your posts.  Just like Google Maps.  <a href="http://www.zackgrossbart.com/hackito/edcal/">Creating a JQuery Powered Posts Calendar for WordPress</a> explains a lot of the technical details.
 
 = Can I add new languages? =
 
