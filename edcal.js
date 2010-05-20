@@ -85,8 +85,8 @@ var edcal = {
     isDragScrolling: false,
         
     /*
-       This is the position of the calendar.  It is an array with
-       two fields:  top and bottom.
+       This is the position of the calendar on the screen in pixels.  
+       It is an array with two fields:  top and bottom.
      */
     position: null,
 

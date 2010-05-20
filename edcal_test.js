@@ -36,7 +36,7 @@ var edcal_test = {
     doTests: function() {
          var curSunday = edcal.nextStartOfWeek(Date.today()).add(-1).weeks();
 
-         edcal.output("curSunday: " + curSunday);
+         edcal.output("edcal.startOfWeek: " + edcal.startOfWeek);
 
          edcal.moveTo(Date.today());
          
@@ -48,6 +48,18 @@ var edcal_test = {
                 "lastDate should match curSunday" );
          });
 
+         test("Check visible dates after 1 week move", function() {
+             expect(2);
+             edcal.move(1, true);
+             
+             ok(edcal_test.getFirstDate().equals(curSunday.clone().add(1).weeks()), "firstDate should match curSunday" );
+
+             ok(edcal_test.getLastDate().equals(curSunday.clone().add(parseInt(edcal.weeksPref)).weeks().add(-1).days().add(1).weeks()), 
+                "lastDate should match curSunday" );
+
+             edcal.move(1, false);
+         });
+
          test("Check visible dates after 4 week move", function() {
              expect(2);
              edcal.move(4, true);
@@ -56,16 +68,20 @@ var edcal_test = {
 
              ok(edcal_test.getLastDate().equals(curSunday.clone().add(parseInt(edcal.weeksPref)).weeks().add(-1).days().add(4).weeks()), 
                 "lastDate should match curSunday" );
+
+             edcal.move(4, false);
          });
 
          test("Check visible dates after 8 week past move", function() {
              expect(2);
              edcal.move(8, false);
              
-             ok(edcal_test.getFirstDate().equals(curSunday.clone().add(-4).weeks()), "firstDate should match curSunday" );
+             ok(edcal_test.getFirstDate().equals(curSunday.clone().add(-8).weeks()), "firstDate should match curSunday" );
 
-             ok(edcal_test.getLastDate().equals(curSunday.clone().add(parseInt(edcal.weeksPref)).weeks().add(-1).days().add(-   4).weeks()), 
+             ok(edcal_test.getLastDate().equals(curSunday.clone().add(parseInt(edcal.weeksPref)).weeks().add(-1).days().add(-8).weeks()), 
                 "lastDate should match curSunday" );
+
+             edcal.move(8, true);
          });
     }
 }
