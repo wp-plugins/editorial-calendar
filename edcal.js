@@ -2145,8 +2145,6 @@ jQuery(document).ready(function(){
      * to run the tests.
      */
     if (edcal.getUrlVars()["qunit"]) {
-        jQuery.getScript("../wp-content/plugins/edcal/edcal_test.js", function() {
-            edcal_test.runTests();
-        });
+        edcal_test.runTests();
     }
 });
