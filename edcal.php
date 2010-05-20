@@ -356,6 +356,10 @@ function edcal_scripts() {
 	//wp_enqueue_script( "date-extras", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/date.extras.js"), array( 'jquery' ) );
 
     wp_enqueue_script( "edcal-lib", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/edcallib.min.js"), array( 'jquery' ) );
+
+    if ($_GET['qunit']) {
+        wp_enqueue_script( "qunit", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/qunit.js"), array( 'jquery' ) );
+    }
     return;
     
     /*

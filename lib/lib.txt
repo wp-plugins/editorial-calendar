@@ -47,3 +47,9 @@ ui.droppable.js
 The draggable, droppable, and UI core support drag and drop.
 http://jqueryui.com/demos/draggable/
 MIT License
+
+qunit.js
+qunit.css
+A unit testing framework for the calendar
+http://docs.jquery.com/QUnit
+MIT License

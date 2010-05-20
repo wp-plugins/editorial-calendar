@@ -472,3 +472,7 @@
 #edcal_weeks_pref {
     width: 4em;
 }
+
+#edcal-qunit {
+    margin-top: 2em;
+}

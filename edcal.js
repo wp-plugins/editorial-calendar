@@ -2109,6 +2109,18 @@ var edcal = {
             console.error(msg);
         }
         humanMsg.displayMsg(msg);
+    },
+
+    getUrlVars: function() {
+         var vars = [], hash;
+         var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+         for (var i = 0; i < hashes.length; i++) {
+             hash = hashes[i].split('=');
+             vars.push(hash[0]);
+             vars[hash[0]] = hash[1];
+         }
+
+         return vars;
     }
 };
 
@@ -2125,4 +2137,16 @@ jQuery.fn.center = function () {
 
 jQuery(document).ready(function(){
     edcal.init();
+
+    /*
+     * The calendar supports unit tests through the QUnit framework,
+     * but we don't want to load the extra files when we aren't running
+     * tests so we load them dynamically.  Add the qunit=true parameter
+     * to run the tests.
+     */
+    if (edcal.getUrlVars()["qunit"]) {
+        jQuery.getScript("../wp-content/plugins/edcal/edcal_test.js", function() {
+            edcal_test.runTests();
+        });
+    }
 });
