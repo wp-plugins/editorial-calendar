@@ -40,7 +40,7 @@ var edcal_test = {
 
          edcal.moveTo(Date.today());
          
-         test("Check visible dates", function() {
+         test("Check visible dates moving to today", function() {
              expect(2);
              ok(edcal_test.getFirstDate().equals(curSunday.clone()), "firstDate should match curSunday" );
 
@@ -48,7 +48,7 @@ var edcal_test = {
                 "lastDate should match curSunday" );
          });
 
-         test("Check visible dates after 1 week move", function() {
+         test("Check visible dates after 1 week move in the future", function() {
              expect(2);
              edcal.move(1, true);
              
@@ -60,7 +60,7 @@ var edcal_test = {
              edcal.move(1, false);
          });
 
-         test("Check visible dates after 4 week move", function() {
+         test("Check visible dates after 4 week move in the future", function() {
              expect(2);
              edcal.move(4, true);
              
@@ -72,7 +72,7 @@ var edcal_test = {
              edcal.move(4, false);
          });
 
-         test("Check visible dates after 8 week past move", function() {
+         test("Check visible dates after 8 week move in the past", function() {
              expect(2);
              edcal.move(8, false);
              
