@@ -83,6 +83,13 @@ var edcal = {
        during a drag.
      */
     isDragScrolling: false,
+
+    /*
+     * This is the format we use to dates that we use as IDs in the 
+     * calendar.  It is independant of the visible date which is
+     * formatted based on the user's locale.
+     */
+    internalDateFormat: 'ddMMyyyy',
         
     /*
        This is the position of the calendar on the screen in pixels.  
@@ -340,17 +347,17 @@ var edcal = {
     createRow: function(/*jQuery*/ parent, /*bool*/ append) {
         var _date = edcal._wDate.clone();
         
-        var newrow = '<div class="rowcont" id="' + 'row' + edcal._wDate.toString("ddMMyyyy") + '">' + 
-                     '<div id="' + 'row' + edcal._wDate.toString("ddMMyyyy") + 'row" class="row">';
+        var newrow = '<div class="rowcont" id="' + 'row' + edcal._wDate.toString(edcal.internalDateFormat) + '">' + 
+                     '<div id="' + 'row' + edcal._wDate.toString(edcal.internalDateFormat) + 'row" class="row">';
         for (var i = 0; i < 7; i++) {
             /*
              * Adding all of these calls in the string is kind of messy.  We
              * could do this with the JQuery live function, but there are a lot
              * of days in the calendar and the live function gets a little slow.
              */
-            newrow += '<div onmouseover="edcal.showAddPostLink(\'' + _date.toString("ddMMyyyy") + '\');" ' + 
-                      'onmouseout="edcal.hideAddPostLink(\'' + _date.toString("ddMMyyyy") + '\');" ' + 
-                      'id="' + _date.toString("ddMMyyyy") + '" class="day ' + 
+            newrow += '<div onmouseover="edcal.showAddPostLink(\'' + _date.toString(edcal.internalDateFormat) + '\');" ' + 
+                      'onmouseout="edcal.hideAddPostLink(\'' + _date.toString(edcal.internalDateFormat) + '\');" ' + 
+                      'id="' + _date.toString(edcal.internalDateFormat) + '" class="day ' + 
                       edcal.getDateClass(_date) + ' ' + 
                       _date.toString("dddd").toLowerCase() + ' month-'   + 
                       _date.toString("MM").toLowerCase() + '">';
@@ -370,7 +377,7 @@ var edcal = {
 
             newrow += '<ul class="postlist">';
 
-            newrow += edcal.getPostItems(_date.toString("ddMMyyyy"));
+            newrow += edcal.getPostItems(_date.toString(edcal.internalDateFormat));
             
             newrow += '</ul>';
             
@@ -391,11 +398,11 @@ var edcal = {
         /*
          * This is the horizontal alignment of an individual week
          */
-        edcal.alignGrid("#row" + edcal._wDate.toString("ddMMyyyy") + "row", 7, 13.9, 100, 0.5);
+        edcal.alignGrid("#row" + edcal._wDate.toString(edcal.internalDateFormat) + "row", 7, 13.9, 100, 0.5);
         
-        edcal.draggablePost('#row' + edcal._wDate.toString("ddMMyyyy") + ' li.post');
+        edcal.draggablePost('#row' + edcal._wDate.toString(edcal.internalDateFormat) + ' li.post');
 
-        jQuery('#row' + edcal._wDate.toString("ddMMyyyy") + ' > div > div.day').droppable({
+        jQuery('#row' + edcal._wDate.toString(edcal.internalDateFormat) + ' > div > div.day').droppable({
             hoverClass: 'day-active',
             accept: function(ui) {
                 /*
@@ -423,36 +430,41 @@ var edcal = {
                            //output('ui.draggable.html(): ' + ui.draggable.html());
                            
                            var dayId = ui.draggable.parent().parent().parent().attr("id");
-                           
-                           // Step 0. Get the post object from the map
-                           var post = edcal.findPostForId(ui.draggable.parent().parent().parent().attr("id"), 
-                                                          ui.draggable.attr("id"));
-                           
-                           // Step 1. Remove the post from the posts map
-                           edcal.removePostFromMap(ui.draggable.parent().parent().parent().attr("id"), 
-                                                   ui.draggable.attr("id"));
-                           
-                           // Step 2. Remove the old element from the old parent.
-                           jQuery('#' + ui.draggable.attr("id")).remove();
-                           
-                           // Step 3. Add the item to the new DOM parent
-                           jQuery('#' + jQuery(this).attr("id") + ' .postlist').append(edcal.createPostItem(post, 
-                                                                                                            jQuery(this).attr("id")));
-                           
-                           if (dayId == jQuery(this).attr("id")) {
-                               /*
-                                  If they dropped back on to the day they started with we
-                                  don't want to go back to the server.
-                                */
-                               edcal.draggablePost('#' + jQuery(this).attr("id") + ' .post');
-                            } else {
-                                // Step6. Update the date on the server
-                                edcal.changeDate(jQuery(this).attr("id"), post);
-                            }
+
+                           edcal.doDrop(dayId, ui.draggable.attr("id"), jQuery(this).attr("id"));
                         }
             });
 
-        return jQuery('row' + edcal._wDate.toString("ddMMyyyy"));
+        return jQuery('row' + edcal._wDate.toString(edcal.internalDateFormat));
+    },
+
+    doDrop: function(/*string*/ parentId, /*string*/ postId, /*string*/ newDate, /*function*/ callback) {
+         edcal.output("doDrop(" + parentId + ", " + postId + ", " + newDate + ")");
+         var dayId = parentId;
+
+
+         // Step 0. Get the post object from the map
+         var post = edcal.findPostForId(parentId, postId);
+         
+         // Step 1. Remove the post from the posts map
+         edcal.removePostFromMap(parentId, postId);
+
+         // Step 2. Remove the old element from the old parent.
+         jQuery('#' + postId).remove();
+
+         // Step 3. Add the item to the new DOM parent
+         jQuery('#' + newDate + ' .postlist').append(edcal.createPostItem(post, newDate));
+
+         if (dayId == newDate) {
+             /*
+              If they dropped back on to the day they started with we
+              don't want to go back to the server.
+              */
+             edcal.draggablePost('#' + newDate + ' .post');
+         } else {
+             // Step6. Update the date on the server
+             edcal.changeDate(newDate, post, callback);
+         }
     },
 
     /*
@@ -566,7 +578,7 @@ var edcal = {
     /*
         Deletes the post specified. Will only be executed once the user clicks the confirm link to proceed.
     */
-    deletePost: function(/*Post ID*/ postId) {
+    deletePost: function(/*Post ID*/ postId, /*function*/ callback) {
     
         var url = edcal.ajax_url() + "&action=edcal_deletepost&postid=" + postId;
         
@@ -588,6 +600,10 @@ var edcal = {
                     }
                 } else {
                     edcal.output('Finished deleting the post: "' + res.post.title + '"');
+                }
+
+                if (callback) {
+                    callback(res);
                 }
             },
             error: function(xhr) {
@@ -620,79 +636,6 @@ var edcal = {
      */
     ajax_url: function() {
          return ajaxurl + "?_wpnonce=" + edcal.wp_nonce;
-    },
-
-    /*
-       This is an AJAX function to save the past title when
-       the user presses the save button on the tooltip.
-     */
-    saveTitle: function(/*string*/ postId) {
-         edcal.output("Saving the new title " + jQuery("#edcal-title-edit-field").val() + " for post " + postId);
-         var url = edcal.ajax_url() + "&action=edcal_changetitle&postid=" + postId + 
-             "&title=" + encodeURIComponent(jQuery("#edcal-title-edit-field").val());
-
-         jQuery("#post-" + postId).addClass("loadingclass");
-         
-         jQuery("#tooltip").hide();
-
-         jQuery.ajax( { 
-            url: url,
-            type: "POST",
-            processData: false,
-            timeout: 100000,
-            dataType: "json",
-            success: function(res) {
-                edcal.removePostItem(res.post.date, "post-" + res.post.id);
-                if (res.error) {
-                    /*
-                     * If there was an error we need to remove the dropped
-                     * post item.
-                     */
-                    if (res.error === edcal.NONCE_ERROR) {
-                        edcal.showError(edcal.checksum_error);
-                    }
-                }
-                edcal.addPostItem(res.post, res.post.date);
-                edcal.addPostItemDragAndToolltip(res.post.date);
-            },
-            error: function(xhr) {
-                 edcal.showError(edcal.general_error);
-                 if (xhr.responseText) {
-                     edcal.output("xhr.responseText: " + xhr.responseText);
-                 }
-            }
-        });
-    },
-
-    /*
-     * Cancels the edit title action in the tooltip.
-     */
-    cancelEditTitle: function(/*string*/ postTitle) {
-         jQuery("#edcal-title-edit-field").val(postTitle);
-
-         jQuery("#edcal-title-box").hide();
-         jQuery("#edcal-title").show();
-         
-    },
-
-    /*
-     * Shows the edit title UI in the tooltip.
-     */
-    editTitle: function() {
-         jQuery("#edcal-title").hide();
-         jQuery("#edcal-title-box").show();
-
-         jQuery("#edcal-title-edit-field").focus();
-         jQuery("#edcal-title-edit-field").select();
-    },
-
-    /*
-       Switches back to the normal tooltip title view
-       and closes the tooltip. (NOT USED)
-     */
-    closeTooltip: function() {
-         edcal.cancelEditTitle();
-         jQuery("#tooltip").hide();
     },
 
     /*
@@ -750,7 +693,7 @@ var edcal = {
      * doEdit - should we edit the post immediately?  if true we send the user
      *          to the edit screen for their new post.
      */
-    savePost: function(/*object*/ post, /*boolean*/ doEdit, /*boolean*/ doPublish) {
+    savePost: function(/*object*/ post, /*boolean*/ doEdit, /*boolean*/ doPublish, /*function*/ callback) {
          if(typeof(post) === 'undefined' || post === null) {
             post = edcal.serializePost();
          }
@@ -843,6 +786,10 @@ var edcal = {
                         edcal.addPostItemDragAndToolltip(res.post.date);
                     }
                 }
+
+                if (callback) {
+                    callback(res);
+                }
             },
             error: function(xhr) {
                  jQuery("#edit-slug-buttons").removeClass("tiploading");
@@ -864,6 +811,7 @@ var edcal = {
         
         jQuery('#tooltip').find('input, textarea, select').each(function() {
             post[this.name] = this.value;
+            edcal.output("post[" + this.name + "]: " + this.value);         
         });
         return post;
     },
@@ -956,7 +904,6 @@ var edcal = {
      */
     hideForm: function( ) {
         jQuery('#tooltip').hide();
-        edcal.cancelEditTitle();
         edcal.resetForm();
     },
     
@@ -1158,7 +1105,7 @@ var edcal = {
            We want to set a class for the cell that represents the current day so we can
            give it a background color.
          */
-        jQuery('#' + Date.today().toString("ddMMyyyy")).addClass("today");
+        jQuery('#' + Date.today().toString(edcal.internalDateFormat)).addClass("today");
     },
     
     /*
@@ -1590,7 +1537,7 @@ var edcal = {
                 edcal.move(edcal.weeksPref, false);
                 return false;
             } else if (evt.keyCode === 27) { //escape key
-                edcal.closeTooltip();
+                edcal.hideForm();
                 return false;
             }
         });
@@ -1660,15 +1607,6 @@ var edcal = {
             }
         });
 
-        jQuery("#edcal-title-edit-field").live("keyup", function(evt) {
-            if (evt.keyCode == 13) {    // enter key
-                /*
-                 * If the user presses enter we want to save the post title.
-                 */
-                edcal.saveTitle(jQuery(this).attr("postid"));
-            }
-        });
-        
         jQuery("#edcal_weeks_pref").live("keyup", function(evt) {
             if (jQuery("#edcal_weeks_pref").val().length > 0) {
                 jQuery("#edcal_applyoptions").removeClass("disabled");
@@ -1771,7 +1709,7 @@ var edcal = {
        This function makes an AJAX call and changes the date of
        the specified post on the server.
      */
-    changeDate: function(/*string*/ newdate, /*Post*/ post) {
+    changeDate: function(/*string*/ newdate, /*Post*/ post, /*function*/ callback) {
          edcal.output('Changing the date of "' + post.title + '" to ' + newdate);
          var newdateFormatted = edcal.getDayFromDayId(newdate).toString(edcal.wp_dateFormat);
 
@@ -1796,17 +1734,21 @@ var edcal = {
                     edcal.output('removePostItem(' + newdate + ', "post-" + ' + res.post.id + ');');
                     edcal.removePostItem(newdate, "post-" + res.post.id);
                     if (res.error === edcal.CONCURRENCY_ERROR) {
-                        edcal.showError(edcal.concurrency_error + '<br />' + res.post.title);
+                        edcal.displayMessage(edcal.concurrency_error + '<br />' + res.post.title);
                     } else if (res.error === edcal.PERMISSION_ERROR) {
-                        edcal.showError(edcal.permission_error);
+                        edcal.displayMessage(edcal.permission_error);
                     } else if (res.error === edcal.NONCE_ERROR) {
-                        edcal.showError(edcal.checksum_error);
+                        edcal.displayMessage(edcal.checksum_error);
                     }
-                }
-                
+                } 
+
                 edcal.removePostItem(res.post.date, "post-" + res.post.id);
                 edcal.addPostItem(res.post, res.post.date);
                 edcal.addPostItemDragAndToolltip(res.post.date);
+
+                if (callback) {
+                    callback(res);
+                }
             },
             error: function(xhr) {
                  edcal.showError(edcal.general_error);
@@ -2105,10 +2047,16 @@ var edcal = {
      * Firebug console if it is available.
      */
     showError: function(/*string*/ msg) {
-        if (window.console) {
+        if (consoleError && window.console) {
             console.error(msg);
         }
-        humanMsg.displayMsg(msg);
+
+        edcal.displayMessage(msg);
+        
+    },
+
+    displayMessage: function(/*string*/ msg) {
+         humanMsg.displayMsg(msg);
     },
 
     getUrlVars: function() {

@@ -62,7 +62,7 @@ var edcal_test = {
          
          test("Check visible dates moving to today", function() {
              expect(2);
-             ok(edcal_test.getFirstDate().equals(curSunday.clone()), "firstDate should match curSunday" );
+             ok(edcal_test.getFirstDate().equals(curSunday.clone()), "firstDate should match " + curSunday );
 
              ok(edcal_test.getLastDate().equals(curSunday.clone().add(parseInt(edcal.weeksPref)).weeks().add(-1).days()), 
                 "lastDate should match curSunday" );
@@ -72,7 +72,7 @@ var edcal_test = {
              expect(2);
              edcal.move(1, true);
              
-             ok(edcal_test.getFirstDate().equals(curSunday.clone().add(1).weeks()), "firstDate should match curSunday" );
+             ok(edcal_test.getFirstDate().equals(curSunday.clone().add(1).weeks()), "firstDate should match " + curSunday );
 
              ok(edcal_test.getLastDate().equals(curSunday.clone().add(parseInt(edcal.weeksPref)).weeks().add(-1).days().add(1).weeks()), 
                 "lastDate should match curSunday" );
@@ -84,7 +84,7 @@ var edcal_test = {
              expect(2);
              edcal.move(4, true);
              
-             ok(edcal_test.getFirstDate().equals(curSunday.clone().add(4).weeks()), "firstDate should match curSunday" );
+             ok(edcal_test.getFirstDate().equals(curSunday.clone().add(4).weeks()), "firstDate should match " + curSunday );
 
              ok(edcal_test.getLastDate().equals(curSunday.clone().add(parseInt(edcal.weeksPref)).weeks().add(-1).days().add(4).weeks()), 
                 "lastDate should match curSunday" );
@@ -96,12 +96,150 @@ var edcal_test = {
              expect(2);
              edcal.move(8, false);
              
-             ok(edcal_test.getFirstDate().equals(curSunday.clone().add(-8).weeks()), "firstDate should match curSunday" );
+             ok(edcal_test.getFirstDate().equals(curSunday.clone().add(-8).weeks()), "firstDate should match " + curSunday );
 
              ok(edcal_test.getLastDate().equals(curSunday.clone().add(parseInt(edcal.weeksPref)).weeks().add(-1).days().add(-8).weeks()), 
                 "lastDate should match curSunday" );
 
              edcal.move(8, true);
+         });
+
+         var post = {};
+
+         test("Create new post", function() {
+             expect(3);
+
+             post.title = 'Unit Test Post';
+             post.content = 'This is the content of the unit test post.';
+             post.status = 'draft';
+             post.time = '10:00 AM';
+             post.date = Date.today().add(7).days().toString(edcal.internalDateFormat);
+             post.id = '0';
+    
+             stop();
+             edcal.savePost(post, false, true, function(res)
+                {
+                    start();
+
+                    if (!res.post) {
+                        ok(false, "There was an error creating the new post.");
+                        return;
+                    }
+
+                    ok(res.post.date === post.date, "The resulting post should have the same date as the request");
+                    ok(res.post.title === post.title, "The resulting post should have the same title as the request");
+
+                    ok(jQuery('#post-' + res.post.id).length === 1, "The post should be added in only one place in the calendar.");
+
+                    post = res.post;
+
+                });
+         });
+
+         /*
+         The move test isn't working yet
+         test("Change post date", function() {
+             expect(2);
+
+             // We added the post one week in the future, now we will move it 
+             // one day after that.
+             var newDate = Date.today().add(8).days().toString(edcal.internalDateFormat);
+
+             stop();
+             edcal.doDrop(post.date, 'post-' + post.id, newDate, function(res)
+                {
+                    start();
+                    
+                    
+
+                    if (!res.post) {
+                        ok(false, "There was an error creating the new post.");
+                        return;
+                    }
+
+                    ok(res.post.date === newDate, "The resulting post should have the same date as the request");
+
+                    ok(jQuery('#post-' + res.post.id).length === 1, "The post should be added in only one place in the calendar.");
+
+                    post = res.post;
+
+                });
+         });
+         */
+
+         test("Edit existing post", function() {
+             expect(2);
+
+             post.title = 'Unit Test Post &#8211 Changed';
+             post.content = 'This is the content of the unit test post. &#8211 Changed';
+             
+             stop();
+             edcal.savePost(post, false, true, function(res)
+                {
+                    start();
+
+                    if (!res.post) {
+                        ok(false, "There was an error creating the new post.");
+                        return;
+                    }
+
+                    ok(res.post.title === post.title, "The resulting post should have the same title as the request");
+
+                    ok(jQuery('#post-' + res.post.id).length === 1, "The post should be added in only one place in the calendar.");
+
+                    post = res.post;
+
+                });
+         });
+
+         test("Change post date conflict", function() {
+             expect(2);
+
+             post.date = Date.today().add(-1).days().toString(edcal.internalDateFormat);
+             
+             stop();
+
+             /*
+              * We added the post one week in the future, now we will move it 
+              * one day after that.
+              */
+             var newDate = Date.today().add(8).days().toString(edcal.internalDateFormat);
+
+             stop();
+             edcal.changeDate(newDate, post, function(res)
+                {
+                    start();
+
+                    if (!res.post) {
+                        ok(false, "There was an error creating the new post.");
+                        return;
+                    }
+
+                    ok(res.error === 4, "This move should show an exception because it is in conflict.");
+
+                    ok(jQuery('#post-' + res.post.id).length === 1, "The post should be added in only one place in the calendar.");
+
+                    post = res.post;
+
+                });
+         });
+
+         test("Delete existing post", function() {
+             expect(1);
+
+             stop();
+             edcal.deletePost(post.id, function(res)
+                {
+                    start();
+
+                    if (!res.post) {
+                        ok(false, "There was an error creating the new post.");
+                        return;
+                    }
+
+                    ok(jQuery('#post-' + res.post.id).length === 0, "The post should now be deleted from the calendar.");
+
+                });
          });
     }
 }
