@@ -438,6 +438,9 @@ var edcal = {
         return jQuery('row' + edcal._wDate.toString(edcal.internalDateFormat));
     },
 
+    /*
+     * Handle the drop when a user drags and drops a post.
+     */
     doDrop: function(/*string*/ parentId, /*string*/ postId, /*string*/ newDate, /*function*/ callback) {
          edcal.output("doDrop(" + parentId + ", " + postId + ", " + newDate + ")");
          var dayId = parentId;
@@ -2055,10 +2058,17 @@ var edcal = {
         
     },
 
+    /*
+     * Display an error message to the user
+     */
     displayMessage: function(/*string*/ msg) {
          humanMsg.displayMsg(msg);
     },
-
+    
+    /*
+     * A helper function to get the parameters from the
+     * current URL.
+     */
     getUrlVars: function() {
          var vars = [], hash;
          var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
@@ -2092,7 +2102,7 @@ jQuery(document).ready(function(){
      * tests so we load them dynamically.  Add the qunit=true parameter
      * to run the tests.
      */
-    if (edcal.getUrlVars()["qunit"]) {
+    if (edcal.getUrlVars().qunit) {
         edcal_test.runTests();
     }
 });

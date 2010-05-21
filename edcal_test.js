@@ -60,12 +60,15 @@ var edcal_test = {
 
          edcal.moveTo(Date.today());
          
+         /*
+          * We'll start of with a series of tests about moving the calendar around
+          */
          test("Check visible dates moving to today", function() {
              expect(2);
-             ok(edcal_test.getFirstDate().equals(curSunday.clone()), "firstDate should match " + curSunday );
+             ok(edcal_test.getFirstDate().equals(curSunday.clone()), "firstDate should match " + curSunday);
 
-             ok(edcal_test.getLastDate().equals(curSunday.clone().add(parseInt(edcal.weeksPref)).weeks().add(-1).days()), 
-                "lastDate should match curSunday" );
+             ok(edcal_test.getLastDate().equals(curSunday.clone().add(edcal.weeksPref).weeks().add(-1).days()), 
+                "lastDate should match " + curSunday);
          });
 
          test("Check visible dates after 1 week move in the future", function() {
@@ -74,8 +77,8 @@ var edcal_test = {
              
              ok(edcal_test.getFirstDate().equals(curSunday.clone().add(1).weeks()), "firstDate should match " + curSunday );
 
-             ok(edcal_test.getLastDate().equals(curSunday.clone().add(parseInt(edcal.weeksPref)).weeks().add(-1).days().add(1).weeks()), 
-                "lastDate should match curSunday" );
+             ok(edcal_test.getLastDate().equals(curSunday.clone().add(edcal.weeksPref).weeks().add(-1).days().add(1).weeks()), 
+                "lastDate should match " + curSunday );
 
              edcal.move(1, false);
          });
@@ -86,8 +89,8 @@ var edcal_test = {
              
              ok(edcal_test.getFirstDate().equals(curSunday.clone().add(4).weeks()), "firstDate should match " + curSunday );
 
-             ok(edcal_test.getLastDate().equals(curSunday.clone().add(parseInt(edcal.weeksPref)).weeks().add(-1).days().add(4).weeks()), 
-                "lastDate should match curSunday" );
+             ok(edcal_test.getLastDate().equals(curSunday.clone().add(edcal.weeksPref).weeks().add(-1).days().add(4).weeks()), 
+                "lastDate should match " + curSunday );
 
              edcal.move(4, false);
          });
@@ -98,11 +101,15 @@ var edcal_test = {
              
              ok(edcal_test.getFirstDate().equals(curSunday.clone().add(-8).weeks()), "firstDate should match " + curSunday );
 
-             ok(edcal_test.getLastDate().equals(curSunday.clone().add(parseInt(edcal.weeksPref)).weeks().add(-1).days().add(-8).weeks()), 
-                "lastDate should match curSunday" );
+             ok(edcal_test.getLastDate().equals(curSunday.clone().add(edcal.weeksPref).weeks().add(-1).days().add(-8).weeks()), 
+                "lastDate should match " + curSunday );
 
              edcal.move(8, true);
          });
+         
+         /*
+          * Now we'll do a few tests about creating, modifying, and deleting posts.
+          */
 
          var post = {};
 
@@ -224,6 +231,11 @@ var edcal_test = {
                 });
          });
 
+         
+         /*
+          * The last step is to delete the post we made so
+          * the test cleans up after itself.
+          */
          test("Delete existing post", function() {
              expect(1);
 
@@ -242,4 +254,4 @@ var edcal_test = {
                 });
          });
     }
-}
+};
