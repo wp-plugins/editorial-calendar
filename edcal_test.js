@@ -64,7 +64,7 @@ var edcal_test = {
          /*
           * We'll start of with a series of tests about moving the calendar around
           */
-         test("Check visible dates moving to today", function() {
+         test("Move to today and check visible dates", function() {
              expect(2);
              ok(edcal_test.getFirstDate().equals(curSunday.clone()), "firstDate should match " + curSunday);
 
@@ -72,7 +72,7 @@ var edcal_test = {
                 "lastDate should match " + curSunday);
          });
 
-         asyncTest("Check visible dates after 1 week move in the future", function() {
+         asyncTest("Move 1 week in the future and check visible dates", function() {
              expect(2);
              edcal.move(1, true, function() {
                  ok(edcal_test.getFirstDate().equals(curSunday.clone().add(1).weeks()), "firstDate should match " + curSunday );
@@ -82,7 +82,7 @@ var edcal_test = {
                  
                  edcal.move(1, false, function() {
                      start();
-                     edcal_test.testMoveEightWeeks();
+                     edcal_test.testMoveFourWeeks();
                  });
              });
          });
@@ -91,10 +91,32 @@ var edcal_test = {
          
     },
     
+    testMoveFourWeeks: function() {
+         var curSunday = edcal.nextStartOfWeek(Date.today()).add(-1).weeks();
+         
+         asyncTest("Move 4 week in the future and check visible dates", function() {
+             expect(2);
+             
+             edcal.move(4, true, function() {
+                 ok(edcal_test.getFirstDate().equals(curSunday.clone().add(4).weeks()), "firstDate should match " + curSunday );
+
+                 ok(edcal_test.getLastDate().equals(curSunday.clone().add(edcal.weeksPref).weeks().add(-1).days().add(4).weeks()), 
+                    "lastDate should match " + curSunday );
+    
+                 edcal.move(4, false, function() {
+                     start();
+                     edcal_test.testMoveEightWeeks();
+                 });
+             });
+             
+             
+         });
+    },
+    
     testMoveEightWeeks: function() {
          var curSunday = edcal.nextStartOfWeek(Date.today()).add(-1).weeks();
          
-         asyncTest("Check visible dates after 8 week move in the past", function() {
+         asyncTest("Move 8 week in the past and check visible dates", function() {
              expect(2);
              
              edcal.move(8, false, function() {
@@ -118,7 +140,7 @@ var edcal_test = {
           * Now we'll do a few tests about creating, modifying, and deleting posts.
           */
 
-         asyncTest("Create new post", function() {
+         asyncTest("Create a new post", function() {
              expect(3);
 
              edcal_test.post.title = 'Unit Test Post';
@@ -135,10 +157,10 @@ var edcal_test = {
                      return;
                  }
                  
-                 ok(res.post.date === edcal_test.post.date, "The resulting post should have the same date as the request");
-                 ok(res.post.title === edcal_test.post.title, "The resulting post should have the same title as the request");
+                 equals(res.post.date, edcal_test.post.date, "The resulting post should have the same date as the request");
+                 equals(res.post.title, edcal_test.post.title, "The resulting post should have the same title as the request");
                  
-                 ok(jQuery('#post-' + res.post.id).length === 1, "The post should be added in only one place in the calendar.");
+                 equals(jQuery('#post-' + res.post.id).length, 1, "The post should be added in only one place in the calendar.");
                  
                  edcal_test.post = res.post;
                  
@@ -152,7 +174,7 @@ var edcal_test = {
     
     testMovePost: function() {
 
-         asyncTest("Change post date", function() {
+         asyncTest("Change the date of an existing post", function() {
              expect(2);
 
              // We added the post one week in the future, now we will move it 
@@ -166,9 +188,9 @@ var edcal_test = {
                      return;
                  }
                  
-                 ok(res.post.date === newDate, "The resulting post should have the same date as the request");
+                 equals(res.post.date, newDate, "The resulting post should have the same date as the request");
                  
-                 ok(jQuery('#post-' + res.post.id).length === 1, "The post should be added in only one place in the calendar.");
+                 equals(jQuery('#post-' + res.post.id).length, 1, "The post should be added in only one place in the calendar.");
                  
                  edcal_test.post = res.post;
                  
@@ -182,7 +204,7 @@ var edcal_test = {
     
     testEditPost: function() {
          
-         asyncTest("Edit existing post", function() {
+         asyncTest("Edit the content of an existing post", function() {
              expect(2);
 
              edcal_test.post.title = 'Unit Test Post &#8211 Changed';
@@ -196,9 +218,9 @@ var edcal_test = {
                         return;
                     }
 
-                    ok(res.post.title === edcal_test.post.title, "The resulting post should have the same title as the request");
+                    equals(res.post.title, edcal_test.post.title, "The resulting post should have the same title as the request");
 
-                    ok(jQuery('#post-' + res.post.id).length === 1, "The post should be added in only one place in the calendar.");
+                    equals(jQuery('#post-' + res.post.id).length, 1, "The post should be added in only one place in the calendar.");
 
                     edcal_test.post = res.post;
                     
@@ -212,7 +234,7 @@ var edcal_test = {
     },
     
     testDateConflict: function() {
-         asyncTest("Change post date conflict", function() {
+         asyncTest("Try to change a post date and fail because of a concurrency conflict", function() {
              expect(2);
 
              edcal_test.post.date = Date.today().add(-1).days().toString(edcal.internalDateFormat);
@@ -230,9 +252,9 @@ var edcal_test = {
                         return;
                     }
 
-                    equals(res.error, 4, "This move should show an exception because it is in conflict.");
+                    equals(res.error, edcal.CONCURRENCY_ERROR, "This move should show an exception because it is in conflict.");
 
-                    ok(jQuery('#post-' + res.post.id).length === 1, "The post should be added in only one place in the calendar.");
+                    equals(jQuery('#post-' + res.post.id).length, 1, "The post should be added in only one place in the calendar.");
 
                     edcal_test.post = res.post;
                     
@@ -251,7 +273,7 @@ var edcal_test = {
           * The last step is to delete the post we made so
           * the test cleans up after itself.
           */
-         asyncTest("Delete existing post", function() {
+         asyncTest("Delete the post created for testing", function() {
              expect(1);
 
              edcal.deletePost(edcal_test.post.id, function(res)
@@ -262,7 +284,7 @@ var edcal_test = {
                         return;
                     }
 
-                    ok(jQuery('#post-' + res.post.id).length === 0, "The post should now be deleted from the calendar.");
+                    equals(jQuery('#post-' + res.post.id).length, 0, "The post should now be deleted from the calendar.");
                     start();
 
                 });
