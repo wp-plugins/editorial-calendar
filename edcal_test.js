@@ -21,6 +21,9 @@
 var edcal_test = {
     
     post: {},
+    
+    testContent: 'This is the content of the unit test post.',
+    
         
     runTests: function() {
         jQuery("head").append("<link>");
@@ -144,7 +147,7 @@ var edcal_test = {
              expect(3);
 
              edcal_test.post.title = 'Unit Test Post';
-             edcal_test.post.content = 'This is the content of the unit test post.';
+             edcal_test.post.content = edcal.testContent;
              edcal_test.post.status = 'draft';
              edcal_test.post.time = '10:00 AM';
              edcal_test.post.date = Date.today().add(7).days().toString(edcal.internalDateFormat);
@@ -166,12 +169,34 @@ var edcal_test = {
                  
                  start();
                  
-                 edcal_test.testMovePost();
+                 edcal_test.testGetPost();
              });
          });
          
     },
     
+    testGetPost: function() {
+         /*
+          * We'll start by getting data about the post we've just create
+          */
+
+         asyncTest("Get post information", function() {
+             expect(2);
+
+             edcal.getPost(edcal_test.post.id, function(post) {
+                 equals(post.date, edcal_test.post.date, "The resulting post should have the same date as the request");
+                 equals(post.title, edcal_test.post.title, "The resulting post should have the same title as the request");
+                 
+                 edcal_test.post = post;
+                 
+                 start();
+                 
+                 edcal_test.testMovePost();
+             });
+         });
+         
+    },
+
     testMovePost: function() {
 
          asyncTest("Change the date of an existing post", function() {
