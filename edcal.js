@@ -442,7 +442,6 @@ var edcal = {
      * Handle the drop when a user drags and drops a post.
      */
     doDrop: function(/*string*/ parentId, /*string*/ postId, /*string*/ newDate, /*function*/ callback) {
-         edcal.output("doDrop(" + parentId + ", " + postId + ", " + newDate + ")");
          var dayId = parentId;
 
 
@@ -454,7 +453,7 @@ var edcal = {
 
          // Step 2. Remove the old element from the old parent.
          jQuery('#' + postId).remove();
-
+         
          // Step 3. Add the item to the new DOM parent
          jQuery('#' + newDate + ' .postlist').append(edcal.createPostItem(post, newDate));
 
@@ -715,7 +714,6 @@ var edcal = {
             but we still need to work aorund the issue.  Hackito
             ergo sum.
           */
-         edcal.output("post.time: " + post.time);
          if (post.time.toUpperCase() === "12:00 PM") {
              post.time = "12:00";
          } else if (post.time.toUpperCase() === "12:30 PM") {
@@ -726,8 +724,6 @@ var edcal = {
              post.time = "00:30";
          }
 
-         edcal.output("post.time after: " + post.time);
-         
          var time;
          if(post.time != '') {
             time = Date.parse(post.time);
@@ -814,7 +810,6 @@ var edcal = {
         
         jQuery('#tooltip').find('input, textarea, select').each(function() {
             post[this.name] = this.value;
-            edcal.output("post[" + this.name + "]: " + this.value);         
         });
         return post;
     },
@@ -1131,7 +1126,7 @@ var edcal = {
        True moves the calendar down into the future and false moves the calendar
        up into the past.
      */
-    move: function(steps, direction) {
+    move: function(/*int*/ steps, /*boolean*/ direction, /*function*/ callback) {
          /* 
           * If the add/edit post form is visible, don't go anywhere.
           */
@@ -1202,10 +1197,12 @@ var edcal = {
              */
             if (!direction) {
                 edcal.getPosts(edcal._wDate.clone(), 
-                               edcal._wDate.clone().add(7 * (edcal.steps + 1)).days());
+                               edcal._wDate.clone().add(7 * (edcal.steps + 1)).days(),
+                               callback);
             } else {
                 edcal.getPosts(edcal._wDate.clone().add(-7 * (edcal.steps + 1)).days(), 
-                               edcal._wDate.clone());
+                               edcal._wDate.clone(),
+                               callback);
             }
 
             edcal.steps = 0;
@@ -1734,7 +1731,6 @@ var edcal = {
                      * If there was an error we need to remove the dropped
                      * post item.
                      */
-                    edcal.output('removePostItem(' + newdate + ', "post-" + ' + res.post.id + ');');
                     edcal.removePostItem(newdate, "post-" + res.post.id);
                     if (res.error === edcal.CONCURRENCY_ERROR) {
                         edcal.displayMessage(edcal.concurrency_error + '<br />' + res.post.title);
@@ -1767,7 +1763,7 @@ var edcal = {
        Makes an AJAX call to get the posts from the server within the
        specified dates.
      */
-    getPosts: function(/*Date*/ from, /*Date*/ to) {
+    getPosts: function(/*Date*/ from, /*Date*/ to, /*function*/ callback) {
          edcal.output("Getting posts from " + from + " to " + to);
          
          var shouldGet = edcal.cacheDates[from];
@@ -1779,13 +1775,15 @@ var edcal = {
               * it somewhat, but we could get much better about this.
               */
              edcal.output("Using cached results for posts from " + from.toString("dd-MMM-yyyy") + " to " + to.toString("dd-MMM-yyyy"));
+             
+             if (callback) {
+                 callback();
+             }
              return;
          }
 
          edcal.cacheDates[from] = true;
 
-         edcal.output("edcal.ajax_url(): " + edcal.ajax_url());
-         
          var url = edcal.ajax_url() + "&action=edcal_posts&from=" + from.toString("yyyy-MM-dd") + "&to=" + to.toString("yyyy-MM-dd");
          
          jQuery("#loading").show();
@@ -1859,6 +1857,11 @@ var edcal = {
                         edcal.addPostItemDragAndToolltip(postDate);
                     });
                 }, 300);
+                
+                if (callback) {
+                    callback(res);
+                }
+                
              },
              error: function(xhr) {
                 edcal.showError(edcal.general_error);
