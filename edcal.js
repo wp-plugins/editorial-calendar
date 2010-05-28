@@ -367,11 +367,11 @@ var edcal = {
             newrow += '<a href="#" adddate="' + _date.toString("MMMM d") + '" class="daynewlink" title="' + edcal.str_newpost + _date.toString("MMMM d") + '" ' + 
                          'onclick="return false;">' + edcal.str_addPostLink + '</a>';
             
-            newrow += '<div class="daylabel">';
+            newrow += '<div class="daylabel';
             if (_date.toString("dd") == "01") {
-                newrow += _date.toString("MMM d");
+                newrow += ' firstOfMonth">' + _date.toString("MMM d");
             } else {
-                newrow += _date.toString("d");
+                newrow += '">' + _date.toString("d");
             }
             newrow += '</div>';
 

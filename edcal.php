@@ -200,7 +200,7 @@ function edcal_list_admin() {
             background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/tip_close.gif")); ?>');
         }
 
-        .month-present .daylabel {
+        .month-present .daylabel, .firstOfMonth {
             background: #F5F5F5 url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/month-present_bk.gif")); ?>') repeat-x left top;
         }
         
