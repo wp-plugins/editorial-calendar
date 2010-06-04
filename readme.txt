@@ -52,6 +52,10 @@ From time to time people write articles about the editorial calendar.  We apprec
 
 <a href="http://websuccessdiva.com/seo-copywriting-checklist/">SEO Copywriting Checklist for Wordpress Blogs</a> on <a href="http://websuccessdiva.com/">@WebSuccessDiva</a> is a good article about SEO and using an editorial calendar.
 
+= How do I get help using the calendar? =
+
+The <a href="http://groups.google.com/group/wp-edcal">WordPress Editorial Calendar Google Group</a> is a good place to ask questions, find answers, and post feedback.
+
 = How do I navigate in the calendar? =
 
 You can move around in the calendar using the arrows next to the months at the top or your mouse wheel, You can also move using your keyboard:
