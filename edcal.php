@@ -808,7 +808,7 @@ function edcal_changedate() {
         ?>
             "post" :
         <?php
-            edcal_postJSON($post);
+            edcal_postJSON($post, false, true);
         ?> }
         
         <?php
@@ -841,7 +841,7 @@ function edcal_changedate() {
         ?>
             "post" :
         <?php
-            edcal_postJSON($post);
+            edcal_postJSON($post, false, true);
         ?> }
         
         <?php
@@ -915,7 +915,7 @@ function edcal_changedate() {
         "post" :
         
     <?php
-        edcal_postJSON($post);
+        edcal_postJSON($post, false, true);
     ?>}
     <?php
     

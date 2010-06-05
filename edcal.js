@@ -611,7 +611,7 @@ var edcal = {
             error: function(xhr) {
                  edcal.showError(edcal.general_error);
                  if (xhr.responseText) {
-                     edcal.output("xhr.responseText: " + xhr.responseText);
+                     edcal.output("deletePost xhr.responseText: " + xhr.responseText);
                  }
             }
         });
@@ -795,7 +795,7 @@ var edcal = {
                  jQuery('#tooltip').hide();
                  edcal.showError(edcal.general_error);
                  if (xhr.responseText) {
-                     edcal.output("xhr.responseText: " + xhr.responseText);
+                     edcal.output("savePost xhr.responseText: " + xhr.responseText);
                  }
             }
         });
@@ -1675,10 +1675,13 @@ var edcal = {
                     callback(res);
                 }
             },
-            error: function(xhr) {
+            error: function(xhr, textStatus, error) {
                  edcal.showError(edcal.general_error);
+                 
+                 edcal.output("textStatus: " + textStatus);
+                 edcal.output("error: " + error);
                  if (xhr.responseText) {
-                     edcal.output("xhr.responseText: " + xhr.responseText);
+                     edcal.output("changeDate xhr.responseText: " + xhr.responseText);
                  }
             }
         });
@@ -1792,7 +1795,7 @@ var edcal = {
              error: function(xhr) {
                 edcal.showError(edcal.general_error);
                 if (xhr.responseText) {
-                    edcal.output("xhr.responseText: " + xhr.responseText);
+                    edcal.output("getPosts xhr.responseText: " + xhr.responseText);
                 }
             }
         });
@@ -1843,7 +1846,7 @@ var edcal = {
                 
                  edcal.showError(edcal.general_error);
                  if (xhr.responseText) {
-                     edcal.output("xhr.responseText: " + xhr.responseText);
+                     edcal.output("getPost xhr.responseText: " + xhr.responseText);
                  }
                  return false;
             }
@@ -1957,7 +1960,7 @@ var edcal = {
              error: function(xhr) {
                 edcal.showError(edcal.general_error);
                 if (xhr.responseText) {
-                    edcal.output("xhr.responseText: " + xhr.responseText);
+                    edcal.output("saveOptions xhr.responseText: " + xhr.responseText);
                 }
             }
         });
@@ -1979,7 +1982,7 @@ var edcal = {
      * Firebug console if it is available.
      */
     showError: function(/*string*/ msg) {
-        if (consoleError && window.console) {
+        if (window.console) {
             console.error(msg);
         }
 
