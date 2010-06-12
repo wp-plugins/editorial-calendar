@@ -118,6 +118,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 * The calendar now uses the QUnit unit test framework to make sure the calendar maintains high quality in every release.  You can see the <a href="http://www.zackgrossbart.com/extras/trunk/wp-admin/edit.php?page=cal&qunit=true">latest test run</a>.
 * Made it easier to see the first day of the month using a special header.
 * Changed to a lighter gradient for the calendar header to match the new theme of WordPress 3.0.
+* We now support pending review posts in the calendar.
 
 = 0.8 =
 * We got the message and added an edit link that takes you to the WordPress edit page in addition to a link for the quick edit dialog in the calendar.

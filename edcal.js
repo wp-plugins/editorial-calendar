@@ -855,7 +855,7 @@ var edcal = {
            If you have a status that isn't draft or future we
            just make it read only.
          */
-        if (post.status && post.status !== 'draft' && post.status !== 'future') {
+        if (post.status && post.status !== 'draft' && post.status !== 'future' && post.status !== 'pending') {
             jQuery('#edcal-status').attr('disabled', 'true');
             jQuery('#edcal-status').append('<option class="temp" value="' + post.status + '">' + post.status + '</option>');
             jQuery('#edcal-status').val(post.status);
