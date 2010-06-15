@@ -68,6 +68,22 @@ var edcal = {
        in the calendar.
      */
     weeksPref: 3,
+        
+    /*
+       This is a preference value indicating if you see the post status
+     */
+    statusPref: true,
+
+    /*
+       This is a preference value indicating if you see the post author
+     */
+    authorPref: false,
+
+    /*
+       This is a preference value indicating if you see the post time
+     */
+    timePref: true,
+    
     /*
      * True if the calendar is in the process of moving
      */
@@ -1046,30 +1062,38 @@ var edcal = {
              posttitle = "[No Title]";
          }
 
-         if ((post.status === "draft" ||
-             post.status === "pending") &&
-             post.sticky === '1') {
-             /*
-              * Then this post is a sticky draft
-              */
-             posttitle += edcal.str_draft_sticky;
-         } else if (post.sticky === '1') {
-             posttitle += edcal.str_sticky;
-         } else if (post.status === "draft" ||
-             post.status === "pending") {
-             posttitle += edcal.str_draft;
-         } else if (post.status !== "publish" &&
-                    post.status !== "future" &&
-                    post.status !== "pending") {
-             /*
-                There are some WordPress plugins that let you specify
-                custom post status.  In that case we just want to show
-                you the status.
-              */
-             posttitle += ' [' + post.status + ']';
+         if (edcal.statusPref) {
+             if ((post.status === "draft" ||
+                 post.status === "pending") &&
+                 post.sticky === '1') {
+                 /*
+                  * Then this post is a sticky draft
+                  */
+                 posttitle += edcal.str_draft_sticky;
+             } else if (post.sticky === '1') {
+                 posttitle += edcal.str_sticky;
+             } else if (post.status === "draft" ||
+                 post.status === "pending") {
+                 posttitle += edcal.str_draft;
+             } else if (post.status !== "publish" &&
+                        post.status !== "future" &&
+                        post.status !== "pending") {
+                 /*
+                    There are some WordPress plugins that let you specify
+                    custom post status.  In that case we just want to show
+                    you the status.
+                  */
+                 posttitle += ' [' + post.status + ']';
+             }
          }
 
-         posttitle = '<span class="posttime">' + post.formattedtime + '</span> ' + posttitle;
+         if (edcal.timePref) {
+             posttitle = '<span class="posttime">' + post.formattedtime + '</span> ' + posttitle;
+         }
+         
+         if (edcal.authorPref) {
+             posttitle = posttitle + ' ' + edcal.str_by + ' ' + '<span class="postauthor">' + post.author + '</span>';
+         }
          
          var classString = '';
          
@@ -1883,8 +1907,34 @@ var edcal = {
               */
              edcal.helpMeta = jQuery("#contextual-help-wrap").html();
 
-             var optionsHtml = '<h5>' + edcal.str_optionsheader + '</h5>' + 
-                 '<div class="metabox-prefs">' + 
+             /*
+              * Set up the options box title
+              */
+             var optionsHtml = '<h5>' + edcal.str_optionsheader + '</h5>';
+             
+             /*
+              * Set up the visible fields option
+              */
+             optionsHtml += '<div class="metabox-prefs" id="calendar-fields-prefs">' +
+                                edcal.str_show + ' ' +  
+                                '<label for="author-hide">' + 
+                                    '<input type="checkbox" ' + edcal.isPrefChecked(edcal.authorPref) + 'value="true" id="author-hide" ' +
+                                           'name="author-hide" class="hide-column-tog" />' + edcal.str_opt_author + 
+                                '</label>' + 
+                                '<label for="status-hide">' + 
+                                    '<input type="checkbox" ' + edcal.isPrefChecked(edcal.statusPref) + 'value="true" id="status-hide" ' +
+                                           'name="status-hide" class="hide-column-tog" />' + edcal.str_opt_status + 
+                                '</label>' + 
+                                '<label for="time-hide">' + 
+                                    '<input type="checkbox" ' +  edcal.isPrefChecked(edcal.timePref) + 'value="true" id="time-hide" ' +
+                                           'name="time-hide" class="hide-column-tog" />' + edcal.str_opt_time + 
+                                '</label>' + 
+                            '</div>';
+             
+             /*
+              * Set up the number of posts option
+              */
+             optionsHtml += '<div class="metabox-prefs">' + 
                     edcal.str_show + '<select id="edcal_weeks_pref" ' + 'class="screen-per-page" title="' + edcal.str_weekstt + '"> ';
 
              var weeks = parseInt(edcal.weeksPref, 10);
@@ -1897,9 +1947,11 @@ var edcal = {
              }
 
              optionsHtml += '</select>' + 
-                    edcal.str_show2 + '<br /><br />' + 
-                    '<button id="edcal_applyoptions" onclick="edcal.saveOptions(); return false;" class="save button">' + edcal.str_apply + '</button>' +
+                    edcal.str_show2 + 
                  '</div>';
+             
+             
+             optionsHtml += '<br /><button id="edcal_applyoptions" onclick="edcal.saveOptions(); return false;" class="save button">' + edcal.str_apply + '</button>';
              
              jQuery("#contextual-help-wrap").html(optionsHtml);
              
@@ -1923,6 +1975,14 @@ var edcal = {
          }
     },
     
+    isPrefChecked: function(/*boolean*/ prefVal) {
+         if (prefVal) {
+             return ' checked="checked" ';
+         } else {
+             return '';
+         }
+    },
+    
     /*
        Save the number of weeks options with an AJAX call.  This happens
        when you press the apply button.
@@ -1943,6 +2003,10 @@ var edcal = {
          
          var url = edcal.ajax_url() + "&action=edcal_saveoptions&weeks=" + 
              encodeURIComponent(jQuery("#edcal_weeks_pref").val());
+         
+         jQuery('#calendar-fields-prefs').find('input, textarea, select').each(function() {
+             url += '&' + encodeURIComponent(this.name) + '=' + encodeURIComponent(this.checked);
+         });
          
          jQuery.ajax( { 
              url: url,

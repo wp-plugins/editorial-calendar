@@ -474,6 +474,16 @@
     width: 4em;
 }
 
+#calendar-fields-prefs {
+    margin-bottom: 1em;
+}
+
+#calendar-fields-prefs label {
+    margin-left: 1em;
+    line-height: normal;
+    vertical-align: baseline;
+}
+
 #edcal-qunit {
     margin-top: 2em;
 }

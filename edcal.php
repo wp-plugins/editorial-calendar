@@ -122,6 +122,30 @@ function edcal_list_admin() {
             <?php
                 }
             ?>
+            
+            <?php 
+                if (get_option("edcal_author_pref") != "") {
+            ?>
+                edcal.authorPref = <?php echo(get_option("edcal_author_pref")); ?>;
+            <?php
+                }
+            ?>
+            
+            <?php 
+                if (get_option("edcal_time_pref") != "") {
+            ?>
+                edcal.timePref = <?php echo(get_option("edcal_time_pref")); ?>;
+            <?php
+                }
+            ?>
+            
+            <?php 
+                if (get_option("edcal_status_pref") != "") {
+            ?>
+                edcal.statusPref = <?php echo(get_option("edcal_status_pref")); ?>;
+            <?php
+                }
+            ?>
 
             edcal.startOfWeek = <?php echo(get_option("start_of_week")); ?>;
             edcal.timeFormat = "<?php echo(get_option("time_format")); ?>";
@@ -182,6 +206,10 @@ function edcal_list_admin() {
             edcal.str_apply = <?php echo(edcal_json_encode(__('Apply', 'editorial-calendar'))) ?>;
             edcal.str_show = <?php echo(edcal_json_encode(__('Show ', 'editorial-calendar'))) ?>;
             edcal.str_show2 = <?php echo(edcal_json_encode(__('weeks at a time', 'editorial-calendar'))) ?>;
+            edcal.str_opt_author = <?php echo(edcal_json_encode(__('Author', 'editorial-calendar'))) ?>;
+            edcal.str_opt_status = <?php echo(edcal_json_encode(__('Status', 'editorial-calendar'))) ?>;
+            edcal.str_opt_time = <?php echo(edcal_json_encode(__('Time of day', 'editorial-calendar'))) ?>;
+            
             edcal.str_weekserror = <?php echo(edcal_json_encode(__('The calendar can only show between 1 and 5 weeks at a time.', 'editorial-calendar'))) ?>;
             edcal.str_weekstt = <?php echo(edcal_json_encode(__('Select the number of weeks for the calendar to show.', 'editorial-calendar'))) ?>;
         });
@@ -933,10 +961,33 @@ function edcal_saveoptions() {
     header("Content-Type: application/json");
     edcal_addNoCacheHeaders();
     
+    /*
+     * The number of weeks preference
+     */
     $edcal_weeks = isset($_GET['weeks'])?$_GET['weeks']:null;
-    
     add_option("edcal_weeks_pref", $edcal_weeks, "", "yes");
     update_option("edcal_weeks_pref", $edcal_weeks);
+    
+    /*
+     * The show author preference
+     */
+    $edcal_author = isset($_GET['author-hide'])?$_GET['author-hide']:null;
+    add_option("edcal_author_pref", $edcal_author, "", "yes");
+    update_option("edcal_author_pref", $edcal_author);
+    
+    /*
+     * The show status preference
+     */
+    $edcal_status = isset($_GET['status-hide'])?$_GET['status-hide']:null;
+    add_option("edcal_status_pref", $edcal_status, "", "yes");
+    update_option("edcal_status_pref", $edcal_status);
+    
+    /*
+     * The show time preference
+     */
+    $edcal_time = isset($_GET['time-hide'])?$_GET['time-hide']:null;
+    add_option("edcal_time_pref", $edcal_time, "", "yes");
+    update_option("edcal_time_pref", $edcal_time);
     
     
     /*
