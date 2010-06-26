@@ -531,6 +531,7 @@ function edcal_postJSON($post, $addComma = true, $fullPost = false) {
             "sticky" : "<?php echo(is_sticky($post->ID)); ?>",
             "url" : "<?php edcal_json_encode(the_permalink()); ?>", 
             "status" : "<?php echo(get_post_status()); ?>",
+            "categories" : "<?php echo(edcal_getcategories()); ?>",
             "title" : <?php echo(edcal_json_encode(get_the_title())); ?>,
             "author" : "<?php the_author(); ?>",
             <?php if ( current_user_can('edit_post', $post->ID) ) {?>
@@ -552,6 +553,15 @@ function edcal_postJSON($post, $addComma = true, $fullPost = false) {
     <?php
     if ($addComma) {
         ?>,<?php
+    }
+}
+
+function edcal_getcategories($post_id = false) {
+    $categories = get_the_category( $post_id );
+    $catString = '';
+    foreach ( $categories as $category ) {
+        $catString . $category->cat_name;
+        $catString . ", ";
     }
 }
 

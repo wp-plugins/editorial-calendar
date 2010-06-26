@@ -42,7 +42,7 @@ var edcal_test = {
                                       '<ol id="qunit-tests"></ol>');
 
 
-        edcal_test.doTests();
+        edcal_test.moveTests();
     },
 
     getFirstDate: function() {
@@ -59,7 +59,7 @@ var edcal_test = {
          return edcal.getDayFromDayId(items.eq(edcal.weeksPref - 1).children(".row").children(".day:last").attr("id"));
     },
 
-    doTests: function() {
+    moveTests: function() {
          var curSunday = edcal.nextStartOfWeek(Date.today()).add(-1).weeks();
 
          edcal.moveTo(Date.today());
@@ -97,6 +97,9 @@ var edcal_test = {
     testMoveFourWeeks: function() {
          var curSunday = edcal.nextStartOfWeek(Date.today()).add(-1).weeks();
          
+         /*
+          * Now we'll move 4 weeks into the future
+          */
          asyncTest("Move 4 week in the future and check visible dates", function() {
              expect(2);
              
@@ -119,6 +122,9 @@ var edcal_test = {
     testMoveEightWeeks: function() {
          var curSunday = edcal.nextStartOfWeek(Date.today()).add(-1).weeks();
          
+         /*
+          * Now 8 weeks into the past
+          */
          asyncTest("Move 8 week in the past and check visible dates", function() {
              expect(2);
              
@@ -177,7 +183,7 @@ var edcal_test = {
     
     testGetPost: function() {
          /*
-          * We'll start by getting data about the post we've just create
+          * We'll start by getting data about the post we've just created
           */
 
          asyncTest("Get post information", function() {
