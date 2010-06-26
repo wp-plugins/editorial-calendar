@@ -159,7 +159,7 @@ var edcal_test = {
              edcal_test.post.date = Date.today().add(7).days().toString(edcal.internalDateFormat);
              edcal_test.post.id = '0';
     
-             edcal.savePost(edcal_test.post, false, true, function(res) {
+             edcal.savePost(edcal_test.post, false, false, function(res) {
                  if (!res.post) {
                      ok(false, "There was an error creating the new post.");
                      start();
@@ -265,7 +265,7 @@ var edcal_test = {
     
     testEditPost: function() {
          
-         asyncTest("Edit the content of an existing post", function() {
+         asyncTest("Edit the content of an existing post and mark it as scheduled", function() {
              expect(2);
 
              edcal_test.post.title = 'Unit Test Post &#8211 Changed';

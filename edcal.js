@@ -900,6 +900,7 @@ var edcal = {
         jQuery("#edcal-title-new-field").focus();
         jQuery("#edcal-title-new-field").select();
 
+        /*
         tb_init('a.thickbox, area.thickbox, input.thickbox');
 
         edCanvas = document.getElementById('content');
@@ -911,6 +912,7 @@ var edcal = {
                 tinyMCE.activeEditor.windowManager.bookmark = tinyMCE.activeEditor.selection.getBookmark('simple');
             }
         });
+        */
     },
     
     /*
