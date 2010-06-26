@@ -227,6 +227,36 @@ var edcal_test = {
                  
                  start();
                  
+                 edcal_test.testMovePostOneWeek();
+             });
+         });
+         
+    },
+    
+    testMovePostOneWeek: function() {
+
+         asyncTest("Make a second change to the date of an existing post", function() {
+             expect(2);
+
+             // We added the post one week in the future, now we will move it 
+             // one day after that.
+             var newDate = Date.today().add(22).days().toString(edcal.internalDateFormat);
+
+             edcal.doDrop(edcal_test.post.date, 'post-' + edcal_test.post.id, newDate, function(res) {
+                 
+                 if (!res.post) {
+                     ok(false, "There was an error creating the new post.");
+                     return;
+                 }
+                 
+                 equals(res.post.date, newDate, "The resulting post should have the same date as the request");
+                 
+                 equals(jQuery('#post-' + res.post.id).length, 1, "The post should be added in only one place in the calendar.");
+                 
+                 edcal_test.post = res.post;
+                 
+                 start();
+                 
                  edcal_test.testEditPost();
              });
          });
