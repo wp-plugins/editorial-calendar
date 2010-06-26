@@ -487,3 +487,35 @@
 #edcal-qunit {
     margin-top: 2em;
 }
+
+.optionscolorrow {
+    position: relative;
+    height: 20px;
+}
+
+.optionscolor {
+    width: 16px; 
+    height: 16px; 
+    margin-left: 1em; 
+    display: block;
+    position: absolute;
+    top: 2px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    opacity: 0.5;
+    
+}
+
+.optionscolor:hover {
+    opacity: 1;
+}
+
+
+.colorselected {
+    opacity: 1;
+}
+
+.colorlabel {
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}

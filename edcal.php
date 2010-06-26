@@ -203,6 +203,8 @@ function edcal_list_admin() {
             
             edcal.str_screenoptions = <?php echo(edcal_json_encode(__('Screen Options', 'editorial-calendar'))) ?>;
             edcal.str_optionsheader = <?php echo(edcal_json_encode(__('Calendar Options', 'editorial-calendar'))) ?>;
+            edcal.str_optionscolors = <?php echo(edcal_json_encode(__('Colors', 'editorial-calendar'))) ?>;
+            edcal.str_optionsdraftcolor = <?php echo(edcal_json_encode(__('Drafts: ', 'editorial-calendar'))) ?>;
             edcal.str_apply = <?php echo(edcal_json_encode(__('Apply', 'editorial-calendar'))) ?>;
             edcal.str_show = <?php echo(edcal_json_encode(__('Show ', 'editorial-calendar'))) ?>;
             edcal.str_show2 = <?php echo(edcal_json_encode(__('weeks at a time', 'editorial-calendar'))) ?>;

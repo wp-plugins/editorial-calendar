@@ -1952,6 +1952,14 @@ var edcal = {
                     edcal.str_show2 + 
                  '</div>';
              
+             /*
+                I started work on adding a color picker so you could choose the color for
+                drafts, published posts, and scheduled posts.  However, that makes the settings
+                a lot more complicated and I'm not sure it is worth it.
+              */
+             //optionsHtml += '<h5>' + edcal.str_optionscolors + '</h5>';
+             //optionsHtml += edcal.generateColorPicker(edcal.str_optionsdraftcolor, 'draft-color', 'lightgreen');
+             
              
              optionsHtml += '<br /><button id="edcal_applyoptions" onclick="edcal.saveOptions(); return false;" class="save button">' + edcal.str_apply + '</button>';
              
@@ -1975,6 +1983,43 @@ var edcal = {
              jQuery("#show-edcal-settings-link").css("background-image", "url(images/screen-options-right.gif)");
              jQuery("#contextual-help-link-wrap").show();
          }
+    },
+    
+    generateColorPicker: function(/*String*/ title, /*string*/ id, /*string*/ value) {
+         var html = '<div id="' + id + '" class="optionscolorrow">';
+         
+         html += '<span style="background-color: ' + value + ';" class="colorlabel"> ' + title + '</span> ';
+         
+         var colors = [ "lightred", "orange", "yellow", "lightgreen", "lightblue", "purple", "lightgray" ];
+         
+         edcal.output("colors.length: " + colors.length);
+         for (var i = 0; i < colors.length; i++) {
+             html += '<a href="#" class="optionscolor ';
+             
+             if (colors[i] === value) {
+                 html += 'colorselected';
+                 
+             }
+             
+             html += '" class=' + id + colors[i] + '" style="background-color: ' + colors[i] + '; left: ' + ((i * 20) + 50) + 'px" ' + 
+                 'onclick="edcal.selectColor(\'' + id + '\', \'' + colors[i] + '\'); return false;"></a>';
+             
+         }
+         
+         html += '</div>';
+         
+         return html;
+         
+    },
+    
+    selectColor: function(/*string*/ id, /*string*/ value) {
+         edcal.output("selectColor(" + id + ", " + value + ")");
+         jQuery('#' + id + ' .colorlabel').css('background-color', value);
+         
+         jQuery('#' + id + ' .colorselected').removeClass('colorselected');
+         
+         jQuery('#' + id + 'value').addClass('colorselected');
+         
     },
     
     isPrefChecked: function(/*boolean*/ prefVal) {
