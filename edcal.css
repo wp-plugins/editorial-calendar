@@ -519,3 +519,12 @@
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
 }
+
+#feedbacksection {
+    margin: 2em;
+    padding: 1em;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border: thin solid lightgray;
+    max-width: 50em;
+}

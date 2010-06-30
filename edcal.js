@@ -83,6 +83,11 @@ var edcal = {
        This is a preference value indicating if you see the post time
      */
     timePref: true,
+
+    /*
+       This is a preference value indicating if we should prompt for feeback
+     */
+    doFeedbackPref: true,
     
     /*
      * True if the calendar is in the process of moving
@@ -1470,6 +1475,61 @@ var edcal = {
                                     'width: ' + (jQuery(".rowcont:eq(2) .day:first").width() - 5) + 'px;' + 
                                '</style>}');
     },
+
+    /*
+     * Adds the feedback section
+     */
+    addFeedbackSection: function() {
+         if (true) {//edcal.doFeedbackPref) {
+             jQuery('#edcal_main_title').after(edcal.str_feedbackmsg);
+         }
+    },
+
+    /*
+     * Does the data collection.  This uses Mint to collect data about the way
+     * the calendar is being used.
+     */
+    doFeedback: function() {
+         jQuery('head').append('<script src="http://www.zackgrossbart.com/edcal/mint/?js" type="text/javascript" />');
+         edcal.saveFeedbackPref(false);
+    },
+
+    /*
+     * Sends no feedback and hides the section
+     */
+    noFeedback: function() {
+         jQuery('#feedbacksection').hide("fast");
+         edcal.saveFeedbackPref(false);
+    },
+
+    /*
+     * Saves the feedback preference to the server
+     */
+    saveFeedbackPref: function(/*boolean*/ shouldSend) {
+         var url = edcal.ajax_url() + "&action=edcal_saveoptions&dofeedback=" + encodeURIComponent(shouldSend);
+         
+         
+         jQuery.ajax( { 
+             url: url,
+             type: "POST",
+             processData: false,
+             timeout: 100000,
+             dataType: "text",
+             success: function(res) {
+                jQuery('#feedbacksection').html(edcal.str_feedbackdone);
+                setTimeout(function() {
+                    jQuery('#feedbacksection').hide("slow");
+                }, 5000);
+             },
+             error: function(xhr) {
+                edcal.showError(edcal.general_error);
+                if (xhr.responseText) {
+                    edcal.output("saveOptions xhr.responseText: " + xhr.responseText);
+                }
+            }
+        });
+
+    },
     
     /*
      * Initializes the calendar
@@ -1482,6 +1542,8 @@ var edcal = {
               */
              return;
          }
+
+        edcal.addFeedbackSection();
 
         jQuery("#loading").hide();
         

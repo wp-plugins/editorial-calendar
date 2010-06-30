@@ -147,6 +147,14 @@ function edcal_list_admin() {
                 }
             ?>
 
+            <?php 
+                if (get_option("edcal_do_feedback") != "") {
+            ?>
+                edcal.doFeedbackPref = <?php echo(get_option("edcal_do_feedback")); ?>;
+            <?php
+                }
+            ?>
+
             edcal.startOfWeek = <?php echo(get_option("start_of_week")); ?>;
             edcal.timeFormat = "<?php echo(get_option("time_format")); ?>";
 
@@ -214,6 +222,14 @@ function edcal_list_admin() {
             
             edcal.str_weekserror = <?php echo(edcal_json_encode(__('The calendar can only show between 1 and 5 weeks at a time.', 'editorial-calendar'))) ?>;
             edcal.str_weekstt = <?php echo(edcal_json_encode(__('Select the number of weeks for the calendar to show.', 'editorial-calendar'))) ?>;
+
+            edcal.str_feedbackmsg = <?php echo(edcal_json_encode(__('<div id="feedbacksection">' . 
+             '<h2>Let us collect a little data</h2><br />' .
+             'We are always trying to improve the Editorial Calendar and you can help. May we collect some anonymous data about your blog and browser settings to help us imrpove this plugin?<br /><br />' . 
+             '<button class="button-secondary" onclick="edcal.doFeedback();">Collect Anonymous Data</button> ' . 
+             '<a href="#" onclick="edcal.noFeedback(); return false;">No thank you</a></div>', 'editorial-calendar'))) ?>;
+
+            edcal.str_feedbackdone = <?php echo(edcal_json_encode(__('<h2>We\'re done</h2>We\'ve finished collecting data.  Thank you for helping us make the calendar better.', 'editorial-calendar'))) ?>;
         });
     </script>
 
@@ -257,7 +273,7 @@ function edcal_list_admin() {
     
     <div class="wrap">
         <div class="icon32" id="icon-edit"><br/></div>
-        <h2><?php echo(__('Posts Calendar', 'editorial-calendar')) ?></h2>
+        <h2 id="edcal_main_title"><?php echo(__('Posts Calendar', 'editorial-calendar')) ?></h2>
         
         <div id="loadingcont">
             <div id="loading"> </div>
@@ -990,6 +1006,13 @@ function edcal_saveoptions() {
     $edcal_time = isset($_GET['time-hide'])?$_GET['time-hide']:null;
     add_option("edcal_time_pref", $edcal_time, "", "yes");
     update_option("edcal_time_pref", $edcal_time);
+
+    /*
+     * The edcal feedback preference
+     */
+    $edcal_feedback = isset($_GET['dofeedback'])?$_GET['dofeedback']:null;
+    add_option("edcal_do_feedback", $edcal_feedback, "", "yes");
+    update_option("edcal_do_feedback", $edcal_feedback);
     
     
     /*
