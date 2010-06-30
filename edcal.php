@@ -111,6 +111,7 @@ function edcal_list_admin() {
     echo '</style>';
     
     ?>
+    
     <!-- This is just a little script so we can pass the AJAX URL and some localized strings -->
     <script type="text/javascript">
         jQuery(document).ready(function(){
@@ -225,7 +226,7 @@ function edcal_list_admin() {
 
             edcal.str_feedbackmsg = <?php echo(edcal_json_encode(__('<div id="feedbacksection">' . 
              '<h2>Let us collect a little data</h2><br />' .
-             'We are always trying to improve the Editorial Calendar and you can help. May we collect some anonymous data about your blog and browser settings to help us imrpove this plugin?<br /><br />' . 
+             'We are always trying to improve the Editorial Calendar and you can help. May we collect some anonymous data about your blog and browser settings to help us improve this plugin?<br /><br />' . 
              '<button class="button-secondary" onclick="edcal.doFeedback();">Collect Anonymous Data</button> ' . 
              '<a href="#" onclick="edcal.noFeedback(); return false;">No thank you</a></div>', 'editorial-calendar'))) ?>;
 
@@ -406,6 +407,10 @@ function edcal_scripts() {
     if ($_GET['qunit']) {
         wp_enqueue_script( "qunit", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/qunit.js"), array( 'jquery' ) );
         wp_enqueue_script( "edcal-test", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/edcal_test.js"), array( 'jquery' ) );
+    }
+    
+    if ($_GET['mint']) {
+        wp_enqueue_script( "mint", "http://www.zackgrossbart.com/edcal/mint/?js", array( 'jquery' ) );
     }
     return;
     

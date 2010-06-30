@@ -1480,8 +1480,15 @@ var edcal = {
      * Adds the feedback section
      */
     addFeedbackSection: function() {
-         if (true) {//edcal.doFeedbackPref) {
+         if (true) {//edcal.getUrlVars().mint || edcal.doFeedbackPref) {
              jQuery('#edcal_main_title').after(edcal.str_feedbackmsg);
+         }
+         
+         if (edcal.getUrlVars().mint) {
+             jQuery('#feedbacksection').html(edcal.str_feedbackdone);
+             setTimeout(function() {
+                 jQuery('#feedbacksection').hide("slow");
+             }, 5000);
          }
     },
 
@@ -1490,7 +1497,6 @@ var edcal = {
      * the calendar is being used.
      */
     doFeedback: function() {
-         jQuery('head').append('<script src="http://www.zackgrossbart.com/edcal/mint/?js" type="text/javascript" />');
          edcal.saveFeedbackPref(false);
     },
 
@@ -1516,10 +1522,11 @@ var edcal = {
              timeout: 100000,
              dataType: "text",
              success: function(res) {
-                jQuery('#feedbacksection').html(edcal.str_feedbackdone);
-                setTimeout(function() {
-                    jQuery('#feedbacksection').hide("slow");
-                }, 5000);
+                /*
+                   Now we refresh the page because we can't load
+                   Mint dynamically in IE.
+                 */
+                window.location.href = window.location.href + "&mint=true";
              },
              error: function(xhr) {
                 edcal.showError(edcal.general_error);
