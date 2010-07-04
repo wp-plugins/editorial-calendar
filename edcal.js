@@ -1497,7 +1497,7 @@ var edcal = {
      * the calendar is being used.
      */
     doFeedback: function() {
-         edcal.saveFeedbackPref(false);
+         edcal.saveFeedbackPref(true);
     },
 
     /*
@@ -1512,8 +1512,7 @@ var edcal = {
      * Saves the feedback preference to the server
      */
     saveFeedbackPref: function(/*boolean*/ shouldSend) {
-         var url = edcal.ajax_url() + "&action=edcal_saveoptions&dofeedback=" + encodeURIComponent(shouldSend);
-         
+         var url = edcal.ajax_url() + "&action=edcal_saveoptions&dofeedback=" + encodeURIComponent(false);
          
          jQuery.ajax( { 
              url: url,
@@ -1522,11 +1521,14 @@ var edcal = {
              timeout: 100000,
              dataType: "text",
              success: function(res) {
-                /*
-                   Now we refresh the page because we can't load
-                   Mint dynamically in IE.
-                 */
-                window.location.href = window.location.href + "&mint=true";
+                           
+                if (shouldSend) {
+                    /*
+                       Now we refresh the page because we can't load
+                       Mint dynamically in IE.
+                     */
+                    window.location.href = window.location.href + "&mint=true";
+                }
              },
              error: function(xhr) {
                 edcal.showError(edcal.general_error);
