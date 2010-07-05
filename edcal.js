@@ -1480,15 +1480,8 @@ var edcal = {
      * Adds the feedback section
      */
     addFeedbackSection: function() {
-         if (true) {//edcal.getUrlVars().mint || edcal.doFeedbackPref) {
+         if (true) {//edcal.doFeedbackPref) {
              jQuery('#edcal_main_title').after(edcal.str_feedbackmsg);
-         }
-         
-         if (edcal.getUrlVars().mint) {
-             jQuery('#feedbacksection').html(edcal.str_feedbackdone);
-             setTimeout(function() {
-                 jQuery('#feedbacksection').hide("slow");
-             }, 5000);
          }
     },
 
@@ -1497,7 +1490,9 @@ var edcal = {
      * the calendar is being used.
      */
     doFeedback: function() {
-         edcal.saveFeedbackPref(true);
+         jQuery.getScript('http://www.zackgrossbart.com/edcal/mint/?js', function() {
+             edcal.saveFeedbackPref();
+         });
     },
 
     /*
@@ -1505,13 +1500,13 @@ var edcal = {
      */
     noFeedback: function() {
          jQuery('#feedbacksection').hide("fast");
-         edcal.saveFeedbackPref(false);
+         edcal.saveFeedbackPref();
     },
 
     /*
      * Saves the feedback preference to the server
      */
-    saveFeedbackPref: function(/*boolean*/ shouldSend) {
+    saveFeedbackPref: function() {
          var url = edcal.ajax_url() + "&action=edcal_saveoptions&dofeedback=" + encodeURIComponent(false);
          
          jQuery.ajax( { 
@@ -1521,14 +1516,10 @@ var edcal = {
              timeout: 100000,
              dataType: "text",
              success: function(res) {
-                           
-                if (shouldSend) {
-                    /*
-                       Now we refresh the page because we can't load
-                       Mint dynamically in IE.
-                     */
-                    window.location.href = window.location.href + "&mint=true";
-                }
+                jQuery('#feedbacksection').html(edcal.str_feedbackdone);
+                setTimeout(function() {
+                    jQuery('#feedbacksection').hide("slow");
+                }, 5000);
              },
              error: function(xhr) {
                 edcal.showError(edcal.general_error);

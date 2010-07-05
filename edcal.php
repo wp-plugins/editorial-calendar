@@ -409,9 +409,6 @@ function edcal_scripts() {
         wp_enqueue_script( "edcal-test", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/edcal_test.js"), array( 'jquery' ) );
     }
     
-    if ($_GET['mint']) {
-        wp_enqueue_script( "mint", "http://www.zackgrossbart.com/edcal/mint/?js", array( 'jquery' ) );
-    }
     return;
     
     /*
@@ -988,36 +985,46 @@ function edcal_saveoptions() {
      * The number of weeks preference
      */
     $edcal_weeks = isset($_GET['weeks'])?$_GET['weeks']:null;
-    add_option("edcal_weeks_pref", $edcal_weeks, "", "yes");
-    update_option("edcal_weeks_pref", $edcal_weeks);
+    if ($edcal_weeks != null) {
+        add_option("edcal_weeks_pref", $edcal_weeks, "", "yes");
+        update_option("edcal_weeks_pref", $edcal_weeks);
+    }
     
     /*
      * The show author preference
      */
     $edcal_author = isset($_GET['author-hide'])?$_GET['author-hide']:null;
-    add_option("edcal_author_pref", $edcal_author, "", "yes");
-    update_option("edcal_author_pref", $edcal_author);
+    if ($edcal_author != null) {
+        add_option("edcal_author_pref", $edcal_author, "", "yes");
+        update_option("edcal_author_pref", $edcal_author);
+    }
     
     /*
      * The show status preference
      */
     $edcal_status = isset($_GET['status-hide'])?$_GET['status-hide']:null;
-    add_option("edcal_status_pref", $edcal_status, "", "yes");
-    update_option("edcal_status_pref", $edcal_status);
+    if ($edcal_status != null) {
+        add_option("edcal_status_pref", $edcal_status, "", "yes");
+        update_option("edcal_status_pref", $edcal_status);
+    }
     
     /*
      * The show time preference
      */
     $edcal_time = isset($_GET['time-hide'])?$_GET['time-hide']:null;
-    add_option("edcal_time_pref", $edcal_time, "", "yes");
-    update_option("edcal_time_pref", $edcal_time);
+    if ($edcal_time != null) {
+        add_option("edcal_time_pref", $edcal_time, "", "yes");
+        update_option("edcal_time_pref", $edcal_time);
+    }
 
     /*
      * The edcal feedback preference
      */
     $edcal_feedback = isset($_GET['dofeedback'])?$_GET['dofeedback']:null;
-    add_option("edcal_do_feedback", $edcal_feedback, "", "yes");
-    update_option("edcal_do_feedback", $edcal_feedback);
+    if ($edcal_feedback != null) {
+        add_option("edcal_do_feedback", $edcal_feedback, "", "yes");
+        update_option("edcal_do_feedback", $edcal_feedback);
+    }
     
     
     /*
