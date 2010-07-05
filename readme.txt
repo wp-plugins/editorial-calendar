@@ -79,6 +79,12 @@ The calendar is available in Croatian, Czechoslovakian, English, French, and Gre
 
 The calendar is written in JavaScript.  It contacts your blog when it scrolls to get data about your posts.  Just like Google Maps.  <a href="http://www.zackgrossbart.com/hackito/edcal/">Creating a JQuery Powered Posts Calendar for WordPress</a> explains a lot of the technical details.
 
+= Is the calendar collecting data about my blog? =
+
+The calendar only collects data when you give us permission.  We will prompt you to let us collect anonymous data about your blog.  We are mostly focused on your configuration.  Information like the size of your browser window and the number of posts you have per day help us make the calendar even better.
+
+The data is all available to the public.  Everyone can view the <a href="http://www.zackgrossbart.com/edcal/mint/">Editorial Calendar Statistics</a>.
+
 = Can I add new languages? =
 
 Yes please!  We are looking for translators.  It only takes about 20 minutes.  If you're interested please <a href="mailto:wp-edcal@googlegroups.com">contact us</a>.
@@ -119,6 +125,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 * Made it easier to see the first day of the month using a special header.
 * Changed to a lighter gradient for the calendar header to match the new theme of WordPress 3.0.
 * We now support pending review posts in the calendar.
+* The calendar supports a feedback mechanism where we collect data about your use of the calendar.  This anonymous data helps us improve the calendar and know which areas to focus on.  Everyone can view the <a href="http://www.zackgrossbart.com/edcal/mint/">Editorial Calendar Statistics</a>.
 
 = 0.8 =
 * We got the message and added an edit link that takes you to the WordPress edit page in addition to a link for the quick edit dialog in the calendar.
