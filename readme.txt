@@ -126,6 +126,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 * Changed to a lighter gradient for the calendar header to match the new theme of WordPress 3.0.
 * We now support pending review posts in the calendar.
 * The calendar supports a feedback mechanism where we collect data about your use of the calendar.  This anonymous data helps us improve the calendar and know which areas to focus on.  Everyone can view the <a href="http://www.zackgrossbart.com/edcal/mint/">Editorial Calendar Statistics</a>.
+* Auto-drafts are now hidden from the calendar.
 
 = 0.8 =
 * We got the message and added an edit link that takes you to the WordPress edit page in addition to a link for the quick edit dialog in the calendar.

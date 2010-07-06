@@ -543,6 +543,15 @@ function edcal_postJSON($post, $addComma = true, $fullPost = false) {
     }
     
     setup_postdata($post);
+    
+    if (get_post_status() == 'auto-draft') {
+        /*
+         * WordPress 3 added a new post status of auto-draft so
+         * we want to hide them from the calendar
+         */
+        return;
+    }
+    
     ?>
         {
             "date" : "<?php the_time('d') ?><?php the_time('m') ?><?php the_time('Y') ?>", 
