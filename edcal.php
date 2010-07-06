@@ -85,6 +85,22 @@ function echoEdCalFile($myFile) {
 function edcal_list_admin() {
     include_once('edcal.php');
     
+    /*
+     * We want to count the number of times they load the calendar
+     * so we only show the feedback after they have been using it 
+     * for a little while.
+     */
+    $edcal_count = get_option("edcal_count");
+    if ($edcal_count == '') {
+        $edcal_count = 0;
+        add_option("edcal_count", $edcal_count, "", "yes");
+    }
+        
+    if (get_option("edcal_do_feedback") == "") {
+        $edcal_count++;
+        update_option("edcal_count", $edcal_count);
+    }
+    
     
     /*
      * This section of code embeds certain CSS and
@@ -152,6 +168,12 @@ function edcal_list_admin() {
                 if (get_option("edcal_do_feedback") != "") {
             ?>
                 edcal.doFeedbackPref = <?php echo(get_option("edcal_do_feedback")); ?>;
+                edcal.visitCount = <?php echo(get_option("edcal_count")); ?>;
+            <?php
+                } else {
+            ?>
+                edcal.doFeedbackPref = true;
+                edcal.visitCount = <?php echo(get_option("edcal_count")); ?>;
             <?php
                 }
             ?>
@@ -226,7 +248,7 @@ function edcal_list_admin() {
 
             edcal.str_feedbackmsg = <?php echo(edcal_json_encode(__('<div id="feedbacksection">' . 
              '<h2>Let us collect a little data</h2><br />' .
-             'We are always trying to improve the Editorial Calendar and you can help. May we collect some anonymous data about your blog and browser settings to help us improve this plugin?<br /><br />' . 
+             'We are always trying to improve the Editorial Calendar and you can help. May we collect some anonymous data about your blog and browser settings to help us improve this plugin?  We'll only do it once.<br /><br />' . 
              '<button class="button-secondary" onclick="edcal.doFeedback();">Collect Anonymous Data</button> ' . 
              '<a href="#" onclick="edcal.noFeedback(); return false;">No thank you</a></div>', 'editorial-calendar'))) ?>;
 

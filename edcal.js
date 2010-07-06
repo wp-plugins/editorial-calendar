@@ -1480,7 +1480,7 @@ var edcal = {
      * Adds the feedback section
      */
     addFeedbackSection: function() {
-         if (true) {//edcal.doFeedbackPref) {
+         if (edcal.visitCount > 3 && edcal.doFeedbackPref) {
              jQuery('#edcal_main_title').after(edcal.str_feedbackmsg);
          }
     },
