@@ -248,7 +248,7 @@ function edcal_list_admin() {
 
             edcal.str_feedbackmsg = <?php echo(edcal_json_encode(__('<div id="feedbacksection">' . 
              '<h2>Let us collect a little data</h2><br />' .
-             'We are always trying to improve the Editorial Calendar and you can help. May we collect some anonymous data about your blog and browser settings to help us improve this plugin?  We'll only do it once.<br /><br />' . 
+             'We are always trying to improve the Editorial Calendar and you can help. May we collect some anonymous data about your blog and browser settings to help us improve this plugin?  We\'ll only do it once.<br /><br />' . 
              '<button class="button-secondary" onclick="edcal.doFeedback();">Collect Anonymous Data</button> ' . 
              '<a href="#" onclick="edcal.noFeedback(); return false;">No thank you</a></div>', 'editorial-calendar'))) ?>;
 
