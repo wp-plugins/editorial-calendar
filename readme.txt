@@ -50,6 +50,8 @@ From time to time people write articles about the editorial calendar.  We apprec
 
 <a href="http://wordcastnet.com/2010/01/12/visually-manage-your-post-publication-dates-with-the-editorial-calendar-wordpress-plugin/">Visually Manage Your Post Publication Dates with the Editorial Calendar WordPress Plugin</a> on <a href="http://wordcastnet.com/">WordCast</a>
 
+<a href="http://askcharlyleetham.com/blog/guest-authors/powerful-plugins-that-keep-you-organized-and-increase-your-productivity/comment-page-1#comment-5791">Powerful Plugins That Keep You Organized and Increase Your Productivity</a> at <a href="http://www.askcharlyleetham.com">askcharlyleetham.com</a>.
+
 <a href="http://websuccessdiva.com/seo-copywriting-checklist/">SEO Copywriting Checklist for Wordpress Blogs</a> on <a href="http://websuccessdiva.com/">@WebSuccessDiva</a> is a good article about SEO and using an editorial calendar.
 
 = How do I get help using the calendar? =
