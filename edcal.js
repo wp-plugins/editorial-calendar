@@ -1070,17 +1070,23 @@ var edcal = {
          }
 
          if (edcal.statusPref) {
-             if ((post.status === "draft" ||
-                 post.status === "pending") &&
+             if (post.status === "draft" &&
                  post.sticky === '1') {
                  /*
                   * Then this post is a sticky draft
                   */
                  posttitle += edcal.str_draft_sticky;
+             } else if (post.status === "pending" &&
+                        post.sticky === '1') {
+                 /*
+                  * Then this post is a sticky pending post
+                  */
+                 posttitle += edcal.str_pending_sticky;
              } else if (post.sticky === '1') {
                  posttitle += edcal.str_sticky;
-             } else if (post.status === "draft" ||
-                 post.status === "pending") {
+             } else if (post.status === "pending") {
+                 posttitle += edcal.str_pending;
+             } else if (post.status === "draft") {
                  posttitle += edcal.str_draft;
              } else if (post.status !== "publish" &&
                         post.status !== "future" &&

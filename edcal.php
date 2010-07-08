@@ -205,8 +205,10 @@ function edcal_list_admin() {
             edcal.str_addPostLink = <?php echo(edcal_json_encode(__('New Post', 'editorial-calendar'))) ?>;
             
             edcal.str_draft = <?php echo(edcal_json_encode(__(' [DRAFT]', 'editorial-calendar'))) ?>;
+            edcal.str_pending = <?php echo(edcal_json_encode(__(' [PENDING]', 'editorial-calendar'))) ?>;
             edcal.str_stick = <?php echo(edcal_json_encode(__(' [STICKY]', 'editorial-calendar'))) ?>;
             edcal.str_draft_sticky = <?php echo(edcal_json_encode(__(' [DRAFT, STICKY]', 'editorial-calendar'))) ?>;
+            edcal.str_pending_sticky = <?php echo(edcal_json_encode(__(' [PENDING, STICKY]', 'editorial-calendar'))) ?>;
             edcal.str_edit = <?php echo(edcal_json_encode(__('Edit', 'editorial-calendar'))) ?>;
             edcal.str_quick_edit = <?php echo(edcal_json_encode(__('Quick Edit', 'editorial-calendar'))) ?>;
             edcal.str_del = <?php echo(edcal_json_encode(__('Delete', 'editorial-calendar'))) ?>;
