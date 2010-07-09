@@ -1149,7 +1149,7 @@ var edcal = {
        calendar based on the window height.
      */
     getCalHeight: function() {
-        var myHeight = jQuery(window).height() - 225;
+        var myHeight = jQuery(window).height() - jQuery('#footer').height() - jQuery('#wphead').height() - 150;
         
         /*
            We don't want to make the calendar too short even if the
