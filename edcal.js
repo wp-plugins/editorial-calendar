@@ -1155,7 +1155,7 @@ var edcal = {
            We don't want to make the calendar too short even if the
            user's screen is super short.
          */
-        return Math.max(myHeight, 600);
+        return Math.max(myHeight, 500);
     },
     
     /*
