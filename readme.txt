@@ -13,7 +13,7 @@ Did you remember to write a post for next Tuesday?  What about the Tuesday after
 
 <h4>Watch the video</h4>
 
-<a href="http://vimeo.com/13196017"><img src="http://plugins.svn.wordpress.org/editorial-calendar/trunk/vid.png" border="0" target="_blank"></a>
+<a href="http://vimeo.com/13196017" target="_blank"><img src="http://plugins.svn.wordpress.org/editorial-calendar/trunk/vid.png" border="0"></a>
 
 
 <h4>Try it out</h4>
