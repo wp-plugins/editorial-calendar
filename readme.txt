@@ -11,10 +11,14 @@ The Editorial Calendar makes it possible to see all your posts and drag and drop
 
 Did you remember to write a post for next Tuesday?  What about the Tuesday after that?  WordPress doesn't make it easy to see what posts happen on what days.  The editorial calendar gives you an overview of your blog and when each post will be available.  You can drag and drop to move posts, quickly edit posts right in the calendar, and manage your entire blog.  
 
-<a href="http://chrisg.org/drag-and-drop-post-scheduling-with-the-editorial-calendar-wordpress-plugin/">Chris Garret</a> liked the calendar so much he made a <a href="http://www.youtube.com/watch?v=F4BnQZsgtZc&feature=player_embedded" style="font-size: 1.25em">video</a> showing you how to use it.  Thanks Chris!
+<h4>Watch the video</h4>
+
+<a href="http://vimeo.com/13196017"><img src="http://plugins.svn.wordpress.org/editorial-calendar/trunk/vid.png" border="0" target="_blank"></a>
+
 
 <h4>Try it out</h4>
 You don't have to install the calendar to give it a try.  Just check out the demo installation at <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=cal">Zack's WordPress Sandbox</a>.
+
 
 <h4>Features</h4>
 
