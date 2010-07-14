@@ -1959,7 +1959,7 @@ var edcal = {
                 '<a class="show-settings" ' + 
                    'id="show-edcal-settings-link" ' + 
                    'onclick="edcal.toggleOptions(); return false;" ' + 
-                   'href="#screen-options" ' + 
+                   'href="#" ' + 
                    'style="background-image: url(images/screen-options-right.gif);">' + edcal.str_screenoptions + '</a>' + 
              '</div>';
          
