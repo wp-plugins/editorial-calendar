@@ -314,7 +314,7 @@ function edcal_list_admin() {
             </div>
             
             <div id="topright">
-                <a href="#" title="<?php echo(__('Jump to today', 'editorial-calendar')) ?>" id="moveToToday"><?php echo(__('Today', 'editorial-calendar')) ?></a>
+                <button class="save button" title="<?php echo(__('Scroll the calendar to make the current day visible', 'editorial-calendar')) ?>" id="moveToToday"><?php echo(__('Show Today', 'editorial-calendar')) ?></button>
             </div>
         </div>
         
