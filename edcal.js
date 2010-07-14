@@ -1486,9 +1486,9 @@ var edcal = {
      * Adds the feedback section
      */
     addFeedbackSection: function() {
-         if (edcal.visitCount > 3 && edcal.doFeedbackPref) {
+         //if (edcal.visitCount > 3 && edcal.doFeedbackPref) {
              jQuery('#edcal_main_title').after(edcal.str_feedbackmsg);
-         }
+         //}
     },
 
     /*
@@ -1978,15 +1978,10 @@ var edcal = {
              edcal.helpMeta = jQuery("#contextual-help-wrap").html();
 
              /*
-              * Set up the options box title
-              */
-             var optionsHtml = '<h5>' + edcal.str_optionsheader + '</h5>';
-             
-             /*
               * Set up the visible fields option
               */
-             optionsHtml += '<div class="metabox-prefs" id="calendar-fields-prefs">' +
-                                edcal.str_show + ' ' +  
+             var optionsHtml = '<div class="metabox-prefs" id="calendar-fields-prefs">' +
+                                '<h5>' + edcal.str_show_opts + '</h5>' +  
                                 '<label for="author-hide">' + 
                                     '<input type="checkbox" ' + edcal.isPrefChecked(edcal.authorPref) + 'value="true" id="author-hide" ' +
                                            'name="author-hide" class="hide-column-tog" />' + edcal.str_opt_author + 
@@ -2005,7 +2000,8 @@ var edcal = {
               * Set up the number of posts option
               */
              optionsHtml += '<div class="metabox-prefs">' + 
-                    edcal.str_show + '<select id="edcal_weeks_pref" ' + 'class="screen-per-page" title="' + edcal.str_weekstt + '"> ';
+                                '<h5>' + edcal.str_show_title + '</h5>' + 
+                                '<select id="edcal_weeks_pref" ' + 'class="screen-per-page" title="' + edcal.str_weekstt + '"> ';
 
              var weeks = parseInt(edcal.weeksPref, 10);
              for (i = 1; i < 6; i++) {
@@ -2017,7 +2013,7 @@ var edcal = {
              }
 
              optionsHtml += '</select>' + 
-                    edcal.str_show2 + 
+                    edcal.str_opt_weeks + 
                  '</div>';
              
              /*
@@ -2033,7 +2029,7 @@ var edcal = {
              
              jQuery("#contextual-help-wrap").html(optionsHtml);
              
-             jQuery("#contextual-help-link-wrap").hide();
+             jQuery("#contextual-help-link-wrap").css('visibility', 'hidden');
              
              jQuery('#contextual-help-wrap').slideDown('normal');
              
@@ -2049,7 +2045,7 @@ var edcal = {
              edcal.helpMeta = null;
              
              jQuery("#show-edcal-settings-link").css("background-image", "url(images/screen-options-right.gif)");
-             jQuery("#contextual-help-link-wrap").show();
+             jQuery("#contextual-help-link-wrap").css('visibility', '');
          }
     },
     

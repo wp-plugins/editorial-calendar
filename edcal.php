@@ -235,12 +235,12 @@ function edcal_list_admin() {
             edcal.general_error = <?php echo(edcal_json_encode(__('There was an error contacting your blog.', 'editorial-calendar'))) ?>;
             
             edcal.str_screenoptions = <?php echo(edcal_json_encode(__('Screen Options', 'editorial-calendar'))) ?>;
-            edcal.str_optionsheader = <?php echo(edcal_json_encode(__('Calendar Options', 'editorial-calendar'))) ?>;
             edcal.str_optionscolors = <?php echo(edcal_json_encode(__('Colors', 'editorial-calendar'))) ?>;
             edcal.str_optionsdraftcolor = <?php echo(edcal_json_encode(__('Drafts: ', 'editorial-calendar'))) ?>;
             edcal.str_apply = <?php echo(edcal_json_encode(__('Apply', 'editorial-calendar'))) ?>;
-            edcal.str_show = <?php echo(edcal_json_encode(__('Show ', 'editorial-calendar'))) ?>;
-            edcal.str_show2 = <?php echo(edcal_json_encode(__('weeks at a time', 'editorial-calendar'))) ?>;
+            edcal.str_show_title = <?php echo(edcal_json_encode(__('Show on screen', 'editorial-calendar'))) ?>;
+            edcal.str_opt_weeks = <?php echo(edcal_json_encode(__(' weeks at a time', 'editorial-calendar'))) ?>;
+            edcal.str_show_opts = <?php echo(edcal_json_encode(__('Show in Calendar Cell', 'editorial-calendar'))) ?>;
             edcal.str_opt_author = <?php echo(edcal_json_encode(__('Author', 'editorial-calendar'))) ?>;
             edcal.str_opt_status = <?php echo(edcal_json_encode(__('Status', 'editorial-calendar'))) ?>;
             edcal.str_opt_time = <?php echo(edcal_json_encode(__('Time of day', 'editorial-calendar'))) ?>;
