@@ -335,6 +335,15 @@ var edcal = {
               */
              monthstyle = "month-past";
          }
+         
+         if (date.toString("dd") == "01") {
+             /*
+              * This this date is the first day of the month
+              */
+             daystyle += ' firstOfMonth';
+         }
+         
+         
          return monthstyle+' '+daystyle;
     },
 
@@ -388,12 +397,7 @@ var edcal = {
             newrow += '<a href="#" adddate="' + _date.toString("MMMM d") + '" class="daynewlink" title="' + edcal.str_newpost + _date.toString("MMMM d") + '" ' + 
                          'onclick="return false;">' + edcal.str_addPostLink + '</a>';
             
-            newrow += '<div class="daylabel';
-            if (_date.toString("dd") == "01") {
-                newrow += ' firstOfMonth">' + _date.toString("MMM d");
-            } else {
-                newrow += '">' + _date.toString("d");
-            }
+            newrow += '<div class="daylabel">' + _date.toString("d");
             newrow += '</div>';
 
             newrow += '<ul class="postlist">';

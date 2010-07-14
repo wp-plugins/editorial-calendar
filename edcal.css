@@ -510,3 +510,7 @@
     border: thin solid lightgray;
     max-width: 50em;
 }
+
+.firstOfMonth .dayobj {
+    background-color: #eaf2fb;
+}
