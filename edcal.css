@@ -179,7 +179,7 @@
 
 #topbar {
     margin-bottom: 1em;
-    width: 98%;
+    width: 100%;
     margin-top: 1em;
     position: relative;
     height: 2em;
@@ -187,14 +187,14 @@
 
 #topleft {
     position: absolute;
-    left: 10px;
+    left: 0px;
     top: -14px;
     width: auto;
 }
 
 #topright {
     position: absolute;
-    right: 2em;
+    right: 0px;
     top: 0px;
     width: auto;
     text-align: right;
@@ -503,12 +503,27 @@
 }
 
 #feedbacksection {
-    margin: 2em;
+    margin-top: 15px;
     padding: 1em;
-    -moz-border-radius: 6px;
-    -webkit-border-radius: 6px;
-    border: thin solid lightgray;
-    max-width: 50em;
+    -moz-border-radius: 3x;
+    -webkit-border-radius: 3px;
+    max-width: 75em;
+    background-color: #eaf2fb;
+    font-family:"Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
+    font-size:11px;
+}
+
+#feedbacksection h2 {
+    font-family:"Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
+    font-size:18px;
+    font-style: normal;
+    padding: 0px;
+    margin: 0px;
+    margin-top: -10px;
+}
+
+#feedbacksection a {
+    margin-left: 1em;
 }
 
 .firstOfMonth .dayobj {
