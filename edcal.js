@@ -393,11 +393,17 @@ var edcal = {
                       _date.toString("MM").toLowerCase() + '">';
             
             newrow += '<div class="dayobj">';
-
+            
             newrow += '<a href="#" adddate="' + _date.toString("MMMM d") + '" class="daynewlink" title="' + edcal.str_newpost + _date.toString("MMMM d") + '" ' + 
                          'onclick="return false;">' + edcal.str_addPostLink + '</a>';
             
-            newrow += '<div class="daylabel">' + _date.toString("d");
+            if (_date.toString("dd") == "01") {
+                newrow += '<div class="daylabel">' + _date.toString("MMM d");
+            } else {
+                newrow += '<div class="daylabel">' + _date.toString("d");
+            }
+            
+            
             newrow += '</div>';
 
             newrow += '<ul class="postlist">';
