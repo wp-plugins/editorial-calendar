@@ -515,8 +515,10 @@
 
 #feedbacksection h2 {
     font-family:"Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
-    font-size:18px;
+    font-size: 14.3px;
     font-style: normal;
+    font-weight: bold;
+    color: #333333;
     padding: 0px;
     margin: 0px;
     margin-top: -10px;
