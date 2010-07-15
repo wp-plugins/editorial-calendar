@@ -9,7 +9,7 @@ The Editorial Calendar makes it possible to see all your posts and drag and drop
 
 == Description ==
 
-Did you remember to write a post for next Tuesday?  What about the Tuesday after that?  WordPress doesn't make it easy to see what posts happen on what days.  The editorial calendar gives you an overview of your blog and when each post will be available.  You can drag and drop to move posts, quickly edit posts right in the calendar, and manage your entire blog.  
+Did you remember to write a post for next Tuesday?  What about the Tuesday after that?  WordPress doesn't make it easy to see when your posts are scheduled.  The editorial calendar gives you an overview of your blog and when each post will be published.  You can drag and drop to move posts, edit posts right in the calendar, and manage your entire blog.  
 
 <h4>Watch the video</h4>
 
@@ -105,7 +105,9 @@ Right now the calendar only supports posts.  We're considering adding pages.  If
 
 = Does the calendar support group blogs? =
 
-If your blog has multiple authors the calendar will work just fine.  We are currently working on new features to add for multi-author blogs.  If you have any ideas please <a href="mailto:wp-edcal@googlegroups.com">contact us</a>.
+If your blog has multiple authors the calendar will work just fine.  You can show author names right in the calendar.  Just look under screen options.
+
+We are currently working on new features for multi-author blogs.  If you have any ideas please <a href="mailto:wp-edcal@googlegroups.com">contact us</a>.
 
 
 = Can my readers tell I'm using the editorial calendar? =
