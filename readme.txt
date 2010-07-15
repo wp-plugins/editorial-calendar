@@ -97,22 +97,21 @@ The calendar is written in JavaScript.  It contacts your blog when it scrolls to
 
 After you use the calendar a few times we'll prompt you to let us collect a little anonymous data about your blog.  Information like the size of your browser window and the number of posts you have per day help us make the calendar even better.
 
-The data is all available to the public.  Check out the <a href="http://www.zackgrossbart.com/edcal/mint/">Editorial Calendar Statistics</a>.
+The collected data is all available to the public.  Check out the <a href="http://www.zackgrossbart.com/edcal/mint/">Editorial Calendar Statistics</a>.
 
 = What users can use the calendar? =
 
-The editorial calendar appears differently based on your permissions.  Administrators and Editors can use every feature available in the calendar.  Authors can use the calendar to edit and move their own posts, but other people's posts are read-only.  Contributors and Subscribers can't see the calendar.
+The editorial calendar works differently based on your permissions.  Administrators and Editors can use every feature available in the calendar.  Authors can use the calendar to edit and move their own posts, but other people's posts are read-only.  Contributors and Subscribers can't see the calendar.
 
 = Can I use the editorial calendar with pages? =
 
-Right now the calendar only supports posts.  We're considering adding pages.  If you would like to see support for pages let us know.
+Right now the calendar only supports posts.  We're considering adding pages.  If you would like to see pages show up in the calendar let us know.
 
 = Does the calendar support group blogs? =
 
 If your blog has multiple authors the calendar will work just fine.  You can show author names right in the calendar.  Just look under screen options.
 
 We are currently working on new features for multi-author blogs.  If you have any ideas please <a href="mailto:wp-edcal@googlegroups.com">contact us</a>.
-
 
 = Can my readers tell I'm using the editorial calendar? =
 
@@ -133,8 +132,8 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 == Changelog ==
 
 = 1.0 =
-* The calendar now uses the QUnit unit test framework to make sure the calendar maintains high quality in every release.  You can see the <a href="http://www.zackgrossbart.com/extras/trunk/wp-admin/edit.php?page=cal&qunit=true">latest test run</a>.
-* Made it easier to see the first day of the month using a special header.
+* The calendar now uses the QUnit unit test framework to make sure the calendar maintains high quality in every release.  You can see the <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=cal&qunit=true">tests run</a> on our integration blog or run them on your own blog by adding &qunit=true to the end of the URL for the calendar.
+* Made it easier to see the first day of the month using a special header and background color.
 * Changed to a lighter gradient for the calendar header to match the new theme of WordPress 3.0.
 * We now support pending review posts in the calendar.
 * The calendar supports a feedback mechanism where we collect data about your use of the calendar.  This anonymous data helps us improve the calendar and know which areas to focus on.  Everyone can view the <a href="http://www.zackgrossbart.com/edcal/mint/">Editorial Calendar Statistics</a>.
