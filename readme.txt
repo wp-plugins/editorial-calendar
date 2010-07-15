@@ -17,7 +17,7 @@ Did you remember to write a post for next Tuesday?  What about the Tuesday after
 
 
 <h4>Try it out</h4>
-You don't have to install the calendar to give it a try.  Just check out the demo installation at <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=cal">Zack's WordPress Sandbox</a>.
+Try the calendar before you install it.  Check out the demo installation at <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=cal">Zack's WordPress Sandbox</a>.
 
 
 <h4>Features</h4>
@@ -25,11 +25,13 @@ You don't have to install the calendar to give it a try.  Just check out the dem
 1. See all of your posts and when they'll be posted.
 1. Drag and drop to change your post dates.
 1. Quickedit post titles, contents, and times.
+1. Publish posts or manage drafts.
 1. Easily see the status of your posts.
+1. Manage posts from multiple authors.
 
 <h4>Make it better</h4>
 
-The editorial calendar is getting closer and closer to version 1.0.  We have a few more features to go.  Thank you to everyone who has helped us improve this plugin with their feedback.  If you have questions, problems, or idea for new features please let us know at <a href="mailto:wp-edcal@googlegroups.com">wp-edcal@googlegroups.com</a>.  
+Thank you to everyone who has given us feedback and helped us improve this plugin.  If you have questions, problems, or ideas for new features please let us know at <a href="mailto:wp-edcal@googlegroups.com">wp-edcal@googlegroups.com</a>.  
 
 == Installation ==
 
@@ -40,10 +42,6 @@ The editorial calendar is getting closer and closer to version 1.0.  We have a f
 
 == Frequently Asked Questions ==
 
-= Can I see a demo of the calendar? =
-
-Check out our demo installation at <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=cal">Zack's WordPress Sandbox</a>.
-
 = What are other people saying about the calendar? =
 
 From time to time people write articles about the editorial calendar.  We appreciate every one.
@@ -52,19 +50,25 @@ From time to time people write articles about the editorial calendar.  We apprec
 
 <a href="http://theincidentaleconomist.com/wordpress-plug-in-plug-editorial-calendar/">WordPress Plug-In Plug: Editorial Calendar</a> on <a href="http://theincidentaleconomist.com/">The Incidental Economist</a>
 
+<a href="http://www.rezdwanhamid.com/tutorials/how-to-use-editorial-calendar-plugin-for-wordpress/">How To Use The Editorial Calendar For WordPress</a> by <a href="http://www.rezdwanhamid.com/">Rezdwan Hamid</a>
+
 <a href="http://wordcastnet.com/2010/01/12/visually-manage-your-post-publication-dates-with-the-editorial-calendar-wordpress-plugin/">Visually Manage Your Post Publication Dates with the Editorial Calendar WordPress Plugin</a> on <a href="http://wordcastnet.com/">WordCast</a>
 
 <a href="http://askcharlyleetham.com/blog/guest-authors/powerful-plugins-that-keep-you-organized-and-increase-your-productivity/comment-page-1#comment-5791">Powerful Plugins That Keep You Organized and Increase Your Productivity</a> at <a href="http://www.askcharlyleetham.com">askcharlyleetham.com</a>.
 
 <a href="http://websuccessdiva.com/seo-copywriting-checklist/">SEO Copywriting Checklist for Wordpress Blogs</a> on <a href="http://websuccessdiva.com/">@WebSuccessDiva</a> is a good article about SEO and using an editorial calendar.
 
+= Can I see a demo of the calendar? =
+
+Check out our demo installation at <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=cal">Zack's WordPress Sandbox</a>.
+
 = How do I get help using the calendar? =
 
-The <a href="http://groups.google.com/group/wp-edcal">WordPress Editorial Calendar Google Group</a> is a good place to ask questions, find answers, and post feedback.
+The <a href="http://groups.google.com/group/wp-edcal">WordPress Editorial Calendar Google Group</a> is a good place to ask questions, find answers, and post feedback.  We also follow the WordPress.org forum <a href="http://wordpress.org/tags/editorial-calendar?forum_id=10">Editorial Calendar discussion</a>. 
 
 = How do I navigate in the calendar? =
 
-You can move around in the calendar using the arrows next to the months at the top or your mouse wheel, You can also move using your keyboard:
+You can move around in the calendar using the arrows next to the months at the top or your mouse wheel. You can also move using your keyboard:
 
 <ul>
 <li>Move 1 week into the past - Up Arrow</li>
@@ -75,11 +79,15 @@ You can move around in the calendar using the arrows next to the months at the t
 
 = How do I change the first day of the week? =
 
-The editorial calendar follows the Week Starts On preference on the WordPress General Settings page.  Just change the setting and the calendar will use that day of the week as the first one.
+The editorial calendar follows the Week Starts On preference on the WordPress General Settings page.  Choose the day you want and the calendar will use that day as the first day of the week.
 
 = What languages does the calendar support? =
 
 The calendar is available in Croatian, Czechoslovakian, English, French, and Greek. 
+
+= Can I add new languages? =
+
+Yes please!  We are looking for translators.  It only takes about 20 minutes.  If you're interested please <a href="mailto:wp-edcal@googlegroups.com">contact us</a>.
 
 = How does the calendar work =
 
@@ -87,13 +95,9 @@ The calendar is written in JavaScript.  It contacts your blog when it scrolls to
 
 = Is the calendar collecting data about my blog? =
 
-The calendar only collects data when you give us permission.  We will prompt you to let us collect anonymous data about your blog.  We are mostly focused on your configuration.  Information like the size of your browser window and the number of posts you have per day help us make the calendar even better.
+After you use the calendar a few times we'll prompt you to let us collect a little anonymous data about your blog.  Information like the size of your browser window and the number of posts you have per day help us make the calendar even better.
 
-The data is all available to the public.  Everyone can view the <a href="http://www.zackgrossbart.com/edcal/mint/">Editorial Calendar Statistics</a>.
-
-= Can I add new languages? =
-
-Yes please!  We are looking for translators.  It only takes about 20 minutes.  If you're interested please <a href="mailto:wp-edcal@googlegroups.com">contact us</a>.
+The data is all available to the public.  Check out the <a href="http://www.zackgrossbart.com/edcal/mint/">Editorial Calendar Statistics</a>.
 
 = What users can use the calendar? =
 
