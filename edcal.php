@@ -268,7 +268,7 @@ function edcal_list_admin() {
         }
 
         #tipclose {
-            background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/tip_close.gif")); ?>');
+            background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/tip_close.png")); ?>');
         }
 
         .month-present .daylabel, .firstOfMonth .daylabel {
