@@ -202,6 +202,7 @@
 
 #moveToToday {
     margin-left: 2em;
+    margin-right: 6px;
     text-decoration: none;
 }
 
@@ -507,7 +508,7 @@
     padding: 1em;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
-    max-width: 75em;
+    max-width: 55%;
     background-color: #eaf2fb;
     font-family:"Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif;
     font-size:11px;

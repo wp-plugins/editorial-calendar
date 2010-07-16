@@ -271,19 +271,15 @@ function edcal_list_admin() {
             background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/tip_close.png")); ?>');
         }
 
-        .month-present .daylabel, .firstOfMonth .daylabel {
-            background: #F5F5F5 url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/month-present_bk.gif")); ?>') repeat-x left top;
-        }
-        
         #tooltip {
             background: white url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/gray-grad.png")); ?>') repeat-x left top;
         }
         
         .today .daylabel {
-            background: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/today_bk.gif")); ?>') repeat-x left top;
+            background: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/button-grad.png")); ?>') repeat-x left top;
         }
 
-        .dayheadcont {
+        .month-present .daylabel, .firstOfMonth .daylabel, .dayheadcont {
             background: #6D6D6D url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/gray-grad.png")); ?>') repeat-x scroll left top;
         }
     </style>
