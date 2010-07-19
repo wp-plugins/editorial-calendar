@@ -275,13 +275,14 @@ function edcal_list_admin() {
             background: white url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/gray-grad.png")); ?>') repeat-x left top;
         }
         
+        .month-present .daylabel, .firstOfMonth .daylabel, .dayheadcont {
+            background: #6D6D6D url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/gray-grad.png")); ?>') repeat-x scroll left top;
+        }
+
         .today .daylabel {
             background: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/button-grad.png")); ?>') repeat-x left top;
         }
 
-        .month-present .daylabel, .firstOfMonth .daylabel, .dayheadcont {
-            background: #6D6D6D url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/gray-grad.png")); ?>') repeat-x scroll left top;
-        }
     </style>
     
     <?php
