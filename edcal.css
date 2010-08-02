@@ -152,7 +152,7 @@
     font-weight: bold;
     text-align: left;
     text-indent: 5px;
-	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
     color: #000;
     line-height: 2.4em;
     min-width: 10em;
@@ -173,9 +173,7 @@
 
 #cal_cont {
     border:1px solid #dfdfdf;
-
     padding-bottom:1px;
-    
     -moz-border-radius:4px;
     -webkit-border-radius:4px;
 }
@@ -254,9 +252,9 @@
 
 /* Quick Add/Edit Tooltip */
 
-div#tooltip {
+#tooltip {
     background: #f9f9f9;
-	width:500px;
+    width:500px;
     border:1px solid #D3D3D3;
     -moz-border-radius:6px;
     -webkit-border-radius:6px;
@@ -274,9 +272,9 @@ div#tooltip {
     font-weight:bold;
     padding-left:1em;
     padding-right:1em;
-	height:30px;
-	line-height:30px;
-	position:relative;
+    height:30px;
+    line-height:30px;
+    position:relative;
     text-shadow: #fff 0px 1px 0px;
 }
 
@@ -289,7 +287,7 @@ div#tooltip {
 }
 
 #tooltip .inline-edit-row fieldset {
-	padding-bottom:1.2em;
+    padding-bottom:1.2em;
 }
 
 #edcal-title {
@@ -306,11 +304,11 @@ TinyMCE Rich Editor and Media buttons are not currently used
 
 /*
 #tooltip #cal_mediabar {
-	font-size: 11px;
+    font-size: 11px;
 }
 
 #tooltip #media-buttons {
-	padding: 5px 0;
+    padding: 5px 0;
 }*/
 
 #tooltip #edcal-time {
@@ -319,14 +317,14 @@ TinyMCE Rich Editor and Media buttons are not currently used
 }
 
 #edcal-author-p {
-	line-height:1.8em;
-	padding-left:0.2em;
+    line-height:1.8em;
+    padding-left:0.2em;
 }
 
 #edit-slug-buttons {
     position: relative;
-	margin:0;
-	padding:0 0 0.5em 0;
+    margin:0;
+    padding:0 0 0.5em 0;
 }
 
 #newPostScheduleButton {
