@@ -47,7 +47,7 @@
 }
 
 .day {
-    border: thin solid rgb(164, 164, 164); /* this will add to total height in IE. So, 100% + 2px */
+    border: 1px solid rgb(164, 164, 164); /* this will add to total height in IE. So, 100% + 2px */
     -moz-border-radius-topright:3px;
     -moz-border-radius-topleft:3px;
     -webkit-border-top-left-radius:3px;
@@ -79,6 +79,10 @@
     position: relative;
     width: 100%;
     height: 100%;
+}
+
+.firstOfMonth .dayobj {
+    background-color: #eaf2fb;
 }
 
 .daylabel {
@@ -165,7 +169,6 @@
 }
 
 .dayhead.lastday {
-    
 }
 
 #cal_cont {
@@ -248,158 +251,13 @@
     color: #21759B;
 }*/
 
-#edit-slug-buttons {
-    position: relative;
-}
 
-#newPostScheduleButton {
-    position: absolute;
-    right: 20px;
-    top: -5px;
-}
+/* Quick Add/Edit Tooltip */
 
-#newPostScheduleButton.disabled {
-    color: #AAAAAA;
-}
-
-#tooltip {
-    min-width: 35em;
-}
-
-#tooltip .mceEditor {
-    height: 15em;
-    margin-left: -6px;
-}
-
-#tooltiptitle {
-    font-weight:bold;
-    left: 0.5em;
-    position:absolute;
-    top: -8px;
-    text-shadow: #fff 0px 1px 0px;
-}
-
-.tipauthor {
-    font-weight: normal;
-    font-style: italic;
-    position: relative;
-    left: 2em;
-}
-
-#tooltip p {
-    margin-left: 1.5em;
-}
-
-#tooltip h3 {
-    max-width: 20em;
-    margin-bottom: -10px;
-    padding-right: 15px;
-    margin-top: 1em;
-    font-size: 13px;
-    font-weight: bold;
-}
-
-#tooltip h4 {
-	margin: 0 0 3px 0;
-    font-family:Georgia,"Times New Roman","Bitstream Charter",Times,serif;
-    font-style: italic;
-    font-weight: normal;
-}
-
-#tooltip #edcal-time-status-section h4 {
-    display: inline;
-}
-
-#tooltip #edcal-time {
-    width: 8em;
-    background-color: white;
-}
-
-#tooltip #edcal-time-section h4, #tooltip #edcal-status-section h4 {
-    top: 3px;
-}
-
-#edcal-time-status-section {
-    position: relative;
-    height: 5em;
-}
-
-#edcal-time-section {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 48%;
-}
-
-#edcal-status-section {
-    position: absolute;
-    top: 0px;
-    left: 50%;
-    width: 48%;
-}
-
-#tooltip .edcal-form-row {
-	margin-bottom: 5px;
-    margin-top: 1em;
-    position: relative;
-}
-
-#edcal-title-row, #edcal-time-section, #edcal-status-section {
-    height: 2em;
-}
-
-#edcal-status-section {
-    top: -3em;
-    left: 16em;
-}
-
-#tooltip .edcal-form-label {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 5.5em;
-    text-align: right;
-}
-
-#tooltip .edcal-form-control {
-    position: absolute;
-    left: 7em;
-    top: 0px;
-    width: 75%;
-}
-
-#tooltip #edcal-content-row .edcal-form-label {
-    position: static;
-    float: left;
-}
-
-#tooltip #edcal-content-row .edcal-form-control {
-    position: static;
-    margin-left: 7em;
-}
-
-#tooltip #edcal-status-section h4 {
-    width: 4em;
-}
-
-#edcal-status-section .edcal-form-control {
-    left: 7em;
-    width: auto;
-}
-
-#tooltip #cal_mediabar {
-	font-size: 11px;
-}
-
-#tooltip #media-buttons {
-	padding: 5px 0;
-}
-
-#tooltip {
-    background: white;
-    padding: 1em;
-    padding-bottom: 0em;
-    border: thin solid lightgray;
+div#tooltip {
+    background: #f9f9f9;
+	width:500px;
+    border:1px solid #D3D3D3;
     -moz-border-radius:6px;
     -webkit-border-radius:6px;
     -moz-box-shadow:0 4px 8px #C8C8C8;
@@ -407,9 +265,31 @@
     z-index: 25;
 }
 
-.newposttip {
-    padding: 1em 1em 1em 0.5em;
+.tooltip {
+    padding: 1em;
     position: relative;
+}
+
+#tooltiptitle {
+    font-weight:bold;
+    padding-left:1em;
+    padding-right:1em;
+	height:30px;
+	line-height:30px;
+	position:relative;
+    text-shadow: #fff 0px 1px 0px;
+}
+
+#tipclose {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top:8px;
+    right:1em;
+}
+
+#tooltip .inline-edit-row fieldset {
+	padding-bottom:1.2em;
 }
 
 #edcal-title {
@@ -417,36 +297,50 @@
     padding-bottom: 0.5em;
 }
 
-#edcal-title-edit-field {
-    padding: 0.25em;
+/*
+TinyMCE Rich Editor and Media buttons are not currently used
+#tooltip .mceEditor,*/
+#tooltip textarea {
+    height: 15em;
 }
 
-#edcal-title-new-field {
-    padding: 0.25em;
-    width: 100%;
+/*
+#tooltip #cal_mediabar {
+	font-size: 11px;
 }
 
-#edcal-title-new-section {
-    padding-top: 1em;
-    padding-bottom: 0.5em;
+#tooltip #media-buttons {
+	padding: 5px 0;
+}*/
+
+#tooltip #edcal-time {
+    width: 9em;
+    background-color: white;
 }
 
-#tipclose {
-    width: 16px;
-    height: 15px;
+#edcal-author-p {
+	line-height:1.8em;
+	padding-left:0.2em;
+}
+
+#edit-slug-buttons {
+    position: relative;
+	margin:0;
+	padding:0 0 0.5em 0;
+}
+
+#newPostScheduleButton {
     position: absolute;
+    right: 0;
     top: -5px;
-    right: -4px;
 }
 
-#edcal-title-box {
-    display: none;
-    padding-right: 15px;
+#newPostScheduleButton.disabled {
+    color: #AAAAAA;
 }
 
-#edcal-title-edit {
-    font-size: 11px;
-}
+/* End Add/Edit Tooltip */
+
 
 #nextmonth, #prevmonth {
     /*padding: 0.5em;*/
@@ -528,8 +422,4 @@
 
 #feedbacksection a {
     margin-left: 1em;
-}
-
-.firstOfMonth .dayobj {
-    background-color: #eaf2fb;
 }

@@ -180,6 +180,7 @@ function edcal_list_admin() {
 
             edcal.startOfWeek = <?php echo(get_option("start_of_week")); ?>;
             edcal.timeFormat = "<?php echo(get_option("time_format")); ?>";
+            edcal.previewDateFormat = "MMMM d";
 
             /*
              * We want to show the day of the first day of the week to match the user's 
@@ -223,7 +224,7 @@ function edcal_list_admin() {
             edcal.str_update = <?php echo(edcal_json_encode(__('Update', 'editorial-calendar'))) ?>;
             edcal.str_publish = <?php echo(edcal_json_encode(__('Schedule', 'editorial-calendar'))) ?>;
             edcal.str_save = <?php echo(edcal_json_encode(__('Save', 'editorial-calendar'))) ?>;
-            edcal.str_edit_post_title = <?php echo(edcal_json_encode(__('Edit Post', 'editorial-calendar'))) ?>;
+            edcal.str_edit_post_title = <?php echo(edcal_json_encode(__('Edit Post - ', 'editorial-calendar'))) ?>;
             edcal.str_scheduled = <?php echo(edcal_json_encode(__('Scheduled', 'editorial-calendar'))) ?>;
             
             edcal.str_del_msg1 = <?php echo(edcal_json_encode(__('You are about to delete the post "', 'editorial-calendar'))) ?>;
@@ -322,22 +323,23 @@ function edcal_list_admin() {
         </div>
 		
 		<div id="tooltip" style="display:none;">
-           <div class="tooltip newposttip">
-               <div id="tooltiptitle">
-                   <?php _e('Edit Post', 'editorial-calendar') ?>
-               </div>
-               <a href="#" id="tipclose" onclick="edcal.hideForm(); return false;" title="close"> </a>
-               <div id="tooltipimage"><!-- Placeholder for the form image; added dynamically --></div>
-    		   <h3><!-- Placeholder for the form title; added dynamically --></h3>
-    		   <div id="edcal-title-new-section">
-    				<div id="edcal-title-row" class="edcal-form-row">
-    					<h4 class="edcal-form-label"><?php _e('Title', 'editorial-calendar') ?></h4>
-    					<input type="text" class="text_input edcal-form-control" id="edcal-title-new-field" name="title" /><br />
-    				</div>
-    			   
-    				<div id="edcal-content-row" class="edcal-form-row">
-    				   <h4 class="edcal-form-label"><?php _e('Content', 'editorial-calendar') ?></h4>
-    				   <!--
+			<div id="tooltiphead">
+				<div id="tooltiptitle"><?php _e('Edit Post', 'editorial-calendar') ?></div>
+				<a href="#" id="tipclose" onclick="edcal.hideForm(); return false;" title="close"> </a>
+			</div>
+
+			<div class="tooltip inline-edit-row">
+
+                <fieldset>
+
+                <label>
+					<span class="title"><?php _e('Title', 'editorial-calendar') ?></span>
+					<span class="input-text-wrap"><input type="text" class="ptitle" id="edcal-title-new-field" name="title" /></span>
+    			</label>
+
+                <label>
+                    <span class="title"><?php _e('Content', 'editorial-calendar') ?></span>
+<?php /*
                        <div id="cal_mediabar">
     						<?php if ( current_user_can( 'upload_files' ) ) : ?>
     							<div id="media-buttons" class="hide-if-no-js">
@@ -345,35 +347,47 @@ function edcal_list_admin() {
     							</div>
     						<?php endif; ?>
     				   </div>
-                       -->
-    				   <div class="textarea-wrap edcal-form-control">
-    					   <textarea cols="15" rows="3" class="mceEditor" id="content" name="content"></textarea>
-    				   </div>
-    			   </div>
-                   <div id="edcal-time-section" class="edcal-form-row">
-                        <h4 class="edcal-form-label"><?php _e('Time', 'editorial-calendar') ?></h4>
-                        <input type="text" class="edcal-form-control" id="edcal-time" name="time" value="" size="8" readonly="true" maxlength="8" autocomplete="off" />
-                   </div>
-                   <div id="edcal-status-section" class="edcal-form-row">
-                        <h4 class="edcal-form-label"><?php _e('Status', 'editorial-calendar') ?></h4>
-                        <select name="status" id="edcal-status" class="edcal-form-control">
+/*/ ?>
+                    <span class="input-text-wrap"><textarea cols="15" rows="7" id="content" name="content"></textarea></span>
+                </label>
+
+
+                <label>
+                    <span class="title"><?php _e('Time', 'editorial-calendar') ?></span>
+                    <span class="input-text-wrap"><input type="text" class="ptitle" id="edcal-time" name="time" value="" size="8" readonly="true" maxlength="8" autocomplete="off" /></span>
+                </label>
+					
+                <label>
+                    <span class="title"><?php _e('Status', 'editorial-calendar') ?></span>
+                    <span class="input-text-wrap">
+                        <select name="status" id="edcal-status">
                             <option value="draft"><?php _e('Draft', 'editorial-calendar') ?></option>
                             <option value="pending"><?php _e('Pending Review', 'editorial-calendar') ?></option>
                             <option id="futureoption" value="future"><?php _e('Scheduled', 'editorial-calendar') ?></option>
                         </select>
-                   </div>
-               </div>
-    		   <div id="edit-slug-buttons" class="edcal-form-row">
-                   <a class="button-primary disabled" id="newPostScheduleButton" href="#"><?php _e('Schedule', 'editorial-calendar') ?></a>
-    			   <a href="#" onclick="edcal.hideForm(); return false;" class="button-secondary cancel"><?php _e('Cancel', 'editorial-calendar') ?></a>
-    		   </div>
-    		   <input type="hidden" id="edcal-date" name="date" value="" />
-    		   <input type="hidden" id="edcal-id" name="id" value="" />
-		   </div>
-		</div>
-		
-    </div>
-    
+                    </span>
+				</label>
+
+<?php /*                <label>
+                    <span class="title"><?php _e('Author', 'editorial-calendar') ?></span>
+                    <span id="edcal-author-p"><!-- Placeholder for the author's name, added dynamically --></span>
+                </label>
+*/ ?>
+                </fieldset>
+
+				<p class="submit inline-edit-save" id="edit-slug-buttons">
+                    <a class="button-primary disabled" id="newPostScheduleButton" href="#"><?php _e('Schedule', 'editorial-calendar') ?></a>
+                    <a href="#" onclick="edcal.hideForm(); return false;" class="button-secondary cancel"><?php _e('Cancel', 'editorial-calendar') ?></a>
+                </p>
+
+                <input type="hidden" id="edcal-date" name="date" value="" />
+                <input type="hidden" id="edcal-id" name="id" value="" />
+
+            </div><?php // end .tooltip ?>
+        </div><?php // end #tooltip ?>
+
+    </div><?php // end .wrap ?>
+
     <?php
 }
 

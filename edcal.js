@@ -695,7 +695,7 @@ var edcal = {
         var post = {
             id: 0,
             date: date,
-            formatteddate: edcal.getDayFromDayId(date).toString("MMMM d"),
+            formatteddate: edcal.getDayFromDayId(date).toString(edcal.previewDateFormat),
             time: formattedtime
         };
         edcal.showForm(post);
@@ -857,10 +857,11 @@ var edcal = {
         if(!post.id) {
             jQuery('#tooltiptitle').text(edcal.str_newpost_title + post.formatteddate);
         } else {
-            jQuery('#tooltiptitle').text(edcal.str_edit_post_title);
-            jQuery('#tooltip h3').html('<span class="tiptitle">' + post.title + '</span><br />' + 
-                                       '<span class="tipauthor">' + edcal.str_by + ' ' + post.author + '</span>');
-            
+            jQuery('#tooltiptitle').text(edcal.str_edit_post_title + edcal.getDayFromDayId(post.date).toString(edcal.previewDateFormat));
+
+            // sets the read-only author field
+            //jQuery('#edcal-author-p').html(post.author);
+
             // add post info to form
             jQuery('#edcal-title-new-field').val(post.title);
             jQuery('#content').val(post.content);
@@ -951,7 +952,7 @@ var edcal = {
         jQuery('#newPostScheduleButton').text(edcal.str_publish);
         
         jQuery('#tooltiptitle').text('');
-        jQuery('#tooltip h3').html('');
+        //jQuery('#edcal-author-p').html('');
         
         jQuery('#edcal-status').removeAttr('disabled');
         
