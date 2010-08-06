@@ -18,7 +18,7 @@
 /*
 Plugin Name: WordPress Editorial Calendar
 Description: The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
-Version: 1.0
+Version: 0.9
 Author: Colin Vernon, Justin Evans, Mary Vogt, and Zack Grossbart
 Author URI: http://www.zackgrossbart.com
 Plugin URI: http://www.zackgrossbart.com
@@ -42,7 +42,7 @@ add_action("init", 'edcal_load_language');
 $EDCAL_CONCURRENCY_ERROR = "4";
 
 /*
- * This error code matches NONCE_ERROR from edcal.js
+ * This error code matches PERMISSION_ERROR from edcal.js
  */
 $EDCAL_PERMISSION_ERROR = "5";
 
@@ -251,7 +251,7 @@ function edcal_list_admin() {
 
             edcal.str_feedbackmsg = <?php echo(edcal_json_encode(__('<div id="feedbacksection">' . 
              '<h2>Help us Make the Editorial Calendar Better</h2>' .
-             'We are always trying to improve the Editorial Calendar and you can help. May we collect some anonymous data about your blog and browser settings to help us improve this plugin?  We\'ll only do it once.<br /><br />' . 
+             'We are always trying to improve the Editorial Calendar and you can help. May we collect some anonymous data about your blog and browser settings to help us improve this plugin?  We\'ll only do it once and you can <a href="http://www.zackgrossbart.com/edcal/mint/">see the data we collect</a>.<br /><br />' . 
              '<button class="button-secondary" onclick="edcal.doFeedback();">Collect Anonymous Data</button> ' . 
              '<a href="#" onclick="edcal.noFeedback(); return false;">No thank you</a></div>', 'editorial-calendar'))) ?>;
 
