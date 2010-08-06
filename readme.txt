@@ -13,7 +13,7 @@ Did you remember to write a post for next Tuesday?  What about the Tuesday after
 
 <h4>Watch the video</h4>
 
-<a href="http://vimeo.com/13196017" target="_blank"><img src="http://plugins.svn.wordpress.org/editorial-calendar/trunk/vid.png" border="0" alt="Watch the WordPress Editorial Calendar introduction video."></a>
+Get a quick overview of what the calendar can do for you with the <a href="http://vimeo.com/13196017" target="_blank">The WordPress Editorial Calendar Screen Cast</a>.
 
 
 <h4>Try it out</h4>
