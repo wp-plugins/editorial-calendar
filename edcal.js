@@ -1524,7 +1524,7 @@ var edcal = {
      * Saves the feedback preference to the server
      */
     saveFeedbackPref: function() {
-         var url = edcal.ajax_url() + "&action=edcal_saveoptions&dofeedback=" + encodeURIComponent(false);
+         var url = edcal.ajax_url() + "&action=edcal_saveoptions&dofeedback=" + encodeURIComponent('done');
          
          jQuery.ajax( { 
              url: url,

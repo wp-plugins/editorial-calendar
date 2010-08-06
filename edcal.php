@@ -96,7 +96,7 @@ function edcal_list_admin() {
         add_option("edcal_count", $edcal_count, "", "yes");
     }
         
-    if (get_option("edcal_do_feedback") == "") {
+    if (get_option("edcal_do_feedback") != "done") {
         $edcal_count++;
         update_option("edcal_count", $edcal_count);
     }
@@ -165,12 +165,7 @@ function edcal_list_admin() {
             ?>
 
             <?php 
-                if (get_option("edcal_do_feedback") != "") {
-            ?>
-                edcal.doFeedbackPref = <?php echo(get_option("edcal_do_feedback")); ?>;
-                edcal.visitCount = <?php echo(get_option("edcal_count")); ?>;
-            <?php
-                } else {
+                if (get_option("edcal_do_feedback") != "done") {
             ?>
                 edcal.doFeedbackPref = true;
                 edcal.visitCount = <?php echo(get_option("edcal_count")); ?>;
@@ -251,9 +246,9 @@ function edcal_list_admin() {
 
             edcal.str_feedbackmsg = <?php echo(edcal_json_encode(__('<div id="feedbacksection">' . 
              '<h2>Help us Make the Editorial Calendar Better</h2>' .
-             'We are always trying to improve the Editorial Calendar and you can help. May we collect some anonymous data about your blog and browser settings to help us improve this plugin?  We\'ll only do it once and you can <a href="http://www.zackgrossbart.com/edcal/mint/">see the data we collect</a>.<br /><br />' . 
+             'We are always trying to improve the Editorial Calendar and you can help. May we collect some anonymous data about your blog and browser settings to help us improve this plugin?  We\'ll only do it once and you can <a target="_blank" href="http://www.zackgrossbart.com/edcal/mint/">see the data we collect</a>.<br /><br />' . 
              '<button class="button-secondary" onclick="edcal.doFeedback();">Collect Anonymous Data</button> ' . 
-             '<a href="#" onclick="edcal.noFeedback(); return false;">No thank you</a></div>', 'editorial-calendar'))) ?>;
+             '<a href="#" id="nofeedbacklink" onclick="edcal.noFeedback(); return false;">No thank you</a></div>', 'editorial-calendar'))) ?>;
 
             edcal.str_feedbackdone = <?php echo(edcal_json_encode(__('<h2>We\'re done</h2>We\'ve finished collecting data.  Thank you for helping us make the calendar better.', 'editorial-calendar'))) ?>;
         });
