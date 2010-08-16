@@ -131,6 +131,9 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
+= 1.0 =
+* Fixed a scrolling issue where you can't click the action links on the last post if the individual day in the calendar shows a scrollbar and is scrolled to the bottom.
+
 = 0.9 =
 * The calendar now uses the QUnit unit test framework to make sure the calendar maintains high quality in every release.  You can see the <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=cal&qunit=true">tests run</a> on our integration blog or run them on your own blog by adding &qunit=true to the end of the URL for the calendar.
 * Made it easier to see the first day of the month using a special header and background color.
