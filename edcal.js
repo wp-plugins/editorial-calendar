@@ -756,7 +756,7 @@ var edcal = {
          }
 
          var time;
-         if(post.time != '') {
+         if(post.time !== '') {
             time = Date.parse(post.time);
          } else {
             time = Date.parse('10:00:00'); // If we don't have a time set, default it to 10am
@@ -1032,15 +1032,29 @@ var edcal = {
          if (edcal.inDrag || !edcal.isPostEditable(post)) {
              return;
          }
-         jQuery('#' + postid + ' > div.postactions').show();
+         
+         var elem = jQuery('#' + postid + ' > div.postactions');
+         
+         elem.show();
+         
+         
+         if (elem.parent().position().top > 40) {
+             /*
+                This means the action links probably won't be visible and we need to
+                scroll to make sure the users can see it.
+              */
+             var p = jQuery('#' + postid + ' > div.postactions').parent().parent();
+             p.scrollTop(p.scrollTop() + 45);
+         }
     }, 
-
+    
     /*
        Hides the action links for the post with the specified
        post ID.
      */
     hideActionLinks: function(/*string*/ postid) {
-         jQuery('#' + postid + ' > div.postactions').hide();
+         var elem = jQuery('#' + postid + ' > div.postactions');
+         elem.hide();
     },
 
     /*
