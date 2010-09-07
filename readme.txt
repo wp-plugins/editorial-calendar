@@ -46,6 +46,8 @@ Thank you to everyone who has given us feedback and helped us improve this plugi
 
 From time to time people write articles about the editorial calendar.  We appreciate every one.
 
+<a href="http://www.smashingmagazine.com/2010/08/30/the-importance-of-consistency-using-editorial-calendars-and-style-guides/">Blogging For Web Designers: Editorial Calendars and Style Guides</a> by <a href="http://jessica.smashingmagazine.com/">Jessica Bordeau</a> at <a href="http://www.smashingmagazine.com/">Smashing Magazine</a>
+
 <a href="http://chrisg.org/drag-and-drop-post-scheduling-with-the-editorial-calendar-wordpress-plugin/">Drag and Drop Post Scheduling with the Editorial Calendar WordPress plugin</a> by <a href="http://chrisg.org/">Chris Garrett</a>
 
 <a href="http://theincidentaleconomist.com/wordpress-plug-in-plug-editorial-calendar/">WordPress Plug-In Plug: Editorial Calendar</a> on <a href="http://theincidentaleconomist.com/">The Incidental Economist</a>
