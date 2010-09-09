@@ -3,7 +3,7 @@ Contributors: cvernon, justinstresslimit, MaryVogt, zgrossbart
 Tags: posts, post, calendar, AJAX, admin, administration
 Requires at least: 2.8.5
 Tested up to: 3.0.1
-Stable tag: 0.9
+Stable tag: 1.0
 
 The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
 
@@ -134,7 +134,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 == Changelog ==
 
 = 1.0 =
-* Fixed a scrolling issue where you can't click the action links on the last post if the individual day in the calendar shows a scrollbar and is scrolled to the bottom.
+* Fixed a scrolling issue where you can't click the action links on the last post if the individual day showing a scroll bar.
 
 = 0.9 =
 * The calendar now uses the QUnit unit test framework to make sure the calendar maintains high quality in every release.  You can see the <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=cal&qunit=true">tests run</a> on our integration blog or run them on your own blog by adding &qunit=true to the end of the URL for the calendar.
