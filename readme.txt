@@ -140,6 +140,9 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
+= 1.1 =
+* There was a security hole in the calendar that allowed contributors to publish posts when they couldn't in the standard edit screen.  We now only allow contributors to save drafts and schedule a post for review.
+
 = 1.0 =
 * Fixed a scrolling issue where you can't click the action links on the last post if the individual day showing a scroll bar.
 

@@ -873,11 +873,7 @@ var edcal = {
         
         if (post.status) {
             jQuery('#edcal-status').val(post.status);
-            if (post.status === 'future') {
-                jQuery('#newPostScheduleButton').text(edcal.str_publish);
-            } else {
-                jQuery('#newPostScheduleButton').text(edcal.str_save);
-            }
+            edcal.updatePublishButton();
         } else {
             jQuery('#edcal-status').val('draft');
             jQuery('#newPostScheduleButton').text(edcal.str_save);
@@ -1719,11 +1715,7 @@ var edcal = {
         });
         
         jQuery("#edcal-status").bind("change", function(evt) {
-            if (jQuery('#edcal-status').val() === 'future') {
-                jQuery('#newPostScheduleButton').text(edcal.str_publish);
-            } else {
-                jQuery('#newPostScheduleButton').text(edcal.str_save);
-            }
+            edcal.updatePublishButton();
         });
 
         jQuery("#edcal_weeks_pref").live("keyup", function(evt) {
@@ -1748,6 +1740,20 @@ var edcal = {
             separator:':',
             step: 30
         });
+    },
+    
+    /*
+       This function updates the text of te publish button in the quick
+       edit dialog to match the current operation.
+     */
+    updatePublishButton: function() {
+         if (jQuery('#edcal-status').val() === 'future') {
+             jQuery('#newPostScheduleButton').text(edcal.str_publish);
+         } if (jQuery('#edcal-status').val() === 'pending') {
+             jQuery('#newPostScheduleButton').text(edcal.str_review);
+         } else {
+             jQuery('#newPostScheduleButton').text(edcal.str_save);
+         }
     },
 
     /*
