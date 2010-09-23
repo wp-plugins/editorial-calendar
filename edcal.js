@@ -1436,8 +1436,7 @@ var edcal = {
          jQuery("#cal").empty();
          
          jQuery.cookie('edcal_date', date.toString('yyyy-dd-MM'));
-         
-         
+
          /*
            When we first start up our working date is 4 weeks before
            the next Sunday.
@@ -1457,12 +1456,13 @@ var edcal = {
              edcal.createRow(jQuery("#cal"), true);
              edcal._wDate.add(7).days();
          }
-         
+
          edcal.alignCal();
          
          var api = jQuery("#edcal_scrollable").scrollable();
-         api.move(2);
          
+         api.move(2);
+
          edcal.setDateLabel();
          edcal.setClassforToday();
          edcal.isMoving = false;
@@ -1582,12 +1582,20 @@ var edcal = {
          */ 
         edcal.createDaysHeader();
         
-        // initialize scrollable  
+        /*
+         * We start by initializting the scrollable.  We use this to manage the
+         * scrolling of the calendar, but don't actually call it to animate the
+         * scrolling.  We specify an easing here because the default is "swing"
+         * and that has a conflict with JavaScript used in the BuddyPress plugin/
+         *
+         * This doesn't really change anything since the animation happens offscreen.
+         */
         jQuery("#edcal_scrollable").scrollable({ 
                                     vertical:true,  
                                     size: edcal.weeksPref,
                                     keyboardSteps: 1,
-                                    speed: 100
+                                    speed: 100,
+                                    easing: "linear"
                                     // use mousewheel plugin 
                                     }).mousewheel();
         
@@ -1609,7 +1617,7 @@ var edcal = {
         }
         
         edcal.moveTo(curDate.clone());
-        
+
         /*
          * The scrollable handles some basic binding.  This gets us 
          * up arrow, down arrow and the mouse wheel. 
@@ -1633,7 +1641,7 @@ var edcal = {
             
             return false;
         });
-        
+
         /*
          * We also want to listen for a few other key events
          */
