@@ -55,6 +55,8 @@ Editorial Calendar WordPress plugin review</a> by <a href="http://thebloggingaca
 
 <a href="http://www.disruptiveconversations.com/2010/09/brogan-is-right-the-editorial-calendar-wordpress-plugin-truly-rocks.html">Brogan is right - the "Editorial Calendar" WordPress plugin truly rocks!</a> by <a href="http://www.danyork.com/">Dan York</a>
 
+<a href="http://www.socialbrandingblog.com/637/editorial-calendar-plugin-for-wordpress/">Editorial Calendar Plugin for WordPress</a> by <a href="http://www.socialbrandingblog.com/">Steve Campbell</a>
+
 <a href="http://chrisg.org/drag-and-drop-post-scheduling-with-the-editorial-calendar-wordpress-plugin/">Drag and Drop Post Scheduling with the Editorial Calendar WordPress plugin</a> by <a href="http://chrisg.org/">Chris Garrett</a>
 
 <a href="http://theincidentaleconomist.com/wordpress-plug-in-plug-editorial-calendar/">WordPress Plug-In Plug: Editorial Calendar</a> on <a href="http://theincidentaleconomist.com/">The Incidental Economist</a>
