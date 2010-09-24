@@ -21,7 +21,7 @@ Description: The Editorial Calendar makes it possible to see all your posts and 
 Version: 1.1
 Author: Colin Vernon, Justin Evans, Mary Vogt, and Zack Grossbart
 Author URI: http://www.zackgrossbart.com
-Plugin URI: http://www.zackgrossbart.com
+Plugin URI: http://stresslimitdesign.com/editorial-calendar-plugin
 */
 
 add_action('wp_ajax_edcal_saveoptions', 'edcal_saveoptions' );
