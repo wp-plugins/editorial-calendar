@@ -18,10 +18,10 @@
 /*
 Plugin Name: WordPress Editorial Calendar
 Description: The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
-Version: 1.0
+Version: 1.1
 Author: Colin Vernon, Justin Evans, Mary Vogt, and Zack Grossbart
 Author URI: http://www.zackgrossbart.com
-Plugin URI: http://www.zackgrossbart.com
+Plugin URI: http://stresslimitdesign.com/editorial-calendar-plugin
 */
 
 add_action('wp_ajax_edcal_saveoptions', 'edcal_saveoptions' );
@@ -209,7 +209,7 @@ function edcal_list_admin() {
             edcal.str_quick_edit = <?php echo(edcal_json_encode(__('Quick Edit', 'editorial-calendar'))) ?>;
             edcal.str_del = <?php echo(edcal_json_encode(__('Delete', 'editorial-calendar'))) ?>;
             edcal.str_view = <?php echo(edcal_json_encode(__('View', 'editorial-calendar'))) ?>;
-            edcal.str_republish = <?php echo(edcal_json_encode(__('Republish', 'editorial-calendar'))) ?>;
+            edcal.str_republish = <?php echo(edcal_json_encode(__('Edit', 'editorial-calendar'))) ?>;
             edcal.str_status = <?php echo(edcal_json_encode(__('Status:', 'editorial-calendar'))) ?>;
             edcal.str_cancel = <?php echo(edcal_json_encode(__('Cancel', 'editorial-calendar'))) ?>;
             edcal.str_posttitle = <?php echo(edcal_json_encode(__('Title', 'editorial-calendar'))) ?>;
@@ -218,6 +218,7 @@ function edcal_list_admin() {
             edcal.str_newpost_title = <?php echo(edcal_json_encode(__('New Post - ', 'editorial-calendar'))) ?>;
             edcal.str_update = <?php echo(edcal_json_encode(__('Update', 'editorial-calendar'))) ?>;
             edcal.str_publish = <?php echo(edcal_json_encode(__('Schedule', 'editorial-calendar'))) ?>;
+            edcal.str_review = <?php echo(edcal_json_encode(__('Submit for Review', 'editorial-calendar'))) ?>;
             edcal.str_save = <?php echo(edcal_json_encode(__('Save', 'editorial-calendar'))) ?>;
             edcal.str_edit_post_title = <?php echo(edcal_json_encode(__('Edit Post - ', 'editorial-calendar'))) ?>;
             edcal.str_scheduled = <?php echo(edcal_json_encode(__('Scheduled', 'editorial-calendar'))) ?>;
@@ -358,7 +359,9 @@ function edcal_list_admin() {
                         <select name="status" id="edcal-status">
                             <option value="draft"><?php _e('Draft', 'editorial-calendar') ?></option>
                             <option value="pending"><?php _e('Pending Review', 'editorial-calendar') ?></option>
-                            <option id="futureoption" value="future"><?php _e('Scheduled', 'editorial-calendar') ?></option>
+                            <?php if ( current_user_can('publish_posts') ) {?>
+                                <option id="futureoption" value="future"><?php _e('Scheduled', 'editorial-calendar') ?></option>
+                            <?php } ?>
                         </select>
                     </span>
 				</label>

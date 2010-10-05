@@ -3,7 +3,7 @@ Contributors: cvernon, justinstresslimit, MaryVogt, zgrossbart
 Tags: posts, post, calendar, AJAX, admin, administration
 Requires at least: 2.8.5
 Tested up to: 3.0.1
-Stable tag: 1.0
+Stable tag: 1.1
 
 The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
 
@@ -49,6 +49,18 @@ From time to time people write articles about the editorial calendar.  We apprec
 <a href="http://www.chrisbrogan.com/use-an-editorial-calendar/">Use An Editorial Calendar</a> by <a href="http://www.chrisbrogan.com">Chris Brogan</a>
 
 <a href="http://www.smashingmagazine.com/2010/08/30/the-importance-of-consistency-using-editorial-calendars-and-style-guides/">Blogging For Web Designers: Editorial Calendars and Style Guides</a> by <a href="http://jessica.smashingmagazine.com/">Jessica Bordeau</a> at <a href="http://www.smashingmagazine.com/">Smashing Magazine</a>
+
+<a href="http://thebloggingacademy.com/editorial-calendar-wordpress-plugin-review/">
+Editorial Calendar WordPress plugin review</a> by <a href="http://thebloggingacademy.com/">The Blogging Academy</a>
+
+<a href="http://www.disruptiveconversations.com/2010/09/brogan-is-right-the-editorial-calendar-wordpress-plugin-truly-rocks.html">Brogan is right - the "Editorial Calendar" WordPress plugin truly rocks!</a> by <a href="http://www.danyork.com/">Dan York</a>
+
+<a href="http://www.socialbrandingblog.com/637/editorial-calendar-plugin-for-wordpress/">Editorial Calendar Plugin for WordPress</a> by <a href="http://www.socialbrandingblog.com/">Steve Campbell</a>
+
+<a href="http://marketplacemommies.com/2010/an-editorial-calendar-plugin-for-wordpress/">
+An Editorial Calendar Plugin For WordPress</a> by <a href="http://marketplacemommies.com/">Marketplace Mommies</a>
+
+<a href="http://www.mequoda.com/articles/editorial-strategy/editorial-calendar-wp-plugin-review/">Great WP Plugin for Online Editors: Editorial Calendar</a> by <a href="http://www.mequoda.com/">Mequoda Daily</a>
 
 <a href="http://chrisg.org/drag-and-drop-post-scheduling-with-the-editorial-calendar-wordpress-plugin/">Drag and Drop Post Scheduling with the Editorial Calendar WordPress plugin</a> by <a href="http://chrisg.org/">Chris Garrett</a>
 
@@ -134,6 +146,11 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 5. Show as much or as little of your blog as you like.
 
 == Changelog ==
+
+= 1.1 =
+* There was a security hole in the calendar that allowed contributors to publish posts when they couldn't in the standard edit screen.  We now only allow contributors to save drafts and schedule a post for review.
+* Changed the easing we are using for the animation of the calendar so we can work with the BuddyPress plugin.
+* Changed the text of the edit link on published posts from Republish to Edit.
 
 = 1.0 =
 * Fixed a scrolling issue where you can't click the action links on the last post if the individual day showing a scroll bar.
