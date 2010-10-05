@@ -150,6 +150,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 = 1.1 =
 * There was a security hole in the calendar that allowed contributors to publish posts when they couldn't in the standard edit screen.  We now only allow contributors to save drafts and schedule a post for review.
 * Changed the easing we are using for the animation of the calendar so we can work with the BuddyPress plugin.
+* Changed the text of the edit link on published posts from Republish to Edit.
 
 = 1.0 =
 * Fixed a scrolling issue where you can't click the action links on the last post if the individual day showing a scroll bar.
