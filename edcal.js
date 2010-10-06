@@ -1034,7 +1034,7 @@ var edcal = {
          elem.show();
          
          
-         if (elem.parent().position().top > 40) {
+         if (elem.parent().position().top + elem.parent().height() > elem.parent().parent().height()) {
              /*
                 This means the action links probably won't be visible and we need to
                 scroll to make sure the users can see it.
