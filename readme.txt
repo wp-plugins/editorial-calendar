@@ -147,6 +147,9 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
+= 1.2 =
+* We are now smarter about the way we scroll the calendar day to show the action links when the day has scroll bars.
+
 = 1.1 =
 * There was a security hole in the calendar that allowed contributors to publish posts when they couldn't in the standard edit screen.  We now only allow contributors to save drafts and schedule a post for review.
 * Changed the easing we are using for the animation of the calendar so we can work with the BuddyPress plugin.
