@@ -42,6 +42,10 @@ Thank you to everyone who has given us feedback and helped us improve this plugi
 
 == Frequently Asked Questions ==
 
+= What is an editorial calendar? =
+
+An editorial calendar is simply a plan for your blog.  It is thinking ahead about what you're going to write.  There's a detailed explanation of editorial calendars at <a href="http://www.copyblogger.com/editorial-calendar/">The Easy-to-Use Tool that Helps You Build a Breakthrough Blog</a>.
+
 = What are other people saying about the calendar? =
 
 From time to time people write articles about the editorial calendar.  We appreciate every one.
