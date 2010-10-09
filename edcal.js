@@ -1498,9 +1498,22 @@ var edcal = {
             yet.
           */
          jQuery('#edcal_poststyle').remove();
+         
+         /*
+            We need to figure out the height of each post list.  They all have the same
+            height so we just look at the first visible list and set some styles on the
+            page to set the post list height based on that.  We reset the value every
+            time the page refreshes.
+          */
+         var dayHeight = jQuery(".rowcont:eq(2) .dayobj:first").height() - jQuery(".rowcont:eq(2) .daylabel:first").height() - 6;
+         
          jQuery('head').append('<style id="edcal_poststyle" type="text/css">.ui-draggable-dragging {' + 
                                     'width: ' + (jQuery(".rowcont:eq(2) .day:first").width() - 5) + 'px;' + 
-                               '</style>}');
+                               '}' + 
+                               '.postlist {' + 
+                                    'height: ' + dayHeight + 'px;' + 
+                               '}' + 
+                               '</style>');
     },
 
     /*

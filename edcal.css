@@ -237,7 +237,6 @@
 .postlist {
     position: relative;
     top:24px;  /* 1.5em; */
-    height: 88%;
     overflow: auto;
 }
 
