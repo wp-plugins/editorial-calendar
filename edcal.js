@@ -2238,6 +2238,15 @@ var edcal = {
          }
 
          return vars;
+    },
+    
+    /*
+     * Show an error indicating the calendar couldn't be loaded
+     */
+    showFatalError: function(message) {
+         jQuery("#edcal_main_title").after(
+             '<div class="updated below-h2" id="message"><p>' + 
+             edcal.str_fatal_error + message + '<br></p></div>');
     }
 };
 
@@ -2253,7 +2262,11 @@ jQuery.fn.center = function () {
 
 
 jQuery(document).ready(function(){
-    edcal.init();
+    try {
+        edcal.init();
+    } catch (e) {
+        edcal.showFatalError(e.description);
+    }
 
     /*
      * The calendar supports unit tests through the QUnit framework,

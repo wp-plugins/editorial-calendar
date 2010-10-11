@@ -241,6 +241,7 @@ function edcal_list_admin() {
             edcal.str_opt_author = <?php echo(edcal_json_encode(__('Author', 'editorial-calendar'))) ?>;
             edcal.str_opt_status = <?php echo(edcal_json_encode(__('Status', 'editorial-calendar'))) ?>;
             edcal.str_opt_time = <?php echo(edcal_json_encode(__('Time of day', 'editorial-calendar'))) ?>;
+            edcal.str_fatal_error = <?php echo(edcal_json_encode(__('An error occurred while loading the calendar: ', 'editorial-calendar'))) ?>;
             
             edcal.str_weekserror = <?php echo(edcal_json_encode(__('The calendar can only show between 1 and 5 weeks at a time.', 'editorial-calendar'))) ?>;
             edcal.str_weekstt = <?php echo(edcal_json_encode(__('Select the number of weeks for the calendar to show.', 'editorial-calendar'))) ?>;
@@ -308,7 +309,7 @@ function edcal_list_admin() {
             </div>
             
             <div id="topright">
-                <button class="save button" title="<?php echo(__('Scroll the calendar to make the current day visible', 'editorial-calendar')) ?>" id="moveToToday"><?php echo(__('Show Today', 'editorial-calendar')) ?></button>
+                <button class="save button" title="<?php echo(__('Scroll the calendar and make the today visible', 'editorial-calendar')) ?>" id="moveToToday"><?php echo(__('Show Today', 'editorial-calendar')) ?></button>
             </div>
         </div>
         
