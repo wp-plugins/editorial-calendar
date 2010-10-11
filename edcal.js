@@ -2265,6 +2265,11 @@ jQuery(document).ready(function(){
     try {
         edcal.init();
     } catch (e) {
+        /*
+         * These kinds of errors often happen when there is a
+         * conflict with a JavaScript library imported by
+         * another plugin.
+         */
         edcal.showFatalError(e.description);
     }
 
