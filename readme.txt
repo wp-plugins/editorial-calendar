@@ -154,7 +154,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 = 1.2 =
 * We are now smarter about the way we scroll the calendar day to show the action links when the day has scroll bars.
 * The calendar is now doing a better job determining the height of the list of posts in each day so the posts don't overlap other days.
-* The calendar will now show an error message when it can't load due to conflicts with other plugins.
+* The calendar will now show an error message when it can't load due to JavaScript conflicts with other plugins.
 
 = 1.1 =
 * There was a security hole in the calendar that allowed contributors to publish posts when they couldn't in the standard edit screen.  We now only allow contributors to save drafts and schedule a post for review.
