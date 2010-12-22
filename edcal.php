@@ -18,7 +18,7 @@
 /*
 Plugin Name: WordPress Editorial Calendar
 Description: The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
-Version: 1.2
+Version: 1.3
 Author: Colin Vernon, Justin Evans, Mary Vogt, and Zack Grossbart
 Author URI: http://www.zackgrossbart.com
 Plugin URI: http://stresslimitdesign.com/editorial-calendar-plugin
@@ -220,7 +220,7 @@ function edcal_list_admin() {
             edcal.str_publish = <?php echo(edcal_json_encode(__('Schedule', 'editorial-calendar'))) ?>;
             edcal.str_review = <?php echo(edcal_json_encode(__('Submit for Review', 'editorial-calendar'))) ?>;
             edcal.str_save = <?php echo(edcal_json_encode(__('Save', 'editorial-calendar'))) ?>;
-            edcal.str_edit_post_title = <?php echo(edcal_json_encode(__('Edit Post - ', 'editorial-calendar'))) ?>;
+            edcal.str_edit_post_title = <?php echo(edcal_json_encode(__('Edit ', 'editorial-calendar'))) ?>;
             edcal.str_scheduled = <?php echo(edcal_json_encode(__('Scheduled', 'editorial-calendar'))) ?>;
             
             edcal.str_del_msg1 = <?php echo(edcal_json_encode(__('You are about to delete the post "', 'editorial-calendar'))) ?>;
@@ -474,7 +474,23 @@ function edcal_posts() {
     if (!edcal_checknonce()) {
         die();
     }
-
+    
+    /*
+     * By default the query_posts function will just return posts.
+     * We want to show custom post types as well so we need to get
+     * the list of custom post types.  I think WordPress should just
+     * have an argument on query_posts to get custom post types too,
+     * but that's life.
+     */
+    $args=array(
+        'public'   => true,
+        '_builtin' => false
+    ); 
+    $output = 'names'; // names or objects
+    $operator = 'and'; // 'and' or 'or'
+    $post_types=get_post_types($args,$output,$operator); 
+    array_push($post_types, "post");
+    
     global $edcal_startDate, $edcal_endDate;
     $edcal_startDate = isset($_GET['from'])?$_GET['from']:null;
     $edcal_endDate = isset($_GET['to'])?$_GET['to']:null;
@@ -483,7 +499,7 @@ function edcal_posts() {
         'posts_per_page' => -1,
         'post_status' => "publish&future&draft",
         'post_parent' => null, // any parent
-        'post_type' => 'post',
+        'post_type' => $post_types
     );
     
     add_filter('posts_where', 'edcal_filter_where');
@@ -495,19 +511,8 @@ function edcal_posts() {
     $size = sizeof($myposts);
     
     for($i = 0; $i < $size; $i++) {	
-        /*
-         * Sticky posts are ones that stick to the front page.
-         * They do technically have a date, but it doesn't 
-         * really make sense to drag and drop them around since
-         * the user has already indicated that they want them
-         * to stay on the front page.
-         */
-        
         $post = $myposts[$i];
-         
-        //if (!is_sticky($post->ID)) {
-            edcal_postJSON($post, $i < $size - 1);
-        //}
+        edcal_postJSON($post, $i < $size - 1);
     }
     
     ?> ]
@@ -531,9 +536,28 @@ function edcal_getpost() {
 	
 	// If a proper post_id wasn't passed, return
 	if(!$post_id) die();
+    
+    /*
+     * By default the query_posts function will just return posts.
+     * We want to show custom post types as well so we need to get
+     * the list of custom post types.  I think WordPress should just
+     * have an argument on query_posts to get custom post types too,
+     * but that's life.
+     */
+    $args=array(
+        'public'   => true,
+        '_builtin' => false
+    ); 
+    $output = 'names'; // names or objects
+    $operator = 'and'; // 'and' or 'or'
+    $post_types=get_post_types($args,$output,$operator); 
+    array_push($post_types, "post");
 	
-	$post = query_posts( array('p' => $post_id) );
-	
+	$post = query_posts( array(
+        'post__in' => array($post_id),
+        'post_type' => $post_types
+    ) );
+    
 	// get_post and setup_postdata don't get along, so we're doing a mini-loop
 	if(have_posts()) :
 		while(have_posts()) : the_post();
@@ -586,6 +610,9 @@ function edcal_postJSON($post, $addComma = true, $fullPost = false) {
         return;
     }
     
+    $postTypeObj = get_post_type_object(get_post_type( $post ));
+    $postTypeTitle = $postTypeObj->labels->singular_name;
+    
     ?>
         {
             "date" : "<?php the_time('d') ?><?php the_time('m') ?><?php the_time('Y') ?>", 
@@ -596,6 +623,8 @@ function edcal_postJSON($post, $addComma = true, $fullPost = false) {
             "status" : "<?php echo(get_post_status()); ?>",
             "title" : <?php echo(edcal_json_encode(get_the_title())); ?>,
             "author" : "<?php the_author(); ?>",
+            "type" : "<?php echo(get_post_type( $post )); ?>",
+            "typeTitle" : "<?php echo($postTypeTitle); ?>",
             <?php if ( current_user_can('edit_post', $post->ID) ) {?>
             "editlink" : "<?php echo(get_edit_post_link($id)); ?>",
             <?php } ?>

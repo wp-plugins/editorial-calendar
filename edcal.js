@@ -857,7 +857,7 @@ var edcal = {
         if(!post.id) {
             jQuery('#tooltiptitle').text(edcal.str_newpost_title + post.formatteddate);
         } else {
-            jQuery('#tooltiptitle').text(edcal.str_edit_post_title + edcal.getDayFromDayId(post.date).toString(edcal.previewDateFormat));
+            jQuery('#tooltiptitle').text(edcal.str_edit_post_title + post.typeTitle + " - " + edcal.getDayFromDayId(post.date).toString(edcal.previewDateFormat));
 
             // sets the read-only author field
             //jQuery('#edcal-author-p').html(post.author);

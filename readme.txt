@@ -151,6 +151,9 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
+= 1.3 =
+* The Editorial Calendar will now support custom post types in the calendar.
+
 = 1.2 =
 * We are now smarter about the way we scroll the calendar day to show the action links when the day has scroll bars.
 * The calendar is now doing a better job determining the height of the list of posts in each day so the posts don't overlap other days.
