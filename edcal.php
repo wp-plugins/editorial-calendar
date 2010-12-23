@@ -51,6 +51,12 @@ $EDCAL_PERMISSION_ERROR = "5";
  */
 $EDCAL_NONCE_ERROR = "6";
 
+/*
+ * This boolean variable will be used to check whether this 
+ * installation of WordPress supports custom post types.
+ */
+$edcal_supports_custom_types = function_exists('get_post_types');
+
 function edcal_load_language() {
     $plugin_dir = basename(dirname(__FILE__));
     load_plugin_textdomain( 'editorial-calendar', 'wp-content/plugins/' . $plugin_dir . '/languages/', $plugin_dir . '/languages/' );
@@ -60,30 +66,35 @@ function edcal_load_language() {
  * This function adds our calendar page to the admin UI
  */
 function edcal_list_add_management_page(  ) {
+	global $edcal_supports_custom_types;
     if ( function_exists('add_management_page') ) {
         $page = add_posts_page( __('Calendar', 'editorial-calendar'), __('Calendar', 'editorial-calendar'), 'edit_posts', 'cal', 'edcal_list_admin' );
         add_action( "admin_print_scripts-$page", 'edcal_scripts' );
         
-        /* 
-         * We add one calendar for Posts and then we add a separate calendar for each
-         * custom post type.  This calendar will have an URL like this:
-         * /wp-admin/edit.php?post_type=podcasts&page=cal_podcasts
-         *
-         * We can then use the post_type parameter to show the posts of just that custom
-         * type and update the labels for each post type.
-         */
-        $args=array(
-            'public'   => true,
-            '_builtin' => false
-        ); 
-        $output = 'names'; // names or objects
-        $operator = 'and'; // 'and' or 'or'
-        $post_types=get_post_types($args,$output,$operator); 
+		if($edcal_supports_custom_types) {
+
+	        /* 
+	         * We add one calendar for Posts and then we add a separate calendar for each
+	         * custom post type.  This calendar will have an URL like this:
+	         * /wp-admin/edit.php?post_type=podcasts&page=cal_podcasts
+	         *
+	         * We can then use the post_type parameter to show the posts of just that custom
+	         * type and update the labels for each post type.
+	         */
+	        $args = array(
+	            'public'   => true,
+	            '_builtin' => false
+	        ); 
+	        $output = 'names'; // names or objects
+	        $operator = 'and'; // 'and' or 'or'
+	        $post_types = get_post_types($args,$output,$operator); 
         
-        foreach ($post_types as $post_type) {
-            $page = add_submenu_page('edit.php?post_type=' . $post_type, __('Calendar', 'editorial-calendar'), __('Calendar', 'editorial-calendar'), 'edit_posts', 'cal_' . $post_type, 'edcal_list_admin');
-            add_action( "admin_print_scripts-$page", 'edcal_scripts' );
-        }
+	        foreach ($post_types as $post_type) {
+	            $page = add_submenu_page('edit.php?post_type=' . $post_type, __('Calendar', 'editorial-calendar'), __('Calendar', 'editorial-calendar'), 'edit_posts', 'cal_' . $post_type, 'edcal_list_admin');
+	            add_action( "admin_print_scripts-$page", 'edcal_scripts' );
+	        }
+
+		}
     }
 }
 
@@ -627,6 +638,7 @@ function edcal_get_posttype_singlename() {
  * value part. If $fullPost is set to true, post_content is also returned.
  */
 function edcal_postJSON($post, $addComma = true, $fullPost = false) {
+	global $edcal_supports_custom_types;
     $timeFormat = get_option("time_format");
     if ($timeFormat == "g:i a") {
         $timeFormat = "ga";
@@ -654,9 +666,12 @@ function edcal_postJSON($post, $addComma = true, $fullPost = false) {
      * and this extra data will become useful.  Right now we
      * are using this data for the title on the quick edit form.
      */
-    $postTypeObj = get_post_type_object(get_post_type( $post ));
-    $postTypeTitle = $postTypeObj->labels->singular_name;
-    
+	if($edcal_supports_custom_types) {
+	    $postTypeObj = get_post_type_object(get_post_type( $post ));
+	    $postTypeTitle = $postTypeObj->labels->singular_name;
+	} else {
+	    $postTypeTitle = 'post';
+	}
     ?>
         {
             "date" : "<?php the_time('d') ?><?php the_time('m') ?><?php the_time('Y') ?>", 
@@ -669,11 +684,12 @@ function edcal_postJSON($post, $addComma = true, $fullPost = false) {
             "author" : "<?php the_author(); ?>",
             "type" : "<?php echo(get_post_type( $post )); ?>",
             "typeTitle" : "<?php echo($postTypeTitle); ?>",
+
             <?php if ( current_user_can('edit_post', $post->ID) ) {?>
             "editlink" : "<?php echo(get_edit_post_link($id)); ?>",
             <?php } ?>
 
-            <?php if ( current_user_can('delete_post', $post->ID) ) {	// [wes] changed delete link to edcal ajax link ?>
+            <?php if ( current_user_can('delete_post', $post->ID) ) {?>
             "dellink" : "javascript:edcal.deletePost(<?php echo $post->ID ?>)",
             <?php } ?>
 
@@ -691,8 +707,7 @@ function edcal_postJSON($post, $addComma = true, $fullPost = false) {
     }
 }
 
-
-/* [wes]
+/*
  * This is a helper AJAX function to delete a post. It gets called
  * when a user clicks the delete button, and allows the user to 
  * retain their position within the calendar without a page refresh.

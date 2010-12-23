@@ -1720,7 +1720,10 @@ var edcal = {
             if( jQuery(this).hasClass('disabled') ) {
                 return false;
             }
-            // Otherwise, save the post
+            // Otherwise, 
+            // make sure we can't make duplicate posts by clicking twice quickly
+            jQuery(this).addClass('disabled');
+            // and save the post
             return edcal.savePost(null, false, true);
         });
 
