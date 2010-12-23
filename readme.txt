@@ -1,8 +1,8 @@
 ﻿=== Editorial Calendar ===
 Contributors: cvernon, justinstresslimit, MaryVogt, zgrossbart
 Tags: posts, post, calendar, AJAX, admin, administration
-Requires at least: 2.8.5
-Tested up to: 3.0.1
+Requires at least: 3.0
+Tested up to: 3.0.3
 Stable tag: 1.2
 
 The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
@@ -152,7 +152,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 == Changelog ==
 
 = 1.3 =
-* The Editorial Calendar will now support custom post types in the calendar.
+* The Editorial Calendar will now show up for each custom post type and support a separate calendar for each type.
 
 = 1.2 =
 * We are now smarter about the way we scroll the calendar day to show the action links when the day has scroll bars.

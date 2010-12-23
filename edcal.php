@@ -64,8 +64,26 @@ function edcal_list_add_management_page(  ) {
         $page = add_posts_page( __('Calendar', 'editorial-calendar'), __('Calendar', 'editorial-calendar'), 'edit_posts', 'cal', 'edcal_list_admin' );
         add_action( "admin_print_scripts-$page", 'edcal_scripts' );
         
-        $page = add_submenu_page('edit.php?post_type=podcasts', __('Calendar', 'editorial-calendar'), __('Calendar', 'editorial-calendar'), 'edit_posts', 'cal', 'edcal_list_admin');
-        add_action( "admin_print_scripts-$page", 'edcal_scripts' );
+        /* 
+         * We add one calendar for Posts and then we add a separate calendar for each
+         * custom post type.  This calendar will have an URL like this:
+         * /wp-admin/edit.php?post_type=podcasts&page=cal_podcasts
+         *
+         * We can then use the post_type parameter to show the posts of just that custom
+         * type and update the labels for each post type.
+         */
+        $args=array(
+            'public'   => true,
+            '_builtin' => false
+        ); 
+        $output = 'names'; // names or objects
+        $operator = 'and'; // 'and' or 'or'
+        $post_types=get_post_types($args,$output,$operator); 
+        
+        foreach ($post_types as $post_type) {
+            $page = add_submenu_page('edit.php?post_type=' . $post_type, __('Calendar', 'editorial-calendar'), __('Calendar', 'editorial-calendar'), 'edit_posts', 'cal_' . $post_type, 'edcal_list_admin');
+            add_action( "admin_print_scripts-$page", 'edcal_scripts' );
+        }
     }
 }
 
@@ -218,7 +236,7 @@ function edcal_list_admin() {
             edcal.str_posttitle = <?php echo(edcal_json_encode(__('Title', 'editorial-calendar'))) ?>;
             edcal.str_postcontent = <?php echo(edcal_json_encode(__('Content', 'editorial-calendar'))) ?>;
             edcal.str_newpost = <?php echo(edcal_json_encode(__('Add a new post on ', 'editorial-calendar'))) ?>;
-            edcal.str_newpost_title = <?php echo(edcal_json_encode(__('New Post - ', 'editorial-calendar'))) ?>;
+            edcal.str_newpost_title = <?php echo(edcal_json_encode(__('New ', 'editorial-calendar') . edcal_get_posttype_singlename() .__('- ', 'editorial-calendar'))) ?> ;
             edcal.str_update = <?php echo(edcal_json_encode(__('Update', 'editorial-calendar'))) ?>;
             edcal.str_publish = <?php echo(edcal_json_encode(__('Schedule', 'editorial-calendar'))) ?>;
             edcal.str_review = <?php echo(edcal_json_encode(__('Submit for Review', 'editorial-calendar'))) ?>;
@@ -488,6 +506,10 @@ function edcal_posts() {
         'post_parent' => null // any parent
     );
     
+    /* 
+     * If we're in the specific post type case we need to add
+     * the post type to our query.
+     */
     $post_type = $_GET['post_type'];
     if ($post_type) {
         $args['post_type'] = $post_type;
@@ -532,6 +554,10 @@ function edcal_getpost() {
         'post__in' => array($post_id)
     );
     
+    /* 
+     * If we're in the specific post type case we need to add
+     * the post type to our query.
+     */
     $post_type = $_GET['post_type'];
     if ($post_type) {
         $args['post_type'] = $post_type;
@@ -566,6 +592,10 @@ function edcal_json_encode($string) {
     return json_encode(str_replace("&#039;", "&#146;", $string));
 }
 
+/* 
+ * This helper functions gets the plural name of the post
+ * type specified by the post_type parameter.
+ */
 function edcal_get_posttype_multiplename() {
 
     $post_type = $_GET['post_type'];
@@ -575,6 +605,22 @@ function edcal_get_posttype_multiplename() {
 
     $postTypeObj = get_post_type_object($post_type);
     return $postTypeObj->labels->name;
+}
+
+/* 
+ * This helper functions gets the singular name of the post
+ * type specified by the post_type parameter.
+ */
+
+function edcal_get_posttype_singlename() {
+
+    $post_type = $_GET['post_type'];
+    if (!$post_type) {
+        return 'Post';
+    }
+
+    $postTypeObj = get_post_type_object($post_type);
+    return $postTypeObj->labels->singular_name;
 }
 
 /*
@@ -602,6 +648,14 @@ function edcal_postJSON($post, $addComma = true, $fullPost = false) {
         return;
     }
     
+    /* 
+     * We want to return the type of each post as part of the
+     * JSON data about that post.  Right now this will always
+     * match the post_type parameter for the calendar, but in
+     * the future we might support a mixed post type calendar
+     * and this extra data will become useful.  Right now we
+     * are using this data for the title on the quick edit form.
+     */
     $postTypeObj = get_post_type_object(get_post_type( $post ));
     $postTypeTitle = $postTypeObj->labels->singular_name;
     
@@ -816,6 +870,15 @@ function edcal_savepost() {
     $my_post['post_modified'] = $edcal_date;
     $my_post['post_modified_gmt'] = get_gmt_from_date($edcal_date);
     
+    /* 
+     * When we create a new post we need to specify the post type
+     * passed in from the JavaScript.
+     */
+    $post_type = isset($_POST["post_type"])?$_POST["post_type"]:null;
+    if ($post_type) {
+        $my_post['post_type'] = $post_type;
+    }
+    
     if($_POST['status']) {
         wp_transition_post_status($_POST['status'], $my_post['post_status'], $my_post);
         $my_post['post_status'] = $_POST['status'];
@@ -823,16 +886,24 @@ function edcal_savepost() {
     
     
     // Insert the post into the database
-	if($my_post['ID'])
+	if($my_post['ID']) {
 		$my_post_id = wp_update_post( $my_post );
-	else
-		$my_post_id = wp_insert_post( $my_post );
+    } else {
+        $my_post_id = wp_insert_post( $my_post );
+    }
 		
 	// TODO: throw error if update/insert or getsinglepost fails
 	/*
      * We finish by returning the latest data for the post in the JSON
      */
-	$post = query_posts( array('p' => $my_post_id) );
+    $args = array(
+        'p' => $my_post_id
+    );
+    
+    if ($post_type) {
+        $args['post_type'] = $post_type;
+    }
+	$post = query_posts($args);
 	
 	// get_post and setup_postdata don't get along, so we're doing a mini-loop
 	if(have_posts()) :

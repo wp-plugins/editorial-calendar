@@ -765,12 +765,16 @@ var edcal = {
          var formattedtime = time.format('H:i:s');
          
          var formattedDate = encodeURIComponent(edcal.getDayFromDayId(post.date).toString(edcal.wp_dateFormat) + " " + formattedtime);
-         var url = edcal.ajax_url() + "&action=edcal_savepost&";
+         var url = edcal.ajax_url() + "&action=edcal_savepost";
          var postData = "date=" + formattedDate + 
                        "&title=" + encodeURIComponent(post.title) + 
                        "&content=" + encodeURIComponent(post.content) +
                        "&id=" + encodeURIComponent(post.id) + 
                        "&status=" + encodeURIComponent(post.status);
+         
+         if (edcal.getUrlVars().post_type) {
+             postData += '&post_type=' + encodeURIComponent(edcal.getUrlVars().post_type);
+         }
          
          if (doPublish) {
              postData += "&dopublish=" + encodeURIComponent('future');
@@ -1862,7 +1866,7 @@ var edcal = {
          var url = edcal.ajax_url() + "&action=edcal_posts&from=" + from.toString("yyyy-MM-dd") + "&to=" + to.toString("yyyy-MM-dd");
          
          if (edcal.getUrlVars().post_type) {
-             url += '&post_type=' + edcal.getUrlVars().post_type;
+             url += '&post_type=' + encodeURIComponent(edcal.getUrlVars().post_type);
          }
          
          jQuery("#loading").show();
@@ -1969,7 +1973,7 @@ var edcal = {
         var url = edcal.ajax_url() + "&action=edcal_getpost&postid=" + postid;
         
         if (edcal.getUrlVars().post_type) {
-            url += '&post_type=' + edcal.getUrlVars().post_type;
+            url += '&post_type=' + encodeURIComponent(edcal.getUrlVars().post_type);
         }
         
         jQuery.ajax( { 
