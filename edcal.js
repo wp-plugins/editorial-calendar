@@ -1861,6 +1861,10 @@ var edcal = {
 
          var url = edcal.ajax_url() + "&action=edcal_posts&from=" + from.toString("yyyy-MM-dd") + "&to=" + to.toString("yyyy-MM-dd");
          
+         if (edcal.getUrlVars().post_type) {
+             url += '&post_type=' + edcal.getUrlVars().post_type;
+         }
+         
          jQuery("#loading").show();
 
          jQuery.ajax( { 
@@ -1963,6 +1967,10 @@ var edcal = {
         jQuery("#loading").show();
         
         var url = edcal.ajax_url() + "&action=edcal_getpost&postid=" + postid;
+        
+        if (edcal.getUrlVars().post_type) {
+            url += '&post_type=' + edcal.getUrlVars().post_type;
+        }
         
         jQuery.ajax( { 
             url: url,

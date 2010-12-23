@@ -63,6 +63,9 @@ function edcal_list_add_management_page(  ) {
     if ( function_exists('add_management_page') ) {
         $page = add_posts_page( __('Calendar', 'editorial-calendar'), __('Calendar', 'editorial-calendar'), 'edit_posts', 'cal', 'edcal_list_admin' );
         add_action( "admin_print_scripts-$page", 'edcal_scripts' );
+        
+        $page = add_submenu_page('edit.php?post_type=podcasts', __('Calendar', 'editorial-calendar'), __('Calendar', 'editorial-calendar'), 'edit_posts', 'cal', 'edcal_list_admin');
+        add_action( "admin_print_scripts-$page", 'edcal_scripts' );
     }
 }
 
@@ -293,7 +296,7 @@ function edcal_list_admin() {
     
     <div class="wrap">
         <div class="icon32" id="icon-edit"><br/></div>
-        <h2 id="edcal_main_title"><?php echo(__('Posts Calendar', 'editorial-calendar')) ?></h2>
+        <h2 id="edcal_main_title"><?php echo(edcal_get_posttype_multiplename()); ?><?php echo(__(' Calendar', 'editorial-calendar')); ?></h2>
         
         <div id="loadingcont">
             <div id="loading"> </div>
@@ -475,22 +478,6 @@ function edcal_posts() {
         die();
     }
     
-    /*
-     * By default the query_posts function will just return posts.
-     * We want to show custom post types as well so we need to get
-     * the list of custom post types.  I think WordPress should just
-     * have an argument on query_posts to get custom post types too,
-     * but that's life.
-     */
-    $args=array(
-        'public'   => true,
-        '_builtin' => false
-    ); 
-    $output = 'names'; // names or objects
-    $operator = 'and'; // 'and' or 'or'
-    $post_types=get_post_types($args,$output,$operator); 
-    array_push($post_types, "post");
-    
     global $edcal_startDate, $edcal_endDate;
     $edcal_startDate = isset($_GET['from'])?$_GET['from']:null;
     $edcal_endDate = isset($_GET['to'])?$_GET['to']:null;
@@ -498,9 +485,13 @@ function edcal_posts() {
     $args = array(
         'posts_per_page' => -1,
         'post_status' => "publish&future&draft",
-        'post_parent' => null, // any parent
-        'post_type' => $post_types
+        'post_parent' => null // any parent
     );
+    
+    $post_type = $_GET['post_type'];
+    if ($post_type) {
+        $args['post_type'] = $post_type;
+    }
     
     add_filter('posts_where', 'edcal_filter_where');
     $myposts = query_posts($args);
@@ -537,26 +528,16 @@ function edcal_getpost() {
 	// If a proper post_id wasn't passed, return
 	if(!$post_id) die();
     
-    /*
-     * By default the query_posts function will just return posts.
-     * We want to show custom post types as well so we need to get
-     * the list of custom post types.  I think WordPress should just
-     * have an argument on query_posts to get custom post types too,
-     * but that's life.
-     */
-    $args=array(
-        'public'   => true,
-        '_builtin' => false
-    ); 
-    $output = 'names'; // names or objects
-    $operator = 'and'; // 'and' or 'or'
-    $post_types=get_post_types($args,$output,$operator); 
-    array_push($post_types, "post");
+    $args = array(
+        'post__in' => array($post_id)
+    );
+    
+    $post_type = $_GET['post_type'];
+    if ($post_type) {
+        $args['post_type'] = $post_type;
+    }
 	
-	$post = query_posts( array(
-        'post__in' => array($post_id),
-        'post_type' => $post_types
-    ) );
+	$post = query_posts($args);
     
 	// get_post and setup_postdata don't get along, so we're doing a mini-loop
 	if(have_posts()) :
@@ -583,6 +564,17 @@ function edcal_json_encode($string) {
      * and Firefox.  It is also a little nicer typographically.  
      */
     return json_encode(str_replace("&#039;", "&#146;", $string));
+}
+
+function edcal_get_posttype_multiplename() {
+
+    $post_type = $_GET['post_type'];
+    if (!$post_type) {
+        return 'Posts';
+    }
+
+    $postTypeObj = get_post_type_object($post_type);
+    return $postTypeObj->labels->name;
 }
 
 /*
