@@ -236,7 +236,7 @@ function edcal_list_admin() {
             edcal.str_posttitle = <?php echo(edcal_json_encode(__('Title', 'editorial-calendar'))) ?>;
             edcal.str_postcontent = <?php echo(edcal_json_encode(__('Content', 'editorial-calendar'))) ?>;
             edcal.str_newpost = <?php echo(edcal_json_encode(__('Add a new post on ', 'editorial-calendar'))) ?>;
-            edcal.str_newpost_title = <?php echo(edcal_json_encode(__('New ', 'editorial-calendar') . edcal_get_posttype_singlename() .__('- ', 'editorial-calendar'))) ?> ;
+            edcal.str_newpost_title = <?php echo(edcal_json_encode(sprintf(__('New %s - ', 'editorial-calendar'), edcal_get_posttype_singlename()))) ?> ;
             edcal.str_update = <?php echo(edcal_json_encode(__('Update', 'editorial-calendar'))) ?>;
             edcal.str_publish = <?php echo(edcal_json_encode(__('Schedule', 'editorial-calendar'))) ?>;
             edcal.str_review = <?php echo(edcal_json_encode(__('Submit for Review', 'editorial-calendar'))) ?>;
