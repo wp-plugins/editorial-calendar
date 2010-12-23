@@ -35,6 +35,11 @@ We use this library for faster JSON parsing.
 http://www.json.org/js.html
 It is available under the public domain.
 
+sprintf-0.7-beta1.js
+This libraries helps us to PHP style string substitution for localization.
+http://www.diveintojavascript.com/projects/javascript-sprintf
+BSD license
+
 tools.scrollable-1.1.2.js
 tools.scrollable.mousewheel-1.0.1.js
 The scrollable library supports the mouse wheel scrolling and manages the calendar's vertical scrolling.

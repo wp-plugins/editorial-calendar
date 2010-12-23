@@ -861,7 +861,7 @@ var edcal = {
         if(!post.id) {
             jQuery('#tooltiptitle').text(edcal.str_newpost_title + post.formatteddate);
         } else {
-            jQuery('#tooltiptitle').text(edcal.str_edit_post_title + post.typeTitle + " - " + edcal.getDayFromDayId(post.date).toString(edcal.previewDateFormat));
+            jQuery('#tooltiptitle').text(sprintf(edcal.str_edit_post_title, post.typeTitle, edcal.getDayFromDayId(post.date).toString(edcal.previewDateFormat)));
 
             // sets the read-only author field
             //jQuery('#edcal-author-p').html(post.author);
@@ -1130,7 +1130,7 @@ var edcal = {
          }
          
          if (edcal.authorPref) {
-             posttitle = posttitle + ' ' + edcal.str_by + ' ' + '<span class="postauthor">' + post.author + '</span>';
+             posttitle = sprintf(edcal.str_by, posttitle, '<span class="postauthor">' + post.author + '</span>');
          }
          
          var classString = '';

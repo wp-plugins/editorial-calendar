@@ -215,10 +215,8 @@ function edcal_list_admin() {
              * pass the values to JavaScript.
              */
             
-            edcal.str_on = <?php echo(edcal_json_encode(__('on', 'editorial-calendar'))) ?>;
-            edcal.str_by = <?php echo(edcal_json_encode(__('by', 'editorial-calendar'))) ?>;
-            edcal.str_at = <?php echo(edcal_json_encode(__('at', 'editorial-calendar'))) ?>;
-
+            edcal.str_by = <?php echo(edcal_json_encode(__('%1$s by %2$s', 'editorial-calendar'))) ?>;
+            
             edcal.str_addPostLink = <?php echo(edcal_json_encode(__('New Post', 'editorial-calendar'))) ?>;
             
             edcal.str_draft = <?php echo(edcal_json_encode(__(' [DRAFT]', 'editorial-calendar'))) ?>;
@@ -241,7 +239,7 @@ function edcal_list_admin() {
             edcal.str_publish = <?php echo(edcal_json_encode(__('Schedule', 'editorial-calendar'))) ?>;
             edcal.str_review = <?php echo(edcal_json_encode(__('Submit for Review', 'editorial-calendar'))) ?>;
             edcal.str_save = <?php echo(edcal_json_encode(__('Save', 'editorial-calendar'))) ?>;
-            edcal.str_edit_post_title = <?php echo(edcal_json_encode(__('Edit ', 'editorial-calendar'))) ?>;
+            edcal.str_edit_post_title = <?php echo(edcal_json_encode(__('Edit %1$s - %2$s', 'editorial-calendar'))) ?>;
             edcal.str_scheduled = <?php echo(edcal_json_encode(__('Scheduled', 'editorial-calendar'))) ?>;
             
             edcal.str_del_msg1 = <?php echo(edcal_json_encode(__('You are about to delete the post "', 'editorial-calendar'))) ?>;
