@@ -148,6 +148,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 3. Drag and drop posts to easily change dates and take control of your blog.
 4. Create, edit, and schedule posts in one simple quickedit dialog.
 5. Show as much or as little of your blog as you like.
+6. Use a special calendar for each custom post type on your blog.
 
 == Changelog ==
 
