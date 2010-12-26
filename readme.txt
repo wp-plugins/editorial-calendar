@@ -155,6 +155,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 = 1.3 =
 * The Editorial Calendar will now show up for each custom post type and support a separate calendar for each type.
 * We are now disabling the save button on the quick edit dialog after it is pressed and before the post saves to prevent duplicate posts if the user presses the button twice in a row.
+* Upgraded the to the latest version of QUnit for our unit test framework
 
 = 1.2 =
 * We are now smarter about the way we scroll the calendar day to show the action links when the day has scroll bars.

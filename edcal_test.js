@@ -37,9 +37,11 @@ var edcal_test = {
         jQuery('#wpbody-content .wrap').append('<div id="edcal-qunit"></div>');
 
         jQuery('#edcal-qunit').append('<h1 id="qunit-header">WordPress Editorial Calendar Unit Tests</h1>' +
-                                      '<h2 id="qunit-banner"></h2>' +
-                                      '<h2 id="qunit-userAgent"></h2>' +
-                                      '<ol id="qunit-tests"></ol>');
+                                      '<h2 id="qunit-banner"></h2>' + 
+                                      '<div id="qunit-testrunner-toolbar"></div>' + 
+                                      '<h2 id="qunit-userAgent"></h2>' + 
+                                      '<ol id="qunit-tests"></ol>' + 
+                                      '<div id="qunit-fixture">test markup</div>');
 
 
         edcal_test.moveTests();
