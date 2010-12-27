@@ -2258,9 +2258,13 @@ var edcal = {
      * Show an error indicating the calendar couldn't be loaded
      */
     showFatalError: function(message) {
-         jQuery('#edcal_main_title').after(
-             '<div class="updated below-h2" id="message"><p>' +
-             edcal.str_fatal_error + message + '<br></p></div>');
+        jQuery('#edcal_main_title').after(
+            '<div class="updated below-h2" id="message"><p>' +
+            edcal.str_fatal_error + message + '<br></p></div>');
+
+        if (window.console) {
+            console.error(msg);
+        }
     }
 };
 
