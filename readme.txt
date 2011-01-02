@@ -38,7 +38,7 @@ Thank you to everyone who has given us feedback and helped us improve this plugi
 1. <b>Backup your WordPress database</b>.
 1. Upload the plugin directory <code>editorial-calendar</code> to the <code>wp-content/plugins</code> directory.
 1. Activate the plugin through the 'Plugins' menu in WordPress.
-1. Click the new 'Calendar' option under the 'Posts' menu.
+1. Click the new 'Calendar' option under the 'Posts' menu or any other custom post types.
 
 == Frequently Asked Questions ==
 
