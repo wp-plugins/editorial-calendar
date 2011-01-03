@@ -156,6 +156,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 * The Editorial Calendar will now show up for each custom post type and support a separate calendar for each type.
 * We are now disabling the save button on the quick edit dialog after it is pressed and before the post saves to prevent duplicate posts if the user presses the button twice in a row.
 * Upgraded the to the latest version of QUnit for our unit test framework
+* The calendar now supports Brazilian Portuguese.  Thanks to Janio Sarmento who uses the Editorial Calendar on his site <a href="http://janio.sarmento.org/">O Blogue do Janio</a>.
 
 = 1.2 =
 * We are now smarter about the way we scroll the calendar day to show the action links when the day has scroll bars.
@@ -168,7 +169,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 * Changed the text of the edit link on published posts from Republish to Edit.
 
 = 1.0 =
-* Fixed a scrolling issue where you can't click the action links on the last post if the individual day showing a scroll bar.
+* Fixed a scrolling issue that prevented cliking the action links on the last post if the individual day showed a scroll bar.
 
 = 0.9 =
 * The calendar now uses the QUnit unit test framework to make sure the calendar maintains high quality in every release.  You can see the <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=cal&qunit=true">tests run</a> on our integration blog or run them on your own blog by adding &qunit=true to the end of the URL for the calendar.
