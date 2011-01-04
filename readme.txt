@@ -153,7 +153,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 == Changelog ==
 
 = 1.3.1 =
-* Added an extra check for WordPress versions earlier than 3.0 so we aren't calling on functions for supporting custom post types that are only available in WordPress 3.0.
+* Added an extra check so we aren't calling functions for supporting custom post types when they aren't available.  This problem only happens on WordPress 2.9.X.
 
 = 1.3 =
 * The Editorial Calendar will now show up for each custom post type and support a separate calendar for each type.
