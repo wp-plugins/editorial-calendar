@@ -152,6 +152,10 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
+= 1.3.2 =
+* We are now showing the full post content in the quick edit dialog even if there is a more tag
+so we don't overwrite the post without the full post content.
+
 = 1.3.1 =
 * Added an extra check so we aren't calling functions for supporting custom post types when they aren't available.  This problem only happens on WordPress 2.9.X.
 
