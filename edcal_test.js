@@ -22,7 +22,8 @@ var edcal_test = {
 
     post: {},
 
-    testContent: 'This is the content of the unit test post.',
+    testContent: 'This is the content of the <b>unit test &#8211 post</b>. <!--more--> This is content after the more tag to make sure we a reading it.',
+    testContent2: 'This is the content of the <b>unit test &#8211 post</b>. <!--more--> This is content after the more tag to make sure we a reading it. - CHANGED',
 
 
     runTests: function() {
@@ -155,7 +156,7 @@ var edcal_test = {
              expect(3);
 
              edcal_test.post.title = 'Unit Test Post';
-             edcal_test.post.content = edcal.testContent;
+             edcal_test.post.content = edcal_test.testContent;
              edcal_test.post.status = 'draft';
              edcal_test.post.time = '10:00 AM';
              edcal_test.post.date = Date.today().add(7).days().toString(edcal.internalDateFormat);
@@ -174,7 +175,7 @@ var edcal_test = {
                  equals(jQuery('#post-' + res.post.id).length, 1, 'The post should be added in only one place in the calendar.');
 
                  edcal_test.post = res.post;
-
+                 
                  start();
 
                  edcal_test.testGetPost();
@@ -189,11 +190,12 @@ var edcal_test = {
           */
 
          asyncTest('Get post information', function() {
-             expect(2);
+             expect(3);
 
              edcal.getPost(edcal_test.post.id, function(post) {
                  equals(post.date, edcal_test.post.date, 'The resulting post should have the same date as the request');
                  equals(post.title, edcal_test.post.title, 'The resulting post should have the same title as the request');
+                 equals(post.content, edcal_test.testContent, 'The resulting post content should be the same as the test post content');
 
                  edcal_test.post = post;
 
@@ -271,7 +273,7 @@ var edcal_test = {
              expect(2);
 
              edcal_test.post.title = 'Unit Test Post &#8211 Changed';
-             edcal_test.post.content = 'This is the content of the unit test post. &#8211 Changed';
+             edcal_test.post.content = edcal_test.testContent2;
 
              edcal.savePost(edcal_test.post, false, true, function(res)
                 {
@@ -282,16 +284,39 @@ var edcal_test = {
                     }
 
                     equals(res.post.title, edcal_test.post.title, 'The resulting post should have the same title as the request');
-
+                    
                     equals(jQuery('#post-' + res.post.id).length, 1, 'The post should be added in only one place in the calendar.');
 
                     edcal_test.post = res.post;
 
                     start();
 
-                    edcal_test.testDateConflict();
+                    edcal_test.testGetAfterEdit();
 
                 });
+         });
+
+    },
+    
+    testGetAfterEdit: function() {
+         /*
+          * Now we'll test to make sure our new post data still matches what we think it should
+          */
+
+         asyncTest('Get post information after editing', function() {
+             expect(3);
+
+             edcal.getPost(edcal_test.post.id, function(post) {
+                 equals(post.date, edcal_test.post.date, 'The resulting post should have the same date as the request');
+                 equals(post.title, edcal_test.post.title, 'The resulting post should have the same title as the request');
+                 equals(post.content, edcal_test.testContent2, 'The resulting post content should be the same as the test post content');
+
+                 edcal_test.post = post;
+
+                 start();
+
+                 edcal_test.testDateConflict();
+             });
          });
 
     },
