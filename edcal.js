@@ -394,7 +394,8 @@ var edcal = {
 
             newrow += '<div class="dayobj">';
 
-            newrow += '<a href="#" adddate="' + _date.toString('MMMM d') + '" class="daynewlink" title="' + edcal.str_newpost + _date.toString('MMMM d') + '" ' +
+            newrow += '<a href="#" adddate="' + _date.toString('MMMM d') + '" class="daynewlink" title="' + 
+                sprintf(edcal.str_newpost, _date.toString(Date.CultureInfo.formatPatterns.monthDay)) + '" ' +
                          'onclick="return false;">' + edcal.str_addPostLink + '</a>';
 
             if (_date.toString('dd') == '01') {

@@ -152,6 +152,9 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
+= 1.3.3 =
+* The calendar now supports Dutch.  Thanks to Helma Paternostre.
+
 = 1.3.2 =
 * We are now showing the full post content in the quick edit dialog even if there is a more tag
 so we don't overwrite the post without the full post content.
