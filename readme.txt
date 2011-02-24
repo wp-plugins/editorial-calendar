@@ -155,7 +155,6 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 = 1.3.3 =
 * The calendar now supports Dutch.  Thanks to Helma Paternostre.
 * We are no longer including the thickbox media upload files so the calendar loads faster.  
-* The calendar now loads JQuery UI drag and drop support from WordPress instead of embedding them for faster loading.
 * Fixed an error with the mesage panels so they will close properly on Chrome.
 
 = 1.3.2 =
