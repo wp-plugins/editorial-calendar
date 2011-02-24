@@ -483,12 +483,32 @@ var edcal = {
          // Step 1. Remove the post from the posts map
          edcal.removePostFromMap(parentId, postId);
 
-         // Step 2. Remove the old element from the old parent.
-         jQuery('#' + postId).remove();
+         /*
+            Step 2. Remove the old element from the old parent.
+     
+            We would like to just remove the item right away,
+            but on IE with JQuery UI 1.8 that causes an error
+            because it tries to access the properties of the
+            object to reset the cursor and it can't since the
+            object is not longer part of the DOM.  That is why
+            we detach it instead of removing it.
+     
+            However, this causes a small memory leak since every
+            drag will detach an element and never remove it.  To
+            clean up we wait half a second until the drag is done
+            and then remove the item.  Hacky, but it works.
+          */
+         var oldPost = jQuery('#' + postId);
+         oldPost.detach();
+         
+         setTimeout(function() {
+             oldPost.remove();
+         }, 500);
 
          // Step 3. Add the item to the new DOM parent
          jQuery('#' + newDate + ' .postlist').append(edcal.createPostItem(post, newDate));
 
+         
          if (dayId == newDate) {
              /*
               If they dropped back on to the day they started with we

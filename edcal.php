@@ -454,6 +454,9 @@ function edcal_scripts() {
      * the locale for the other strings.
      */
     wp_enqueue_script( "date", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/languages/date-".__('en-US', 'editorial-calendar').".js"), array( 'jquery' ) );
+    wp_enqueue_script( 'jquery' );
+    wp_enqueue_script( 'jquery-ui-draggable' );
+    wp_enqueue_script( 'jquery-ui-droppable' );
 
 	//wp_enqueue_script( "date-extras", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/date.extras.js"), array( 'jquery' ) );
 
@@ -470,11 +473,6 @@ function edcal_scripts() {
      * If you're using one of the specific libraries you should comment out the two lines
      * above this comment.
      */
-    
-    wp_enqueue_script( "ui-core", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/ui.core.js"), array( 'jquery' ) );
-    wp_enqueue_script( "ui-draggable", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/ui.draggable.js"), array( 'jquery' ) );
-    wp_enqueue_script( "ui-droppable", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/ui.droppable.js"), array( 'jquery' ) );
-    
     wp_enqueue_script( "bgiframe", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/jquery.bgiframe.js"), array( 'jquery' ) );
     wp_enqueue_script( "humanMsg", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/humanmsg.js"), array( 'jquery' ) );
     wp_enqueue_script( "jquery-timepicker", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/jquery.timepicker.js"), array( 'jquery' ) );

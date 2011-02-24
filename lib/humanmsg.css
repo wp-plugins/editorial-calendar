@@ -34,3 +34,7 @@
 .humanMsg a {
 	display: none;
 	}
+
+#humanMsgLog {
+    display: none;
+}
