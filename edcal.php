@@ -448,15 +448,6 @@ function edcal_filter_where($where = '') {
  *
  */
 function edcal_scripts() {
-    if ( user_can_richedit() )
-		wp_enqueue_script('editor');
-	add_thickbox();
-    ?>
-    <link rel='stylesheet' id='thickbox-css'  href='<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-includes/js/thickbox/thickbox.css?ver=20090514")); ?>' type='text/css' media='all' />
-    <?php
-	wp_enqueue_script('media-upload');
-    
-
     /*
      * To get proper localization for dates we need to include the correct JavaScript file for the current
      * locale.  We can do this based on the locale in the localized bundle to make sure the date locale matches

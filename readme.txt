@@ -154,6 +154,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 = 1.3.3 =
 * The calendar now supports Dutch.  Thanks to Helma Paternostre.
+* We are no longer including the thickbox media upload files so the calendar loads faster.  
 
 = 1.3.2 =
 * We are now showing the full post content in the quick edit dialog even if there is a more tag
