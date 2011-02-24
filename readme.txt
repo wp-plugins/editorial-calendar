@@ -2,7 +2,7 @@
 Contributors: cvernon, justinstresslimit, MaryVogt, zgrossbart
 Tags: posts, post, calendar, AJAX, admin, administration
 Requires at least: 2.8.5
-Tested up to: 3.0.4
+Tested up to: 3.1
 Stable tag: 1.3.2
 
 The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
@@ -155,6 +155,8 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 = 1.3.3 =
 * The calendar now supports Dutch.  Thanks to Helma Paternostre.
 * We are no longer including the thickbox media upload files so the calendar loads faster.  
+* The calendar now loads JQuery UI drag and drop support from WordPress instead of embedding them for faster loading.
+* Fixed an error with the mesage panels so they will close properly on Chrome.
 
 = 1.3.2 =
 * We are now showing the full post content in the quick edit dialog even if there is a more tag
