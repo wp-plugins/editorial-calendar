@@ -152,6 +152,9 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
+= 1.3.4 =
+* The calendar now responds properly when an author has a double-quote in their name.
+
 = 1.3.3 =
 * The calendar now supports Dutch.  Thanks to Helma Paternostre.
 * We are no longer including the thickbox media upload files so the calendar loads faster.  
