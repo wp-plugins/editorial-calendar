@@ -18,7 +18,7 @@
 /*
 Plugin Name: WordPress Editorial Calendar
 Description: The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
-Version: 1.3.4
+Version: 1.3.5
 Author: Colin Vernon, Justin Evans, Mary Vogt, and Zack Grossbart
 Author URI: http://www.zackgrossbart.com
 Plugin URI: http://stresslimitdesign.com/editorial-calendar-plugin
@@ -285,6 +285,14 @@ function edcal_list_admin() {
             edcal.str_feedbackdone = <?php echo(edcal_json_encode(__('<h2>We\'re done</h2>We\'ve finished collecting data.  Thank you for helping us make the calendar better.', 'editorial-calendar'))) ?>;
         });
     </script>
+    
+    <?php
+    /*
+     * There are a few images we want to reference where we need the full path to the image
+     * since we don't want to make assumptions about the plugin file structure.  We need to 
+     * set those here since we need PHP to get the full path.  
+     */
+    ?>
 
     <style type="text/css">
         .loadingclass > .postlink, .loadingclass:hover > .postlink, .tiploading {
@@ -348,8 +356,22 @@ function edcal_list_admin() {
                 <div id="cal"></div>
             </div>
         </div>
-		
-		<div id="tooltip" style="display:none;">
+        
+        <?php edcal_edit_popup(); ?>
+        
+    </div><?php // end .wrap ?>
+
+    <?php
+}
+
+/*
+ * Generate the DOM elements for the quick edit popup from
+ * within the calendar.
+ */
+function edcal_edit_popup() {
+
+?>
+        <div id="tooltip" style="display:none;">
 			<div id="tooltiphead">
 				<div id="tooltiptitle"><?php _e('Edit Post', 'editorial-calendar') ?></div>
 				<a href="#" id="tipclose" onclick="edcal.hideForm(); return false;" title="close"> </a>
@@ -366,15 +388,6 @@ function edcal_list_admin() {
 
                 <label>
                     <span class="title"><?php _e('Content', 'editorial-calendar') ?></span>
-<?php /*
-                       <div id="cal_mediabar">
-    						<?php if ( current_user_can( 'upload_files' ) ) : ?>
-    							<div id="media-buttons" class="hide-if-no-js">
-    								<?php do_action( 'media_buttons' ); ?>
-    							</div>
-    						<?php endif; ?>
-    				   </div>
-/*/ ?>
                     <span class="input-text-wrap"><textarea cols="15" rows="7" id="content" name="content"></textarea></span>
                 </label>
 
@@ -413,12 +426,10 @@ function edcal_list_admin() {
                 <input type="hidden" id="edcal-id" name="id" value="" />
 
             </div><?php // end .tooltip ?>
-        </div><?php // end #tooltip ?>
-
-    </div><?php // end .wrap ?>
-
-    <?php
+        </div><?php // end #tooltip 
 }
+
+
 
 /*
  * We use these variables to hold the post dates for the filter when 
@@ -434,11 +445,6 @@ $edcal_endDate;
  */
 function edcal_filter_where($where = '') {
     global $edcal_startDate, $edcal_endDate;
-    //posts in the last 30 days
-    //$where .= " AND post_date > '" . date('Y-m-d', strtotime('-30 days')) . "'";
-    //posts  30 to 60 days old
-    //$where .= " AND post_date >= '" . date('Y-m-d', strtotime('-60 days')) . "'" . " AND post_date <= '" . date('Y-m-d', strtotime('-30 days')) . "'";
-    //posts for March 1 to March 15, 2009
     $where .= " AND post_date >= '" . $edcal_startDate . "' AND post_date < '" . $edcal_endDate . "'";
     return $where;
 }
