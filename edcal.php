@@ -18,7 +18,7 @@
 /*
 Plugin Name: WordPress Editorial Calendar
 Description: The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
-Version: 1.3.5
+Version: 1.4
 Author: Colin Vernon, Justin Evans, Mary Vogt, and Zack Grossbart
 Author URI: http://www.zackgrossbart.com
 Plugin URI: http://stresslimitdesign.com/editorial-calendar-plugin
@@ -307,15 +307,7 @@ function edcal_list_admin() {
             background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/tip_close.png")); ?>');
         }
 
-        #tooltip {
-            background: white url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/gray-grad.png")); ?>') repeat-x left top;
-        }
-        
-        .month-present .daylabel, .firstOfMonth .daylabel, .dayheadcont {
-            background: #6D6D6D url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/gray-grad.png")); ?>') repeat-x scroll left top;
-        }
-
-        .today .daylabel {
+        .day.today .daylabel {
             background: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/button-grad.png")); ?>') repeat-x left top;
         }
 
@@ -371,11 +363,11 @@ function edcal_list_admin() {
 function edcal_edit_popup() {
 
 ?>
-        <div id="tooltip" style="display:none;">
-			<div id="tooltiphead">
-				<div id="tooltiptitle"><?php _e('Edit Post', 'editorial-calendar') ?></div>
-				<a href="#" id="tipclose" onclick="edcal.hideForm(); return false;" title="close"> </a>
-			</div>
+      <div id="tooltip" style="display:none;">
+        <div id="tooltiphead">
+          <h3 id="tooltiptitle"><?php _e('Edit Post', 'editorial-calendar') ?></h3>
+          <a href="#" id="tipclose" onclick="edcal.hideForm(); return false;" title="close"> </a>
+        </div>
 
 			<div class="tooltip inline-edit-row">
 

@@ -152,6 +152,10 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
+= 1.4 =
+
+* We now have a new look and feel for the quick edit dialog and a few other elements to match the new version of WordPress.
+
 = 1.3.4 =
 * The calendar now shows authors properly when they have double quotes in their names
 
