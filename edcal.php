@@ -24,24 +24,34 @@ Author URI: http://www.zackgrossbart.com
 Plugin URI: http://stresslimitdesign.com/editorial-calendar-plugin
 */
 
+
+
+global $edcal;
+if( empty($edcal) )
+	$edcal = new EdCal();
+
+
+
 /*
  * This error code matches CONCURRENCY_ERROR from edcal.js
  */
-$EDCAL_CONCURRENCY_ERROR = '4';
+define( 'EDCAL_CONCURRENCY_ERROR', 4 );
 
 /*
  * This error code matches PERMISSION_ERROR from edcal.js
  */
-$EDCAL_PERMISSION_ERROR = '5';
+define( 'EDCAL_PERMISSION_ERROR', 5 );
 
 /*
  * This error code matches NONCE_ERROR from edcal.js
  */
-$EDCAL_NONCE_ERROR = '6';
+define( 'EDCAL_NONCE_ERROR', 6 );
 
 class EdCal {
+	
+	protected $supports_custom_types;
 
-    function init() {
+    function __construct() {
 
         add_action('wp_ajax_edcal_saveoptions', array(&$this, 'edcal_saveoptions'));
         add_action('wp_ajax_edcal_changedate', array(&$this, 'edcal_changedate'));
@@ -57,7 +67,7 @@ class EdCal {
          * This boolean variable will be used to check whether this 
          * installation of WordPress supports custom post types.
          */
-        $this->$EDCAL_SUPPORTS_CUSTOM_TYPES = function_exists('get_post_types') && function_exists('get_post_type_object');
+        $this->supports_custom_types = function_exists('get_post_types') && function_exists('get_post_type_object');
         
         /*
          * We use these variables to hold the post dates for the filter when 
@@ -80,7 +90,7 @@ class EdCal {
             $page = add_posts_page( __('Calendar', 'editorial-calendar'), __('Calendar', 'editorial-calendar'), 'edit_posts', 'cal', array(&$this, 'edcal_list_admin'));
             add_action( "admin_print_scripts-$page", array(&$this, 'edcal_scripts'));
             
-            if($this->$EDCAL_SUPPORTS_CUSTOM_TYPES) {
+            if( $this->supports_custom_types ) {
     
     	        /* 
     	         * We add one calendar for Posts and then we add a separate calendar for each
@@ -580,13 +590,16 @@ class EdCal {
     	die();
     }
     
+    /*
+     * Wrap php's json_encode() for a WP-specific apostrophe bug
+     */
     function edcal_json_encode($string) {
         /*
          * WordPress escapes apostrophe's when they show up in post titles as &#039;
          * This is the HTML ASCII code for a straight apostrophe.  This works well
          * with Firefox, but IE complains with a very unhelpful error message.  We
          * can replace them with a right curly apostrophe since that works in IE
-         * and Firefox.  It is also a little nicer typographically.  
+         * and Firefox. It is also a little nicer typographically.  
          */
         return json_encode(str_replace("&#039;", "&#146;", $string));
     }
@@ -655,7 +668,7 @@ class EdCal {
          * and this extra data will become useful.  Right now we
          * are using this data for the title on the quick edit form.
          */
-    	if($this->$EDCAL_SUPPORTS_CUSTOM_TYPES) {
+    	if( $this->supports_custom_types ) {
     	    $postTypeObj = get_post_type_object(get_post_type( $post ));
     	    $postTypeTitle = $postTypeObj->labels->singular_name;
     	} else {
@@ -715,7 +728,6 @@ class EdCal {
     	$title = $post['post_title'];
     	$date = date('dmY', strtotime($post['post_date'])); // [TODO] : is there a better way to generate the date string ... ??
     
-    
     	$force = !EMPTY_TRASH_DAYS;					// wordpress 2.9 thing. deleted post hangs around (ie in a recycle bin) after deleted for this # of days
     	if ( $post->post_type == 'attachment' ) {
     		$force = ( $force || !MEDIA_TRASH );
@@ -740,9 +752,6 @@ class EdCal {
     
     	die();	
     }
-    
-    
-    
     
     /*
      * This is a helper AJAX function to change the title of a post.  It
@@ -932,8 +941,6 @@ class EdCal {
         header("Content-Type: application/json");
         $this->edcal_addNoCacheHeaders();
         
-        global $EDCAL_NONCE_ERROR;
-        
         if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'edit-calendar')) {
            /*
              * This is just a sanity check to make sure
@@ -943,7 +950,7 @@ class EdCal {
              */
             ?>
             {
-                "error": <?php echo($EDCAL_NONCE_ERROR); ?>
+                "error": <?php echo(EDCAL_NONCE_ERROR); ?>
             }
             <?php
             return false;
@@ -971,8 +978,6 @@ class EdCal {
         $edcal_oldDate = isset($_GET['olddate'])?$_GET['olddate']:null;
         $edcal_postStatus = isset($_GET['postStatus'])?$_GET['postStatus']:null;
         
-        global $EDCAL_PERMISSION_ERROR;
-        
         if (!current_user_can('edit_post', $edcal_postid)) {
             /*
              * This is just a sanity check to make sure that the current
@@ -982,7 +987,7 @@ class EdCal {
              */
             ?>
             {
-                "error": <?php echo($EDCAL_PERMISSION_ERROR); ?>,
+                "error": <?php echo(EDCAL_PERMISSION_ERROR); ?>,
             <?php
             
             global $post;
@@ -1004,8 +1009,6 @@ class EdCal {
         $post = get_post($edcal_postid, ARRAY_A);
         setup_postdata($post);
         
-        global $EDCAL_CONCURRENCY_ERROR;
-        
         /*
          * We are doing optimistic concurrency checking on the dates.  If
          * the user tries to move a post we want to make sure nobody else
@@ -1016,7 +1019,7 @@ class EdCal {
          */
          if (date('Y-m-d', strtotime($post['post_date'])) != date('Y-m-d', strtotime($edcal_oldDate))) {
             ?> {
-                "error": <?php echo($EDCAL_CONCURRENCY_ERROR); ?>,
+                "error": <?php echo(EDCAL_CONCURRENCY_ERROR); ?>,
             <?php
             
             global $post;
@@ -1165,7 +1168,6 @@ class EdCal {
             update_option("edcal_do_feedback", $edcal_feedback);
         }
         
-        
         /*
          * We finish by returning the latest data for the post in the JSON
          */
@@ -1185,10 +1187,6 @@ class EdCal {
         header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
         header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
     }
+
 }
 
-global $edcal; 
-if ($edcal == null) {
-    $edcal = new EdCal();
-    $edcal->init();
-}
