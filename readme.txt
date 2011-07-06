@@ -151,6 +151,11 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
+= 1.4.1 =
+
+The post time field in the quick edit dialog is now editable so you can specify any time you want instead of having to pick in 30 minute increments.
+
+
 = 1.4 =
 
 * We now have a new look and feel for the quick edit dialog and a few other elements to match WordPress 2.3.
