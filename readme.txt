@@ -2,8 +2,8 @@
 Contributors: cvernon, justinstresslimit, MaryVogt, zgrossbart
 Tags: posts, post, calendar, AJAX, admin, administration
 Requires at least: 2.8.5
-Tested up to: 3.1
-Stable tag: 1.3.4
+Tested up to: 3.2
+Stable tag: 1.4
 
 The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
 
