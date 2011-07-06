@@ -153,7 +153,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 = 1.4 =
 
-* We now have a new look and feel for the quick edit dialog and a few other elements to match WordPress 2.3.
+* We now have a new look and feel for the quick edit dialog and a few other elements to match WordPress 3.2.
 
 * We've refactored the Editorial Calendar into a PHP class for easier maintainability and better scoping.
 
