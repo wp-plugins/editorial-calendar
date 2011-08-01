@@ -476,3 +476,7 @@ TinyMCE Rich Editor and Media buttons are not currently used
 #nofeedbacklink {
     margin-left: 1em;
 }
+
+#screen-meta #show-edcal-settings-link.show-settings {
+    background-position: right -1px;
+}
