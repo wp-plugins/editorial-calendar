@@ -120,7 +120,21 @@ The collected data is all available to the public.  Check out the <a href="http:
 
 = What users can use the calendar? =
 
-The editorial calendar works differently based on your permissions.  Administrators and Editors can use every feature available in the calendar.  Authors can use the calendar to edit and move their own posts, but other people's posts are read-only.  Contributors and Subscribers can't see the calendar.
+The editorial calendar works differently based on your permissions.  
+
+* Administrators and Editors can use every feature available in the calendar.  
+* Authors can use the calendar to edit, move, and publish their own posts, but other people's posts are read-only.  
+* Contributors see everyone's posts and move their own posts, but can only save drafts.
+* Subscribers can't see the calendar.
+
+You can see how it looks for different usres on our <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=cal">Zack's WordPress Sandbox</a> with the following users:
+
+* edgar the Editor
+* alice the Author
+* conrad the Contributor
+* sam the Subscriber
+
+Each of theses users has the password test.
 
 = Can I use the editorial calendar with pages? =
 
