@@ -169,7 +169,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 The post time field in the quick edit dialog is now editable so you can specify any time you want instead of having to pick in 30 minute increments.
 
-The calendar is now translated into German.
+The calendar is now translated into German.  Thanks to Matthias Nattke who uses the Editorial Calendar on his site <a href="http://www.kikamagazin.de">Kikamagazin Bloggt</a>.
 
 = 1.4 =
 
