@@ -165,10 +165,11 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
-= 1.4.1 =
+= 1.5 =
 
 The post time field in the quick edit dialog is now editable so you can specify any time you want instead of having to pick in 30 minute increments.
 
+The calendar is now translated into German.
 
 = 1.4 =
 
