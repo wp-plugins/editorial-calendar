@@ -1,5 +1,5 @@
 ﻿=== Editorial Calendar ===
-Contributors: cvernon, justinstresslimit, MaryVogt, zgrossbart
+Contributors: cvernon, justinstresslimit, jkudish, MaryVogt, zgrossbart
 Tags: posts, post, calendar, AJAX, admin, administration
 Requires at least: 2.8.5
 Tested up to: 3.2

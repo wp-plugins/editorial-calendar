@@ -19,7 +19,7 @@
 Plugin Name: WordPress Editorial Calendar
 Description: The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
 Version: 1.4.1
-Author: Colin Vernon, Justin Evans, Mary Vogt, and Zack Grossbart
+Author: Colin Vernon, Justin Evans, Joachim Kudish, Mary Vogt, and Zack Grossbart
 Author URI: http://www.zackgrossbart.com
 Plugin URI: http://stresslimitdesign.com/editorial-calendar-plugin
 */
@@ -85,37 +85,39 @@ class EdCal {
     /*
      * This function adds our calendar page to the admin UI
      */
-    function edcal_list_add_management_page() {
-        if (function_exists('add_management_page') ) {
-            $page = add_posts_page( __('Calendar', 'editorial-calendar'), __('Calendar', 'editorial-calendar'), 'edit_posts', 'cal', array(&$this, 'edcal_list_admin'));
-            add_action( "admin_print_scripts-$page", array(&$this, 'edcal_scripts'));
-            
-            if( $this->supports_custom_types ) {
-    
-    	        /* 
-    	         * We add one calendar for Posts and then we add a separate calendar for each
-    	         * custom post type.  This calendar will have an URL like this:
-    	         * /wp-admin/edit.php?post_type=podcasts&page=cal_podcasts
-    	         *
-    	         * We can then use the post_type parameter to show the posts of just that custom
-    	         * type and update the labels for each post type.
-    	         */
-    	        $args = array(
-    	            'public'   => true,
-    	            '_builtin' => false
-    	        ); 
-    	        $output = 'names'; // names or objects
-    	        $operator = 'and'; // 'and' or 'or'
-    	        $post_types = get_post_types($args,$output,$operator); 
-            
-    	        foreach ($post_types as $post_type) {
-    	            $page = add_submenu_page('edit.php?post_type=' . $post_type, __('Calendar', 'editorial-calendar'), __('Calendar', 'editorial-calendar'), 'edit_posts', 'cal_' . $post_type, array(&$this, 'edcal_list_admin'));
-    	            add_action( "admin_print_scripts-$page", array(&$this, 'edcal_scripts'));
-    	        }
-    
-    		}
-        }
-    }
+	function edcal_list_add_management_page() {
+	    if (function_exists('add_management_page') ) {
+	        $page = add_posts_page( __('Calendar', 'editorial-calendar'), __('Calendar', 'editorial-calendar'), 'edit_posts', 'cal', array(&$this, 'edcal_list_admin'));
+	        add_action( "admin_print_scripts-$page", array(&$this, 'edcal_scripts'));
+
+	        if( $this->supports_custom_types ) {
+
+		        /* 
+		         * We add one calendar for Posts and then we add a separate calendar for each
+		         * custom post type.  This calendar will have an URL like this:
+		         * /wp-admin/edit.php?post_type=podcasts&page=cal_podcasts
+		         *
+		         * We can then use the post_type parameter to show the posts of just that custom
+		         * type and update the labels for each post type.
+		         */
+		        $args = array(
+		            'public'   => true,
+		            '_builtin' => false
+		        ); 
+		        $output = 'names'; // names or objects
+		        $operator = 'and'; // 'and' or 'or'
+		        $post_types = get_post_types($args,$output,$operator); 
+
+		        foreach ($post_types as $post_type) {
+								$show_this_post_type = apply_filters("edcal_show_calendar_$post_type", true);
+								if ($show_this_post_type) {
+	  	            $page = add_submenu_page('edit.php?post_type=' . $post_type, __('Calendar', 'editorial-calendar'), __('Calendar', 'editorial-calendar'), 'edit_posts', 'cal_' . $post_type, array(&$this, 'edcal_list_admin'));
+	  	            add_action( "admin_print_scripts-$page", array(&$this, 'edcal_scripts'));
+								}
+		        }    
+					}
+	    }
+	}
     
     /*
      * This is a utility function to open a file add it to our
