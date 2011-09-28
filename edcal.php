@@ -109,13 +109,13 @@ class EdCal {
 		        $post_types = get_post_types($args,$output,$operator); 
 
 		        foreach ($post_types as $post_type) {
-								$show_this_post_type = apply_filters("edcal_show_calendar_$post_type", true);
-								if ($show_this_post_type) {
-	  	            $page = add_submenu_page('edit.php?post_type=' . $post_type, __('Calendar', 'editorial-calendar'), __('Calendar', 'editorial-calendar'), 'edit_posts', 'cal_' . $post_type, array(&$this, 'edcal_list_admin'));
-	  	            add_action( "admin_print_scripts-$page", array(&$this, 'edcal_scripts'));
-								}
-		        }    
-					}
+                    $show_this_post_type = apply_filters("edcal_show_calendar_$post_type", true);
+                    if ($show_this_post_type) {
+                        $page = add_submenu_page('edit.php?post_type=' . $post_type, __('Calendar', 'editorial-calendar'), __('Calendar', 'editorial-calendar'), 'edit_posts', 'cal_' . $post_type, array(&$this, 'edcal_list_admin'));
+                        add_action( "admin_print_scripts-$page", array(&$this, 'edcal_scripts'));
+                    }
+                }    
+            }
 	    }
 	}
     

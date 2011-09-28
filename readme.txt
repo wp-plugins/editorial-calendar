@@ -171,6 +171,8 @@ The post time field in the quick edit dialog is now editable so you can specify 
 
 The calendar is now translated into German.  Thanks to Matthias Nattke who uses the Editorial Calendar on his site <a href="http://www.kikamagazin.de">Kikamagazin Bloggt</a>.
 
+The calendar is now supporting a special post type "edcal_show_calendar_" to make sure certain custom post types don't show up in the calendar.
+
 = 1.4 =
 
 * We now have a new look and feel for the quick edit dialog and a few other elements to match WordPress 3.2.
