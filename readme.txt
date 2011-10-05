@@ -165,6 +165,10 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
+= 1.5.1 =
+
+The calendar is now setting the correct post time for manual set times at noon or midnite instead of changing it by 12 hours.
+
 = 1.5 =
 
 The post time field in the quick edit dialog is now editable so you can specify any time you want instead of having to pick in 30 minute increments.

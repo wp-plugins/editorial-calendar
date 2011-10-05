@@ -766,14 +766,13 @@ var edcal = {
             but we still need to work aorund the issue.  Hackito
             ergo sum.
           */
-         if (post.time.toUpperCase() === '12:00 PM') {
-             post.time = '12:00';
-         } else if (post.time.toUpperCase() === '12:30 PM') {
-             post.time = '12:30';
-         } else if (post.time.toUpperCase() === '12:00 AM') {
-             post.time = '00:00';
-         } else if (post.time.toUpperCase() === '12:30 AM') {
-             post.time = '00:30';
+         var postTimeUpper = post.time.toUpperCase();
+         if (postTimeUpper.slice(0, 2) === '12' &&
+             postTimeUpper.slice(postTimeUpper.length - 2, postTimeUpper.length) === 'PM') {
+             post.time = '12:' + postTimeUpper.slice(3, 5);
+         } else if (postTimeUpper.slice(0, 2) === '12' &&
+             postTimeUpper.slice(post.time.length - 2, post.time.length) === 'AM') {
+             post.time = '00:' + postTimeUpper.slice(3, 5);
          }
 
          var time;
