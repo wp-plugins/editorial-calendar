@@ -167,7 +167,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 = 1.5.1 =
 
-The calendar is now setting the correct post time for manual set times at noon or midnite instead of changing it by 12 hours.
+The calendar is now setting the correct post time for manual set times at noon or midnight instead of changing it by 12 hours.
 
 = 1.5 =
 
