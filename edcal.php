@@ -300,7 +300,7 @@ class EdCal {
                 edcal.str_feedbackmsg = <?php echo($this->edcal_json_encode(__('<div id="feedbacksection">' . 
                  '<h2>Help us Make the Editorial Calendar Better</h2>' .
                  'We are always trying to improve the Editorial Calendar and you can help. May we collect some data about your blog and browser settings to help us improve this plugin?  We\'ll only do it once and your blog will show up on our <a target="_blank" href="http://www.zackgrossbart.com/edcal/mint/">Editorial Calendar Statistics page</a>.<br /><br />' . 
-                 '<button class="button-secondary" onclick="edcal.doFeedback();">Collect Anonymous Data</button> ' . 
+                 '<button class="button-secondary" onclick="edcal.doFeedback();">Collect Data</button> ' . 
                  '<a href="#" id="nofeedbacklink" onclick="edcal.noFeedback(); return false;">No thank you</a></div>', 'editorial-calendar'))) ?>;
     
                 edcal.str_feedbackdone = <?php echo($this->edcal_json_encode(__('<h2>We\'re done</h2>We\'ve finished collecting data.  Thank you for helping us make the calendar better.', 'editorial-calendar'))) ?>;
