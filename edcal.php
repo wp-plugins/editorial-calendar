@@ -614,7 +614,7 @@ class EdCal {
     
         $post_type = $_GET['post_type'];
         if (!$post_type) {
-            return 'Posts';
+            return __('Posts ', 'editorial-calendar');
         }
     
         $postTypeObj = get_post_type_object($post_type);
@@ -630,7 +630,7 @@ class EdCal {
     
         $post_type = $_GET['post_type'];
         if (!$post_type) {
-            return 'Post';
+            return __('Post ', 'editorial-calendar');
         }
     
         $postTypeObj = get_post_type_object($post_type);

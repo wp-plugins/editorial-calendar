@@ -810,6 +810,7 @@ var edcal = {
             success: function(res) {
                 jQuery('#edit-slug-buttons').removeClass('tiploading');
                 jQuery('#tooltip').hide();
+                jQuery('#edcal_scrollable').data('scrollable').getConf().keyboard = true;
                 if (res.error) {
                     /*
                      * If there was an error we need to remove the dropped
@@ -848,6 +849,7 @@ var edcal = {
             error: function(xhr) {
                  jQuery('#edit-slug-buttons').removeClass('tiploading');
                  jQuery('#tooltip').hide();
+                 jQuery('#edcal_scrollable').data('scrollable').getConf().keyboard = true;
                  edcal.showError(edcal.general_error);
                  if (xhr.responseText) {
                      edcal.output('savePost xhr.responseText: ' + xhr.responseText);
@@ -877,6 +879,7 @@ var edcal = {
 
         // show tooltip
         jQuery('#tooltip').center().show();
+        jQuery('#edcal_scrollable').data('scrollable').getConf().keyboard = false;
 
         if (!post.id) {
             jQuery('#tooltiptitle').text(edcal.str_newpost_title + post.formatteddate);
@@ -956,6 +959,7 @@ var edcal = {
      */
     hideForm: function() {
         jQuery('#tooltip').hide();
+        jQuery('#edcal_scrollable').data('scrollable').getConf().keyboard = true;
         edcal.resetForm();
     },
 
@@ -1629,6 +1633,7 @@ var edcal = {
         jQuery('#edcal_scrollable').scrollable({
                                     vertical: true,
                                     size: edcal.weeksPref,
+                                    keyboard: false,
                                     keyboardSteps: 1,
                                     speed: 100,
                                     easing: 'linear'
@@ -1636,6 +1641,8 @@ var edcal = {
                                     }).mousewheel();
 
         var api = jQuery('#edcal_scrollable').scrollable();
+        
+        api.getConf().keyboard = false;
 
         /*
            When the user moves the calendar around we remember their
@@ -1686,17 +1693,29 @@ var edcal = {
             //output("evt.altKey: " + evt.altKey);
             //output("evt.keyCode: " + evt.keyCode);
             //output("evt.ctrlKey: " + evt.ctrlKey);
+            
+            if (evt.keyCode === 27) { //escape key
+                edcal.hideForm();
+                return false;
+            }
+            
+            if (jQuery('#tooltip').is(':visible')) {
+                return;
+            }
 
-            if ((evt.keyCode === 34 && !(evt.altKey || evt.ctrlKey)) || //page down
+            if ((evt.keyCode === 40 && !(evt.altKey || evt.ctrlKey))) {        // down arrow key
+                edcal.move(1, false);
+                return false;
+            } else if ((evt.keyCode === 38 && !(evt.altKey || evt.ctrlKey))) { // up arrow key
+                edcal.move(1, true);
+                return false;
+            } else if ((evt.keyCode === 34 && !(evt.altKey || evt.ctrlKey)) || //page down
                 evt.keyCode === 40 && evt.ctrlKey) {                     // Ctrl+down down arrow
                 edcal.move(edcal.weeksPref, true);
                 return false;
             } else if ((evt.keyCode === 33 && !(evt.altKey || evt.ctrlKey)) || //page up
                 evt.keyCode === 38 && evt.ctrlKey) {                            // Ctrl+up up arrow
                 edcal.move(edcal.weeksPref, false);
-                return false;
-            } else if (evt.keyCode === 27) { //escape key
-                edcal.hideForm();
                 return false;
             }
         });
