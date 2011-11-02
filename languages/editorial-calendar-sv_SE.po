@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WordPress Editorial Calendar v1.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2011-11-02 07:06-0500\n"
+"PO-Revision-Date: 2011-11-02 11:08-0500\n"
 "Last-Translator: Zack Grossbart <zack@grossbart.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -120,7 +120,7 @@ msgstr "Skapa nytt inl&auml;gg den %s"
 #: edcal.php:267
 #, php-format
 msgid "New %s - "
-msgstr "Ny %s - "
+msgstr "Nytt %s - "
 
 #@ editorial-calendar
 #: edcal.php:268
@@ -279,7 +279,7 @@ msgstr "Fram&aring;t"
 #@ editorial-calendar
 #: edcal.php:361
 msgid "Scroll the calendar and make the today visible"
-msgstr "Skrolla kalendern och visa idag."
+msgstr "Scrolla kalendern och visa idag."
 
 #@ editorial-calendar
 #: edcal.php:361
