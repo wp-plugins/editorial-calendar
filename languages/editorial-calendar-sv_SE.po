@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WordPress Editorial Calendar v1.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2011-10-20 08:45-0500\n"
+"PO-Revision-Date: 2011-11-02 07:06-0500\n"
 "Last-Translator: Zack Grossbart <zack@grossbart.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: edcal.php:90
 #: edcal.php:112
 msgid "Calendar"
-msgstr "Artikelkalender"
+msgstr "Inläggskalender"
 
 #@ editorial-calendar
 #: edcal.php:240
@@ -39,32 +39,32 @@ msgstr "%1$s av %2$s"
 #@ editorial-calendar
 #: edcal.php:250
 msgid "New Post"
-msgstr "Ny artikel"
+msgstr "Nytt inlägg"
 
 #@ editorial-calendar
 #: edcal.php:252
 msgid " [DRAFT]"
-msgstr "[UTKAST]"
+msgstr " [UTKAST]"
 
 #@ editorial-calendar
 #: edcal.php:253
 msgid " [PENDING]"
-msgstr "[V&Auml;NTANDE]"
+msgstr " [V&Auml;NTANDE]"
 
 #@ editorial-calendar
 #: edcal.php:254
 msgid " [STICKY]"
-msgstr "[KLISTRAD]"
+msgstr " [KLISTRAD]"
 
 #@ editorial-calendar
 #: edcal.php:255
 msgid " [DRAFT, STICKY]"
-msgstr "[UTKAST, KLISTRAD]"
+msgstr " [UTKAST, KLISTRAD]"
 
 #@ editorial-calendar
 #: edcal.php:256
 msgid " [PENDING, STICKY]"
-msgstr "[V&Auml;NTANDE, KLISTRAD]"
+msgstr " [V&Auml;NTANDE, KLISTRAD]"
 
 #@ editorial-calendar
 #: edcal.php:257
@@ -114,7 +114,7 @@ msgstr "Inneh&aring;ll"
 #: edcal.php:266
 #, php-format
 msgid "Add a new post on %s"
-msgstr "Skapa ny artikel den %s"
+msgstr "Skapa nytt inl&auml;gg den %s"
 
 #@ editorial-calendar
 #: edcal.php:267
@@ -158,27 +158,27 @@ msgstr "Schemalagd"
 #@ editorial-calendar
 #: edcal.php:275
 msgid "You are about to delete the post \""
-msgstr "Du är på väg att radera artikeln \""
+msgstr "Du är på väg att radera inlägget \""
 
 #@ editorial-calendar
 #: edcal.php:276
 msgid "\". Press Cancel to stop, OK to delete."
-msgstr "\". Klicka Cancel för att avbryta, eller OK för att radera."
+msgstr "\". Klicka Avbryt för att avbryta, eller OK för att radera."
 
 #@ editorial-calendar
 #: edcal.php:278
 msgid "Looks like someone else already moved this post."
-msgstr "Det verkar som om någon annan redan flyttat denna artikel."
+msgstr "Det verkar som om någon annan redan flyttat detta inlägg."
 
 #@ editorial-calendar
 #: edcal.php:279
 msgid "You do not have permission to edit posts."
-msgstr "Du har inte rättighet att redigera denna artikel."
+msgstr "Du har inte rättighet att redigera detta inlägg."
 
 #@ editorial-calendar
 #: edcal.php:280
 msgid "Invalid checksum for post. This is commonly a cross-site scripting error."
-msgstr "Ogiltig checksumma för artikel. Detta brukar vanligtvis uppstå p.g.a. cross-site script-fel."
+msgstr "Ogiltig checksumma för inlägg. Detta brukar vanligtvis uppstå p.g.a. cross-site script-fel."
 
 #@ editorial-calendar
 #: edcal.php:281
@@ -289,7 +289,7 @@ msgstr "Visa idag"
 #@ editorial-calendar
 #: edcal.php:387
 msgid "Edit Post"
-msgstr "Redigera artikel"
+msgstr "Redigera inlägg"
 
 #@ editorial-calendar
 #: edcal.php:407
@@ -313,8 +313,8 @@ msgid "Error in deleting..."
 msgstr "Fel vid borttagning..."
 
 msgid "Post "
-msgstr "Artikel "
+msgstr "inlägg "
 
 msgid "Posts "
-msgstr "Artikel "
+msgstr "Inläggs "
 
