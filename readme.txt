@@ -165,13 +165,13 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
-= 1.5.1 =
+= 1.6 =
 
 The calendar is now setting the correct post time for manual set times at noon or midnight instead of changing it by 12 hours.
 
 The up, down, page up, and page down keys are now working properly for moving around in the text in the quick edit dialog.
 
-The calendar is now ranslate into Swedish.  Thanks to Johan Landström.
+The calendar is now translated into Swedish.  Thanks to Johan Landström.
 
 = 1.5 =
 
