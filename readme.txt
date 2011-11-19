@@ -49,6 +49,8 @@ An editorial calendar is simply a plan for your blog.  It is thinking ahead abou
 
 From time to time people write articles about the editorial calendar.  We appreciate every one.
 
+<a href="http://www.dailyblogtips.com/5-reasons-youll-love-the-wordpress-editorial-calendar/">5 Reasons You’ll Love the WordPress Editorial Calendar</a> by <a href="http://www.successfulblogging.com/">Annabel Candy</a>
+
 <a href="http://www.chrisbrogan.com/use-an-editorial-calendar/">Use An Editorial Calendar</a> by <a href="http://www.chrisbrogan.com">Chris Brogan</a>
 
 <a href="http://www.smashingmagazine.com/2010/08/30/the-importance-of-consistency-using-editorial-calendars-and-style-guides/">Blogging For Web Designers: Editorial Calendars and Style Guides</a> by <a href="http://jessica.smashingmagazine.com/">Jessica Bordeau</a> at <a href="http://www.smashingmagazine.com/">Smashing Magazine</a>
