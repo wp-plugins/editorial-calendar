@@ -74,6 +74,7 @@
 
 .row {
     height: 100%;
+    margin-top: 15px;
 }
 
 .dayobj {
@@ -272,6 +273,7 @@
     position: relative;
     top:24px;  /* 1.5em; */
     overflow: auto;
+    margin: 0px;
 }
 
 /*.page-numbers {

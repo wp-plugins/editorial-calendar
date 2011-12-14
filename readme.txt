@@ -2,7 +2,7 @@
 Contributors: cvernon, justinstresslimit, jkudish, MaryVogt, zgrossbart
 Tags: posts, post, calendar, AJAX, admin, administration
 Requires at least: 2.8.5
-Tested up to: 3.2.1
+Tested up to: 3.3
 Stable tag: 1.6
 
 The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
@@ -168,6 +168,8 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 == Changelog ==
 
 = 1.7 =
+
+Version 1.7 supports WordPress 3.3 with fixes to the date display of newly created posts and alignment and margins of each day in the calendar.
 
 The calendar is now scrolling in the right direction with the up and down arrows keys.
 
