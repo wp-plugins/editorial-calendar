@@ -1533,7 +1533,9 @@ var edcal = {
             time the page refreshes.
           */
          var dayHeight = jQuery('.rowcont:eq(2) .dayobj:first').height() - jQuery('.rowcont:eq(2) .daylabel:first').height() - 6;
-
+         
+         var mtop = 0;
+         
          jQuery('head').append('<style id="edcal_poststyle" type="text/css">.ui-draggable-dragging {' +
                                     'width: ' + (jQuery('.rowcont:eq(2) .day:first').width() - 5) + 'px;' +
                                '}' +
@@ -1660,7 +1662,7 @@ var edcal = {
         }
 
         edcal.moveTo(curDate.clone());
-
+        
         /*
          * The scrollable handles some basic binding.  This gets us
          * up arrow, down arrow and the mouse wheel.
@@ -1719,10 +1721,10 @@ var edcal = {
                 return false;
             }
         });
-
+        
         edcal.getPosts(edcal.nextStartOfWeek(curDate).add(-3).weeks(),
                        edcal.nextStartOfWeek(curDate).add(edcal.weeksPref + 3).weeks());
-
+        
         /*
            Now we bind the listeners for all of our links and the window
            resize.
@@ -1733,7 +1735,7 @@ var edcal = {
                            edcal.nextStartOfWeek(Date.today()).add(edcal.weeksPref + 3).weeks());
             return false;
         });
-
+        
         jQuery('#prevmonth').click(function() {
             edcal.move(edcal.weeksPref, false);
             return false;
@@ -1743,15 +1745,21 @@ var edcal = {
             edcal.move(edcal.weeksPref, true);
             return false;
         });
-
-        function resizeWindow(e) {
+        
+        /*
+           We used to listen to resize events so we could make the calendar the right size
+           for the current window when it changed size, but this was causing a problem with
+           WordPress 3.3 and it never worked properly because the scroll position was a little
+           off so we are just skipping it.
+         */
+        /*function resizeWindow(e) {
             if (edcal.windowHeight != jQuery(window).height()) {
                 jQuery('#edcal_scrollable').css('height', edcal.getCalHeight() + 'px');
                 edcal.windowHeight = jQuery(window).height();
                 edcal.savePosition();
             }
         }
-        jQuery(window).bind('resize', resizeWindow);
+        jQuery(window).bind('resize', resizeWindow);*/
 
         jQuery('#newPostScheduleButton').live('click', function(evt) {
             // if the button is disabled, don't do anything
@@ -2065,8 +2073,15 @@ var edcal = {
                    'id="show-edcal-settings-link" ' +
                    'onclick="edcal.toggleOptions(); return false;" ' +
                    'href="#" ' +
-                   'style="background-image: url(images/screen-options-right.gif);">' + edcal.str_screenoptions + '</a>' +
+                   'style="background-image: url(images/screen-options-right.gif); background-position: right 0px;">' + edcal.str_screenoptions + '</a>' +
              '</div>';
+         
+         if (jQuery('#screen-meta-links').length === 0) {
+             /*
+              * Wordpress 3.3 stopped adding the screen meta section to all the admin pages
+              */
+             jQuery('#screen-meta').after('<div id="screen-meta-links"></div>');
+         }
 
          jQuery('#screen-meta-links').append(html);
     },
@@ -2137,6 +2152,8 @@ var edcal = {
              jQuery('#contextual-help-link-wrap').css('visibility', 'hidden');
 
              jQuery('#contextual-help-wrap').slideDown('normal');
+             
+             jQuery('#screen-meta').show();
 
              jQuery('#show-edcal-settings-link').css('background-image', 'url(images/screen-options-right-up.gif)');
          } else {
