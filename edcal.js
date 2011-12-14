@@ -1533,9 +1533,6 @@ var edcal = {
             time the page refreshes.
           */
          var dayHeight = jQuery('.rowcont:eq(2) .dayobj:first').height() - jQuery('.rowcont:eq(2) .daylabel:first').height() - 6;
-         
-         var mtop = 0;
-         
          jQuery('head').append('<style id="edcal_poststyle" type="text/css">.ui-draggable-dragging {' +
                                     'width: ' + (jQuery('.rowcont:eq(2) .day:first').width() - 5) + 'px;' +
                                '}' +
