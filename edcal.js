@@ -1704,10 +1704,10 @@ var edcal = {
             }
 
             if ((evt.keyCode === 40 && !(evt.altKey || evt.ctrlKey))) {        // down arrow key
-                edcal.move(1, false);
+                edcal.move(1, true);
                 return false;
             } else if ((evt.keyCode === 38 && !(evt.altKey || evt.ctrlKey))) { // up arrow key
-                edcal.move(1, true);
+                edcal.move(1, false);
                 return false;
             } else if ((evt.keyCode === 34 && !(evt.altKey || evt.ctrlKey)) || //page down
                 evt.keyCode === 40 && evt.ctrlKey) {                     // Ctrl+down down arrow

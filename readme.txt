@@ -167,6 +167,10 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
+= 1.7 =
+
+The calendar is now scrolling in the right direction with the up and down arrows keys.
+
 = 1.6 =
 
 The calendar is now setting the correct post time for manual set times at noon or midnight instead of changing it by 12 hours.
