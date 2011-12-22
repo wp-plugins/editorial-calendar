@@ -1,4 +1,3 @@
-# This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
@@ -7,9 +6,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2011-12-21 16:51-0500\n"
+"PO-Revision-Date: 2011-12-22 08:02-0500\n"
 "Last-Translator: Zack Grossbart <zack@grossbart.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: Zack Grossbart <zack@grossbart.com>\n"
 
 #: edcal.php:90
 #: edcal.php:114
@@ -35,7 +34,7 @@ msgstr " [UTKAST]"
 
 #: edcal.php:255
 msgid " [PENDING]"
-msgstr " [PÅVENTE]"
+msgstr " [PÃ…VENTE]"
 
 #: edcal.php:256
 msgid " [STICKY]"
@@ -47,7 +46,7 @@ msgstr " [UTKAST KLISTRET]"
 
 #: edcal.php:258
 msgid " [PENDING, STICKY]"
-msgstr " [PÅVENTE KLISTRET]"
+msgstr " [PÃ…VENTE KLISTRET]"
 
 #: edcal.php:259
 #: edcal.php:263
@@ -87,11 +86,11 @@ msgstr "Innhold"
 
 #: edcal.php:268
 msgid "Add a new post on %s"
-msgstr "Legg til nytt innlegg på %s"
+msgstr "Legg til nytt innlegg pÃ¥ %s"
 
 #: edcal.php:269
 msgid "New %s - "
-msgstr "Ny %s - "
+msgstr "Nytt %s - "
 
 #: edcal.php:270
 msgid "Update"
@@ -121,11 +120,11 @@ msgstr "Planlagt"
 
 #: edcal.php:277
 msgid "You are about to delete the post \""
-msgstr "Du er i ferd med å slette innlegget \""
+msgstr "Du er i ferd med Ã¥ slette innlegget \""
 
 #: edcal.php:278
 msgid "\". Press Cancel to stop, OK to delete."
-msgstr "\". Trykk Avbryt for å stoppe, OK for å slette."
+msgstr "\". Trykk Avbryt for Ã¥ stoppe, OK for Ã¥ slette."
 
 #: edcal.php:280
 msgid "Looks like someone else already moved this post."
@@ -133,7 +132,7 @@ msgstr "Ser ut som noen andre allerede flyttet dette innlegget."
 
 #: edcal.php:281
 msgid "You do not have permission to edit posts."
-msgstr "Du har ikke tillatelse til å redigere innlegg."
+msgstr "Du har ikke tillatelse til Ã¥ redigere innlegg."
 
 #: edcal.php:282
 msgid "Invalid checksum for post. This is commonly a cross-site scripting error."
@@ -161,7 +160,7 @@ msgstr "Legg til"
 
 #: edcal.php:289
 msgid "Show on screen"
-msgstr "Vis på skjerm"
+msgstr "Vis pÃ¥ skjerm"
 
 #: edcal.php:290
 msgid " weeks at a time"
@@ -182,7 +181,7 @@ msgstr "Status"
 
 #: edcal.php:294
 msgid "Time of day"
-msgstr "Tid på dagen"
+msgstr "Tid pÃ¥ dagen"
 
 #: edcal.php:295
 msgid "An error occurred while loading the calendar: "
@@ -198,7 +197,7 @@ msgstr "Velg antall uker som kalenderen skal vise"
 
 #: edcal.php:306
 msgid "<h2>We're done</h2>We've finished collecting data.  Thank you for helping us make the calendar better."
-msgstr "<h2>Vi er ferdig</h2> Vi er ferdig med å samle data. Takk for at du hjelper oss" "med å gjøre kalenderen bedre."
+msgstr "<h2>Vi er ferdig</h2> Vi er ferdig med Ã¥ samle data. Takk for at du hjelper oss" "med Ã¥ gjÃ¸re kalenderen bedre."
 
 #: edcal.php:347
 msgid " Calendar"
@@ -206,7 +205,7 @@ msgstr " Kalendar"
 
 #: edcal.php:356
 msgid "Jump back"
-msgstr "Gå tilbake"
+msgstr "GÃ¥ tilbake"
 
 #: edcal.php:358
 msgid "Skip ahead"
@@ -214,7 +213,7 @@ msgstr "hopp fremover"
 
 #: edcal.php:363
 msgid "Scroll the calendar and make the today visible"
-msgstr "Bla i kalenderen og gjør i dag synlig"
+msgstr "Bla i kalenderen og gjÃ¸r i dag synlig"
 
 #: edcal.php:363
 msgid "Show Today"
@@ -234,7 +233,7 @@ msgstr "Utkast"
 
 #: edcal.php:418
 msgid "Pending Review"
-msgstr "Påvente gjennomgang"
+msgstr "Send til gjennomgang"
 
 #: edcal.php:617
 msgid "Posts "
@@ -242,7 +241,7 @@ msgstr "Innlegg "
 
 #: edcal.php:633
 msgid "Post "
-msgstr "Legg inn "
+msgstr "Innlegg "
 
 #: edcal.php:737
 #: edcal.php:740
