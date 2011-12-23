@@ -1636,8 +1636,7 @@ var edcal = {
                                     keyboardSteps: 1,
                                     speed: 100,
                                     easing: 'linear'
-                                    // use mousewheel plugin
-                                    }).mousewheel();
+                                    });
 
         var api = jQuery('#edcal_scrollable').scrollable();
         
@@ -1660,27 +1659,22 @@ var edcal = {
 
         edcal.moveTo(curDate.clone());
         
+        jQuery('#edcal_scrollable').bind('mousewheel', function(event, delta) {
+            var dir = delta > 0 ? false : true, vel = Math.abs(delta);
+            edcal.output(dir + ' at a velocity of ' + vel);
+
+            if (!edcal.isMoving && vel > 0.2) {
+                edcal.move(1, dir);
+            }
+            
+            return false;
+        });
+        
         /*
-         * The scrollable handles some basic binding.  This gets us
-         * up arrow, down arrow and the mouse wheel.
+           We are handling all of our own events so we just cancel all events from
+           the scrollable.
          */
         api.onBeforeSeek(function(evt, direction) {
-                         // inside callbacks the "this" variable is a reference to the API
-            /*
-             * Some times for reasons I haven't been able to figure out
-             * the direction is an int instead of a boolean.  I don't
-             * know why, but this works around it.
-             */
-            if (direction === 1) {
-                direction = false;
-            } else if (direction === 3) {
-                direction = true;
-            }
-
-            if (!edcal.isMoving) {
-                edcal.move(1, direction);
-            }
-
             return false;
         });
 
@@ -1709,11 +1703,11 @@ var edcal = {
                 edcal.move(1, false);
                 return false;
             } else if ((evt.keyCode === 34 && !(evt.altKey || evt.ctrlKey)) || //page down
-                evt.keyCode === 40 && evt.ctrlKey) {                     // Ctrl+down down arrow
+                evt.keyCode === 40 && evt.ctrlKey) {                           // Ctrl+down down arrow
                 edcal.move(edcal.weeksPref, true);
                 return false;
             } else if ((evt.keyCode === 33 && !(evt.altKey || evt.ctrlKey)) || //page up
-                evt.keyCode === 38 && evt.ctrlKey) {                            // Ctrl+up up arrow
+                evt.keyCode === 38 && evt.ctrlKey) {                           // Ctrl+up up arrow
                 edcal.move(edcal.weeksPref, false);
                 return false;
             }
