@@ -171,6 +171,8 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 The calendar is now translated into Norwegian.
 
+The mouse wheel scrolling with the calendar is now working properly on WordPress 3.3.  Previously it would only scroll up (into the past) and not down (into the future).
+
 = 1.7 =
 
 Version 1.7 supports WordPress 3.3 with fixes to the date display of newly created posts and alignment and margins of each day in the calendar.
