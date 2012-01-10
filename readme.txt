@@ -104,7 +104,7 @@ The editorial calendar follows the Week Starts On preference on the WordPress Ge
 
 = What languages does the calendar support? =
 
-The calendar is available in Brazilian Portuguese, Croatian, Czech, Dutch, English, French, German, Greek, Norwegian, Polish, and Swedish. 
+The calendar is available in Brazilian Portuguese, Croatian, Czech, Dutch, English, French, German, Greek, Japanese, Norwegian, Polish, and Swedish. 
 
 = Can I add new languages? =
 
@@ -172,6 +172,8 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 The calendar is now translated into Norwegian.
 
 The mouse wheel scrolling with the calendar is now working properly on WordPress 3.3.  Previously it would only scroll up (into the past) and not down (into the future).
+
+The calendar is no translated into Japanese.  Thanks to Masahiro who blogs at <a href="http://www.buslog.net/">http://www.buslog.net</a>.
 
 = 1.7 =
 
