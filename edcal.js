@@ -395,7 +395,7 @@ var edcal = {
             newrow += '<div class="dayobj">';
 
             newrow += '<a href="#" adddate="' + _date.toString('MMMM d') + '" class="daynewlink" title="' + 
-                sprintf(edcal.str_newpost, _date.toString(Date.CultureInfo.formatPatterns.monthDay)) + '" ' +
+                sprintf(edcal.str_newpost, edcal.chineseAposWorkaround(_date.toString(Date.CultureInfo.formatPatterns.monthDay))) + '" ' +
                          'onclick="return false;">' + edcal.str_addPostLink + '</a>';
 
             if (_date.toString('dd') == '01') {
@@ -2312,6 +2312,14 @@ var edcal = {
         if (window.console) {
             console.error(msg);
         }
+    },
+    
+    chineseAposWorkaround: function(/*String*/ dateString) {
+        if (Date.CultureInfo.name.indexOf("zh") === 0 ||
+            Date.CultureInfo.name.indexOf("ja") === 0) {
+            return dateString.replace(/'/g, "");
+        }
+        return dateString;
     }
 };
 
