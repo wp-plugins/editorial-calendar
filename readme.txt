@@ -136,7 +136,7 @@ You can see how it looks for different usres on our <a href="http://www.zackgros
 * conrad the Contributor
 * sam the Subscriber
 
-Each of theses users has the password test.
+Each of these users has the password test.
 
 = Can I use the editorial calendar with pages? =
 
