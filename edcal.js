@@ -1337,7 +1337,8 @@ var edcal = {
         var firstDate = edcal.getDayFromDayId(items.eq(0).children('.row').children('.day:first').attr('id'));
         var lastDate = edcal.getDayFromDayId(items.eq(edcal.weeksPref - 1).children('.row').children('.day:last').attr('id'));
 
-        jQuery('#currentRange').text(firstDate.toString('MMMM yyyy') + ' - ' + lastDate.toString('MMMM yyyy'));
+        jQuery('#currentRange').text(edcal.chineseAposWorkaround(firstDate.toString(Date.CultureInfo.formatPatterns.yearMonth)) + ' - ' + 
+                                     edcal.chineseAposWorkaround(lastDate.toString(Date.CultureInfo.formatPatterns.yearMonth)));
     },
 
     /*
