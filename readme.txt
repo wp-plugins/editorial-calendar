@@ -175,6 +175,8 @@ The mouse wheel scrolling with the calendar is now working properly on WordPress
 
 The calendar is no translated into Japanese.  Thanks to Masahiro who blogs at <a href="http://www.buslog.net/">http://www.buslog.net</a>.
 
+Support for WordPress version 3.3.1.
+
 = 1.7 =
 
 Version 1.7 supports WordPress 3.3 with fixes to the date display of newly created posts and alignment and margins of each day in the calendar.
