@@ -173,7 +173,7 @@ The calendar is now translated into Norwegian.
 
 The mouse wheel scrolling with the calendar is now working properly on WordPress 3.3.  Previously it would only scroll up (into the past) and not down (into the future).
 
-The calendar is no translated into Japanese.  Thanks to Masahiro who blogs at <a href="http://www.buslog.net/">http://www.buslog.net</a>.
+The calendar is now translated into Japanese.  Thanks to Masahiro who blogs at <a href="http://www.buslog.net/">http://www.buslog.net</a>.
 
 Support for WordPress version 3.3.1.
 
