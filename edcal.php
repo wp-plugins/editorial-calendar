@@ -179,6 +179,18 @@ class EdCal {
         $this->edcal_echoFile(dirname( __FILE__ ) . "/edcal.css");
         echo '</style>';
         
+        /*
+         * We want to add the right to left stylesheet if 
+         * we're in a right to left language.
+         */
+        if (__('ltr', 'editorial-calendar') == 'rtl') {
+            echo '<!-- This is the styles from edcal_rtl.css -->';
+            echo '<style type="text/css">';
+            $this->edcal_echoFile(dirname( __FILE__ ) . "/edcal_rtl.css");
+            echo '</style>';
+        }
+        
+        
         ?>
         
         <!-- This is just a little script so we can pass the AJAX URL and some localized strings -->
