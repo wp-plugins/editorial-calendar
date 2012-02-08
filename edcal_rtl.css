@@ -12,3 +12,34 @@
 .inline-edit-row fieldset label span.input-text-wrap {
     text-align: right;
 }
+
+#topleft {
+    left: auto;
+    right: 0px;
+}
+
+#topright {
+    right: auto;
+    left: 0px;
+}
+
+#screen-options-link-wrap, #contextual-help-link-wrap {
+    float: left;
+}
+
+.wrap h2 {
+    text-align: right;
+}
+
+.icon32 {
+    float: right;
+}
+
+.post {
+    text-align: right;
+}
+
+.dayhead {
+    min-width: 0;
+    text-align: right;
+}
