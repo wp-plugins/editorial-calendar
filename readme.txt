@@ -167,7 +167,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
-= 1.9 =
+= 1.8.5 =
 
 The calendar is now translated into Spanish.  Thanks to Alberto Balsalobre Rios who blogs at <a href="http://www.mediatripa.com">Mediatripa.com</a>.
 

@@ -205,6 +205,8 @@ var edcal = {
        any flickering.
      */
     windowHeight: 0,
+        
+    ltr: 'ltr',
 
     /*
        This function aligns the grid in two directions.  There
@@ -218,25 +220,55 @@ var edcal = {
 
         jQuery(gridid).each(function() {
             jQuery(this).css('position', 'relative');
-
-            jQuery(this).children('div').each(function() {
-                jQuery(this).css({
-                    width: cellWidth + '%',
-                    height: cellHeight + '%',
-                    position: 'absolute',
-                    left: x + '%',
-                    top: y + '%'
-                });
-
-                if ((count % cols) === 0) {
-                    x = 0;
-                    y += cellHeight + padding;
-                } else {
-                    x += cellWidth + padding;
-                }
-
-                count++;
-            });
+            
+            var children = jQuery(this).children('div');
+            
+            /*
+               In left to right languages the first day of the week shows
+               up on the left side of the calendar.  In right to left languages
+               the first day of the week shows up on the right.  We handle
+               this by changing the order of the cells in the layout code.
+             */
+            if (edcal.ltr === 'ltr') {
+                for (var i = 0; i < children.length; i++) {
+                    children.eq(i).css({
+                        width: cellWidth + '%',
+                        height: cellHeight + '%',
+                        position: 'absolute',
+                        left: x + '%',
+                        top: y + '%'
+                    });
+    
+                    if ((count % cols) === 0) {
+                        x = 0;
+                        y += cellHeight + padding;
+                    } else {
+                        x += cellWidth + padding;
+                    }
+    
+                    count++;
+                };
+            } else {
+                for (var i = children.length - 1; i > -1; i--) {
+                    children.eq(i).css({
+                        width: cellWidth + '%',
+                        height: cellHeight + '%',
+                        position: 'absolute',
+                        left: x + '%',
+                        top: y + '%'
+                    });
+    
+                    if ((count % cols) === 0) {
+                        x = 0;
+                        y += cellHeight + padding;
+                    } else {
+                        x += cellWidth + padding;
+                    }
+    
+                    count++;
+                };
+            }
+            
         });
     },
 
