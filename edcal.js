@@ -228,8 +228,11 @@ var edcal = {
                up on the left side of the calendar.  In right to left languages
                the first day of the week shows up on the right.  We handle
                this by changing the order of the cells in the layout code.
+     
+               We only want to do this for the days of the week so we skip it
+               if we're dealing with just one column for the rows in the calendar.
              */
-            if (edcal.ltr === 'ltr') {
+            if (cols === 1 || edcal.ltr === 'ltr') {
                 for (var i = 0; i < children.length; i++) {
                     children.eq(i).css({
                         width: cellWidth + '%',
