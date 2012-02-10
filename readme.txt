@@ -3,7 +3,7 @@ Contributors: cvernon, justinstresslimit, jkudish, MaryVogt, zgrossbart
 Tags: posts, post, calendar, AJAX, admin, administration
 Requires at least: 2.8.5
 Tested up to: 3.3.1
-Stable tag: 1.8.5
+Stable tag: 1.8.6
 
 The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
 
@@ -166,6 +166,10 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 6. Use a special calendar for each custom post type on your blog.
 
 == Changelog ==
+
+= 1.8.6 =
+
+The calendar is now using the proper he_IL locale code for Hebrew instead of he.
 
 = 1.8.5 =
 
