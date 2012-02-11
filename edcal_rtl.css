@@ -53,3 +53,8 @@
     text-align: right;
     direction: rtl;
 }
+
+#tooltiptitle {
+    direction: rtl;
+    padding-right: 35px;
+}
