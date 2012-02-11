@@ -167,6 +167,10 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
+= 1.9 =
+
+We are now filtering out all posts with a status of inherit from the calendar so we don't show additional revisions.
+
 = 1.8.6 =
 
 The calendar is now using the proper he_IL locale code for Hebrew instead of he.

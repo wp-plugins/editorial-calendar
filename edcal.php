@@ -667,7 +667,8 @@ class EdCal {
         
         setup_postdata($post);
         
-        if (get_post_status() == 'auto-draft') {
+        if (get_post_status() == 'auto-draft' ||
+            get_post_status() == 'inherit') {
             /*
              * WordPress 3 added a new post status of auto-draft so
              * we want to hide them from the calendar
