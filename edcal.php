@@ -661,7 +661,7 @@ class EdCal {
             $timeFormat = "ga";
         } else if ($timeFormat == "g:i A") {
             $timeFormat = "gA";
-        } else if ($timeFormat == "H:i") {
+        } else if ($timeFormat == "H:i" || $timeFormat == "G:i") {
             $timeFormat = "H";
         }
         

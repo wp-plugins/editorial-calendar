@@ -744,7 +744,7 @@ var edcal = {
         var date = jQuery(this).parent().parent().attr('id');
 
         var formattedtime = '10:00';
-        if (edcal.timeFormat !== 'H:i') {
+        if (edcal.timeFormat !== 'H:i' && edcal.timeFormat !== 'G:i') {
             formattedtime += ' AM';
         }
 
@@ -1836,8 +1836,9 @@ var edcal = {
 
         edcal.addOptionsSection();
 
+        edcal.output('edcal.timeFormat: ' + edcal.timeFormat);
         jQuery('#edcal-time').timePicker({
-            show24Hours: edcal.timeFormat === 'H:i',
+            show24Hours: edcal.timeFormat === 'H:i' || edcal.timeFormat === 'G:i',
             separator: ':',
             step: 30
         });
