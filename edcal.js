@@ -217,7 +217,7 @@ var edcal = {
         var x = 0;
         var y = 0;
         var count = 1;
-
+        
         jQuery(gridid).each(function() {
             jQuery(this).css('position', 'relative');
             
@@ -250,7 +250,7 @@ var edcal = {
                     }
     
                     count++;
-                };
+                }
             } else {
                 for (var i = children.length - 1; i > -1; i--) {
                     children.eq(i).css({
@@ -269,7 +269,7 @@ var edcal = {
                     }
     
                     count++;
-                };
+                }
             }
             
         });
@@ -333,7 +333,7 @@ var edcal = {
          var monthstyle;
          var daystyle;
 
-         if (date.compareTo(Date.today()) == -1) {
+         if (date.compareTo(Date.today()) === -1) {
              /*
               * Date is before today
               */
@@ -359,19 +359,19 @@ var edcal = {
               * month then it is in the current month.
               */
              monthstyle = 'month-present';
-         } else if (date.compareTo(edcal.firstDayOfMonth) == 1) {
+         } else if (date.compareTo(edcal.firstDayOfMonth) === 1) {
              /*
               * Then the date is after the current month
               */
              monthstyle = 'month-future';
-         } else if (date.compareTo(edcal.firstDayOfNextMonth) == -1) {
+         } else if (date.compareTo(edcal.firstDayOfNextMonth) === -1) {
              /*
               * Then the date is before the current month
               */
              monthstyle = 'month-past';
          }
 
-         if (date.toString('dd') == '01') {
+         if (date.toString('dd') === '01') {
              /*
               * This this date is the first day of the month
               */
@@ -788,7 +788,7 @@ var edcal = {
          }
 
          if (!post.title || post.title === '') {
-             return;
+             return false;
          }
 
          edcal.output('savePost(' + post.date + ', ' + post.title + ')');
@@ -854,7 +854,7 @@ var edcal = {
                     if (res.error === edcal.NONCE_ERROR) {
                         edcal.showError(edcal.checksum_error);
                     }
-                    return;
+                    return false;
                 }
 
                 if (!res.post) {
@@ -880,6 +880,8 @@ var edcal = {
                 if (callback) {
                     callback(res);
                 }
+                
+                return true;
             },
             error: function(xhr) {
                  jQuery('#edit-slug-buttons').removeClass('tiploading');
@@ -1037,7 +1039,7 @@ var edcal = {
        specified day.
      */
     findPostForId: function(/*string*/ dayobjId, /*string*/ postId) {
-         if (edcal.posts[dayobjId]) {
+        if (edcal.posts[dayobjId]) {
             for (var i = 0; i < edcal.posts[dayobjId].length; i++) {
                 if (edcal.posts[dayobjId][i] &&
                     'post-' + edcal.posts[dayobjId][i].id === postId) {
@@ -1045,6 +1047,8 @@ var edcal = {
                 }
             }
         }
+         
+        return null;
     },
 
     /*
@@ -1729,7 +1733,7 @@ var edcal = {
             }
             
             if (jQuery('#tooltip').is(':visible')) {
-                return;
+                return false;
             }
 
             if ((evt.keyCode === 40 && !(evt.altKey || evt.ctrlKey))) {        // down arrow key
@@ -1747,6 +1751,8 @@ var edcal = {
                 edcal.move(edcal.weeksPref, false);
                 return false;
             }
+            
+            return true;
         });
         
         edcal.getPosts(edcal.nextStartOfWeek(curDate).add(-3).weeks(),
@@ -1836,7 +1842,6 @@ var edcal = {
 
         edcal.addOptionsSection();
 
-        edcal.output('edcal.timeFormat: ' + edcal.timeFormat);
         jQuery('#edcal-time').timePicker({
             show24Hours: edcal.timeFormat === 'H:i' || edcal.timeFormat === 'G:i',
             separator: ':',
@@ -2086,6 +2091,8 @@ var edcal = {
                  return false;
             }
         });
+
+        return true;
     },
 
     /*
