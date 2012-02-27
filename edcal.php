@@ -18,7 +18,7 @@
 /*
 Plugin Name: WordPress Editorial Calendar
 Description: The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
-Version: 1.8.6
+Version: 1.8.5
 Author: Colin Vernon, Justin Evans, Joachim Kudish, Mary Vogt, and Zack Grossbart
 Author URI: http://www.zackgrossbart.com
 Plugin URI: http://stresslimitdesign.com/editorial-calendar-plugin
@@ -50,6 +50,7 @@ define( 'EDCAL_NONCE_ERROR', 6 );
 class EdCal {
 	
 	protected $supports_custom_types;
+    protected $default_time;
 
     function __construct() {
 
@@ -68,6 +69,12 @@ class EdCal {
          * installation of WordPress supports custom post types.
          */
         $this->supports_custom_types = function_exists('get_post_types') && function_exists('get_post_type_object');
+
+        /*
+         * This is the default time that posts get created at, for now 
+         * we are using 10am, but this could become an option later.
+         */
+        $this->default_time = get_option("edcal_default_time") != "" ? get_option("edcal_default_time") : '10:00';        
         
         /*
          * We use these variables to hold the post dates for the filter when 
@@ -153,7 +160,6 @@ class EdCal {
             $edcal_count++;
             update_option("edcal_count", $edcal_count);
         }
-        
         
         /*
          * This section of code embeds certain CSS and
@@ -241,6 +247,7 @@ class EdCal {
                 edcal.startOfWeek = <?php echo(get_option("start_of_week")); ?>;
                 edcal.timeFormat = "<?php echo(get_option("time_format")); ?>";
                 edcal.previewDateFormat = "MMMM d";
+                edcal.defaultTime = "<?php echo $this->default_time; ?>";
     
                 /*
                  * We want to show the day of the first day of the week to match the user's 
@@ -309,6 +316,9 @@ class EdCal {
                 
                 edcal.str_weekserror = <?php echo($this->edcal_json_encode(__('The calendar can only show between 1 and 5 weeks at a time.', 'editorial-calendar'))) ?>;
                 edcal.str_weekstt = <?php echo($this->edcal_json_encode(__('Select the number of weeks for the calendar to show.', 'editorial-calendar'))) ?>;
+
+                edcal.str_showdrafts = <?php echo($this->edcal_json_encode(__('Show Drafts'))) ?>;
+                edcal.str_hidedrafts = <?php echo($this->edcal_json_encode(__('Hide Drafts'))) ?>;
     
                 edcal.str_feedbackmsg = <?php echo($this->edcal_json_encode(__('<div id="feedbacksection">' . 
                  '<h2>Help us Make the Editorial Calendar Better</h2>' .
@@ -357,32 +367,44 @@ class EdCal {
         
         <div class="wrap">
             <div class="icon32" id="icon-edit"><br/></div>
-            <h2 id="edcal_main_title"><?php echo($this->edcal_get_posttype_multiplename()); ?><?php echo(__(' Calendar', 'editorial-calendar')); ?></h2>
+            <h2 id="edcal_main_title"><?php echo sprintf( __('%1$s Calendar', 'editorial-calendar'), $this->edcal_get_posttype_multiplename() ) ?></h2>
             
             <div id="loadingcont">
                 <div id="loading"> </div>
             </div>
             
-            <div id="topbar" class="tablenav">
-                <div id="topleft" class="tablenav-pages">
+            <div id="topbar" class="tablenav clearfix">
+                <div id="topleft" class="tablenav-pages alignleft">
                     <h3>
                         <a href="#" title="<?php echo(__('Jump back', 'editorial-calendar')) ?>" class="prev page-numbers" id="prevmonth">&laquo;</a>
                         <span id="currentRange"></span>
                         <a href="#" title="<?php echo(__('Skip ahead', 'editorial-calendar')) ?>" class="next page-numbers" id="nextmonth">&raquo;</a>
+
+	                    <a class="save button" title="<?php echo(__('Scroll the calendar and make the today visible', 'editorial-calendar')) ?>" id="moveToToday"><?php echo(__('Show Today', 'editorial-calendar')) ?></a>
                     </h3>
                 </div>
-                
-                <div id="topright">
-                    <button class="save button" title="<?php echo(__('Scroll the calendar and make the today visible', 'editorial-calendar')) ?>" id="moveToToday"><?php echo(__('Show Today', 'editorial-calendar')) ?></button>
+
+                <div id="topright" class="tablenav-pages alignright">
+	                <a class="save button" title="<?php echo(__('Show unscheduled posts', 'editorial-calendar')) ?>" id="showdraftsdrawer"><?php echo(__('Show Drafts', 'editorial-calendar')) ?></a>
                 </div>
             </div>
             
-            <div id="cal_cont">
+            <div id="draftsdrawer_cont">
+                <div id="draftsdrawer">
+                    <div class="draftsdrawerheadcont"><div class="dayhead"><?php echo(__('Unscheduled Drafts', 'editorial-calendar')) ?></div></div>
+                    <div class="day" id="00000000">
+                        <div id="draftsdrawer_loading"></div>
+                        <div id="unscheduled" class="dayobj"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="cal_cont"<?php if ( get_option("edcal_author_pref") == 'true' ) echo ' class="show-author"'; ?>>
                 <div id="edcal_scrollable" class="edcal_scrollable vertical">
                     <div id="cal"></div>
                 </div>
             </div>
-            
+
             <?php $this->edcal_edit_popup(); ?>
             
         </div><?php // end .wrap ?>
@@ -458,11 +480,14 @@ class EdCal {
     /*
      * When we get a set of posts to populate the calendar we don't want
      * to get all of the posts.  This filter allows us to specify the dates
-     * we want.
+     * we want. We also exclude posts that have not been set to a specific date.
      */
     function edcal_filter_where($where = '') {
         global $edcal_startDate, $edcal_endDate;
-        $where .= " AND post_date >= '" . $edcal_startDate . "' AND post_date < '" . $edcal_endDate . "'";
+        if ( $edcal_startDate=='00000000' )
+            $where .= " AND post_date_gmt LIKE '0000%'";
+        else
+            $where .= " AND post_date >= '" . $edcal_startDate . "' AND post_date < '" . $edcal_endDate . "' AND post_date_gmt NOT LIKE '0000%'";
         return $where;
     }
     
@@ -519,15 +544,15 @@ class EdCal {
         
         global $edcal_startDate, $edcal_endDate;
         
-        $edcal_startDate = isset($_GET['from'])?$_GET['from']:null;
-        $edcal_endDate = isset($_GET['to'])?$_GET['to']:null;
+        $edcal_startDate = isset($_GET['from']) ? $_GET['from'] : null;
+        $edcal_endDate = isset($_GET['to']) ? $_GET['to'] : null;
         global $post;
         $args = array(
             'posts_per_page' => -1,
             'post_status' => "publish&future&draft",
             'post_parent' => null // any parent
         );
-        
+
         /* 
          * If we're in the specific post type case we need to add
          * the post type to our query.
@@ -536,11 +561,17 @@ class EdCal {
         if ($post_type) {
             $args['post_type'] = $post_type;
         }
-        
-        add_filter('posts_where', array(&$this, 'edcal_filter_where'));
+
+        /* 
+         * We add a WHERE clause to filter by calendar date and/or by whether
+         * or not the posts have been scheduled to a specific date:
+         * WHERE `post_date_gmt` = '0000-00-00 00:00:00'
+         */
+
+        add_filter( 'posts_where', array(&$this, 'edcal_filter_where' ));
         $myposts = query_posts($args);
-        remove_filter('posts_where', array(&$this, 'edcal_filter_where'));
-        
+        remove_filter( 'posts_where', array(&$this, 'edcal_filter_where' ));
+
         ?>[
         <?php
         $size = sizeof($myposts);
@@ -661,17 +692,17 @@ class EdCal {
             $timeFormat = "ga";
         } else if ($timeFormat == "g:i A") {
             $timeFormat = "gA";
-        } else if ($timeFormat == "H:i" || $timeFormat == "G:i") {
+        } else if ($timeFormat == "H:i") {
             $timeFormat = "H";
         }
         
         setup_postdata($post);
         
-        if (get_post_status() == 'auto-draft' ||
-            get_post_status() == 'inherit') {
+        if (get_post_status() == 'auto-draft' || get_post_status() == 'inherit' ) {
             /*
              * WordPress 3 added a new post status of auto-draft so
-             * we want to hide them from the calendar
+             * we want to hide them from the calendar. 
+             * We also want to hide posts with type 'inherit'
              */
             return;
         }
@@ -690,28 +721,33 @@ class EdCal {
     	} else {
     	    $postTypeTitle = 'post';
     	}
+
+        $post_date_gmt = date('dmY',strtotime($post->post_date_gmt));
+        if ( $post_date_gmt == '01011970' )
+            $post_date_gmt = '00000000';
         ?>
             {
                 "date" : "<?php the_time('d') ?><?php the_time('m') ?><?php the_time('Y') ?>", 
-                "time" : "<?php the_time() ?>", 
-                "formattedtime" : "<?php $this->edcal_json_encode(the_time($timeFormat)); ?>", 
-                "sticky" : "<?php echo(is_sticky($post->ID)); ?>",
-                "url" : "<?php $this->edcal_json_encode(the_permalink()); ?>", 
-                "status" : "<?php echo(get_post_status()); ?>",
-                "title" : <?php echo($this->edcal_json_encode(get_the_title())); ?>,
-                "author" : <?php echo($this->edcal_json_encode(get_the_author())); ?>,
-                "type" : "<?php echo(get_post_type( $post )); ?>",
-                "typeTitle" : "<?php echo($postTypeTitle); ?>",
+                "date_gmt" : "<?php echo $post_date_gmt; // we are not actually using this right now ?>",
+                "time" : "<?php echo trim(get_the_time()) ?>", 
+                "formattedtime" : "<?php $this->edcal_json_encode(the_time($timeFormat)) ?>", 
+                "sticky" : "<?php echo is_sticky($post->ID) ?>",
+                "url" : "<?php $this->edcal_json_encode(the_permalink()) ?>", 
+                "status" : "<?php echo get_post_status() ?>",
+                "title" : <?php echo $this->edcal_json_encode(get_the_title()) ?>,
+                "author" : <?php echo $this->edcal_json_encode(get_the_author()) ?>,
+                "type" : "<?php echo get_post_type( $post ) ?>",
+                "typeTitle" : "<?php echo $postTypeTitle ?>",
     
                 <?php if ( current_user_can('edit_post', $post->ID) ) {?>
-                "editlink" : "<?php echo(get_edit_post_link($id)); ?>",
+                "editlink" : "<?php echo get_edit_post_link($id) ?>",
                 <?php } ?>
     
                 <?php if ( current_user_can('delete_post', $post->ID) ) {?>
                 "dellink" : "javascript:edcal.deletePost(<?php echo $post->ID ?>)",
                 <?php } ?>
     
-                "permalink" : "<?php echo(get_permalink($id)); ?>",
+                "permalink" : "<?php echo get_permalink($id) ?>",
                 "id" : "<?php the_ID(); ?>"
     			
     			<?php if($fullPost) : ?>
@@ -729,7 +765,7 @@ class EdCal {
      * This is a helper AJAX function to delete a post. It gets called
      * when a user clicks the delete button, and allows the user to 
      * retain their position within the calendar without a page refresh.
-     * It is not called unless the user has permission to delete the post
+     * It is not called unless the user has permission to delete the post.
      */
     function edcal_deletepost() {
     	if (!$this->edcal_checknonce()) {
@@ -867,7 +903,7 @@ class EdCal {
     
     /*
      * This is a helper function to create a new draft post on a specified date
-     * or update an existing post
+     * or update an existing post.
      */
     function edcal_savepost() {
     	
@@ -993,74 +1029,90 @@ class EdCal {
         $edcal_newDate = isset($_GET['newdate'])?$_GET['newdate']:null;
         $edcal_oldDate = isset($_GET['olddate'])?$_GET['olddate']:null;
         $edcal_postStatus = isset($_GET['postStatus'])?$_GET['postStatus']:null;
-        
-        if (!current_user_can('edit_post', $edcal_postid)) {
-            /*
-             * This is just a sanity check to make sure that the current
-             * user has permission to edit posts.  Most of the time this
-             * will never be run because you can't see the calendar unless
-             * you are at least an editor
-             */
-            ?>
-            {
-                "error": <?php echo(EDCAL_PERMISSION_ERROR); ?>,
-            <?php
-            
-            global $post;
-            $args = array(
-                'posts_id' => $edcal_postid,
-            );
-            
-            $post = get_post($edcal_postid);
-            ?>
-                "post" :
-            <?php
-                $this->edcal_postJSON($post, false, true);
-            ?> }
-            
-            <?php
-            die();
-        }
-        
-        $post = get_post($edcal_postid, ARRAY_A);
+        $move_to_drawer = $edcal_newDate == '0000-00-00';
+        $move_from_drawer = $edcal_oldDate == '00000000';
+
+        global $post;
+        $args = array(
+            'posts_id' => $edcal_postid,
+        );
+        $post = get_post($edcal_postid);
         setup_postdata($post);
-        
-        /*
-         * We are doing optimistic concurrency checking on the dates.  If
-         * the user tries to move a post we want to make sure nobody else
-         * has moved that post since the page was last updated.  If the 
-         * old date in the database doesn't match the old date from the
-         * browser then we return an error to the browser along with the
-         * updated post data.
-         */
-         if (date('Y-m-d', strtotime($post['post_date'])) != date('Y-m-d', strtotime($edcal_oldDate))) {
-            ?> {
-                "error": <?php echo(EDCAL_CONCURRENCY_ERROR); ?>,
-            <?php
-            
-            global $post;
-            $args = array(
-                'posts_id' => $edcal_postid,
-            );
-            
-            $post = get_post($edcal_postid);
-            ?>
-                "post" :
-            <?php
-                $this->edcal_postJSON($post, false, true);
-            ?> }
-            
-            <?php
-            die();
-        }
-        
+
         /*
          * Posts in WordPress have more than one date.  There is the GMT date,
          * the date in the local time zone, the modified date in GMT and the
          * modified date in the local time zone.  We update all of them.
          */
-        $post['post_date_gmt'] = $post['post_date'];
+        if ( $move_from_drawer ) {
+            /* 
+             * Set the date to 'unscheduled' [ie. 0], and while we're at it we 
+             * add the default time so it won't be at midnight. We use this date 
+             * further down in the concurrency check, and this will make the dates
+             * technically off by 10 hours, but it's still the same day. We only do 
+             * this for posts that were created as drafts.  Works for now, but
+             * we would have to revamp this if we use an actual timestamp check.
+             */
+            $post->post_date = '0000-00-00 '.$this->default_time.':00';
+        } else if ( $move_to_drawer ) {
+            // echo ( "\r\npost->post_date_gmt=".$post->post_date_gmt);
+            $post->post_date_gmt = $post->post_date;
+        } else {
+            // set the scheduled time as our original time
+            $post->post_date_gmt = $post->post_date;
+        }
+// echo ( "\r\npost->post_date_gmt = $post->post_date_gmt \r\npost->post_date = $post->post_date");
+
+        /*
+         * Error-checking:
+         */
+        $error = false;
+        if (!current_user_can('edit_post', $edcal_postid)) {
+            /*
+             * This is just a sanity check to make sure that the current
+             * user has permission to edit posts.  Most of the time this
+             * will never be run because you can't see the calendar unless
+             * you are at least an editor.
+             */
+            $error = EDCAL_PERMISSION_ERROR;
+        } else if ( date('Y-m-d', strtotime($post->post_date)) != date('Y-m-d', strtotime($edcal_oldDate)) ) {
+	        /*
+	         * We are doing optimistic concurrency checking on the dates.  If
+	         * the user tries to move a post we want to make sure nobody else
+	         * has moved that post since the page was last updated.  If the 
+	         * old date in the database doesn't match the old date from the
+	         * browser then we return an error to the browser along with the
+	         * updated post data.
+	         */
+            $error = EDCAL_CONCURRENCY_ERROR;
+        }
+
+        if ( $error ) {
+            // die('error= '.$error);
+            ?>
+            {
+                "error": <?php echo $error; ?>,
+                "post" :
+            <?php
+                $this->edcal_postJSON($post, false, true);
+            ?> }
+            
+            <?php
+            die();
+        }
+
+
+        /*
+         * No errors, so let's go create our new post parameters to update
+         */
         
+        $updated_post = array();
+        $updated_post['ID'] = $edcal_postid;
+
+		if ( !$move_to_drawer ) {
+	        $updated_post['post_date'] = $edcal_newDate . substr($post->post_date, strlen($edcal_newDate));
+		}
+
         /*
          * When a user creates a draft and never sets a date or publishes it 
          * then the GMT date will have a timestamp of 00:00:00 to indicate 
@@ -1068,28 +1120,36 @@ class EdCal {
          * an edit date or the wp_update_post function will strip our new
          * date out and leave the post as publish immediately.
          */
-        $needsEditDate = strpos($post['post_date_gmt'], "0000-00-00 00:00:00") === 0;
-        
-        $updated_post = array();
-        $updated_post['ID'] = $edcal_postid;
-        $updated_post['post_date'] = $edcal_newDate . substr($post['post_date'], strlen($edcal_newDate));
-        if ($needsEditDate != -1) {
-            $updated_post['edit_date'] = $edcal_newDate . substr($post['post_date'], strlen($edcal_newDate));
+        $needsEditDate = preg_match( '/^0000/', $post->post_date_gmt );
+
+		if ( $needsEditDate ) {
+			// echo "\r\nneeds edit date\r\n";
+            $updated_post['edit_date'] = $edcal_newDate . substr($post->post_date, strlen($edcal_newDate));
         }
-        
+
+        if ( $move_to_drawer ) {
+            $updated_post['post_date_gmt'] = "0000-00-00 00:00:00";
+            $updated_post['edit_date'] = $post->post_date;
+		} else if ( $move_from_drawer ) {
+            $updated_post['post_date_gmt'] = get_gmt_from_date($post->post_date);
+            $updated_post['post_modified_gmt'] = get_gmt_from_date($post->post_date);
+		}
+
         /*
          * We need to make sure to use the GMT formatting for the date.
          */
-        $updated_post['post_date_gmt'] = get_gmt_from_date($updated_post['post_date']);
-        $updated_post['post_modified'] = $edcal_newDate . substr($post['post_modified'], strlen($edcal_newDate));
-        $updated_post['post_modified_gmt'] = get_gmt_from_date($updated_post['post_date']);
+        if ( !$move_to_drawer ) {
+            $updated_post['post_date_gmt'] = get_gmt_from_date($updated_post['post_date']);
+            $updated_post['post_modified'] = $edcal_newDate . substr($post->post_modified, strlen($edcal_newDate));
+            $updated_post['post_modified_gmt'] = get_gmt_from_date($updated_post['post_date']);
+        }
         
-        if ($edcal_postStatus != $post['post_status']) {
+        if ($edcal_postStatus != $post->post_status) {
             /*
              * We only want to update the post status if it has changed.
              * If the post status has changed that takes a few more steps
              */
-            wp_transition_post_status($edcal_postStatus, $post['post_status'], $post);
+            wp_transition_post_status($edcal_postStatus, $post->post_status, $post);
             $updated_post['post_status'] = $edcal_postStatus;
             
             // Update counts for the post's terms.
@@ -1103,6 +1163,7 @@ class EdCal {
             do_action('wp_insert_post', $edcal_postid, $post);
         }
         
+// die(var_dump($updated_post).'success!');
         /*
          * Now we finally update the post into the database
          */

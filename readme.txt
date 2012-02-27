@@ -3,7 +3,7 @@ Contributors: cvernon, justinstresslimit, jkudish, MaryVogt, zgrossbart
 Tags: posts, post, calendar, AJAX, admin, administration
 Requires at least: 2.8.5
 Tested up to: 3.3.1
-Stable tag: 1.8.6
+Stable tag: 1.8.5
 
 The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
 
@@ -30,7 +30,11 @@ Try the calendar before you install it.  Check out the demo installation at <a h
 
 <h4>Make it better</h4>
 
-Thank you to everyone who has given us feedback and helped us improve this plugin.  If you have questions, problems, or ideas for new features please let us know at <a href="mailto:wp-edcal@googlegroups.com">wp-edcal@googlegroups.com</a>.  
+Thank you to everyone who has given us feedback and helped us improve this plugin.  If you have questions, problems, or ideas for new features please let us know at <a href="mailto:wp-edcal@googlegroups.com">wp-edcal@googlegroups.com</a>.
+
+<h4>Translate it</h4>
+
+Again, thanks to all who have already helped make the plugin available in so many languages. If you would like to help us translate the plugin into your language, or if you use it in a language other than English already and would like to help us keep it up to date, please write to us at <a href="mailto:wp-edcal@googlegroups.com">wp-edcal@googlegroups.com</a>
 
 == Installation ==
 
@@ -129,7 +133,7 @@ The editorial calendar works differently based on your permissions.
 * Contributors see everyone's posts and move their own posts, but can only save drafts.
 * Subscribers can't see the calendar.
 
-You can see how it looks for different usres on our <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=cal">Zack's WordPress Sandbox</a> with the following users:
+You can see how it looks for different users on our <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=cal">Zack's WordPress Sandbox</a> with the following users:
 
 * edgar the Editor
 * alice the Author
@@ -167,13 +171,13 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
-= 1.9 =
+= 2.0 =
 
-We are now filtering out all posts with a status of inherit from the calendar so we don't show additional revisions.
+The calendar now has a new major feature, the "drafts drawer," a kind of post staging area where we make all posts that have not been scheduled available to drag onto the calendar. We can also now drag posts from the calendar back into the drafts drawer to "un-schedule" them.
 
-= 1.8.6 =
+Moved around functions in the js and css to be a bit more readable, and added table of contents to css file.
 
-The calendar is now using the proper he_IL locale code for Hebrew instead of he.
+Updated css of Screen Options to be more core WordPress.
 
 = 1.8.5 =
 
@@ -252,7 +256,7 @@ so we don't overwrite the post without the full post content.
 * Changed the text of the edit link on published posts from Republish to Edit.
 
 = 1.0 =
-* Fixed a scrolling issue that prevented cliking the action links on the last post if the individual day showed a scroll bar.
+* Fixed a scrolling issue that prevented clicking the action links on the last post if the individual day showed a scroll bar.
 
 = 0.9 =
 * The calendar now uses the QUnit unit test framework to make sure the calendar maintains high quality in every release.  You can see the <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=cal&qunit=true">tests run</a> on our integration blog or run them on your own blog by adding &qunit=true to the end of the URL for the calendar.
