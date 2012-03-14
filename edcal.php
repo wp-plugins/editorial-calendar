@@ -485,7 +485,7 @@ class EdCal {
     
         wp_enqueue_script( "edcal-lib", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/edcallib.min.js"), array( 'jquery' ) );
     
-        if ($_GET['qunit']) {
+        if (isset($_GET['qunit'])) {
             wp_enqueue_script( "qunit", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/qunit.js"), array( 'jquery' ) );
             wp_enqueue_script( "edcal-test", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/edcal_test.js"), array( 'jquery' ) );
         }
@@ -532,7 +532,7 @@ class EdCal {
          * If we're in the specific post type case we need to add
          * the post type to our query.
          */
-        $post_type = $_GET['post_type'];
+        $post_type = isset($_GET['post_type'])?$_GET['post_type']:null;
         if ($post_type) {
             $args['post_type'] = $post_type;
         }
@@ -569,7 +569,7 @@ class EdCal {
             die();
         }
     	
-    	$post_id = intval($_GET['postid']);
+    	$post_id = isset($_GET['postid'])?intval($_GET['postid']):-1;
     	
     	// If a proper post_id wasn't passed, return
     	if(!$post_id) die();
@@ -582,7 +582,7 @@ class EdCal {
          * If we're in the specific post type case we need to add
          * the post type to our query.
          */
-        $post_type = $_GET['post_type'];
+        $post_type = isset($_GET['post_type'])?$_GET['post_type']:null;
         if ($post_type) {
             $args['post_type'] = $post_type;
         }
@@ -625,7 +625,7 @@ class EdCal {
      */
     function edcal_get_posttype_multiplename() {
     
-        $post_type = $_GET['post_type'];
+        $post_type = isset($_GET['post_type'])?$_GET['post_type']:null;
         if (!$post_type) {
             return __('Posts ', 'editorial-calendar');
         }
@@ -641,7 +641,7 @@ class EdCal {
     
     function edcal_get_posttype_singlename() {
     
-        $post_type = $_GET['post_type'];
+        $post_type = isset($_GET['post_type'])?$_GET['post_type']:null;
         if (!$post_type) {
             return __('Post ', 'editorial-calendar');
         }
