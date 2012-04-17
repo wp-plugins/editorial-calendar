@@ -167,6 +167,10 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
+= 1.9.1 =
+
+The calendar is no longer blocking typing in the calendar quick edit dialog.
+
 = 1.9 =
 
 We are now filtering out all posts with a status of inherit from the calendar so we don't show additional revisions.

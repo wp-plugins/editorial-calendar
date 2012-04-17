@@ -1733,7 +1733,7 @@ var edcal = {
             }
             
             if (jQuery('#tooltip').is(':visible')) {
-                return false;
+                return;
             }
 
             if ((evt.keyCode === 40 && !(evt.altKey || evt.ctrlKey))) {        // down arrow key
