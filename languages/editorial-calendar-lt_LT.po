@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WordPress Editorial Calendar v1.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2012-04-02 08:36-0500\n"
+"PO-Revision-Date: 2012-04-02 09:16-0500\n"
 "Last-Translator: Zack Grossbart <zack@grossbart.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -311,4 +311,8 @@ msgstr "Laukiama Peržiūros"
 #: edcal.php:738
 msgid "Error in deleting..."
 msgstr "Klaida trynimo procese..."
+
+#: edcal.php:617
+msgid "Posts "
+msgstr "Pranešimų "
 
