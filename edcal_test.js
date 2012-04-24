@@ -25,8 +25,13 @@ var edcal_test = {
     testContent: 'This is the content of the <b>unit test &#8211 post</b>. <!--more--> This is content after the more tag to make sure we a reading it.',
     testContent2: 'This is the content of the <b>unit test &#8211 post</b>. <!--more--> This is content after the more tag to make sure we a reading it. - CHANGED',
 
-
     runTests: function() {
+        edcal.setDraftsDrawerVisible(true, function() {
+            edcal_test.startTests();
+        });
+    },
+
+    startTests: function() {
         jQuery('head').append('<link>');
         css = jQuery('head').children(':last');
         css.attr({

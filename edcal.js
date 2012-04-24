@@ -205,8 +205,18 @@ var edcal = {
        any flickering.
      */
     windowHeight: 0,
-        
+
+    
+    /*
+       This variable indicates if the calendar is in left to right or right to 
+       left display mode.
+    */    
     ltr: 'ltr',
+
+    /*
+       This variable indicates if the drafts drawer is visible or not.
+    */
+    isDraftsDrawerVisible: false,
 
     /*
      * Initializes the calendar
@@ -418,7 +428,7 @@ var edcal = {
         });
 
         jQuery('#showdraftsdrawer').click(function() {
-            edcal.showhideDraftsDrawer( jQuery(this) );
+            edcal.setDraftsDrawerVisible(!edcal.isDraftsDrawerVisible);
         });
     },
 
@@ -426,35 +436,42 @@ var edcal = {
      * This function shows and hides the drafts drawer. Kind of clunky right now.
      * Inits [loads content] only once. 
      */
-    showhideDraftsDrawer: function( /*jQuery element*/ showhideElement ) {
+    setDraftsDrawerVisible: function(/*boolean*/ visible, /*function*/ callback) {
         var drawerwidth = '13%';
         var drawerwidthmargin = '13.5%';
+        var showhideElement = jQuery('#showdraftsdrawer');
         /* tells us if the drafts have been loaded for the first time */
-        if ( !showhideElement.hasClass('isLoaded') ) {
+        if (!showhideElement.hasClass('isLoaded')) {
             showhideElement.addClass('isLoaded');
-            edcal.setupDraftsdrawer();
+            edcal.setupDraftsdrawer(callback);
         }
-        if ( showhideElement.hasClass('showed') ) {
-			// edcal.output('hiding draftsdrawer');
-			showhideElement.removeClass('showed');
-            jQuery('#cal_cont').css({ 'margin-right': '0' });
-            jQuery('#draftsdrawer_cont').css({ display:'none', width:'0' });
-            showhideElement.html(edcal.str_showdrafts);
-        } else {
-			// edcal.output('showing draftsdrawer');
-			showhideElement.addClass('showed');
+
+        if (visible) {
+            // edcal.output('showing draftsdrawer');
             jQuery('#cal_cont').css({ 'margin-right': drawerwidthmargin });
             jQuery('#draftsdrawer_cont').css({ display:'block', width:drawerwidth });
             showhideElement.html(edcal.str_hidedrafts);
+        } else {		
+            // edcal.output('hiding draftsdrawer');
+            jQuery('#cal_cont').css({ 'margin-right': '0' });
+            jQuery('#draftsdrawer_cont').css({ display:'none', width:'0' });
+            showhideElement.html(edcal.str_showdrafts);
         }
+
+        edcal.isDraftsDrawerVisible = visible;
     },
 
     /*
      * Sets up the drafts drawer.
      */
-    setupDraftsdrawer: function() {
+    setupDraftsdrawer: function(/*function*/ callback) {
         jQuery('#draftsdrawer_loading').css({display:'block'});
-        edcal.getPosts( '00000000', null, edcal.initDraftsdrawer );
+        edcal.getPosts('00000000', null, function() {
+            edcal.initDraftsdrawer();
+            if (callback) {
+                callback();
+            }
+        });
     },
 
     /*
