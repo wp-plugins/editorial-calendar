@@ -124,7 +124,14 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     border-radius:4px;
 }
 #draftsdrawer .dayheadcont {  }
-#draftsdrawer .dayhead { float:none; }
+#draftsdrawer .dayhead {
+    float:none;
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0px;
+}
 #draftsdrawer .day { border:0; }
 #draftsdrawer .dayobj { height:auto; }
 #draftsdrawer .postlist { top:7px; }
