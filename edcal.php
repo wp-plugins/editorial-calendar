@@ -269,6 +269,7 @@ class EdCal {
                 edcal.str_by = <?php echo($this->edcal_json_encode(__('%1$s by %2$s', 'editorial-calendar'))) ?>;
                 
                 edcal.str_addPostLink = <?php echo($this->edcal_json_encode(__('New Post', 'editorial-calendar'))) ?>;
+                edcal.str_addDraftLink = <?php echo($this->edcal_json_encode(__('New Draft', 'editorial-calendar'))) ?>;
                 edcal.ltr = <?php echo($this->edcal_json_encode(__('ltr', 'editorial-calendar'))) ?>;
                 
                 edcal.str_draft = <?php echo($this->edcal_json_encode(__(' [DRAFT]', 'editorial-calendar'))) ?>;
@@ -286,7 +287,9 @@ class EdCal {
                 edcal.str_posttitle = <?php echo($this->edcal_json_encode(__('Title', 'editorial-calendar'))) ?>;
                 edcal.str_postcontent = <?php echo($this->edcal_json_encode(__('Content', 'editorial-calendar'))) ?>;
                 edcal.str_newpost = <?php echo($this->edcal_json_encode(__('Add a new post on %s', 'editorial-calendar'))) ?>;
+                edcal.str_newdraft = <?php echo($this->edcal_json_encode(__('Add a new draft', 'editorial-calendar'))) ?>;
                 edcal.str_newpost_title = <?php echo($this->edcal_json_encode(sprintf(__('New %s - ', 'editorial-calendar'), $this->edcal_get_posttype_singlename()))) ?> ;
+                edcal.str_newdraft_title = <?php echo($this->edcal_json_encode(__('New Draft', 'editorial-calendar'))) ?>;
                 edcal.str_update = <?php echo($this->edcal_json_encode(__('Update', 'editorial-calendar'))) ?>;
                 edcal.str_publish = <?php echo($this->edcal_json_encode(__('Schedule', 'editorial-calendar'))) ?>;
                 edcal.str_review = <?php echo($this->edcal_json_encode(__('Submit for Review', 'editorial-calendar'))) ?>;
@@ -439,24 +442,25 @@ class EdCal {
                         <span class="input-text-wrap"><textarea cols="15" rows="7" id="content" name="content"></textarea></span>
                     </label>
     
-    
-                    <label>
-                        <span class="title"><?php _e('Time', 'editorial-calendar') ?></span>
-                        <span class="input-text-wrap"><input type="text" class="ptitle" id="edcal-time" name="time" value="" size="8" maxlength="8" autocomplete="off" /></span>
-                    </label>
-    					
-                    <label>
-                        <span class="title"><?php _e('Status', 'editorial-calendar') ?></span>
-                        <span class="input-text-wrap">
-                            <select name="status" id="edcal-status">
-                                <option value="draft"><?php _e('Draft', 'editorial-calendar') ?></option>
-                                <option value="pending"><?php _e('Pending Review', 'editorial-calendar') ?></option>
-                                <?php if ( current_user_can('publish_posts') ) {?>
-                                    <option id="futureoption" value="future"><?php _e('Scheduled', 'editorial-calendar') ?></option>
-                                <?php } ?>
-                            </select>
-                        </span>
-    				</label>
+                    <div id="timeEditControls">
+                        <label>
+                            <span class="title"><?php _e('Time', 'editorial-calendar') ?></span>
+                            <span class="input-text-wrap"><input type="text" class="ptitle" id="edcal-time" name="time" value="" size="8" maxlength="8" autocomplete="off" /></span>
+                        </label>
+                            
+                        <label>
+                            <span class="title"><?php _e('Status', 'editorial-calendar') ?></span>
+                            <span class="input-text-wrap">
+                                <select name="status" id="edcal-status">
+                                    <option value="draft"><?php _e('Draft', 'editorial-calendar') ?></option>
+                                    <option value="pending"><?php _e('Pending Review', 'editorial-calendar') ?></option>
+                                    <?php if ( current_user_can('publish_posts') ) {?>
+                                        <option id="futureoption" value="future"><?php _e('Scheduled', 'editorial-calendar') ?></option>
+                                    <?php } ?>
+                                </select>
+                            </span>
+                        </label>
+                    </div>
     
     <?php /*                <label>
                         <span class="title"><?php _e('Author', 'editorial-calendar') ?></span>
@@ -921,6 +925,7 @@ class EdCal {
         $this->edcal_addNoCacheHeaders();
         
         $edcal_date = isset($_POST["date"])?$_POST["date"]:null;
+        $edcal_date_gmt = isset($_POST["date_gmt"])?$_POST["date_gmt"]:get_gmt_from_date($edcal_date);
         
         $my_post = array();
     	
@@ -935,9 +940,9 @@ class EdCal {
         $my_post['post_content'] = isset($_POST["content"])?$_POST["content"]:null;
         
         $my_post['post_date'] = $edcal_date;
-        $my_post['post_date_gmt'] = get_gmt_from_date($edcal_date);
+        $my_post['post_date_gmt'] = $edcal_date_gmt;
         $my_post['post_modified'] = $edcal_date;
-        $my_post['post_modified_gmt'] = get_gmt_from_date($edcal_date);
+        $my_post['post_modified_gmt'] = $edcal_date_gmt;
         
         /* 
          * When we create a new post we need to specify the post type

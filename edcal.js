@@ -494,6 +494,9 @@ var edcal = {
      */
     initDraftsdrawer: function() {
         var newrow = '';
+        
+        newrow += '<a href="#" adddate="' + edcal.NO_DATE + '" class="daynewlink" style="display: inline;" title="' + edcal.str_newdraft + '" ' +
+            'onclick="edcal.addDraft(); return false;">' + edcal.str_addDraftLink + '</a>';
 
         newrow += '<ul class="postlist">';
 
@@ -507,6 +510,10 @@ var edcal = {
         
         jQuery('#unscheduled').append(newrow);
         jQuery('#draftsdrawer_loading').css({display:'none'});
+        
+        var cal_cont = jQuery('#cal_cont');
+        
+        jQuery('#unscheduled ul.postlist').css('min-height', (cal_cont.height() - 10) - jQuery('#draftsdrawer .draftsdrawerheadcont').height());
 	},
 
     /*
@@ -1079,6 +1086,24 @@ var edcal = {
         edcal.showForm(post);
         return false;
     },
+    
+    /*
+     * Called when the "Add a draft" link is clicked.
+     * Sets up a post object and displays the add form
+     */
+    addDraft: function() {
+        jQuery('#newPostScheduleButton').addClass('disabled');
+
+        var post = {
+            id: 0,
+            date: Date.today(),
+            formatteddate: edcal.NO_DATE,
+            time: edcal.NO_DATE,
+            status: 'draft'
+        };
+        edcal.showForm(post);
+        return false;
+    },
 
     /*
      * Called when the Edit link for a post is clicked.
@@ -1138,16 +1163,26 @@ var edcal = {
          } else {
             time = Date.parse('10:00:00'); // If we don't have a time set, default it to 10am
          }
-
-         var formattedtime = time.format('H:i:s');
-
-         var formattedDate = encodeURIComponent(edcal.getDayFromDayId(post.date).toString(edcal.wp_dateFormat) + ' ' + formattedtime);
+         
+         var formattedDate;
+         
+         if (time !== null && time !== edcal.NO_DATE) {
+             var formattedtime = time.format('H:i:s');
+             formattedDate = encodeURIComponent(edcal.getDayFromDayId(post.date).toString(edcal.wp_dateFormat) + ' ' + formattedtime);
+         } else {
+             formattedDate = encodeURIComponent(post.date.toString(edcal.wp_dateFormat + ' H:i:s'));
+         }
+         
          var url = edcal.ajax_url() + '&action=edcal_savepost';
          var postData = 'date=' + formattedDate +
                        '&title=' + encodeURIComponent(post.title) +
                        '&content=' + encodeURIComponent(post.content) +
                        '&id=' + encodeURIComponent(post.id) +
                        '&status=' + encodeURIComponent(post.status);
+         
+         if (time === null || time === edcal.NO_DATE) {
+             postData += '&date_gmt=' + encodeURIComponent('0000-00-00 00:00:00');
+         }
 
          if (edcal.getUrlVars().post_type) {
              postData += '&post_type=' + encodeURIComponent(edcal.getUrlVars().post_type);
@@ -1190,12 +1225,18 @@ var edcal = {
                         window.location = res.post.editlink.replace('&amp;', '&');
                     } else {
 
+                        var date = res.post.date;
+                        
+                        if (res.post.date_gmt === edcal.NO_DATE) {
+                            date = res.post.date_gmt;
+                        }
+                        
                         if (res.post.id) {
-                            edcal.removePostItem(res.post.date, 'post-' + res.post.id);
+                            edcal.removePostItem(date, 'post-' + res.post.id);
                         }
 
-                        edcal.addPostItem(res.post, res.post.date);
-                        edcal.addPostItemDragAndToolltip(res.post.date);
+                        edcal.addPostItem(res.post, date);
+                        edcal.addPostItemDragAndToolltip(date);
                     }
                 }
 
@@ -1233,13 +1274,23 @@ var edcal = {
      */
     showForm: function(post) {
         edcal.resetForm();
+        
+        if (post.formatteddate === edcal.NO_DATE || post.date_gmt === edcal.NO_DATE) {
+            jQuery('#timeEditControls').hide();
+        } else {
+            jQuery('#timeEditControls').show();
+        }
 
         // show tooltip
         jQuery('#tooltip').center().show();
         jQuery('#edcal_scrollable').data('scrollable').getConf().keyboard = false;
 
         if (!post.id) {
-            jQuery('#tooltiptitle').text(edcal.str_newpost_title + post.formatteddate);
+            if (post.formatteddate === edcal.NO_DATE) {
+                jQuery('#tooltiptitle').text(edcal.str_newdraft_title);
+            } else {
+                jQuery('#tooltiptitle').text(edcal.str_newpost_title + post.formatteddate);
+            }
         } else {
             jQuery('#tooltiptitle').text(sprintf(edcal.str_edit_post_title, post.typeTitle, edcal.getDayFromDayId(post.date).toString(edcal.previewDateFormat)));
 
@@ -1295,20 +1346,6 @@ var edcal = {
 
         jQuery('#edcal-title-new-field').focus();
         jQuery('#edcal-title-new-field').select();
-
-        /*
-        tb_init('a.thickbox, area.thickbox, input.thickbox');
-
-        edCanvas = document.getElementById('content');
-        edInsertContent = null;
-
-        jQuery('a.thickbox').click(function(){
-            if ( typeof tinyMCE != 'undefined' && tinyMCE.activeEditor ) {
-                tinyMCE.get('content').focus();
-                tinyMCE.activeEditor.windowManager.bookmark = tinyMCE.activeEditor.selection.getBookmark('simple');
-            }
-        });
-        */
     },
 
     /*
