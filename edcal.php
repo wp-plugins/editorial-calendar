@@ -488,10 +488,11 @@ class EdCal {
      */
     function edcal_filter_where($where = '') {
         global $edcal_startDate, $edcal_endDate;
-        if ( $edcal_startDate=='00000000' )
+        if ($edcal_startDate == '00000000') {
             $where .= " AND post_date_gmt LIKE '0000%'";
-        else
+        } else {
             $where .= " AND post_date >= '" . $edcal_startDate . "' AND post_date < '" . $edcal_endDate . "' AND post_date_gmt NOT LIKE '0000%'";
+        }
         return $where;
     }
     
@@ -567,11 +568,18 @@ class EdCal {
         }
 
         /* 
+         * If we're getting the list of posts for the drafts drawer we
+         * want to sort them by the post title.
+         */
+        if ($edcal_startDate == '00000000') {
+            $args['orderby'] = 'title';
+        }
+
+        /* 
          * We add a WHERE clause to filter by calendar date and/or by whether
          * or not the posts have been scheduled to a specific date:
          * WHERE `post_date_gmt` = '0000-00-00 00:00:00'
          */
-
         add_filter( 'posts_where', array(&$this, 'edcal_filter_where' ));
         $myposts = query_posts($args);
         remove_filter( 'posts_where', array(&$this, 'edcal_filter_where' ));
