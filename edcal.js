@@ -1452,25 +1452,37 @@ var edcal = {
        specified ID.
      */
     showActionLinks: function(/*string*/ postid) {
+         if (edcal.actionTimer) {
+             clearTimeout(edcal.actionTimer);
+         }
+         
+         var timeout = 500;
+         
          var post = edcal.findPostForId(jQuery('#' + postid).parent().parent().parent().attr('id'), postid);
-
+    
          if (edcal.inDrag || !edcal.isPostEditable(post)) {
              return;
          }
 
          var elem = jQuery('#' + postid + ' > div.postactions');
-
-         elem.show();
-
-
-         if (elem.parent().position().top + elem.parent().height() > elem.parent().parent().height()) {
-             /*
-                This means the action links probably won't be visible and we need to
-                scroll to make sure the users can see it.
-              */
-             var p = jQuery('#' + postid + ' > div.postactions').parent().parent();
-             p.scrollTop(p.scrollTop() + 45);
+         
+         if (elem.is(":visible")) {
+             timeout = 0;
          }
+         
+         edcal.actionTimer = setTimeout(function() {
+             elem.slideDown();
+    
+    
+             if (elem.parent().position().top + elem.parent().height() > elem.parent().parent().height()) {
+                 /*
+                    This means the action links probably won't be visible and we need to
+                    scroll to make sure the users can see it.
+                  */
+                 var p = jQuery('#' + postid + ' > div.postactions').parent().parent();
+                 p.scrollTop(p.scrollTop() + 45);
+             }
+         }, timeout);
     },
 
     /*
@@ -1478,8 +1490,14 @@ var edcal = {
        post ID.
      */
     hideActionLinks: function(/*string*/ postid) {
-         var elem = jQuery('#' + postid + ' > div.postactions');
-         elem.hide();
+         if (edcal.actionTimer) {
+             clearTimeout(edcal.actionTimer);
+         }
+         
+         edcal.actionTimer = setTimeout(function() {
+             var elem = jQuery('#' + postid + ' > div.postactions');
+             elem.hide();
+         }, 250);
     },
 
     /*
