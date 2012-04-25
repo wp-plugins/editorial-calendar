@@ -1994,6 +1994,13 @@ var edcal = {
 
          var olddate = move_from_drawer ? post.date_gmt : edcal.getDayFromDayId(post.date).toString(edcal.wp_dateFormat);
          
+         if (move_to_drawer) {
+             /*
+              * If the post is going into the drafts drawer then it must be a draft
+              */
+             post.status = 'draft';
+         }
+         
          var url = edcal.ajax_url() + '&action=edcal_changedate&postid=' + post.id +
              '&postStatus=' + post.status +
              '&newdate=' + newdateFormatted + '&olddate=' + olddate;
