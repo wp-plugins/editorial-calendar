@@ -456,6 +456,11 @@ var edcal = {
         if (!showhideElement.hasClass('isLoaded')) {
             showhideElement.addClass('isLoaded');
             edcal.setupDraftsdrawer(callback);
+        } else if (callback) {
+            /*
+             * If the drawer was already open we just call the callback
+             */
+            callback();
         }
 
         if (visible) {
@@ -780,7 +785,6 @@ var edcal = {
 
         edcal.draggablePost('#row' + edcal._wDate.toString(edcal.internalDateFormat) + ' li.post');
 
-        edcal.output('making ' + edcal._wDate.toString(edcal.internalDateFormat) + ' > div > div.day droppable.');
         edcal.makeDroppable(jQuery('#row' + edcal._wDate.toString(edcal.internalDateFormat) + ' > div > div.day'));
 
         return jQuery('row' + edcal._wDate.toString(edcal.internalDateFormat));
@@ -2567,9 +2571,6 @@ jQuery.fn.center = function() {
 
 
 jQuery(document).ready(function() {
-    edcal.init();
-
-    if (false) {
     try {
         edcal.init();
     } catch (e) {
@@ -2581,8 +2582,7 @@ jQuery(document).ready(function() {
         edcal.output('Error loading calendar: ' + e);
         edcal.showFatalError(e.description);
     }
-    }
-
+    
     /*
      * The calendar supports unit tests through the QUnit framework,
      * but we don't want to load the extra files when we aren't running
