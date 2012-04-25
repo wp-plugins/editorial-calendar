@@ -503,19 +503,8 @@ var edcal = {
 
         edcal.draggablePost('#row' + edcal._wDate.toString(edcal.internalDateFormat) + ' li.post');
 
-        jQuery('#draftsdrawer div.day').droppable({
-            hoverClass: 'day-active',
-            greedy: true,
-            tolerance: 'pointer',
-            drop: function(event, ui) {
-                   // edcal.output('dropped ui.draggable.attr("id"): ' + ui.draggable.attr("id"));
-                   // edcal.output('dropped on jQuery(this).attr("id"): ' + jQuery(this).attr("id"));
-                   // edcal.output('ui.draggable.html(): ' + ui.draggable.html());
-                   // var dayId = 'draftsdrawer';
-                   var dayId = ui.draggable.parent().parent().parent().attr('id');
-                   edcal.doDrop(dayId, ui.draggable.attr('id'), jQuery(this).attr('id'));
-                }
-            });
+        edcal.makeDroppable(jQuery('#draftsdrawer div.day'));
+        
         jQuery('#unscheduled').append(newrow);
         jQuery('#draftsdrawer_loading').css({display:'none'});
 	},
@@ -785,7 +774,16 @@ var edcal = {
         edcal.draggablePost('#row' + edcal._wDate.toString(edcal.internalDateFormat) + ' li.post');
 
         edcal.output('making ' + edcal._wDate.toString(edcal.internalDateFormat) + ' > div > div.day droppable.');
-        jQuery('#row' + edcal._wDate.toString(edcal.internalDateFormat) + ' > div > div.day').droppable({
+        edcal.makeDroppable(jQuery('#row' + edcal._wDate.toString(edcal.internalDateFormat) + ' > div > div.day'));
+
+        return jQuery('row' + edcal._wDate.toString(edcal.internalDateFormat));
+    },
+    
+    /*
+     * Make a specific post droppable
+     */
+    makeDroppable: function(/*jQuery*/ day) {
+        day.droppable({
             hoverClass: 'day-active',
             accept: function(ui) {
                 /*
@@ -808,22 +806,21 @@ var edcal = {
             greedy: true,
             tolerance: 'pointer',
             drop: function(event, ui) {
-                   // edcal.output('dropped ui.draggable.attr("id"): ' + ui.draggable.attr("id"));
-                   // edcal.output('dropped on jQuery(this).attr("id"): ' + jQuery(this).attr("id"));
-                   // edcal.output('ui.draggable.html(): ' + ui.draggable.html());
+                   //edcal.output('dropped ui.draggable.attr("id"): ' + ui.draggable.attr("id"));
+                   //edcal.output('dropped on jQuery(this).attr("id"): ' + jQuery(this).attr("id"));
+                   //edcal.output('ui.draggable.html(): ' + ui.draggable.html());
                    var dayId = ui.draggable.parent().parent().parent().attr('id');
-                   // edcal.output('dayId: ' + dayId);
+                   //edcal.output('dayId: ' + dayId);
                    edcal.doDrop(dayId, ui.draggable.attr('id'), jQuery(this).attr('id'));
                 }
             });
-
-        return jQuery('row' + edcal._wDate.toString(edcal.internalDateFormat));
     },
 
     /*
      * Handle the drop when a user drags and drops a post.
      */
     doDrop: function(/*string*/ parentId, /*string*/ postId, /*string*/ newDate, /*function*/ callback) {
+         //edcal.output('doDrop(' + parentId + ', ' + postId + ', ' + newDate + ')');
          var dayId = parentId;
 
 
@@ -991,7 +988,6 @@ var edcal = {
     */
     deletePost: function(/*Post ID*/ postId, /*function*/ callback) {
 
-        edcal.output('deletePost(' + postId + ')');
         var url = edcal.ajax_url() + '&action=edcal_deletepost&postid=' + postId;
 
         jQuery.ajax({
@@ -1377,12 +1373,11 @@ var edcal = {
      * Removes a post from the HTML and the posts cache.
      */
     removePostItem: function(/*string*/ dayobjId, /*string*/ postId) {
-         edcal.output('removePostItem(' + dayobjId + ', ' + postId + ')');
+         //edcal.output('removePostItem(' + dayobjId + ', ' + postId + ')');
          if (edcal.findPostForId(dayobjId, postId)) {
              for (var i = 0; i < edcal.posts[dayobjId].length; i++) {
-                 if (edcal.posts[dayobjId][i] &&
-                     'post-' + edcal.posts[dayobjId][i].id === postId) {
-	                     edcal.output('(#' + postId+').remove()  -  post-'+edcal.posts[dayobjId][i].id);
+                 if (edcal.posts[dayobjId][i] && 'post-' + edcal.posts[dayobjId][i].id === postId) {
+	                 //edcal.output('(#' + postId+').remove()  -  post-'+edcal.posts[dayobjId][i].id);
                      edcal.posts[dayobjId][i] = null;
                      jQuery('#' + postId).remove();
                  }
@@ -1991,13 +1986,14 @@ var edcal = {
        the specified post on the server.
      */
     changeDate: function(/*string*/ newdate, /*Post*/ post, /*function*/ callback) {
-         edcal.output('Changing the date of "' + post.title + '" to ' + newdate);
-	     var move_to_drawer = newdate=='00000000';
-	     var move_from_drawer = post.date=='00000000';
+         edcal.output('changeDate(' + newdate + ', ' + post + ')');
+	     var move_to_drawer = newdate === edcal.NO_DATE;
+	     var move_from_drawer = post.date_gmt === edcal.NO_DATE;
 	     var newdateFormatted = move_to_drawer ? '0000-00-00' : edcal.getDayFromDayId(newdate).toString(edcal.wp_dateFormat);
 	     // edcal.output('newdate='+newdate+'\nnewdateFormatted='+newdateFormatted);
-	     var olddate = move_from_drawer ? post.date : edcal.getDayFromDayId(post.date).toString(edcal.wp_dateFormat);
 
+         var olddate = move_from_drawer ? post.date_gmt : edcal.getDayFromDayId(post.date).toString(edcal.wp_dateFormat);
+         
          var url = edcal.ajax_url() + '&action=edcal_changedate&postid=' + post.id +
              '&postStatus=' + post.status +
              '&newdate=' + newdateFormatted + '&olddate=' + olddate;
