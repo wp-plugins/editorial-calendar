@@ -64,6 +64,12 @@
 var edcal = {
 
     /*
+       This final string represents the date which indicates to WordPress
+       that a post doesn't have a date.
+    */
+    NO_DATE: '00000000',
+
+    /*
        This value is the number of weeks the user wants to see at one time
        in the calendar.
      */
@@ -466,7 +472,7 @@ var edcal = {
      */
     setupDraftsdrawer: function(/*function*/ callback) {
         jQuery('#draftsdrawer_loading').css({display:'block'});
-        edcal.getPosts('00000000', null, function() {
+        edcal.getPosts(edcal.NO_DATE, null, function() {
             edcal.initDraftsdrawer();
             if (callback) {
                 callback();
@@ -483,7 +489,7 @@ var edcal = {
 
         newrow += '<ul class="postlist">';
 
-        newrow += edcal.getPostItems( '00000000' );
+        newrow += edcal.getPostItems(edcal.NO_DATE);
 
         newrow += '</ul>';
 
@@ -769,6 +775,7 @@ var edcal = {
 
         edcal.draggablePost('#row' + edcal._wDate.toString(edcal.internalDateFormat) + ' li.post');
 
+        edcal.output('making ' + edcal._wDate.toString(edcal.internalDateFormat) + ' > div > div.day droppable.');
         jQuery('#row' + edcal._wDate.toString(edcal.internalDateFormat) + ' > div > div.day').droppable({
             hoverClass: 'day-active',
             accept: function(ui) {
@@ -2502,6 +2509,9 @@ jQuery.fn.center = function() {
 
 
 jQuery(document).ready(function() {
+    edcal.init();
+
+    if (false) {
     try {
         edcal.init();
     } catch (e) {
@@ -2510,7 +2520,9 @@ jQuery(document).ready(function() {
          * conflict with a JavaScript library imported by
          * another plugin.
          */
+        edcal.output('Error loading calendar: ' + e);
         edcal.showFatalError(e.description);
+    }
     }
 
     /*

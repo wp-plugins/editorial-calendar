@@ -266,7 +266,37 @@ var edcal_test = {
 
                  start();
 
-                 edcal_test.testEditPost();
+                 edcal_test.testMovePostDraft();
+             });
+         });
+
+    },
+
+    testMovePostDraft: function() {
+
+         asyncTest('Move an existing post to the drafts drawer', function() {
+             expect(2);
+
+             // We added the post one week in the future, now we will move it
+             // one day after that.
+             var newDate = Date.today().add(22).days().toString(edcal.internalDateFormat);
+
+             edcal.doDrop(edcal_test.post.date, 'post-' + edcal_test.post.id, edcal.NO_DATE, function(res) {
+
+                 if (!res.post) {
+                     ok(false, 'There was an error creating the new post.');
+                     return;
+                 }
+
+                 equals(res.post.date_gmt, edcal.NO_DATE, 'The resulting post should have the same date as the request and it was ' + res.post.date);
+
+                 equals(jQuery('#post-' + res.post.id).length, 1, 'The post should be added in only one place in the calendar.');
+
+                 edcal_test.post = res.post;
+
+                 start();
+
+//                 edcal_test.testEditPost();
              });
          });
 
