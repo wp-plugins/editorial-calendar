@@ -237,6 +237,12 @@ var edcal = {
          }
 
         edcal.addFeedbackSection();
+        
+        var draftsDrawerVisible = jQuery.cookie('edcal_drafts_drawer');
+        if (draftsDrawerVisible === 'true') {
+            edcal.isDraftsDrawerVisible = true;
+            edcal.setDraftsDrawerVisible(edcal.isDraftsDrawerVisible);
+        }
 
         jQuery('#loading').hide();
 
@@ -465,6 +471,8 @@ var edcal = {
         }
 
         edcal.isDraftsDrawerVisible = visible;
+        
+        jQuery.cookie('edcal_drafts_drawer', visible);
     },
 
     /*
