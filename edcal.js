@@ -500,7 +500,8 @@ var edcal = {
     initDraftsdrawer: function() {
         var newrow = '';
         
-        newrow += '<a href="#" adddate="' + edcal.NO_DATE + '" class="daynewlink" style="display: inline;" title="' + edcal.str_newdraft + '" ' +
+        newrow += '<a href="#" adddate="' + edcal.NO_DATE + '" class="daynewlink" style="display: inline;" ' + 
+            'title="' + edcal.str_newdraft + '" id="unscheduledNewLink" ' + 
             'onclick="edcal.addDraft(); return false;">' + edcal.str_addDraftLink + '</a>';
 
         newrow += '<ul class="postlist">';
@@ -518,7 +519,9 @@ var edcal = {
         
         var cal_cont = jQuery('#cal_cont');
         
-        jQuery('#unscheduled ul.postlist').css('min-height', (cal_cont.height() - 10) - jQuery('#draftsdrawer .draftsdrawerheadcont').height());
+        jQuery('#unscheduled ul.postlist').css('min-height', ((cal_cont.height() - 10) - 
+                                               jQuery('#draftsdrawer .draftsdrawerheadcont').height()) - 
+                                               jQuery('#unscheduledNewLink').outerHeight());
 	},
 
     /*
