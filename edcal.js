@@ -990,6 +990,7 @@ var edcal = {
     */
     deletePost: function(/*Post ID*/ postId, /*function*/ callback) {
 
+        edcal.output('deletePost(' + postId + ')');
         var url = edcal.ajax_url() + '&action=edcal_deletepost&postid=' + postId;
 
         jQuery.ajax({
@@ -999,7 +1000,12 @@ var edcal = {
             timeout: 100000,
             dataType: 'json',
             success: function(res) {
-                edcal.removePostItem(res.post.date, 'post-' + res.post.id);
+                if (res.post.date_gmt === edcal.NO_DATE) {
+                    edcal.removePostItem(res.post.date_gmt, 'post-' + res.post.id);
+                } else {
+                    edcal.removePostItem(res.post.date, 'post-' + res.post.id);
+                }
+                
                 if (res.error) {
                     /*
                      * If there was an error we need to remove the dropped
@@ -1370,6 +1376,7 @@ var edcal = {
      * Removes a post from the HTML and the posts cache.
      */
     removePostItem: function(/*string*/ dayobjId, /*string*/ postId) {
+         edcal.output('removePostItem(' + dayobjId + ', ' + postId + ')');
          if (edcal.findPostForId(dayobjId, postId)) {
              for (var i = 0; i < edcal.posts[dayobjId].length; i++) {
                  if (edcal.posts[dayobjId][i] &&

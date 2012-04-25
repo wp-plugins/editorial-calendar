@@ -723,12 +723,13 @@ class EdCal {
     	}
 
         $post_date_gmt = date('dmY',strtotime($post->post_date_gmt));
-        if ( $post_date_gmt == '01011970' )
+        if ($post_date_gmt == '01011970') {
             $post_date_gmt = '00000000';
+        }
         ?>
             {
                 "date" : "<?php the_time('d') ?><?php the_time('m') ?><?php the_time('Y') ?>", 
-                "date_gmt" : "<?php echo $post_date_gmt; // we are not actually using this right now ?>",
+                "date_gmt" : "<?php echo $post_date_gmt; ?>",
                 "time" : "<?php echo trim(get_the_time()) ?>", 
                 "formattedtime" : "<?php $this->edcal_json_encode(the_time($timeFormat)) ?>", 
                 "sticky" : "<?php echo is_sticky($post->ID) ?>",
@@ -779,6 +780,10 @@ class EdCal {
         $post = get_post($edcal_postid, ARRAY_A);
     	$title = $post['post_title'];
     	$date = date('dmY', strtotime($post['post_date'])); // [TODO] : is there a better way to generate the date string ... ??
+        $post_date_gmt = date('dmY',strtotime($post->post_date_gmt));
+        if ($post_date_gmt == '01011970') {
+            $post_date_gmt = '00000000';
+        }
     
     	$force = !EMPTY_TRASH_DAYS;					// wordpress 2.9 thing. deleted post hangs around (ie in a recycle bin) after deleted for this # of days
     	if ( $post->post_type == 'attachment' ) {
@@ -797,7 +802,8 @@ class EdCal {
     	{
             "date" : "<?php echo $date ?>", 
             "title" : "<?php echo $title ?>",
-            "id" : "<?php echo $edcal_postid ?>"
+            "id" : "<?php echo $edcal_postid ?>",
+            "date_gmt" : "<?php echo $post_date_gmt; ?>"
     	}
     }
     <?php
