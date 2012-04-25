@@ -1466,11 +1466,12 @@ var edcal = {
 
          var elem = jQuery('#' + postid + ' > div.postactions');
          
-         if (elem.is(":visible")) {
+         if (elem.is(':visible')) {
              timeout = 0;
          }
          
          edcal.actionTimer = setTimeout(function() {
+             jQuery('div.postactions').hide();
              elem.slideDown();
     
     
