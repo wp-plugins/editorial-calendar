@@ -526,9 +526,10 @@ var edcal = {
        grid for each week with a list of days.
      */
     alignGrid: function(/*string*/ gridid, /*int*/ cols, /*int*/ cellWidth, /*int*/ cellHeight, /*int*/ padding) {
-        if ( jQuery(gridid).parent().attr('id')=='draftsdrawer' )
+        if (jQuery(gridid).parent().attr('id')=='draftsdrawer') {
             return;
-        // console.log(jQuery(gridid).parent().attr('id'));
+        }
+        
         var x = 0;
         var y = 0;
         var count = 1;
@@ -1910,8 +1911,10 @@ var edcal = {
                                     'height: ' + dayHeight + 'px;' +
                                '}' +
                                '</style>');
-         jQuery('#draftsdrawer').css({height:cal_cont.height()});
-         jQuery('#draftsdrawer .postlist').css({height:cal.height()});
+
+
+         jQuery('#draftsdrawer').css('height', cal_cont.height());
+         jQuery('#draftsdrawer .day').css('min-height', (cal_cont.height() - 10) - jQuery('#draftsdrawer .draftsdrawerheadcont').height());
     },
 
     /*
