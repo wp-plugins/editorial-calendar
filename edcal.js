@@ -477,7 +477,7 @@ var edcal = {
 
         edcal.isDraftsDrawerVisible = visible;
         
-        jQuery.cookie('edcal_drafts_drawer', visible);
+        jQuery.cookie('edcal_drafts_drawer', visible, {expires: 2060});
     },
 
     /*
