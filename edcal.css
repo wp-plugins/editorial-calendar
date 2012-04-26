@@ -347,11 +347,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     padding: 0px;
 }
 
-.post .titlewithauthor { display:none; }
-.post .titlewithoutauthor { display:inline; }
-.show-author .post .titlewithauthor { display:inline; }
-.show-author .post .titlewithoutauthor { display:none; }
-
 .posttime {
     font-weight: bold;
 }

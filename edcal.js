@@ -1581,8 +1581,11 @@ var edcal = {
          if (edcal.timePref) {
              posttitle = '<span class="posttime">' + post.formattedtime + '</span> ' + posttitle;
          }
-
-         posttitlewithauthor = sprintf(edcal.str_by, posttitle, '<span class="postauthor">' + post.author + '</span>');
+         
+         if (edcal.authorPref) {
+             posttitle = sprintf(edcal.str_by, posttitle, '<span class="postauthor">' + post.author + '</span>');
+         }
+         
 
          var classString = '';
 
@@ -1590,8 +1593,7 @@ var edcal = {
              return '<li onmouseover="edcal.showActionLinks(\'post-' + post.id + '\');" ' +
                  'onmouseout="edcal.hideActionLinks(\'post-' + post.id + '\');" ' +
                  'id="post-' + post.id + '" class="post ' + post.status + ' ' + edcal.getPostEditableClass(post) + '"><div class="postlink ' + classString + '">' + 
-                     '<span class="titlewithoutauthor">' + posttitle + '</span>' +
-                     '<span class="titlewithauthor">' + posttitlewithauthor + '</span>' +
+                     '<span>' + posttitle + '</span>' +
                    '</div>' +
                  '<div class="postactions">' +
                  '<a href="' + post.editlink + '">' + edcal.str_edit + '</a> | ' +
@@ -1605,8 +1607,7 @@ var edcal = {
              return '<li onmouseover="edcal.showActionLinks(\'post-' + post.id + '\');" ' +
                  'onmouseout="edcal.hideActionLinks(\'post-' + post.id + '\');" ' +
                  'id="post-' + post.id + '" class="post ' + post.status + ' ' + edcal.getPostEditableClass(post) + '"><div class="postlink ' + classString + '">' + 
-                     '<span class="titlewithoutauthor">' + posttitle + '</span>' +
-                     '<span class="titlewithauthor">' + posttitlewithauthor + '</span>' +
+                     '<span>' + posttitle + '</span>' +
                    '</div>' +
                  '<div class="postactions">' +
                  '<a href="' + post.editlink + '">' + edcal.str_republish + '</a> | ' +

@@ -392,7 +392,7 @@ class EdCal {
                 </div>
             </div>
             
-            <div id="draftsdrawer_cont"<?php if ( get_option("edcal_author_pref") == 'true' ) echo ' class="show-author"'; ?>>
+            <div id="draftsdrawer_cont">
                 <div id="draftsdrawer">
                     <div class="draftsdrawerheadcont" title="<?php echo(__('Unscheduled Drafts', 'editorial-calendar')) ?>"><div class="dayhead"><?php echo(__('Unscheduled Drafts', 'editorial-calendar')) ?></div></div>
                     <div class="day" id="00000000">
@@ -402,7 +402,7 @@ class EdCal {
                 </div>
             </div>
             
-            <div id="cal_cont"<?php if ( get_option("edcal_author_pref") == 'true' ) echo ' class="show-author"'; ?>>
+            <div id="cal_cont">
                 <div id="edcal_scrollable" class="edcal_scrollable vertical">
                     <div id="cal"></div>
                 </div>
