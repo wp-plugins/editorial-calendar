@@ -1456,7 +1456,7 @@ var edcal = {
              clearTimeout(edcal.actionTimer);
          }
          
-         var timeout = 500;
+         var timeout = 250;
          
          var post = edcal.findPostForId(jQuery('#' + postid).parent().parent().parent().attr('id'), postid);
     
@@ -1472,7 +1472,7 @@ var edcal = {
          
          edcal.actionTimer = setTimeout(function() {
              jQuery('div.postactions').hide();
-             elem.slideDown();
+             elem.show();
     
     
              if (elem.parent().position().top + elem.parent().height() > elem.parent().parent().height()) {
@@ -1498,7 +1498,7 @@ var edcal = {
          edcal.actionTimer = setTimeout(function() {
              var elem = jQuery('#' + postid + ' > div.postactions');
              elem.hide();
-         }, 250);
+         }, 125);
     },
 
     /*
