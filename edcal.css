@@ -135,7 +135,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 #draftsdrawer .day { border:0; }
 #draftsdrawer .dayobj { height:auto; }
 #draftsdrawer .postlist { 
-    top:2em;
+    top:26px;
     padding-left: 5px;
 }
 #draftsdrawer .posttime { display:none; }
