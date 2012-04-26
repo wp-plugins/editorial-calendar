@@ -1463,16 +1463,17 @@ var edcal = {
          if (edcal.inDrag || !edcal.isPostEditable(post)) {
              return;
          }
-
+         
          var elem = jQuery('#' + postid + ' > div.postactions');
          
-         if (elem.is(':visible')) {
-             timeout = 0;
-         }
+         if (edcal.actionLinksElem && edcal.actionLinksElem.get(0) !== elem.get(0)) {
+             edcal.actionLinksElem.slideUp();
+         } 
+         
+         edcal.actionLinksElem = elem;
          
          edcal.actionTimer = setTimeout(function() {
-             jQuery('div.postactions').hide();
-             elem.show();
+             elem.slideDown();
     
     
              if (elem.parent().position().top + elem.parent().height() > elem.parent().parent().height()) {
@@ -1497,7 +1498,8 @@ var edcal = {
          
          edcal.actionTimer = setTimeout(function() {
              var elem = jQuery('#' + postid + ' > div.postactions');
-             elem.hide();
+             elem.slideUp();
+             edcal.actionLinksElem = null;
          }, 125);
     },
 
