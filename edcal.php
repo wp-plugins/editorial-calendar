@@ -394,7 +394,7 @@ class EdCal {
             
             <div id="draftsdrawer_cont">
                 <div id="draftsdrawer">
-                    <div class="draftsdrawerheadcont" title="<?php echo(__('Unscheduled Drafts', 'editorial-calendar')) ?>"><div class="dayhead"><?php echo(__('Unscheduled Drafts', 'editorial-calendar')) ?></div></div>
+                    <div class="draftsdrawerheadcont" title="<?php echo(__('Unscheduled draft posts', 'editorial-calendar')) ?>"><div class="dayhead"><?php echo(__('Unscheduled', 'editorial-calendar')) ?></div></div>
                     <div class="day" id="00000000">
                         <div id="draftsdrawer_loading"></div>
                         <div id="unscheduled" class="dayobj"></div>
