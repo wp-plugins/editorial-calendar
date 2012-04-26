@@ -325,7 +325,7 @@ var edcal = {
                 return false;
             }
             
-            if (jQuery('#tooltip').is(':visible')) {
+            if (jQuery('#edcal_quickedit').is(':visible')) {
                 return;
             }
 
@@ -997,7 +997,7 @@ var edcal = {
 
     /*
        Makes all the posts in the specified day draggable
-       and adds the tooltip.
+       and adds the edcal_quickedit.
      */
     addPostItemDragAndToolltip: function(/*string*/ dayobjId) {
          edcal.draggablePost('#' + dayobjId + ' > div > ul > li');
@@ -1215,7 +1215,7 @@ var edcal = {
             dataType: 'json',
             success: function(res) {
                 jQuery('#edit-slug-buttons').removeClass('tiploading');
-                jQuery('#tooltip').hide();
+                jQuery('#edcal_quickedit').hide();
                 jQuery('#edcal_scrollable').data('scrollable').getConf().keyboard = true;
                 if (res.error) {
                     /*
@@ -1260,7 +1260,7 @@ var edcal = {
             },
             error: function(xhr) {
                  jQuery('#edit-slug-buttons').removeClass('tiploading');
-                 jQuery('#tooltip').hide();
+                 jQuery('#edcal_quickedit').hide();
                  jQuery('#edcal_scrollable').data('scrollable').getConf().keyboard = true;
                  edcal.showError(edcal.general_error);
                  if (xhr.responseText) {
@@ -1277,7 +1277,7 @@ var edcal = {
     serializePost: function() {
         var post = {};
 
-        jQuery('#tooltip').find('input, textarea, select').each(function() {
+        jQuery('#edcal_quickedit').find('input, textarea, select').each(function() {
             post[this.name] = this.value;
         });
         return post;
@@ -1296,7 +1296,7 @@ var edcal = {
         }
 
         // show tooltip
-        jQuery('#tooltip').center().show();
+        jQuery('#edcal_quickedit').center().show();
         jQuery('#edcal_scrollable').data('scrollable').getConf().keyboard = false;
 
         if (!post.id) {
@@ -1366,7 +1366,7 @@ var edcal = {
      * Hides the add/edit form
      */
     hideForm: function() {
-        jQuery('#tooltip').hide();
+        jQuery('#edcal_quickedit').hide();
         jQuery('#edcal_scrollable').data('scrollable').getConf().keyboard = true;
         edcal.resetForm();
     },
@@ -1375,7 +1375,7 @@ var edcal = {
      * Clears all the input values in the add/edit form
      */
     resetForm: function() {
-        jQuery('#tooltip').find('input, textarea, select').each(function() {
+        jQuery('#edcal_quickedit').find('input, textarea, select').each(function() {
             this.value = '';
         });
 
@@ -1651,7 +1651,7 @@ var edcal = {
          /*
           * If the add/edit post form is visible, don't go anywhere.
           */
-        if (jQuery('#tooltip').is(':visible')) {
+        if (jQuery('#edcal_quickedit').is(':visible')) {
             return;
         }
 

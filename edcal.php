@@ -422,13 +422,13 @@ class EdCal {
     function edcal_edit_popup() {
     
     ?>
-          <div id="tooltip" style="display:none;">
+          <div id="edcal_quickedit" style="display:none;">
             <div id="tooltiphead">
               <h3 id="tooltiptitle"><?php _e('Edit Post', 'editorial-calendar') ?></h3>
               <a href="#" id="tipclose" onclick="edcal.hideForm(); return false;" title="close"> </a>
             </div>
     
-    			<div class="tooltip inline-edit-row">
+    			<div class="edcal_quickedit inline-edit-row">
     
                     <fieldset>
     
