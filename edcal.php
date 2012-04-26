@@ -320,8 +320,8 @@ class EdCal {
                 edcal.str_weekserror = <?php echo($this->edcal_json_encode(__('The calendar can only show between 1 and 5 weeks at a time.', 'editorial-calendar'))) ?>;
                 edcal.str_weekstt = <?php echo($this->edcal_json_encode(__('Select the number of weeks for the calendar to show.', 'editorial-calendar'))) ?>;
 
-                edcal.str_showdrafts = <?php echo($this->edcal_json_encode(__('Show Drafts'))) ?>;
-                edcal.str_hidedrafts = <?php echo($this->edcal_json_encode(__('Hide Drafts'))) ?>;
+                edcal.str_showdrafts = <?php echo($this->edcal_json_encode(__('Show Unscheduled Drafts'))) ?>;
+                edcal.str_hidedrafts = <?php echo($this->edcal_json_encode(__('Hide Unscheduled Drafts'))) ?>;
     
                 edcal.str_feedbackmsg = <?php echo($this->edcal_json_encode(__('<div id="feedbacksection">' . 
                  '<h2>Help us Make the Editorial Calendar Better</h2>' .
