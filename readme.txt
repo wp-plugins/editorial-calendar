@@ -168,6 +168,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 4. Create, edit, and schedule posts in one simple quickedit dialog.
 5. Show as much or as little of your blog as you like.
 6. Use a special calendar for each custom post type on your blog.
+7. Use the new unscheduled drafts section to manage drafts before you schedule them.
 
 == Changelog ==
 
