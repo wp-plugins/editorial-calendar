@@ -1065,14 +1065,13 @@ class EdCal {
          */
         if ( $move_from_drawer ) {
             /* 
-             * Set the date to 'unscheduled' [ie. 0], and while we're at it we 
-             * add the default time so it won't be at midnight. We use this date 
+             * Set the date to 'unscheduled' [ie. 0]. We use this date 
              * further down in the concurrency check, and this will make the dates
              * technically off by 10 hours, but it's still the same day. We only do 
              * this for posts that were created as drafts.  Works for now, but
              * we would have to revamp this if we use an actual timestamp check.
              */
-            $post->post_date = '0000-00-00 '.$this->default_time.':00';
+            $post->post_date = '0000-00-00 ' . date('H:i:s', strtotime($post->post_date));
         } else if ( $move_to_drawer ) {
             // echo ( "\r\npost->post_date_gmt=".$post->post_date_gmt);
             $post->post_date_gmt = $post->post_date;
