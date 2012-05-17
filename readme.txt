@@ -3,7 +3,7 @@ Contributors: cvernon, justinstresslimit, jkudish, MaryVogt, zgrossbart
 Tags: posts, post, calendar, AJAX, admin, administration
 Requires at least: 2.8.5
 Tested up to: 3.3.2
-Stable tag: 1.9.1
+Stable tag: 2.0
 
 The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
 
@@ -23,6 +23,7 @@ Try the calendar before you install it.  Check out the demo installation at <a h
 
 1. See all of your posts and when they'll be posted.
 1. Drag and drop to change your post dates.
+1. Manage your drafts with our new drafts drawer.
 1. Quickedit post titles, contents, and times.
 1. Publish posts or manage drafts.
 1. Easily see the status of your posts.
@@ -174,12 +175,11 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 = 2.0 =
 
-The calendar now has a new major feature, the "drafts drawer," a kind of post staging area where we make all posts that have not been scheduled available to drag onto the calendar. We can also now drag posts from the calendar back into the drafts drawer to "un-schedule" them.
+The calendar now has a new major feature, the "drafts drawer," a post staging area where we make all unscheduled posts available to drag onto the calendar. You can also now drag posts from the calendar back into the drafts drawer to "un-schedule" them.
 
 Moved around functions in the js and css to be a bit more readable, and added table of contents to css file.
 
 Updated css of Screen Options to be more core WordPress.
-
 
 = 1.9.1 =
 
