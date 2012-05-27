@@ -173,6 +173,10 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
+= 2.1 =
+
+The calendar can now display up to eight weeks at a time instead of just five.
+
 = 2.0 =
 
 The calendar now has a new major feature, the "drafts drawer," a post staging area where we make all unscheduled posts available to drag onto the calendar. You can also now drag posts from the calendar back into the drafts drawer to "un-schedule" them.
