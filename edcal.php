@@ -388,7 +388,7 @@ class EdCal {
                 </div>
 
                 <div id="topright" class="tablenav-pages alignright">
-	                <a class="save button" title="<?php echo(__('Show unscheduled posts', 'editorial-calendar')) ?>" id="showdraftsdrawer"><?php echo(__('Show Drafts', 'editorial-calendar')) ?></a>
+	                <a class="save button" title="<?php echo(__('Show unscheduled posts', 'editorial-calendar')) ?>" id="showdraftsdrawer"><?php echo(__('Show Unscheduled Drafts', 'editorial-calendar')) ?></a>
                 </div>
             </div>
             
