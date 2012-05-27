@@ -317,7 +317,7 @@ class EdCal {
                 edcal.str_opt_time = <?php echo($this->edcal_json_encode(__('Time of day', 'editorial-calendar'))) ?>;
                 edcal.str_fatal_error = <?php echo($this->edcal_json_encode(__('An error occurred while loading the calendar: ', 'editorial-calendar'))) ?>;
                 
-                edcal.str_weekserror = <?php echo($this->edcal_json_encode(__('The calendar can only show between 1 and 5 weeks at a time.', 'editorial-calendar'))) ?>;
+                edcal.str_weekserror = <?php echo($this->edcal_json_encode(__('The calendar can only show between 1 and 8 weeks at a time.', 'editorial-calendar'))) ?>;
                 edcal.str_weekstt = <?php echo($this->edcal_json_encode(__('Select the number of weeks for the calendar to show.', 'editorial-calendar'))) ?>;
 
                 edcal.str_showdrafts = <?php echo($this->edcal_json_encode(__('Show Unscheduled Drafts'))) ?>;
