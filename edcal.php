@@ -738,6 +738,17 @@ class EdCal {
         if ($post_date_gmt == '01011970') {
             $post_date_gmt = '00000000';
         }
+        
+        /*
+         * The date function in PHP isn't consistent in the way it handles
+         * formatting dates that are all zeros.  In that case we can manually
+         * format the all zeros date so it shows up properly.
+         */
+        if ($post->post_date_gmt == '0000-00-00 00:00:00') {
+            $post_date_gmt = '00000000';
+        }
+        
+        
         ?>
             {
                 "date" : "<?php the_time('d') ?><?php the_time('m') ?><?php the_time('Y') ?>", 

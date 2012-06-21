@@ -175,6 +175,8 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 = 2.1 =
 
+The calendar now moves posts from the drafts drawer to the main calendar properly on blogs with the alternate functionality of the date function.
+
 The calendar can now display up to eight weeks at a time instead of just five.
 
 = 2.0 =
