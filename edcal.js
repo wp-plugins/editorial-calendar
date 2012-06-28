@@ -321,7 +321,6 @@ var edcal = {
             //edcal.output("evt.ctrlKey: " + evt.ctrlKey);
             
             if (evt.keyCode === 27) { //escape key
-                edcal.hideForm();
                 return false;
             }
             
@@ -1511,7 +1510,7 @@ var edcal = {
              var elem = jQuery('#' + postid + ' > div.postactions');
              elem.slideUp();
              edcal.actionLinksElem = null;
-         }, 125);
+         }, 1000);
     },
 
     /*
