@@ -111,7 +111,7 @@ var edcal_test = {
          /*
           * Now we'll move 4 weeks into the future
           */
-         asyncTest('Move 4 week in the future and check visible dates', function() {
+         asyncTest('Move 4 weeks in the future and check visible dates', function() {
              expect(2);
 
              edcal.move(4, true, function() {
@@ -136,7 +136,7 @@ var edcal_test = {
          /*
           * Now 8 weeks into the past
           */
-         asyncTest('Move 8 week in the past and check visible dates', function() {
+         asyncTest('Move 8 weeks in the past and check visible dates', function() {
              expect(2);
 
              edcal.move(8, false, function() {
