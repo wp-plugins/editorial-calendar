@@ -234,7 +234,7 @@ class EdCal {
                 <?php
                     }
                 ?>
-    
+                
                 <?php 
                     if (get_option("edcal_do_feedback") != "done") {
                 ?>
@@ -244,6 +244,8 @@ class EdCal {
                     }
                 ?>
     
+                <?php $this->edcal_getLastPost(); ?>
+                
                 edcal.startOfWeek = <?php echo(get_option("start_of_week")); ?>;
                 edcal.timeFormat = "<?php echo(get_option("time_format")); ?>";
                 edcal.previewDateFormat = "MMMM d";
@@ -379,11 +381,14 @@ class EdCal {
             <div id="topbar" class="tablenav clearfix">
                 <div id="topleft" class="tablenav-pages alignleft">
                     <h3>
-                        <a href="#" title="<?php echo(__('Jump back', 'editorial-calendar')) ?>" class="prev page-numbers" id="prevmonth">&laquo;</a>
+                        <a href="#" title="<?php echo(__('Jump back', 'editorial-calendar')) ?>" class="prev page-numbers" id="prevmonth">&lsaquo;</a>
                         <span id="currentRange"></span>
-                        <a href="#" title="<?php echo(__('Skip ahead', 'editorial-calendar')) ?>" class="next page-numbers" id="nextmonth">&raquo;</a>
+                        <a href="#" title="<?php echo(__('Skip ahead', 'editorial-calendar')) ?>" class="next page-numbers" id="nextmonth">&rsaquo;</a>
+                        <a class="save button" title="<?php echo(__('Scroll the calendar and make the last post visible', 'editorial-calendar')) ?>" id="moveToLast">&raquo;</a>
 
 	                    <a class="save button" title="<?php echo(__('Scroll the calendar and make the today visible', 'editorial-calendar')) ?>" id="moveToToday"><?php echo(__('Show Today', 'editorial-calendar')) ?></a>
+                        
+                        
                     </h3>
                 </div>
 
@@ -597,6 +602,46 @@ class EdCal {
         <?php
         
         die();
+    }
+    
+    /*
+     * This filter specifies a special WHERE clause so we just get the posts we're 
+     * interested in for the last post.
+     */
+    function edcal_lastpost_filter_where($where = '') {
+        $where .= " AND (`post_status` = 'draft' OR `post_status` = 'publish' OR `post_status` = 'future')";
+        return $where;
+    }
+    
+    /*
+     * Get information about the last post (the one furthest in the future) and make
+     * that information available to the JavaScript code so it can make the last post
+     * button work.
+     */
+    function edcal_getLastPost() {
+        $args = array(
+            'posts_per_page' => -1,
+            'post_parent' => null,
+            'order' => 'DESC'
+        );
+        
+        add_filter( 'posts_where', array(&$this, 'edcal_lastpost_filter_where' ));
+        $myposts = query_posts($args);
+        remove_filter( 'posts_where', array(&$this, 'edcal_lastpost_filter_where' ));
+        
+        if (sizeof($myposts) > 0) {
+            $post = $myposts[0];
+            setup_postdata($post);
+            ?>
+            edcal.lastPostDate = '<?php echo(date('dmY',strtotime($post->post_date))); ?>';
+            edcal.lastPostId = '<?php echo($post->ID); ?>';
+            <?php
+        } else {
+            ?>
+            edcal.lastPostDate = '-1';
+            edcal.lastPostId = '-1';
+            <?php
+        }
     }
     
     /*

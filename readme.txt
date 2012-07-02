@@ -173,9 +173,11 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
-= 2.1.1 =
+= 2.2 =
 
-Added a namespace to fix a small issue of potential javascript file conflict with wp_enqueue_script()
+Added a new button to jump to the last post in the calendar.
+
+Added a namespace to fix a small issue of potential javascript file conflict with wp_enqueue_script().
 
 = 2.1 =
 

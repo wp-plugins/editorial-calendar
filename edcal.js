@@ -359,6 +359,21 @@ var edcal = {
             return false;
         });
         
+        jQuery('#moveToLast').click(function() {
+            if (edcal.lastPostDate === '-1') {
+                /*
+                 * This happens when the blog doesn't have any posts
+                 */
+                return;
+            }
+            
+            var d = Date.parseExact(edcal.lastPostDate, 'ddMMyyyy');
+            edcal.moveTo(d);
+            edcal.getPosts(edcal.nextStartOfWeek(d).add(-3).weeks(),
+                           edcal.nextStartOfWeek(d).add(edcal.weeksPref + 3).weeks());
+            return false;
+        });
+        
         jQuery('#prevmonth').click(function() {
             edcal.move(edcal.weeksPref, false);
             return false;
