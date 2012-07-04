@@ -121,7 +121,7 @@ The calendar is written in JavaScript.  It contacts your blog when it scrolls to
 
 = Is the calendar collecting data about my blog? =
 
-After you use the calendar a few times we'll prompt you to let us collect a little anonymous data about your blog.  Information like the size of your browser window and the number of posts you have per day help us make the calendar even better.
+After you use the calendar a few times we'll prompt you to let us collect a little data about your blog.  Information like the size of your browser window and the number of posts you have per day help us make the calendar even better.
 
 The collected data is all available to the public.  Check out the <a href="http://www.zackgrossbart.com/edcal/mint/">Editorial Calendar Statistics</a>.
 
@@ -177,7 +177,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 Added a new button to jump to the last post in the calendar.
 
-Added a namespace to fix a small issue of potential javascript file conflict with wp_enqueue_script().
+Added a namespace to fix a small issue of potential JavaScript file conflict with wp_enqueue_script().
 
 = 2.1 =
 
