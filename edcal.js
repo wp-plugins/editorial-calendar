@@ -418,7 +418,7 @@ var edcal = {
                 jQuery('#newPostScheduleButton').addClass('disabled');
             }
 
-            if (evt.keyCode == 13) {    // enter key
+            if (evt.keyCode === 13) {    // enter key
                 /*
                  * If the user presses enter we want to save the draft.
                  */
@@ -437,7 +437,7 @@ var edcal = {
                 jQuery('#edcal_applyoptions').addClass('disabled');
             }
 
-            if (evt.keyCode == 13) {    // enter key
+            if (evt.keyCode === 13) {    // enter key
                 edcal.saveOptions();
             }
 
@@ -482,7 +482,7 @@ var edcal = {
             jQuery('#cal_cont').css({ 'margin-right': drawerwidthmargin });
             jQuery('#draftsdrawer_cont').css({ display:'block', width:drawerwidth });
             showhideElement.html(edcal.str_hidedrafts);
-        } else {		
+        } else {        
             // edcal.output('hiding draftsdrawer');
             jQuery('#cal_cont').css({ 'margin-right': '0' });
             jQuery('#draftsdrawer_cont').css({ display:'none', width:'0' });
@@ -542,7 +542,7 @@ var edcal = {
         }).mouseover(function() {
             jQuery('#unscheduledNewLink').show();
         });
-	},
+    },
 
     /*
        This function aligns the grid in two directions.  There
@@ -550,7 +550,7 @@ var edcal = {
        grid for each week with a list of days.
      */
     alignGrid: function(/*string*/ gridid, /*int*/ cols, /*int*/ cellWidth, /*int*/ cellHeight, /*int*/ padding) {
-        if (jQuery(gridid).parent().attr('id')=='draftsdrawer') {
+        if (jQuery(gridid).parent().attr('id') === 'draftsdrawer') {
             return;
         }
         
@@ -592,8 +592,8 @@ var edcal = {
                     count++;
                 }
             } else {
-                for (var i = children.length - 1; i > -1; i--) {
-                    children.eq(i).css({
+                for (var j = children.length - 1; j > -1; j--) {
+                    children.eq(j).css({
                         width: cellWidth + '%',
                         height: cellHeight + '%',
                         position: 'absolute',
@@ -773,7 +773,7 @@ var edcal = {
                 sprintf(edcal.str_newpost, edcal.chineseAposWorkaround(_date.toString(Date.CultureInfo.formatPatterns.monthDay))) + '" ' +
                          'onclick="return false;">' + edcal.str_addPostLink + '</a>';
 
-            if (_date.toString('dd') == '01') {
+            if (_date.toString('dd') === '01') {
                 newrow += '<div class="daylabel">' + _date.toString('MMM d');
             } else {
                 newrow += '<div class="daylabel">' + _date.toString('d');
@@ -892,7 +892,7 @@ var edcal = {
          jQuery('#' + newDate + ' .postlist').append(edcal.createPostItem(post, newDate));
 
          
-         if (dayId == newDate) {
+         if (dayId === newDate) {
              /*
               If they dropped back on to the day they started with we
               don't want to go back to the server.
@@ -1078,7 +1078,8 @@ var edcal = {
 
     /*
        This is a simple function that creates the AJAX URL with the
-       nonce value generated in edcal.php.
+       nonce value generated in edcal.php.  The ajaxurl variable is
+       defined by WordPress in all of the admin pages.
      */
     ajax_url: function() {
          return ajaxurl + '?_wpnonce=' + edcal.wp_nonce;
@@ -1356,7 +1357,7 @@ var edcal = {
 
 
 
-        if (edcal.getDayFromDayId(post.date).compareTo(Date.today()) == -1) {
+        if (edcal.getDayFromDayId(post.date).compareTo(Date.today()) === -1) {
             /*
              * We only allow drafts in the past
              */
@@ -1446,7 +1447,6 @@ var edcal = {
          if (edcal.findPostForId(dayobjId, postId)) {
              for (var i = 0; i < edcal.posts[dayobjId].length; i++) {
                  if (edcal.posts[dayobjId][i] && 'post-' + edcal.posts[dayobjId][i].id === postId) {
-	                 //edcal.output('(#' + postId+').remove()  -  post-'+edcal.posts[dayobjId][i].id);
                      edcal.posts[dayobjId][i] = null;
                      jQuery('#' + postId).remove();
                  }
@@ -1710,7 +1710,7 @@ var edcal = {
            backward it will be the first row.  If we switch direction we need
            to bump up our date by 11 rows times 7 days a week or 77 days.
          */
-        if (edcal.currentDirection != direction) {
+        if (edcal.currentDirection !== direction) {
             if (direction) {        // into the future
                 edcal._wDate = edcal._wDate.add((edcal.weeksPref + 7) * 7).days();
             } else {                // into the past
@@ -1938,7 +1938,7 @@ var edcal = {
      * risk conflicts with other plugins.
      */
     endsWith: function(/*string*/ str, /*string*/ expr) {
-         return (str.match(expr + '$') == expr);
+         return (str.match(expr + '$') === expr);
     },
 
     /*
@@ -2108,10 +2108,10 @@ var edcal = {
      */
     changeDate: function(/*string*/ newdate, /*Post*/ post, /*function*/ callback) {
          edcal.output('changeDate(' + newdate + ', ' + post + ')');
-	     var move_to_drawer = newdate === edcal.NO_DATE;
-	     var move_from_drawer = post.date_gmt === edcal.NO_DATE;
-	     var newdateFormatted = move_to_drawer ? '0000-00-00' : edcal.getDayFromDayId(newdate).toString(edcal.wp_dateFormat);
-	     // edcal.output('newdate='+newdate+'\nnewdateFormatted='+newdateFormatted);
+         var move_to_drawer = newdate === edcal.NO_DATE;
+         var move_from_drawer = post.date_gmt === edcal.NO_DATE;
+         var newdateFormatted = move_to_drawer ? '0000-00-00' : edcal.getDayFromDayId(newdate).toString(edcal.wp_dateFormat);
+         // edcal.output('newdate='+newdate+'\nnewdateFormatted='+newdateFormatted);
 
          var olddate = move_from_drawer ? post.date_gmt : edcal.getDayFromDayId(post.date).toString(edcal.wp_dateFormat);
 
@@ -2155,7 +2155,7 @@ var edcal = {
                     }
                 }
 
-				// edcal.output(res.post.date);
+                // edcal.output(res.post.date);
                 // var container = newdateFormatted == '0000-00-00' ? 
 
                 var removecont = move_to_drawer ? '00000000' : res.post.date;
@@ -2188,10 +2188,10 @@ var edcal = {
        specified dates.
      */
     getPosts: function(/*Date*/ from, /*Date*/ to, /*function*/ callback) {
-         if ( !to )
+         if (!to) {
              to = '';
-         // edcal.output('Getting posts from ' + from + ' to ' + to);
-
+         }
+         
          var shouldGet = edcal.cacheDates[from];
 
          if (shouldGet) {
@@ -2225,7 +2225,7 @@ var edcal = {
              timeout: 100000,
              dataType: 'text',
              success: function(res) {
-				// edcal.output(res);
+                // edcal.output(res);
                 jQuery('#loading').hide();
                 /*
                  * These result here can get pretty large on a busy blog and
@@ -2265,10 +2265,11 @@ var edcal = {
                          * case to make sure we don't get into trouble.
                          */
                         post.date = post.date.replace(post.date.substring(2, 3), post.date.substring(2, 3).toUpperCase());
-                        if ( from=='00000000' )
+                        if (from === '00000000') {
                             post.date = from;
+                        }
 
-		                // edcal.output(post.date + ', post-' + post.id);
+                        // edcal.output(post.date + ', post-' + post.id);
                         edcal.removePostItem(post.date, 'post-' + post.id);
                         edcal.addPostItem(post, post.date);
                         // edcal.output(post.id + ', ' + post.date);
@@ -2431,7 +2432,7 @@ var edcal = {
                                 '<select id="edcal_weeks_pref" ' + 'class="screen-per-page" title="' + edcal.str_weekstt + '"> ';
 
              var weeks = parseInt(edcal.weeksPref, 10);
-             for (i = 1; i < 9; i++) {
+             for (var i = 1; i < 9; i++) {
                  if (i === weeks) {
                      optionsHtml += '<option selected="true">' + i + '</option>';
                  } else {
@@ -2623,7 +2624,7 @@ var edcal = {
             edcal.str_fatal_error + message + '<br></p></div>');
 
         if (window.console) {
-            console.error(msg);
+            console.error(message);
         }
     },
     
