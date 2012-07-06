@@ -1460,16 +1460,46 @@ var edcal = {
      */
     getPostItems: function(/*string*/ dayobjId) {
         var postsString = '';
-
+        
         if (edcal.posts[dayobjId]) {
-            for (var i = 0; i < edcal.posts[dayobjId].length; i++) {
-                if (edcal.posts[dayobjId][i]) {
-                    postsString += edcal.getPostItemString(edcal.posts[dayobjId][i]);
+            var posts = edcal.posts[dayobjId];
+            if (posts.length < 50) {
+                /*
+                 * If there are fewer than 50 posts then we just load them
+                 */
+                for (var i = 0; i < posts.length; i++) {
+                    if (posts[i]) {
+                        postsString += edcal.getPostItemString(posts[i]);
+                    }
                 }
-            }
+             } else {
+                 /*
+                    If there are more than 50 posts then we want to batch
+                    the load so it doesn't slow down the browser.
+                  */
+                 edcal.addPostItems(dayobjId, 0, 50);
+             }
         }
 
         return postsString;
+    },
+    
+    addPostItems: function(/*string*/ dayobjId, /*int*/ index, /*int*/ length) {
+        var posts = edcal.posts[dayobjId];
+        var postsString = '';
+        setTimeout(function() {
+            for (var i = index; i < length && i < posts.length; i++) {
+                if (posts[i]) {
+                    postsString += edcal.getPostItemString(posts[i]);
+                }
+            }
+            
+            jQuery('#' + dayobjId + ' ul').append(postsString);
+            
+            if (index + length < posts.length) {
+                edcal.addPostItems(dayobjId, index + length, 50);
+            }
+        }, 100);
     },
 
     /*
@@ -2130,10 +2160,7 @@ var edcal = {
 
                 var removecont = move_to_drawer ? '00000000' : res.post.date;
                 var addcont = move_from_drawer ? newdate : removecont;
-                if ( res.post.date_gmt=='01011970' ) {
-                    // do somthing else
-                }
-
+                
                 edcal.removePostItem(removecont, 'post-' + res.post.id);
                 // edcal.output('remove post from: '+removecont+', add post to: '+addcont);
                 edcal.addPostItem(res.post, addcont);
