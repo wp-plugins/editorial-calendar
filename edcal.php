@@ -365,7 +365,11 @@ class EdCal {
         <?php
         echo '<!-- This is the code from edcal.js -->';
         echo '<script type="text/javascript">';
-        $this->edcal_echoFile(dirname( __FILE__ ) . "/edcal.js");
+        if (isset($_GET['debug'])) {
+            $this->edcal_echoFile(dirname( __FILE__ ) . "/edcal.js");
+        } else {
+            $this->edcal_echoFile(dirname( __FILE__ ) . "/edcal.min.js");
+        }
         echo '</script>';
         
         ?>
