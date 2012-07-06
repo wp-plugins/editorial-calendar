@@ -175,6 +175,8 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 = 2.2 =
 
+The calendar is using JavaScript compression to load less data and run faster.
+
 Added a new button to jump to the last post in the calendar.
 
 Added a namespace to fix a small issue of potential JavaScript file conflict with wp_enqueue_script().
