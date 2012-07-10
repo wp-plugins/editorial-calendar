@@ -1488,7 +1488,7 @@ var edcal = {
         var posts = edcal.posts[dayobjId];
         var postsString = '';
         setTimeout(function() {
-            for (var i = index; i < length && i < posts.length; i++) {
+            for (var i = index; i < index + length && i < posts.length; i++) {
                 if (posts[i]) {
                     postsString += edcal.getPostItemString(posts[i]);
                 }

@@ -177,6 +177,8 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 The calendar is using JavaScript compression to load less data and run faster.
 
+We've added a new mechanism to load the unscheduled drafts which spaces out the loading so the calendar responds super fast even when you have hundreds of unscheduled drafts.
+
 Added a new button to jump to the last post in the calendar.
 
 Added a namespace to fix a small issue of potential JavaScript file conflict with wp_enqueue_script().
