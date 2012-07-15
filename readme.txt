@@ -173,6 +173,10 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
+= 2.2.1 =
+
+Fixed a memory leak in the calendar where the calendar doesn't load if you have too many posts in your blog.
+
 = 2.2 =
 
 The calendar is using JavaScript compression to load less data and run faster.
