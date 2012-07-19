@@ -18,7 +18,7 @@
 /*
 Plugin Name: WordPress Editorial Calendar
 Description: The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
-Version: 2.2.1
+Version: 2.3
 Author: Colin Vernon, Justin Evans, Joachim Kudish, Mary Vogt, and Zack Grossbart
 Author URI: http://www.zackgrossbart.com
 Plugin URI: http://stresslimitdesign.com/editorial-calendar-plugin
@@ -345,19 +345,19 @@ class EdCal {
     
         <style type="text/css">
             .loadingclass > .postlink, .loadingclass:hover > .postlink, .tiploading {
-                background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/loading.gif")); ?>');
+                background-image: url('<?php echo(admin_url("images/loading.gif", __FILE__ )); ?>');
             }
     
             #loading {
-                background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/loading.gif")); ?>');
+                background-image: url('<?php echo(admin_url("images/loading.gif", __FILE__ )); ?>');
             }
     
             #tipclose {
-                background-image: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/images/tip_close.png")); ?>');
+                background-image: url('<?php echo(admin_url("images/tip_close.png", __FILE__ )); ?>');
             }
     
             .day.today .daylabel {
-                background: url('<?php echo(path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/../../../wp-admin/images/button-grad.png")); ?>') repeat-x left top;
+                background: url('<?php echo(admin_url("images/button-grad.png", __FILE__ )); ?>') repeat-x left top;
             }
     
         </style>
@@ -515,18 +515,18 @@ class EdCal {
          * locale.  We can do this based on the locale in the localized bundle to make sure the date locale matches
          * the locale for the other strings.
          */
-        wp_enqueue_script( 'jquery' );
-        wp_enqueue_script( 'jquery-ui-draggable' );
-        wp_enqueue_script( 'jquery-ui-droppable' );
+        wp_enqueue_script('jquery');
+        wp_enqueue_script('jquery-ui-draggable');
+        wp_enqueue_script('jquery-ui-droppable');
     
-    	//wp_enqueue_script( "date-extras", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/date.extras.js"), array( 'jquery' ) );
+    	//wp_enqueue_script("date-extras", plugins_url("lib/date.extras.js", __FILE__ ), array( 'jquery' ));
     
-        wp_enqueue_script( "edcal-date", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/languages/date-".__('en-US', 'editorial-calendar').".js"), array( 'jquery' ) );
-        wp_enqueue_script( "edcal-lib", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/edcallib.min.js"), array( 'jquery' ) );
+        wp_enqueue_script("edcal-date", plugins_url("lib/languages/date-".__('en-US', 'editorial-calendar').".js", __FILE__ ));
+        wp_enqueue_script("edcal-lib", plugins_url("lib/edcallib.min.js", __FILE__ ), array( 'jquery' ));
     
         if (isset($_GET['qunit'])) {
-            wp_enqueue_script( "qunit", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/qunit.js"), array( 'jquery' ) );
-            wp_enqueue_script( "edcal-test", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/edcal_test.js"), array( 'jquery' ) );
+            wp_enqueue_script("qunit", plugins_url("lib/qunit.js", __FILE__ ), array( 'jquery' ));
+            wp_enqueue_script("edcal-test", plugins_url("edcal_test.js", __FILE__ ), array( 'jquery' ));
         }
         
         return;
@@ -535,14 +535,14 @@ class EdCal {
          * If you're using one of the specific libraries you should comment out the two lines
          * above this comment.
          */
-        wp_enqueue_script( "bgiframe", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/jquery.bgiframe.js"), array( 'jquery' ) );
-        wp_enqueue_script( "humanMsg", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/humanmsg.js"), array( 'jquery' ) );
-        wp_enqueue_script( "jquery-timepicker", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/jquery.timepicker.js"), array( 'jquery' ) );
+        wp_enqueue_script("bgiframe", plugins_url("lib/jquery.bgiframe.js", __FILE__ ), array( 'jquery' ));
+        wp_enqueue_script("humanMsg", plugins_url("lib/humanmsg.js", __FILE__ ), array( 'jquery' ));
+        wp_enqueue_script("jquery-timepicker", plugins_url("lib/jquery.timepicker.js", __FILE__ ), array( 'jquery' ));
     	
-        wp_enqueue_script( "scrollable", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/tools.scrollable-1.1.2.js"), array( 'jquery' ) );
-        wp_enqueue_script( "mouse-wheel", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/tools.scrollable.mousewheel-1.0.1.js"), array( 'jquery' ) );
+        wp_enqueue_script("scrollable", plugins_url("lib/tools.scrollable-1.1.2.js", __FILE__ ), array( 'jquery' ));
+        wp_enqueue_script("mouse-wheel", plugins_url("lib/lib/tools.scrollable.mousewheel-1.0.1.js", __FILE__ ), array( 'jquery' ));
     
-        wp_enqueue_script( "json-parse2", path_join(WP_PLUGIN_URL, basename( dirname( __FILE__ ) )."/lib/json2.js"), array( 'jquery' ) );
+        wp_enqueue_script("json-parse2", plugins_url("lib/json2.js", __FILE__ ), array( 'jquery' ));
     }
     
     /*
