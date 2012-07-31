@@ -173,6 +173,10 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
+= 2.4 =
+
+Creating a new unscheduled draft is now working properly from the calendar.
+
 = 2.3 = 
 
 The calendar is now loading relative URLs for CSS, JavaScript, and image files using the right API so they load properly when using SSL.
