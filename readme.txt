@@ -173,6 +173,10 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
+= 2.5 =
+
+The calendar is now handling the post ID in the same way for each call it uses to get data about each post when returning post data to the calendar.
+
 = 2.4 =
 
 Creating a new unscheduled draft is now working properly from the calendar.

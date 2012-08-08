@@ -18,7 +18,7 @@
 /*
 Plugin Name: WordPress Editorial Calendar
 Description: The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
-Version: 2.4
+Version: 2.5
 Author: Colin Vernon, Justin Evans, Joachim Kudish, Mary Vogt, and Zack Grossbart
 Author URI: http://www.zackgrossbart.com
 Plugin URI: http://stresslimitdesign.com/editorial-calendar-plugin
@@ -813,14 +813,14 @@ class EdCal {
                 "typeTitle" : "<?php echo $postTypeTitle ?>",
     
                 <?php if ( current_user_can('edit_post', $post->ID) ) {?>
-                "editlink" : "<?php echo get_edit_post_link($id) ?>",
+                "editlink" : "<?php echo get_edit_post_link($post->ID) ?>",
                 <?php } ?>
     
                 <?php if ( current_user_can('delete_post', $post->ID) ) {?>
                 "dellink" : "javascript:edcal.deletePost(<?php echo $post->ID ?>)",
                 <?php } ?>
     
-                "permalink" : "<?php echo get_permalink($id) ?>",
+                "permalink" : "<?php echo get_permalink($post->ID) ?>",
                 "id" : "<?php the_ID(); ?>"
     			
     			<?php if($fullPost) : ?>
