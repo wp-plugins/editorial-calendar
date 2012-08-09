@@ -177,6 +177,8 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 The calendar is now handling the post ID in the same way for each call it uses to get data about each post when returning post data to the calendar.
 
+The calendar is now more careful about PHP warnings so it still works if the blog is set to show PHP warnings.
+
 = 2.4 =
 
 Creating a new unscheduled draft is now working properly from the calendar.
