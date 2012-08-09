@@ -1208,7 +1208,8 @@ var edcal = {
                        '&title=' + encodeURIComponent(post.title) +
                        '&content=' + encodeURIComponent(post.content) +
                        '&id=' + encodeURIComponent(post.id) +
-                       '&status=' + encodeURIComponent(post.status);
+                       '&status=' + encodeURIComponent(post.status) + 
+                       '&orig_status=' + encodeURIComponent(post.orig_status);
          
          if (time === null || time === edcal.NO_DATE) {
              postData += '&date_gmt=' + encodeURIComponent('0000-00-00 00:00:00');
