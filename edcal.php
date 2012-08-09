@@ -201,6 +201,7 @@ class EdCal {
         <!-- This is just a little script so we can pass the AJAX URL and some localized strings -->
         <script type="text/javascript">
             jQuery(document).ready(function(){
+                edcal.plugin_url = '<?php echo(plugins_url("/", __FILE__ )); ?>';
                 edcal.wp_nonce = '<?php echo wp_create_nonce("edit-calendar"); ?>';
                 <?php 
                     if (get_option("edcal_weeks_pref") != "") {

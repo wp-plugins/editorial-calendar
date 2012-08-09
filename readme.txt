@@ -179,6 +179,8 @@ The calendar is now handling the post ID in the same way for each call it uses t
 
 The calendar is now more careful about PHP warnings so it still works if the blog is set to show PHP warnings.
 
+The unit tests are now using the correct CSS reference so they show up properly.
+
 = 2.4 =
 
 Creating a new unscheduled draft is now working properly from the calendar.
