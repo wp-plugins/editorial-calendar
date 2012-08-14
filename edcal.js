@@ -1102,7 +1102,7 @@ var edcal = {
 
         var date = jQuery(this).parent().parent().attr('id');
 
-        var formattedtime = '10:00';
+        var formattedtime = edcal.defaultTime;
         if (edcal.timeFormat !== 'H:i' && edcal.timeFormat !== 'G:i') {
             formattedtime += ' AM';
         }
@@ -1191,7 +1191,7 @@ var edcal = {
          if (post.time !== '') {
             time = Date.parse(post.time);
          } else {
-            time = Date.parse('10:00:00'); // If we don't have a time set, default it to 10am
+            time = Date.parse(edcal.defaultTime); // If we don't have a time set, default it to 10am
          }
          
          var formattedDate;

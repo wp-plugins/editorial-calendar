@@ -181,6 +181,8 @@ The calendar is now more careful about PHP warnings so it still works if the blo
 
 The unit tests are now using the correct CSS reference so they show up properly.
 
+Moved the setting for the default post time to the edcal.php so it's easier to change without recompiling the JavaScript.
+
 = 2.4 =
 
 Creating a new unscheduled draft is now working properly from the calendar.
