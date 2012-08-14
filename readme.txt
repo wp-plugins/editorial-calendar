@@ -13,7 +13,7 @@ Did you remember to write a post for next Tuesday?  What about the Tuesday after
 
 <h4>Watch the video</h4>
 
-[vimeo http://vimeo.com/13196017]
+[vimeo http://vimeo.com/47251750]
 
 <h4>Try it out</h4>
 Try the calendar before you install it.  Check out the demo installation at <a href="http://www.zackgrossbart.com/extras/sandbox/wp-admin/edit.php?page=cal">Zack's WordPress Sandbox</a>.
