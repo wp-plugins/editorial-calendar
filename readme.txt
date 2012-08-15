@@ -175,7 +175,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 = 2.5 =
 
-The calendar is now handling the post ID in the same way for each call it uses to get data about each post when returning post data to the calendar.
+The calendar is now handling the post ID in the same way for each call it uses to get data about each post when returning post data to the calendar to avoid some PHP warnings.
 
 The calendar is now more careful about PHP warnings so it still works if the blog is set to show PHP warnings.
 
