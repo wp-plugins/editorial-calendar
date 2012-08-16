@@ -109,7 +109,7 @@ The editorial calendar follows the Week Starts On preference on the WordPress Ge
 
 = What languages does the calendar support? =
 
-The calendar is available in Brazilian Portuguese, Croatian, Czech, Dutch, English, French, German, Greek, Hebrew, Japanese, Lithuanian, Norwegian, Polish, Spanish, and Swedish. 
+The calendar is available in Brazilian Portuguese, Croatian, Czech, Dutch, English, French, German, Greek, Hebrew, Japanese, Lithuanian, Norwegian, Polish, Russian, Spanish, and Swedish. 
 
 = Can I add new languages? =
 
@@ -182,6 +182,8 @@ The calendar is now more careful about PHP warnings so it still works if the blo
 The unit tests are now using the correct CSS reference so they show up properly.
 
 Moved the setting for the default post time to the edcal.php so it's easier to change without recompiling the JavaScript.
+
+The calendar now supports Russian thanks to Danny Zawacki.
 
 = 2.4 =
 
