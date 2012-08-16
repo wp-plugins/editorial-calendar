@@ -183,7 +183,8 @@ The unit tests are now using the correct CSS reference so they show up properly.
 
 Moved the setting for the default post time to the edcal.php so it's easier to change without recompiling the JavaScript.
 
-The calendar now supports Russian thanks to Danny Zawacki.
+The calendar now supports Russian thanks to Danny Zawacki and Lyudmila Kostryka.  Danny blogs at http://dannyzawacki.com
+
 
 = 2.4 =
 
