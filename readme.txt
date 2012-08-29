@@ -1,4 +1,4 @@
-﻿=== Editorial Calendar ===
+=== Editorial Calendar ===
 Contributors: cvernon, justinstresslimit, jkudish, MaryVogt, zgrossbart
 Tags: posts, post, calendar, AJAX, admin, administration
 Requires at least: 2.8.5
@@ -185,6 +185,7 @@ Moved the setting for the default post time to the edcal.php so it's easier to c
 
 The calendar now supports Russian thanks to Danny Zawacki and Lyudmila Kostryka.  Danny blogs at http://dannyzawacki.com
 
+We have started to namespace css classes to avoid conflicts with other plugins & themes. 
 
 = 2.4 =
 
