@@ -142,7 +142,6 @@ class EdCal {
      * generates the divs that we need for the JavaScript to work.
      */
     function edcal_list_admin() {
-        include_once('edcal.php');
         
         /*
          * We want to count the number of times they load the calendar
