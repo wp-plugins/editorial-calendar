@@ -25,11 +25,11 @@ Plugin URI: http://stresslimitdesign.com/editorial-calendar-plugin
 */
 
 
-
-global $edcal;
-if( empty($edcal) )
-    $edcal = new EdCal();
-
+if ( is_admin() ) {
+    global $edcal;
+    if ( empty($edcal) )
+        $edcal = new EdCal();
+}
 
 
 /*
