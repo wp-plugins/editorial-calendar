@@ -179,6 +179,8 @@ Fixed some layout issues with the previous and next calendar buttons in WordPres
 
 We are now properly saving new posts in the drafts drawer in WordPress 3.5.
 
+Added new unit tests to cover creating a new post in the drafts drawer.
+
 = 2.5 =
 
 The calendar is now handling the post ID in the same way for each call it uses to get data about each post when returning post data to the calendar to avoid some PHP warnings.
