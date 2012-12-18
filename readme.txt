@@ -173,6 +173,12 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
+= 2.6 = 
+
+Fixed some layout issues with the previous and next calendar buttons in WordPress 3.5.
+
+We are now properly saving new posts in the drafts drawer in WordPress 3.5.
+
 = 2.5 =
 
 The calendar is now handling the post ID in the same way for each call it uses to get data about each post when returning post data to the calendar to avoid some PHP warnings.
