@@ -109,7 +109,7 @@ The editorial calendar follows the Week Starts On preference on the WordPress Ge
 
 = What languages does the calendar support? =
 
-The calendar is available in Brazilian Portuguese, Croatian, Czech, Dutch, English, French, German, Greek, Hebrew, Japanese, Lithuanian, Norwegian, Polish, Russian, Spanish, and Swedish. 
+The calendar is available in Brazilian Portuguese, Croatian, Czech, Dutch, English, French, German, Greek, Hebrew, Italian, Japanese, Lithuanian, Norwegian, Polish, Russian, Spanish, and Swedish. 
 
 = Can I add new languages? =
 
@@ -172,6 +172,10 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 7. Use the new unscheduled drafts section to manage drafts before you schedule them.
 
 == Changelog ==
+
+= 2.7 = 
+
+The calendar is now available in Italian thanks to Lorenzo Boldorini who blogs at http://www.webqbe.it.
 
 = 2.6 = 
 
