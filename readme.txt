@@ -177,6 +177,8 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 The calendar is now available in Italian thanks to Lorenzo Boldorini who blogs at http://www.webqbe.it.
 
+Changed all calls of the jQuery live method to use the new on method so the calendar will keep working when WordPress upgrades to jQuery 1.9.
+
 = 2.6 = 
 
 Fixed some layout issues with the previous and next calendar buttons in WordPress 3.5.
