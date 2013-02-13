@@ -898,7 +898,7 @@ class EdCal {
         $post = get_post($edcal_postid, ARRAY_A);
         setup_postdata($post);
         
-        $post['post_title'] = $edcal_newTitle;
+        $post['post_title'] = wp_strip_all_tags($edcal_newTitle);
         
         /*
          * Now we finally update the post into the database
@@ -944,7 +944,7 @@ class EdCal {
         $edcal_date = isset($_POST["date"])?$_POST["date"]:null;
         
         $my_post = array();
-        $my_post['post_title'] = isset($_POST["title"])?$_POST["title"]:null;
+        $my_post['post_title'] = isset($_POST["title"])?wp_strip_all_tags($_POST["title"]):null;
         $my_post['post_content'] = isset($_POST["content"])?$_POST["content"]:null;
         $my_post['post_status'] = 'draft';
         
@@ -1015,7 +1015,7 @@ class EdCal {
             }
         }
         
-        $my_post['post_title'] = isset($_POST["title"])?$_POST["title"]:null;
+        $my_post['post_title'] = isset($_POST["title"])?wp_strip_all_tags($_POST["title"]):null;
         $my_post['post_content'] = isset($_POST["content"])?$_POST["content"]:null;
         
         if ($edcal_date_gmt != '0000-00-00 00:00:00' || $my_post['ID'] > 0) {
