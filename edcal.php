@@ -495,6 +495,18 @@ class EdCal {
         if ($edcal_startDate == '00000000') {
             $where .= " AND post_date_gmt LIKE '0000%'";
         } else {
+            /*
+             * The start date and end date come from the client and we want to make
+             * sure there's no SQL injection attack here.  We know these values must
+             * be dates in a format like 2013-02-03.  Date parsing is complex and PHP
+             * dates allow a lot of different formats.  The simplest way to make sure
+             * this isn't a SQL injection attack is to remove the dashes and check if
+             * the result is numeric.  If it is then this can't be a SQL injection attack.
+             */
+             if (!is_numeric(str_replace("-", "", $edcal_startDate)) || !is_numeric(str_replace("-", "", $edcal_endDate))) {
+                die("The specified start date and end date for the posts query must be numeric.");
+             }
+             
             $where .= " AND post_date >= '" . $edcal_startDate . "' AND post_date < '" . $edcal_endDate . "' AND post_date_gmt NOT LIKE '0000%'";
         }
         return $where;
