@@ -857,6 +857,11 @@ class EdCal {
         $this->edcal_addNoCacheHeaders();
         
         $edcal_postid = isset($_GET['postid'])?$_GET['postid']:null;
+        
+        if (!current_user_can('delete_post', $edcal_postid)) {
+            die("You don't have permission to delete this post");
+        }
+        
         $post = get_post($edcal_postid, ARRAY_A);
         $title = $post['post_title'];
         $date = date('dmY', strtotime($post['post_date'])); // [TODO] : is there a better way to generate the date string ... ??

@@ -183,7 +183,7 @@ The Editorial Calendar is now stripping all tags out of post titles created from
 
 We are now preventing a potential SQL injection attack with the start date and end date filter when querying posts.  This fixes a potential security issue found by the Mozilla security testing team.  https://bugzilla.mozilla.org/show_bug.cgi?id=738112
 
-
+We are adding an extra check to make sure that authors can't delete a post created by another author.  This fixes a potential security issue found by the Mozilla security testing team.  https://bugzilla.mozilla.org/show_bug.cgi?id=738112
 
 = 2.6 = 
 
