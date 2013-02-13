@@ -179,6 +179,8 @@ The calendar is now available in Italian thanks to Lorenzo Boldorini who blogs a
 
 Changed all calls of the jQuery live method to use the new on method so the calendar will keep working when WordPress upgrades to jQuery 1.9.
 
+The Mozilla team is now using the Editorial Calendar in one of their blogs and performed a security review of the calendar.  They found a couple of potential issues which were fixed in this release.  https://bugzilla.mozilla.org/show_bug.cgi?id=738112
+
 The Editorial Calendar is now stripping all tags out of post titles created from the calendar.  This fixes a potential security issue found by the Mozilla security testing team.  https://bugzilla.mozilla.org/show_bug.cgi?id=738112
 
 We are now preventing a potential SQL injection attack with the start date and end date filter when querying posts.  This fixes a potential security issue found by the Mozilla security testing team.  https://bugzilla.mozilla.org/show_bug.cgi?id=738112
