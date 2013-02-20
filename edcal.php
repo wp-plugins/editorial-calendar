@@ -73,7 +73,7 @@ class EdCal {
          * This is the default time that posts get created at, for now 
          * we are using 10am, but this could become an option later.
          */
-        $this->default_time = get_option("edcal_default_time") != "" ? get_option("edcal_default_time") : '8:00';        
+        $this->default_time = get_option("edcal_default_time") != "" ? get_option("edcal_default_time") : '10:00';        
         
         /*
          * We use these variables to hold the post dates for the filter when 
