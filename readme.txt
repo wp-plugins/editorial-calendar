@@ -173,6 +173,10 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
+= 2.8 = 
+
+Version 2.8 is all about testing.  This version makes sure everything works great with WordPress 3.6 and jQuery 2.0.  It also has a couple of small bug fixes.
+
 = 2.7 = 
 
 The calendar is now available in Italian thanks to Lorenzo Boldorini who blogs at http://www.webqbe.it.
