@@ -173,6 +173,10 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
+= 3.0 = 
+
+This version makes a few small bug fixes to work well with WordPress 3.8.  This includes showing the screen options with some better formatting and deleting posts from the drafts drawer properly.
+
 = 2.9 = 
 
 Version 2.9 is another testing release.  This version makes sure everything works great with WordPress 3.7.1.
