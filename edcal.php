@@ -73,7 +73,7 @@ class EdCal {
          * This is the default time that posts get created at, for now 
          * we are using 10am, but this could become an option later.
          */
-        $this->default_time = get_option("edcal_default_time") != "" ? get_option("edcal_default_time") : '10:00';        
+        $this->default_time = get_option("edcal_default_time") != "" ? get_option("edcal_default_time") : '10:00';
         
         /*
          * We use these variables to hold the post dates for the filter when 
@@ -96,7 +96,8 @@ class EdCal {
             $page = add_posts_page( __('Calendar', 'editorial-calendar'), __('Calendar', 'editorial-calendar'), 'edit_posts', 'cal', array(&$this, 'edcal_list_admin'));
             add_action( "admin_print_scripts-$page", array(&$this, 'edcal_scripts'));
 
-            if( $this->supports_custom_types ) {
+            if ($this->supports_custom_types) {
+
 
                 /* 
                  * We add one calendar for Posts and then we add a separate calendar for each
@@ -107,7 +108,7 @@ class EdCal {
                  * type and update the labels for each post type.
                  */
                 $args = array(
-                    'public'   => true,
+                    'public'   => get_option("edcal_custom_posts_public") != "" ? get_option("edcal_custom_posts_public") : true,
                     '_builtin' => false
                 ); 
                 $output = 'names'; // names or objects
