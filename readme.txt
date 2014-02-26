@@ -1,8 +1,8 @@
 === Editorial Calendar ===
 Contributors: cvernon, justinstresslimit, jkudish, MaryVogt, zgrossbart
 Tags: posts, post, calendar, AJAX, admin, administration
-Requires at least: 2.8.5
-Tested up to: 3.8
+Requires at least: 3.0
+Tested up to: 3.8.1
 Stable tag: 3.0
 
 The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
@@ -177,6 +177,7 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 The calendar now adds the category slugs for each post as a class for the line of that post in the calendar.
 
+The calendar has a new option called edcal_custom_posts_public to control if the calendar shows for private custom posts or not.
 
 = 3.0 = 
 
