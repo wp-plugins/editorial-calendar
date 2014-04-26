@@ -161,6 +161,20 @@ No.  The calendar is only an administration tool.  None of your readers will kno
 
 Moving published posts can cause problems with some RSS feeds and is generally not a very popular thing to do.  The calendar only allows you to move scheduled and draft posts.
 
+= Can I change post colors or styles in the calendar? =
+
+You can style the posts in the calendar with CSS on your blog.  The calendar adds a new CSS class to your post for every catalog.  The class is based on the slug for the category.  
+
+For example, if you have a category named "My Category" you might have a slug for it named "my-category".  Then you can make all posts with that category show up as red in the calendar with CSS like this:
+
+<pre>
+.post.my-category {
+    color: red;
+}
+</pre>
+
+You can use any CSS properties to change posts in the calendar based on the post category.
+
 == Screenshots ==
 
 1. The calendar integrates seamlessly into the WordPress administration console
