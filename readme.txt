@@ -173,6 +173,10 @@ Moving published posts can cause problems with some RSS feeds and is generally n
 
 == Changelog ==
 
+= 3.1.1 = 
+
+This version is exactly the same as version 3.1, but it's been fully tested against WordPress 3.9.
+
 = 3.1 = 
 
 The calendar now adds the category slugs for each post as a class for the line of that post in the calendar.
