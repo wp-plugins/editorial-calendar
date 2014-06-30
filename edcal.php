@@ -18,7 +18,7 @@
 /*
 Plugin Name: WordPress Editorial Calendar
 Description: The Editorial Calendar makes it possible to see all your posts and drag and drop them to manage your blog.
-Version: 3.1.1
+Version: 3.2
 Author: Colin Vernon, Justin Evans, Joachim Kudish, Mary Vogt, and Zack Grossbart
 Author URI: http://www.zackgrossbart.com
 Plugin URI: http://stresslimitdesign.com/editorial-calendar-plugin
@@ -318,6 +318,7 @@ class EdCal {
                 edcal.str_opt_status = <?php echo($this->edcal_json_encode(__('Status', 'editorial-calendar'))) ?>;
                 edcal.str_opt_time = <?php echo($this->edcal_json_encode(__('Time of day', 'editorial-calendar'))) ?>;
                 edcal.str_fatal_error = <?php echo($this->edcal_json_encode(__('An error occurred while loading the calendar: ', 'editorial-calendar'))) ?>;
+                edcal.str_fatal_parse_error = <?php echo($this->edcal_json_encode(__('<br /><br />The calendar was not able to parse the data your blog returned about the posts.  This error is most likely caused by a conflict with another plugin on your blog.  The actual parse error was:<br/><br/> ', 'editorial-calendar'))) ?>;
                 
                 edcal.str_weekserror = <?php echo($this->edcal_json_encode(__('The calendar can only show between 1 and 8 weeks at a time.', 'editorial-calendar'))) ?>;
                 edcal.str_weekstt = <?php echo($this->edcal_json_encode(__('Select the number of weeks for the calendar to show.', 'editorial-calendar'))) ?>;

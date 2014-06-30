@@ -2236,7 +2236,17 @@ var edcal = {
                  * the JSON parser from JSON.org works faster than the native
                  * one used by JQuery.
                  */
-                var parsedRes = JSON.parseIt(res);
+                var parsedRes = null;
+                
+                try {
+                    parsedRes = JSON.parseIt(res);
+                } catch (e) {
+                    edcal.showFatalError(edcal.str_fatal_parse_error + e.message);
+                    if (window.console) {
+                        console.error(e);
+                    }
+                    return;
+                }
 
                 if (parsedRes.error) {
                     /*
@@ -2624,7 +2634,7 @@ var edcal = {
      */
     showFatalError: function(message) {
         jQuery('#edcal_main_title').after(
-            '<div class="updated below-h2" id="message"><p>' +
+            '<div class="error below-h2" id="message"><p>' +
             edcal.str_fatal_error + message + '<br></p></div>');
 
         if (window.console) {

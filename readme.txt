@@ -187,6 +187,10 @@ You can use any CSS properties to change posts in the calendar based on the post
 
 == Changelog ==
 
+= 3.2 = 
+
+The calendar is now doing a better job of reporting errors when it can't parse the post information from the blog.
+
 = 3.1.1 = 
 
 This version is exactly the same as version 3.1, but it's been fully tested against WordPress 3.9.
