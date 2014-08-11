@@ -1343,7 +1343,16 @@ var edcal = {
             jQuery('#edcal-status').val(post.status);
             edcal.updatePublishButton();
         } else {
-            jQuery('#edcal-status').val('draft');
+            if (0 != jQuery('#edcal-status option[value=' + edcal.defaultStatus + ']').length) {
+                /*
+                 * We want to use the default status if it exists in the list and we'll
+                 * default to the draft status if the default one is in the list.
+                 */
+                jQuery('#edcal-status').val(edcal.defaultStatus);
+            } else {
+                jQuery('#edcal-status').val('draft');
+            }
+            
             jQuery('#newPostScheduleButton').text(edcal.str_save);
         }
 

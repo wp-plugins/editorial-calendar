@@ -74,6 +74,11 @@ class EdCal {
          * we are using 10am, but this could become an option later.
          */
         $this->default_time = get_option("edcal_default_time") != "" ? get_option("edcal_default_time") : '10:00';
+         
+         /*
+          * This is the default status used for creating new posts.
+          */
+        $this->default_status = get_option("edcal_default_status") != "" ? get_option("edcal_default_status") : 'draft';
         
         /*
          * We use these variables to hold the post dates for the filter when 
@@ -250,6 +255,7 @@ class EdCal {
                 edcal.timeFormat = "<?php echo(get_option("time_format")); ?>";
                 edcal.previewDateFormat = "MMMM d";
                 edcal.defaultTime = "<?php echo $this->default_time; ?>";
+                edcal.defaultStatus = "<?php echo $this->default_status; ?>";
     
                 /*
                  * We want to show the day of the first day of the week to match the user's 
