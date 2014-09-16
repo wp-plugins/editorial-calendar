@@ -197,7 +197,7 @@ The `edcal_default_status` property controls the default status for new posts in
 
 = 3.3 = 
 
-This version fixes an error handling apostrophe's and ampersands in post titles in WordPress 4.0.
+This version fixes an error handling apostrophes and ampersands in post titles in WordPress 4.0.
 
 = 3.2 = 
 
