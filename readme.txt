@@ -195,6 +195,10 @@ The `edcal_default_status` property controls the default status for new posts in
 
 == Changelog ==
 
+= 3.3 = 
+
+This version fixes an error handling apostrophe's and ampersands in post titles in WordPress 4.0.
+
 = 3.2 = 
 
 We now have a new option for specifying the default status of a new post and documented the option for specifying the default time of a post.
