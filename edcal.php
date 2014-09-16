@@ -722,8 +722,12 @@ class EdCal {
          * with Firefox, but IE complains with a very unhelpful error message.  We
          * can replace them with a right curly apostrophe since that works in IE
          * and Firefox. It is also a little nicer typographically.  
+         * 
+         * Starting in WordPress 4.0 they started doing special encoding of ampersands
+         * in WordPress titles.  We need to make sure that we don't do that since it 
+         * will double-encode when the post titles don't match when we resave.
          */
-        return json_encode(str_replace("&#039;", "&#146;", $string));
+        return json_encode(str_replace("&#038;", "&", str_replace("&#039;", "&#146;", $string)));
     }
     
     /* 
