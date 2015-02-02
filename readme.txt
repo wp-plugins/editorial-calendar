@@ -195,6 +195,10 @@ The `edcal_default_status` property controls the default status for new posts in
 
 == Changelog ==
 
+= 3.4 = 
+
+The calendar has now been translated into Danish.  Thank you to our Danish translator Thomas Christensen.
+
 = 3.3 = 
 
 This version fixes an error handling apostrophes and ampersands in post titles in WordPress 4.0.
